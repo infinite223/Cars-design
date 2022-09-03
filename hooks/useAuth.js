@@ -1,8 +1,30 @@
 import { View, Text } from 'react-native'
 import React, { createContext, useContext } from 'react'
-import * as Google from 'expo-google-app-auth'
-import { auth } from '../firebase'
+//import  {logInAsync} from 'expo-google-app-auth'
+import {logInAsync} from 'expo-auth-session'
+import { getAuth } from 'firebase/auth'
+// import { auth } from '../firebase'
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth'
+import { initializeApp } from "firebase/app";
+// import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDHF3Pn_imNrB-MRAO6kQtsSLCB__12k-o",
+  authDomain: "cars-projects-317ef.firebaseapp.com",
+  projectId: "cars-projects-317ef",
+  storageBucket: "cars-projects-317ef.appspot.com",
+  messagingSenderId: "612500373363",
+  appId: "1:612500373363:web:661b979a1e555b4b854f06"
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const auth = getAuth()
+
 
 const AuthContext = createContext({})
 
@@ -13,14 +35,15 @@ const config = {
 }
 
 export const AuthProvider = ({children}) => {
-
   const signInWithGoogle = async () => {
-    await Google.logInAsync(config).then(async (loginResult)=> {
+    console.log("xd")
+    await logInAsync(config).then(async (loginResult)=> {
+      // console.log(loginResult, "xd")
       if(loginResult.type==="success"){
         const { idToken, accessToken } = loginResult;
         const credential = GoogleAuthProvider.credential(idToken, accessToken);
-
-        await signInWithCredential(auth, credential)
+         console.log(loginResult, "xd")
+        await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
       }
 
       return Promise.reject();
