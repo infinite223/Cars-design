@@ -8,7 +8,7 @@ const LoginScreen = () => {
   return (
     <View>
       <Text>LoginScreen</Text>
-      <Button title='log In' onPress={signInWithGoogle}/>
+      <Button title='log In' onPress={()=>signInWithGoogle()}/>
     </View>
   )
 }

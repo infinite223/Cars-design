@@ -1,11 +1,13 @@
 import { View, Text } from 'react-native'
-import React, { createContext, useContext } from 'react'
-//import  {logInAsync} from 'expo-google-app-auth'
-import {logInAsync} from 'expo-auth-session'
-import { getAuth } from 'firebase/auth'
-// import { auth } from '../firebase'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+//import  * as Google from 'expo-google-app-auth'
+ import {logInAsync} from 'expo-auth-session'
+ import { getAuth } from 'firebase/auth'
+import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
+import * as AuthSession from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
 // import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
@@ -34,25 +36,56 @@ const config = {
   permissions: ["public_profile", "email", "gender", "location"],
 }
 
-export const AuthProvider = ({children}) => {
-  const signInWithGoogle = async () => {
-    console.log("xd")
-    await logInAsync(config).then(async (loginResult)=> {
-      // console.log(loginResult, "xd")
-      if(loginResult.type==="success"){
-        const { idToken, accessToken } = loginResult;
-        const credential = GoogleAuthProvider.credential(idToken, accessToken);
-         console.log(loginResult, "xd")
-        await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
-      }
+WebBrowser.maybeCompleteAuthSession();
 
-      return Promise.reject();
+const useProxy = true;
+
+const redirectUri = AuthSession.makeRedirectUri({
+  useProxy,
+});
+
+
+
+export const AuthProvider = ({children}) => {
+  const [user, setUser] = useState(null)
+  const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(
+    {
+      clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com',
+      //redirect_uri:'https://www.cars-projects-317ef.firebaseapp.com/__/auth/handler/',
+      //response_type:'code',
+       //permissions: ["public_profile", "email", "gender", "location"],
+      //scopes: ["profile", "email"],
+      // clientSecret:'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'
+    },
+  );
+
+  useEffect(() => {
+    console.log(response)
+    if (response?.type === 'success') {
+      const { id_token, accessToken } = response.params;
+      //console.log(response)
+      const auth = getAuth();
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
+    }
+  }, [response]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        setUser(user)
+      }
+      else {
+        setUser(null)
+      }
     })
-  }
+  }, [])
+  
+
 
   return (
     <AuthContext.Provider value={{
-        user:null,
+        user,
         signInWithGoogle
     }}>
       {children}
