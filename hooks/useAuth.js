@@ -1,19 +1,14 @@
 import { View, Text } from 'react-native'
-import React, { createContext, useContext, useState, useEffect } from 'react'
-//import  * as Google from 'expo-google-app-auth'
- import {logInAsync} from 'expo-auth-session'
- import { getAuth } from 'firebase/auth'
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react'
+import { getAuth } from 'firebase/auth'
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-// import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+import { getFirestore } from 'firebase/firestore'
+
 const firebaseConfig = {
   apiKey: "AIzaSyDHF3Pn_imNrB-MRAO6kQtsSLCB__12k-o",
   authDomain: "cars-projects-317ef.firebaseapp.com",
@@ -23,11 +18,7 @@ const firebaseConfig = {
   appId: "1:612500373363:web:661b979a1e555b4b854f06"
 };
 
-// Initialize Firebase
-initializeApp(firebaseConfig);
-const auth = getAuth()
-
-
+const app = initializeApp(firebaseConfig);
 const AuthContext = createContext({})
 
 const config = {
@@ -48,47 +39,67 @@ const redirectUri = AuthSession.makeRedirectUri({
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null)
-  const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(
-    {
-      clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com',
-      //redirect_uri:'https://www.cars-projects-317ef.firebaseapp.com/__/auth/handler/',
-      //response_type:'code',
-       //permissions: ["public_profile", "email", "gender", "location"],
-      //scopes: ["profile", "email"],
-      // clientSecret:'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'
-    },
-  );
+  const [loadingInitial, setLoadingInitial] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  useEffect(() => {
-    console.log(response)
-    if (response?.type === 'success') {
-      const { id_token, accessToken } = response.params;
-      //console.log(response)
-      const auth = getAuth();
-      const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
-    }
-  }, [response]);
+  const auth = getAuth()
 
-  useEffect(() => {
+  useEffect(() => 
     onAuthStateChanged(auth, (user) => {
       if(user){
         setUser(user)
       }
       else {
         setUser(null)
+        AuthSession.revokeAsync({token: id_token, clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'}, Google.discovery)
+      .then(()=>console.log("xd")).catch((e)=>console.log(e))
       }
-    })
-  }, [])
-  
+      setLoadingInitial(false)
+  }), [])
 
+  const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(
+    {
+      clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com',
+      // redirect_uri:'https://www.cars-projects-317ef.firebaseapp.com/__/auth/handler/',
+       response_type:'code',
+        permissions: ["public_profile", "email", "gender", "location"],
+      // scopes: ["profile", "email"],
+      //  clientSecret:'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'
+    },
+  );
+
+  useEffect(async () => {
+    setLoading(true)
+    response?.type
+    if (response?.type === 'success') {
+      const { id_token, accessToken } = response.params;
+      //console.log(response)
+      const credential = GoogleAuthProvider.credential(id_token, accessToken);
+      await signInWithCredential(auth, credential).then(()=>console.log()).catch((a)=> console.log(a))
+      .finally(()=>setLoading(false))
+    }
+  }, [response]);
+
+    const logout = () => {
+      setLoading(true)
+      signOut(auth).catch((err)=>setError(err)).finally(()=>setLoading(false))
+      const { id_token, accessToken, oauthIdToken } = response.params;
+      AuthSession.revokeAsync({token: id_token, clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'}, Google.discovery)
+      .then(()=>console.log("xd")).catch((e)=>console.log(e))
+    }
+  
+    const memoedValue = useMemo(() => ({
+      user,
+      loading,
+      error,
+      signInWithGoogle,
+      logout
+    }), [user, loading, error])
 
   return (
-    <AuthContext.Provider value={{
-        user,
-        signInWithGoogle
-    }}>
-      {children}
+    <AuthContext.Provider value={memoedValue}>
+      {!loadingInitial && children}
     </AuthContext.Provider>
   )
 }
