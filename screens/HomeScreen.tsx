@@ -6,24 +6,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign, Ionicons, Feather } from 'react-native-vector-icons'
 import Carproject from '../components/Carproject';
 import { CarprojectData } from '../utils/types';
+import { data } from '../utils/data';
 
 const HomeScreen = () => {
   const navigation:any = useNavigation()
-  const urlImageCar = "https://th.bing.com/th/id/R.f59bb5bc1131cc89bc30a50de98fb5e0?rik=qHjGzRpR7TSxxw&riu=http%3a%2f%2fcarsradars.com%2fwp-content%2fuploads%2f2019%2f03%2fcautofotoimg_0199.jpg&ehk=E%2fpd1PO5%2fjGT9UynDb9gkaE4ARnCilDJJLWhht3u2rE%3d&risl=&pid=ImgRaw&r=0" 
-  const urlImageAuthor = "https://th.bing.com/th/id/R.657afe7932946deea8032c84dbcd9642?rik=o7n%2fQlA2X5Iy%2fw&pid=ImgRaw&r=0"
-  const data:CarprojectData[] = [
-    {
-      id:"1",
-      author:{ name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor},
-      createdAt:"02 11 2021",
-      car: {CarMake: "BMW", model: "M4", description: "Fajne autko", hp:530, nm:600, imagesCar: [urlImageCar], performance: [4.1, 7.3]}
-    }
-  ]
-
+ 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerStyle: {
-       },
       headerTitle: () => <TextInput placeholder="Search project" placeholderTextColor="#444" style={{fontSize: 17}} />,
       headerLeft: () => <AntDesign name={'search1'} size={24} color="black" style={{ marginRight: 12 }}/>,
       headerRight: () => 
