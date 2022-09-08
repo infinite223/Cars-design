@@ -1,14 +1,20 @@
-import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, FlatList } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
-import { MaterialIcons, AntDesignd } from 'react-native-vector-icons';
+import { MaterialIcons, AntDesignd, EvilIcons } from 'react-native-vector-icons';
+import { data } from '../utils/data';
+import { LinearGradient } from 'expo-linear-gradient';
+import EditProfileScreen from './modals/EditProfileModal';
+import CreateProjectScreen from './modals/CreateProjectModal';
 
 const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const { user, logout }:any = useAuth()
-        {/* <MaterialIcons name={'arrow-back-ios'} size={20} /> */}
+    const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
+    const [createProjectModalVisible, setCreateProjectModalVisible] = useState(false)
+
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -18,11 +24,13 @@ const ProfileScreen = () => {
                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <MaterialIcons name={'arrow-back-ios'} size={24} />
                 </TouchableOpacity>
-               <Avatar
-                    size={34}
-                    rounded
-                    source={{uri:user.photoURL}}    
-                />
+                <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
+                    <Avatar
+                        size={34}
+                        rounded
+                        source={{uri:user.photoURL}}    
+                    />
+                </TouchableOpacity>
             </View>
           ),
           headerRight: () => 
@@ -34,7 +42,9 @@ const ProfileScreen = () => {
     
     console.log(user.photoURL)
   return (
-    <View style={{flex:1, backgroundColor:'white', marginHorizontal:15}}>
+    <View style={{flex:1, backgroundColor:'white', marginHorizontal:15, position:'relative'}}>
+        <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
+        <CreateProjectScreen modalVisible={createProjectModalVisible} setModalVisible={setCreateProjectModalVisible}/>
         <View style={{marginVertical:5}}>
             <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600'}}>About me</Text>
             <Text style={{color:"gray"}}>
@@ -61,11 +71,37 @@ const ProfileScreen = () => {
         </View>
 
         <View style={{marginVertical:5}}>
-            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600'}}>My cars projects</Text>
-            <Text style={{color:"gray"}}>
-                
-            </Text>
+            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600', marginVertical:10}}>My cars projects</Text>
+            <FlatList
+                data={data}
+                numColumns={2}
+                renderItem={({item: {car, author, createdAt}})=> 
+                    <TouchableOpacity style={{position:'relative', flex:.5, flexDirection:'row', alignItems:'center' }} onPress={()=>navigation.navigate('Project', {car, author, createdAt})}>
+                        <Image style={{height:50, width:50, borderRadius:50, resizeMode:'cover'}} source={{uri:car.imagesCar[0]}}/>
+                        <View style={{marginHorizontal:10, flex:1}}>
+                            <Text>{car.CarMake}</Text>
+                            <Text>{car.model}</Text>
+                        </View>
+                        <Text style={{fontSize:17, marginRight:5}}>{car.likes}</Text>
+                        <EvilIcons name='heart' size={30} color="red"/>
+                    </TouchableOpacity>}
+            />
         </View>
+
+        <TouchableOpacity 
+                    onPress={()=>setCreateProjectModalVisible(true)} 
+                    style={{width:'100%', marginVertical:20, alignItems:'center', justifyContent:'center', position:'absolute', bottom:10}
+                }>
+                    <LinearGradient         
+                        colors={["#339", "#935"]}
+                        start={[0.7, 0.2]}
+                        style={{paddingHorizontal:30, paddingVertical:8, borderRadius:20}}
+                    > 
+                        <Text style={{fontSize:22, color:"white", fontWeight:'bold', letterSpacing:2}}>
+                            Add your car project
+                        </Text>
+                    </LinearGradient> 
+        </TouchableOpacity>
     </View>
   )
 }

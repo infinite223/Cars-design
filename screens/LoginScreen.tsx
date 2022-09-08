@@ -30,7 +30,7 @@ const LoginScreen = () => {
         >
           <LinearGradient
             colors={["#339", "#935"]}
-            start={[0.4, 0.2]}
+            start={[0.7, 0.2]}
             style={{paddingHorizontal:25, paddingVertical:8, borderRadius:20}}
           > 
              <Text style={{fontSize:25, color:"white", fontWeight:'bold', letterSpacing:2}}>Sign In</Text>

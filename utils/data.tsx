@@ -9,6 +9,6 @@ export const data:CarprojectData[] = [
       id:"1",
       author:{ name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor},
       createdAt:"02 11 2021",
-      car: {CarMake: "BMW", model: "M4", description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.", hp:530, nm:600, imagesCar: [urlImageCar], performance: [4.1, 7.3]}
+      car: {likes:2, CarMake: "BMW", model: "M4", description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.", hp:530, nm:600, imagesCar: [urlImageCar], performance: [4.1, 7.3]}
     }
   ]
