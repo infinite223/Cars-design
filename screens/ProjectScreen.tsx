@@ -12,6 +12,8 @@ const ProjectScreen = () => {
     const route = useRoute<any>()
     const { car, author, createdAt } = route.params;
 
+    console.log(car)
+
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -25,7 +27,7 @@ const ProjectScreen = () => {
           ),
         //   headerRight: () => 
         //         <TouchableOpacity onPress={()=> logout()}>
-        //             <Text style={{fontSize:15}}>Log Out</Text>    
+        //          //lajki tutaj dodać, serduszka klikalne
         //         </TouchableOpacity>    
         })  
       }, [])

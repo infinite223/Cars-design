@@ -1,9 +1,15 @@
-import { View, Text, Modal, Alert, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Modal, Alert, TouchableOpacity, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 
 
 const CreateProjectScreen:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
+    
+    const [nickname, setNickname] = useState('')
+    const [description, setDescription] = useState('')
+
+    const complate = (nickname && description)? true:false
+
     const createProject = () => {
 
     }
@@ -22,13 +28,20 @@ const CreateProjectScreen:React.FC<{modalVisible:boolean, setModalVisible: (valu
             width:"100%", 
             height:130,  
             flex: 1,
-            justifyContent: 'space-between',
+            justifyContent: 'space-evenly',
             alignItems: "center",
             backgroundColor:'white'
         }}>
-            <Text>Create car projecct</Text>
             
-            <TouchableOpacity onPress={() => createProject() } style={{marginVertical:20, paddingHorizontal:20, paddingVertical:5}}>
+
+            <View style={{alignItems:'center'}}>
+                <Text style={{ margin:20, fontFamily:'monospace', fontSize:30, fontWeight:'bold'}}>Cars projects</Text>
+                <Text style={{fontSize:25}}>Your profile</Text>
+                <TextInput style={{fontSize:20, marginTop:15, textAlign:'center'}} placeholder='Nickname' onChangeText={setNickname}/>
+                <TextInput style={{fontSize:20, marginTop:5, maxWidth:250, textAlign:'center'}} onChangeText={setDescription} multiline placeholder='Some information abaut you'/>
+            </View>
+            
+            <TouchableOpacity disabled={!complate} onPress={() => createProject() } style={{marginVertical:20, paddingHorizontal:20, paddingVertical:5}}>
                 <LinearGradient         
                     colors={["#339", "#935"]}
                     start={[0.7, 0.2]}

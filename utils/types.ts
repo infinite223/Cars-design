@@ -13,7 +13,8 @@ export type Car = {
     nm:number,
     performance?:number[],
     imagesCar:string[],
-    likes:number
+    likes:number,
+    history:Array<{date?:string, photosUrl?:string[], name?:string, description?:string}>
 }
 
 export type CarprojectData = {

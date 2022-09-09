@@ -9,6 +9,20 @@ export const data:CarprojectData[] = [
       id:"1",
       author:{ name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor},
       createdAt:"02 11 2021",
-      car: {likes:2, CarMake: "BMW", model: "M4", description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.", hp:530, nm:600, imagesCar: [urlImageCar], performance: [4.1, 7.3]}
+      car: { 
+        CarMake: "BMW", 
+        model: "M4", 
+        description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.",
+        hp:680, 
+        nm:780, 
+        imagesCar: [urlImageCar], 
+        performance: [4.1, 7.3],
+        likes:2,
+        history:[  
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'510hp 600Nm'},
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stage 1", description:'570hp 710Nm'},
+          {date: "13 12 2013", photosUrl:["urlImageCar"], name:"Stage 2", description:'640hp 780Nm'}
+        ]
+      }
     }
   ]

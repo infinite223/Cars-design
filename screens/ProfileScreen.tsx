@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
-import { MaterialIcons, AntDesignd, EvilIcons } from 'react-native-vector-icons';
+import { MaterialIcons, AntDesignd, EvilIcons, Entypo } from 'react-native-vector-icons';
 import { data } from '../utils/data';
 import { LinearGradient } from 'expo-linear-gradient';
 import EditProfileScreen from './modals/EditProfileModal';
@@ -90,16 +90,17 @@ const ProfileScreen = () => {
 
         <TouchableOpacity 
                     onPress={()=>setCreateProjectModalVisible(true)} 
-                    style={{width:'100%', marginVertical:20, alignItems:'center', justifyContent:'center', position:'absolute', bottom:10}
+                    style={{position:'absolute', bottom:15, right:5, alignItems:'center', justifyContent:'center'}
                 }>
                     <LinearGradient         
                         colors={["#339", "#935"]}
                         start={[0.7, 0.2]}
-                        style={{paddingHorizontal:30, paddingVertical:8, borderRadius:20}}
+                        style={{paddingHorizontal:10, paddingVertical:10, borderRadius:50}}
                     > 
-                        <Text style={{fontSize:22, color:"white", fontWeight:'bold', letterSpacing:2}}>
+                        <Entypo name='plus' size={35} color="white"/>
+                        {/* <Text style={{fontSize:22, color:"white", fontWeight:'bold', letterSpacing:2}}>
                             Add your car project
-                        </Text>
+                        </Text> */}
                     </LinearGradient> 
         </TouchableOpacity>
     </View>
