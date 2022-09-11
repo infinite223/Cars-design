@@ -6,11 +6,18 @@ import { Avatar } from "@rneui/themed";
 import { MaterialIcons, AntDesignd } from 'react-native-vector-icons';
 import { CircleData } from '../components/CircleData';
 import { Car } from '../utils/types';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PhotosTab from '../components/Cards/PhotosTab';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import HistoryTab from './../components/Cards/HistoryTab';
+
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<any>()
     const { car, author, createdAt } = route.params;
+
+    const Tab = createMaterialTopTabNavigator();
 
     console.log(car)
 
@@ -45,8 +52,16 @@ const ProjectScreen = () => {
       </View>
 
       <View style={{flex:1, flexDirection:'row', justifyContent:'space-around', marginVertical:20}}>
-        <Text style={{fontSize:15, fontWeight:'600'}}>Photos</Text>
-        <Text style={{fontSize:15, fontWeight:'600', marginVertical:10}}>History</Text>
+        {/* <Text style={{fontSize:15, fontWeight:'600'}}>Photos</Text>
+        <Text style={{fontSize:15, fontWeight:'600', marginVertical:10}}>History</Text> */}
+
+      <Tab.Navigator screenOptions={{
+        tabBarStyle: { backgroundColor: 'white'},
+        tabBarIndicatorContainerStyle:{}
+      }}>
+        <Tab.Screen name="Photos" component={PhotosTab} />
+        <Tab.Screen name="History" component={HistoryTab} />
+       </Tab.Navigator>
       </View>
       <Text style={{fontSize:15, fontWeight:'600'}}>Author</Text>
     </View>
