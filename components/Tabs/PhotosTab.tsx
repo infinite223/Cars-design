@@ -6,7 +6,7 @@ const PhotosTab = () => {
   // wybrany projekt, mapowanie zdjęć  
   const selectedProject = 0
   return (
-    <ScrollView style={{marginTop:5, flex:1, width:"100%"}}>
+    <View style={{marginTop:5, flex:1, width:"100%"}}>
       <View style={{flexDirection:'row', flexWrap:'wrap', flex:1, justifyContent:'space-between'}}>
         {data[selectedProject].car.imagesCar.map((url) => 
           <TouchableOpacity style={{maxWidth:'50%'}}>
@@ -15,7 +15,7 @@ const PhotosTab = () => {
           </TouchableOpacity>
         )}
       </View>
-    </ScrollView> 
+    </View> 
   )
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 
 const HistoryTab = () => {
   return (
-    <View>
+    <View style={{flex:1, backgroundColor:'white'}}>
       <Text>HistoryCard</Text>
     </View>
   )
