@@ -1,11 +1,51 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 
-export const CircleData:React.FC<{type:string, number:number, color:string}> = ({type, number, color}) => {
+const colors = ["#339", "#935", "#a55", "#f15"]
+
+export const CircleData:React.FC<{type:string, number:number, colors:string[]}> = ({type, number, colors}) => {
   return (
-    <TouchableOpacity style={{width:105, height:105 , borderRadius:90, borderWidth:3, borderColor:'gray', alignItems:'center', justifyContent:'center'}}>
-      <Text style={{textAlign:'center'}}>{type}</Text>
-      <Text style={{color:color, fontWeight:'bold', fontSize:17}}>{number}</Text>
-    </TouchableOpacity>
+    <View>
+     <LinearGradient
+        colors={colors}
+        style={styles.grediant}
+        >
+        <View style={styles.buttonContainer}>
+          <Text style={{textAlign:'center'}}>{type}</Text>
+          <Text style={{color:colors[0], fontWeight:'bold', fontSize:17}}>{number}</Text>  
+        </View>
+        </LinearGradient>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1.0,
+      justifyContent: 'center',
+      backgroundColor: '#ecf0f1',
+  },
+  grediant: {
+      height: 100,
+      width: 100,
+      justifyContent: 'center',
+      alignSelf: 'center',
+      borderRadius:50
+  },
+  buttonContainer: {
+      flex: 1.0,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems:'center',
+      backgroundColor: '#ffffff',
+      width: '90%',
+      margin: 2,
+      borderRadius:50
+  },
+  buttonText: {
+      textAlign: 'center',
+      color: '#4C64FF',
+      alignItems:'center',
+  }
+});

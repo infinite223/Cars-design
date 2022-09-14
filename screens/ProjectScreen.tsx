@@ -11,6 +11,7 @@ import PhotosTab from '../components/Tabs/PhotosTab';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HistoryTab from '../components/Tabs/HistoryTab';
 import { LinearGradient } from 'expo-linear-gradient';
+import { getColorsCircle } from './../utils/functions/colorsCircle';
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
@@ -67,9 +68,9 @@ const ProjectScreen = () => {
 
           <Text style={{fontSize:15, fontWeight:'600', marginVertical:10}}>Performance</Text>
           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <CircleData type="HP" number={car.hp} color="red"/>
-            <CircleData type="Nm" number={car.nm} color="#339"/>
-            <CircleData type="0-100km/h" number={car.performance[0]} color="#935"/>
+            <CircleData type="HP" number={car.hp} colors={getColorsCircle(car.hp, "hp")}/>
+            <CircleData type="Nm" number={car.nm} colors={getColorsCircle(car.nm, "nm")}/>
+            <CircleData type="0-100km/h" number={car.performance[0]} colors={getColorsCircle(car.performance[0], "acceleration")}/>
           </View>
         </View>
 
