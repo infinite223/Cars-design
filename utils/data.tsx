@@ -11,16 +11,19 @@ const urlImageCar6 = 'https://i.pinimg.com/originals/47/9e/4b/479e4bba13f9aac504
 export const data:CarprojectData[] = [
     {
       id:"1",
-      author:{ name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor},
+      author:{name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place:"Kraków"},
       createdAt:"02 11 2021",
       car: { 
         CarMake: "BMW", 
         model: "M4", 
         description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.",
-        hp:680, 
-        nm:780, 
         imagesCar: [urlImageCar1, urlImageCar2, urlImageCar3, urlImageCar4, urlImageCar5, urlImageCar6, urlImageCar3, urlImageCar4], 
-        performance: [4.1, 7.3],
+        performance: {
+          hp:680, 
+          nm:780, 
+          _0_100:4.1, 
+          _100_200: 7.3
+        },
         likes:2,
         history:[  
           {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'510hp 600Nm'},

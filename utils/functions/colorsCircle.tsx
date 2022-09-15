@@ -1,5 +1,5 @@
 export const getColorsCircle = (value:number, type:string) => {
-    let colors:string[] = ["gray"]
+    let colors:string[] = ["gray", "lightgray"]
     switch (type) {
         case "hp":
             if(value>=600){

@@ -6,7 +6,7 @@ const colors = ["#339", "#935", "#a55", "#f15"]
 
 export const CircleData:React.FC<{type:string, number:number, colors:string[]}> = ({type, number, colors}) => {
   return (
-    <View>
+    <View style={{marginRight:20}}>
      <LinearGradient
         colors={colors}
         style={styles.grediant}
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#ecf0f1',
   },
   grediant: {
-      height: 100,
-      width: 100,
+      height: 105,
+      width: 105,
       justifyContent: 'center',
       alignSelf: 'center',
       borderRadius:50

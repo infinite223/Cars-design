@@ -22,7 +22,7 @@ const ProfileScreen = () => {
            headerLeft: () => (
             <View style={{flexDirection:"row", alignItems:'center', width:65, justifyContent:'space-around'}}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialIcons name={'arrow-back-ios'} size={24} />
+                    <MaterialIcons name={'arrow-back-ios'} size={22} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
                     <Avatar
@@ -89,19 +89,16 @@ const ProfileScreen = () => {
         </View>
 
         <TouchableOpacity 
-                    onPress={()=>setCreateProjectModalVisible(true)} 
-                    style={{position:'absolute', bottom:15, right:5, alignItems:'center', justifyContent:'center'}
-                }>
-                    <LinearGradient         
-                        colors={["#339", "#935"]}
-                        start={[0.7, 0.2]}
-                        style={{paddingHorizontal:10, paddingVertical:10, borderRadius:50}}
-                    > 
-                        <Entypo name='plus' size={35} color="white"/>
-                        {/* <Text style={{fontSize:22, color:"white", fontWeight:'bold', letterSpacing:2}}>
-                            Add your car project
-                        </Text> */}
-                    </LinearGradient> 
+            onPress={()=>setCreateProjectModalVisible(true)} 
+            style={{position:'absolute', bottom:15, right:5, alignItems:'center', justifyContent:'center'}
+        }>
+            <LinearGradient         
+                colors={["#339", "#935"]}
+                start={[0.7, 0.2]}
+                style={{paddingHorizontal:10, paddingVertical:10, borderRadius:50}}
+            > 
+                <Entypo name='plus' size={35} color="white"/>
+            </LinearGradient> 
         </TouchableOpacity>
     </View>
   )

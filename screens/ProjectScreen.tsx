@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Share } from 'react-native'
+import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Share, FlatList } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -12,6 +12,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import HistoryTab from '../components/Tabs/HistoryTab';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
+
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
@@ -30,7 +31,7 @@ const ProjectScreen = () => {
            headerLeft: () => (
             <View style={{flexDirection:"row", alignItems:'center', justifyContent:'space-around'}}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialIcons name={'arrow-back-ios'} size={24} />
+                    <MaterialIcons name={'arrow-back-ios'} size={22} />
                 </TouchableOpacity>
             </View>
           ),
@@ -61,21 +62,24 @@ const ProjectScreen = () => {
 
   return (
     <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-      <ScrollView style={{backgroundColor:'white'}} scrollEnabled contentContainerStyle={{height:'100%'}}>
+      <ScrollView style={{backgroundColor:'white'}} >
         <View style={{marginHorizontal:15}}>
-          <Text style={{fontSize:15, fontWeight:'600'}}>Description</Text>
           <Text style={{color:'#333'}}>{car.description} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo delectus cum ut quo omnis iste quisquam facere doloribus commodi. Odit cupiditate dolore fuga. Eius aperiam, eos neque quaerat odit ab?</Text>
-
-          <Text style={{fontSize:15, fontWeight:'600', marginVertical:10}}>Performance</Text>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <CircleData type="HP" number={car.hp} colors={getColorsCircle(car.hp, "hp")}/>
-            <CircleData type="Nm" number={car.nm} colors={getColorsCircle(car.nm, "nm")}/>
-            <CircleData type="0-100km/h" number={car.performance[0]} colors={getColorsCircle(car.performance[0], "acceleration")}/>
+          <View style={{flexDirection:'row', alignItems:'center', marginVertical:5}}>
+              <MaterialIcons name='place' color="#444" size={20} style={{marginRight:3}}/>
+              <Text style={{fontSize:17, fontWeight:'600'}}>{author.place}</Text>
           </View>
+
+          <ScrollView horizontal contentContainerStyle={{marginTop:15, paddingVertical:10, flexDirection:'row', justifyContent:'space-between'}}>
+            <CircleData type="HP" number={car.performance.hp} colors={getColorsCircle(car.performance.hp, "hp")}/>
+            <CircleData type="Nm" number={car.performance.nm} colors={getColorsCircle(car.performance.nm, "nm")}/>
+            <CircleData type="0-100km/h" number={car.performance._0_100} colors={getColorsCircle(car.performance._0_100, "acceleration")}/>
+            <CircleData type="100-200km/h" number={car.performance._100_200} colors={getColorsCircle(car.performance._0_100, "acceleration")}/>
+          </ScrollView>
         </View>
 
           <Tab.Navigator  
-            style={{flexGrow:1, marginTop:20}}  
+            style={{flex:1, marginTop:20, height:550}}  
             screenOptions={{
               tabBarStyle: { backgroundColor: 'white'},     
               tabBarIndicatorStyle: {

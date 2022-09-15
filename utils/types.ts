@@ -2,19 +2,27 @@ export type User = {
     name:string,
     email:string
     imageUri:string,
-    carProjects?:CarprojectData[]
+    carProjects?:CarprojectData[],
+    place?:string
+}
+
+export type HistoryCar = {
+    date?:string, 
+    photosUrl?:string[], 
+    name?:string, 
+    description?:string,
+    company?:string,
+    performance?:Performance,
 }
 
 export type Car = {
     CarMake:string,
     model:string,
     description:string,
-    hp:number,
-    nm:number,
-    performance?:number[],
+    performance?:Performance,
     imagesCar:string[],
     likes:number,
-    history:Array<{date?:string, photosUrl?:string[], name?:string, description?:string}>
+    history:HistoryCar[]
 }
 
 export type CarprojectData = {
@@ -22,4 +30,11 @@ export type CarprojectData = {
     author:User,
     createdAt:string,
     car:Car
+}
+
+export type Performance = {
+    hp:number,
+    nm:number,
+    _0_100:number,
+    _100_200:number
 }
