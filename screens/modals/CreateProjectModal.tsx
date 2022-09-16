@@ -20,7 +20,7 @@ const CreateProjectScreen:React.FC<{modalVisible:boolean, setModalVisible: (valu
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+        //   Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -31,8 +31,7 @@ const CreateProjectScreen:React.FC<{modalVisible:boolean, setModalVisible: (valu
             justifyContent: 'space-evenly',
             alignItems: "center",
             backgroundColor:'white'
-        }}>
-            
+        }}>          
 
             <View style={{alignItems:'center'}}>
                 <Text style={{ margin:20, fontFamily:'monospace', fontSize:30, fontWeight:'bold'}}>Cars projects</Text>

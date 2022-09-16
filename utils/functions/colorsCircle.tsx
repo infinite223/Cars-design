@@ -30,7 +30,7 @@ export const getColorsCircle = (value:number, type:string) => {
             }
             
         break;
-        case "acceleration":      
+        case "_0_100":      
             if(value<=3.7){
                 colors = ["#f34", "#baa", "#a33", "#811"]
             }
@@ -44,7 +44,20 @@ export const getColorsCircle = (value:number, type:string) => {
                 colors = ["#11f569", "#06c851", "#258d4d", "#088538"]
             }
         break;
-    
+        case "_100_200":      
+            if(value<=5.7){
+                colors = ["#f34", "#baa", "#a33", "#811"]
+            }
+            else if(value>=5.7 && value<8){
+                colors = ["#ff7002", "#aa4002", "#a93001", "#973"]
+            }
+            else if(value>=8 && value<11.5){
+                colors = ["#fad006", "#e9a004", "#c9a235", "#97a015"]
+            }
+            else if(value>11.5){
+                colors = ["#11f569", "#06c851", "#258d4d", "#088538"]
+            }
+        break;
     }
     return colors
 }

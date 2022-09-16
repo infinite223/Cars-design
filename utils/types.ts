@@ -3,7 +3,8 @@ export type User = {
     email:string
     imageUri:string,
     carProjects?:CarprojectData[],
-    place?:string
+    place?:string,
+    uid:string
 }
 
 export type HistoryCar = {
@@ -35,6 +36,6 @@ export type CarprojectData = {
 export type Performance = {
     hp:number,
     nm:number,
-    _0_100:number,
-    _100_200:number
+    _0_100?:number,
+    _100_200?:number
 }

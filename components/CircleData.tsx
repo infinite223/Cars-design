@@ -2,11 +2,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 
-const colors = ["#339", "#935", "#a55", "#f15"]
-
 export const CircleData:React.FC<{type:string, number:number, colors:string[]}> = ({type, number, colors}) => {
   return (
-    <View style={{marginRight:20}}>
+    <View style={type==="100-200km/h"?{marginRight:5}:{marginRight:21}}>
      <LinearGradient
         colors={colors}
         style={styles.grediant}

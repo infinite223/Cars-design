@@ -17,7 +17,7 @@ const HomeScreen = () => {
       headerLeft: () => <AntDesign name={'search1'} size={24} color="black" style={{ marginRight: 12 }}/>,
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity><Feather name={'message-square'} size={23} color="#333" style={{ marginRight: 15 }}/></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Chats')}><Feather name={'message-square'} size={23} color="#333" style={{ marginRight: 15 }}/></TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}><Ionicons name={'md-person-outline'} size={25} color="black" style={{ marginRight: 0 }}/></TouchableOpacity>
       </View>
     })

@@ -3,11 +3,11 @@ import React from 'react'
 import { CarprojectData } from '../utils/types'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-const Carproject:React.FC<{data:CarprojectData}> = ({data: {car, author, createdAt}}) => {
+const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt}}) => {
   const navigation:any = useNavigation()
 
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('Project', {car, author, createdAt}) }>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate('Project', {id, car, author, createdAt}) }>
       <View>
         <View style={{marginVertical:3 ,flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
             <View style={{ flexDirection:'row', alignItems:'center'}}>
