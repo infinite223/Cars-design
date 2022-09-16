@@ -33,9 +33,9 @@ export type CarprojectData = {
     car:Car
 }
 
-export type Performance = {
-    hp:number,
-    nm:number,
-    _0_100?:number,
-    _100_200?:number
-}
+export type Performance = [
+    {type:string, value:number},
+    {type:string, value:number},
+    {type:string, value:number}?,
+    {type:string, value:number}?
+]

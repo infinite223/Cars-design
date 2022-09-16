@@ -18,7 +18,7 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:10, fontSize:18}}>Dawid</Text>,
+           headerTitle: () => <Text style={{marginLeft:10, fontSize:18}}>{data[0].author.name}</Text>,
            headerLeft: () => (
             <View style={{flexDirection:"row", alignItems:'center', width:65, justifyContent:'space-around'}}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -28,7 +28,7 @@ const ProfileScreen = () => {
                     <Avatar
                         size={34}
                         rounded
-                        source={{uri:user.photoURL}}    
+                        source={{uri:data[0].author.imageUri}}    
                     />
                 </TouchableOpacity>
             </View>

@@ -54,12 +54,22 @@ const ProjectScreen = () => {
               <Text style={{fontSize:17, fontWeight:'600'}}>{author.place}</Text>
           </View>
 
-          <ScrollView horizontal contentContainerStyle={{marginTop: 5, paddingVertical:10, flexDirection:'row', justifyContent:'space-between'}}>
+          <FlatList
+            horizontal
+            style={{marginTop:8}}
+            showsHorizontalScrollIndicator={false}
+            data={car.performance}
+            renderItem={({item})=> (
+              <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
+            )}
+          />
+
+          {/* <ScrollView horizontal contentContainerStyle={{marginTop: 5, paddingVertical:10, flexDirection:'row', justifyContent:'space-between'}}>
             <CircleData type="HP" number={car.performance.hp} colors={getColorsCircle(car.performance.hp, "hp")}/>
             <CircleData type="Nm" number={car.performance.nm} colors={getColorsCircle(car.performance.nm, "nm")}/>
             <CircleData type="0-100km/h" number={car.performance._0_100} colors={getColorsCircle(car.performance._0_100, "_0_100")}/>
             <CircleData type="100-200km/h" number={car.performance._100_200} colors={getColorsCircle(car.performance._100_200, "_100_200")}/>
-          </ScrollView>
+          </ScrollView> */}
         </View>
 
           <Tab.Navigator  

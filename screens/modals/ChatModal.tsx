@@ -51,7 +51,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 
            </ScrollView>
            <View style={{flexDirection:'row', alignItems:'center', marginVertical:15}}>
-            <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+            <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}>
                 <Ionicons name='camera-outline' size={24} />
              </TouchableOpacity>
              <TextInput placeholder='Type message' style={{marginHorizontal:10, color:'black', flex:1, borderColor:'gray', fontSize:18, backgroundColor:'#eee', borderRadius:20, paddingVertical:5, paddingHorizontal:15}}/>

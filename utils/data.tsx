@@ -18,17 +18,63 @@ export const data:CarprojectData[] = [
         model: "M4", 
         description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.",
         imagesCar: [urlImageCar1, urlImageCar2, urlImageCar3, urlImageCar4, urlImageCar5, urlImageCar6, urlImageCar3, urlImageCar4], 
-        performance: {
-          hp:680, 
-          nm:780, 
-          _0_100:4.1, 
-          _100_200: 7.3
-        },
+        performance: [
+          {type:"hp", value:680}, 
+          {type:"nm", value:780}, 
+          {type:"_0_100", value:4.1}, 
+          {type:"_100_200", value: 7.3}
+        ],
         likes:2,
         history:[  
-          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'Seryjne autko bezz modyfikacji', company:"Kiwi racing factory", performance:{hp:510, nm:640}},
-          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stage 1",  description:'Stage 1, zmiana wydechu ', company:"Kiwi racing factory", performance:{hp:570, nm:710}},
-          {date: "13 12 2013", photosUrl:["urlImageCar"], name:"Stage 2", description:'Zmina intercoolera, dolotu plus strojenie na stage 2, i soft skrzyni', company:"Kiwi racing factory", performance:{hp:640, nm:780}}
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'Seryjne autko bezz modyfikacji', company:"Kiwi racing factory", performance:[{type:"hp", value:510}, {type:"nm", value:640}]},
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stage 1",  description:'Stage 1, zmiana wydechu ', company:"Kiwi racing factory",  performance:[{type:"hp", value:570}, {type:"nm", value:710}]},
+          {date: "13 12 2013", photosUrl:["urlImageCar"], name:"Stage 2", description:'Zmina intercoolera, dolotu plus strojenie na stage 2, i soft skrzyni', company:"Kiwi racing factory",  performance:[{type:"hp", value:650}, {type:"nm", value:790}]}
+        ]
+      }
+    },
+    {
+      id:"2",
+      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place:"Kraków"},
+      createdAt:"02 11 2021",
+      car: { 
+        CarMake: "VW", 
+        model: "Scirocco", 
+        description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.",
+        imagesCar: [urlImageCar1, urlImageCar2, urlImageCar3, urlImageCar4, urlImageCar5, urlImageCar6, urlImageCar3, urlImageCar4], 
+        performance: [
+          {type:"hp", value:270}, 
+          {type:"nm", value:420}, 
+          {type:"_0_100", value:5.7}, 
+          {type:"_100_200", value: 16.3}
+        ],
+        likes:2,
+        history:[  
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'Seryjne autko bezz modyfikacji', company:"Kiwi racing factory", performance:[{type:"hp", value:510}, {type:"nm", value:640}]},
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stage 1",  description:'Stage 1, zmiana wydechu ', company:"Kiwi racing factory",  performance:[{type:"hp", value:570}, {type:"nm", value:710}]},
+          {date: "13 12 2013", photosUrl:["urlImageCar"], name:"Stage 2", description:'Zmina intercoolera, dolotu plus strojenie na stage 2, i soft skrzyni', company:"Kiwi racing factory",  performance:[{type:"hp", value:650}, {type:"nm", value:790}]}
+        ]
+      }
+    },
+    {
+      id:"3",
+      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place:"Kraków"},
+      createdAt:"02 11 2021",
+      car: { 
+        CarMake: "BMW", 
+        model: "M4", 
+        description: "Lorem ipsum dsa caef dsadsa dsdsa csa dsad sadsdads dsa ds dadsa.",
+        imagesCar: [urlImageCar1, urlImageCar2, urlImageCar3, urlImageCar4, urlImageCar5, urlImageCar6, urlImageCar3, urlImageCar4], 
+        performance: [
+          {type:"hp", value:680}, 
+          {type:"nm", value:780}, 
+          {type:"_0_100", value:4.1}, 
+          {type:"_100_200", value: 7.3}
+        ],
+        likes:2,
+        history:[  
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'Seryjne autko bezz modyfikacji', company:"Kiwi racing factory", performance:[{type:"hp", value:510}, {type:"nm", value:640}]},
+          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stage 1",  description:'Stage 1, zmiana wydechu ', company:"Kiwi racing factory",  performance:[{type:"hp", value:570}, {type:"nm", value:710}]},
+          {date: "13 12 2013", photosUrl:["urlImageCar"], name:"Stage 2", description:'Zmina intercoolera, dolotu plus strojenie na stage 2, i soft skrzyni', company:"Kiwi racing factory",  performance:[{type:"hp", value:650}, {type:"nm", value:790}]}
         ]
       }
     }

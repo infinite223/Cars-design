@@ -3,6 +3,27 @@ import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 
 export const CircleData:React.FC<{type:string, number:number, colors:string[]}> = ({type, number, colors}) => {
+  
+  const getType = () => {
+    let correctType
+    switch (type) {
+      case "hp":
+          correctType = "HP"
+        break;
+      case "nm":
+          correctType = "Nm"
+        break;
+      case "_0_100":
+          correctType = "0-100km/h"
+        break;
+      case "_100_200":
+          correctType = "100-200km/h"
+        break;
+    }
+    return correctType
+  }
+
+  
   return (
     <View style={type==="100-200km/h"?{marginRight:5}:{marginRight:21}}>
      <LinearGradient
@@ -10,7 +31,7 @@ export const CircleData:React.FC<{type:string, number:number, colors:string[]}> 
         style={styles.grediant}
         >
         <View style={styles.buttonContainer}>
-          <Text style={{textAlign:'center'}}>{type}</Text>
+          <Text style={{textAlign:'center'}}>{getType()}</Text>
           <Text style={{color:colors[0], fontWeight:'bold', fontSize:17}}>{number}</Text>  
         </View>
         </LinearGradient>
