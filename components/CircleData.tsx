@@ -31,8 +31,8 @@ export const CircleData:React.FC<{type:string, number:number, colors:string[]}> 
         style={styles.grediant}
         >
         <View style={styles.buttonContainer}>
-          <Text style={{textAlign:'center'}}>{getType()}</Text>
-          <Text style={{color:colors[0], fontWeight:'bold', fontSize:17}}>{number}</Text>  
+          <Text style={{color:'#333', fontSize:12, textAlign:'center'}}>{getType()}</Text>
+          <Text style={{color:colors[0], fontWeight:'bold', fontSize:18}}>{number}</Text>  
         </View>
         </LinearGradient>
     </View>
