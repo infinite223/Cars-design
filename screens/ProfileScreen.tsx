@@ -74,16 +74,15 @@ const ProfileScreen = () => {
             <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600', marginVertical:10}}>My cars projects</Text>
             <FlatList
                 data={data}
-                numColumns={2}
                 renderItem={({item: {car, author, createdAt}})=> 
-                    <TouchableOpacity style={{position:'relative', flex:.5, flexDirection:'row', alignItems:'center' }} onPress={()=>navigation.navigate('Project', {car, author, createdAt})}>
+                    <TouchableOpacity style={{paddingVertical:5, borderBottomWidth:1, borderColor: "#eee", position:'relative', flex:.5, flexDirection:'row', alignItems:'center' }} onPress={()=>navigation.navigate('Project', {car, author, createdAt})}>
                         <Image style={{height:50, width:50, borderRadius:50, resizeMode:'cover'}} source={{uri:car.imagesCar[0]}}/>
                         <View style={{marginHorizontal:10, flex:1}}>
                             <Text>{car.CarMake}</Text>
-                            <Text>{car.model}</Text>
+                            <Text>{car.model}</Text>    
                         </View>
                         <Text style={{fontSize:17, marginRight:5}}>{car.likes}</Text>
-                        <EvilIcons name='heart' size={30} color="red"/>
+                        <EvilIcons name='heart' size={30} color="black"/>
                     </TouchableOpacity>}
             />
         </View>
