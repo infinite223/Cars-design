@@ -26,9 +26,9 @@ export const data:CarprojectData[] = [
         ],
         likes:2,
         history:[  
-          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stock", description:'Seryjne autko bezz modyfikacji', company:"Kiwi racing factory", performance:[{type:"hp", value:510}, {type:"nm", value:640}]},
-          {date: "23 12 2009", photosUrl:["urlImageCar"], name:"Stage 1",  description:'Stage 1, zmiana wydechu ', company:"Kiwi racing factory",  performance:[{type:"hp", value:570}, {type:"nm", value:710}]},
-          {date: "13 12 2013", photosUrl:["urlImageCar"], name:"Stage 2", description:'Zmina intercoolera, dolotu plus strojenie na stage 2, i soft skrzyni', company:"Kiwi racing factory",  performance:[{type:"hp", value:650}, {type:"nm", value:790}]}
+          {date: "23 12 2009", photosUrl:['https://vtech.pl/katalog/logo/chip-tuning-BMW-M4-F82-3.0-431-KM-317-kW-AT.png', urlImageCar2, urlImageCar4, urlImageCar5], name:"Stock", description:'Seryjne autko bezz modyfikacji', company:"Kiwi racing factory", performance:[{type:"hp", value:510}, {type:"nm", value:640}]},
+          {date: "23 12 2009", photosUrl:[urlImageCar6], name:"Stage 1",  description:'Stage 1, zmiana wydechu ', company:"Kiwi racing factory",  performance:[{type:"hp", value:570}, {type:"nm", value:710}]},
+          {date: "13 12 2013", photosUrl:[urlImageCar6], name:"Stage 2", description:'Zmina intercoolera, dolotu plus strojenie na stage 2, i soft skrzyni', company:"Kiwi racing factory",  performance:[{type:"hp", value:650}, {type:"nm", value:790}]}
         ]
       }
     },

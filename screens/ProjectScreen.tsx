@@ -23,9 +23,6 @@ const ProjectScreen = () => {
     const {id, car, author, createdAt } = route.params;
 
     const Tab = createMaterialTopTabNavigator();
-    console.log(car.imagesCar.length)
-
-    console.log(author)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -48,7 +45,7 @@ const ProjectScreen = () => {
       <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/>
       <ScrollView style={{backgroundColor:'white'}} >
         <View style={{marginHorizontal:15}}>
-          <Text style={{color:'#333'}}>{car.description}</Text>
+          <Text style={{color:'#333', maxWidth:'80%'}}>{car.description}</Text>
           <View style={{flexDirection:'row', alignItems:'center', marginVertical:5}}>
               <MaterialIcons name='place' color="#444" size={20} style={{marginRight:3}}/>
               <Text style={{fontSize:17, fontWeight:'600'}}>{author.place}</Text>
@@ -73,7 +70,7 @@ const ProjectScreen = () => {
         </View>
 
           <Tab.Navigator  
-            style={{flex:1, height:550}}  
+            style={{flex:1, minHeight:950}}  
             screenOptions={{
               tabBarStyle: { backgroundColor: 'white'},     
               tabBarIndicatorStyle: {
