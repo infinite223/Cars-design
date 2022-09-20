@@ -18,11 +18,12 @@ import ChatModal from './modals/ChatModal';
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
+    const navigationTabs: any = useNavigation()
     const [chatModalVisible, setChatModalVisible] = useState(false)
     const route = useRoute<any>()
     const {id, car, author, createdAt } = route.params;
 
-    const Tab = createMaterialTopTabNavigator();
+    const Tab = createNativeStackNavigator();
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -41,14 +42,14 @@ const ProjectScreen = () => {
       }, [])
 
   return (
-    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+    <View style={{flex:1}}>
       <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/>
-      <ScrollView style={{backgroundColor:'white'}} >
+      <ScrollView style={{backgroundColor:'white'}} contentContainerStyle={{flex:1}}>
         <View style={{marginHorizontal:15}}>
-          <Text style={{color:'#333', maxWidth:'80%'}}>{car.description}</Text>
+          <Text style={{color:'#333', maxWidth:'80%', fontSize:12}}>{car.description}</Text>
           <View style={{flexDirection:'row', alignItems:'center', marginVertical:5}}>
               <MaterialIcons name='place' color="#444" size={20} style={{marginRight:3}}/>
-              <Text style={{fontSize:17, fontWeight:'600'}}>{author.place}</Text>
+              <Text style={{fontSize:17, fontWeight:'600', letterSpacing:1}}>{author.place}</Text>
           </View>
 
           <FlatList
@@ -60,45 +61,16 @@ const ProjectScreen = () => {
               <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
             )}
           />
-
-          {/* <ScrollView horizontal contentContainerStyle={{marginTop: 5, paddingVertical:10, flexDirection:'row', justifyContent:'space-between'}}>
-            <CircleData type="HP" number={car.performance.hp} colors={getColorsCircle(car.performance.hp, "hp")}/>
-            <CircleData type="Nm" number={car.performance.nm} colors={getColorsCircle(car.performance.nm, "nm")}/>
-            <CircleData type="0-100km/h" number={car.performance._0_100} colors={getColorsCircle(car.performance._0_100, "_0_100")}/>
-            <CircleData type="100-200km/h" number={car.performance._100_200} colors={getColorsCircle(car.performance._100_200, "_100_200")}/>
-          </ScrollView> */}
         </View>
-
-          <Tab.Navigator  
-            style={{flex:1, minHeight:950}}  
-            screenOptions={{
-              tabBarStyle: { backgroundColor: 'white'},     
-              tabBarIndicatorStyle: {
-                backgroundColor:'gray',
-                borderTopWidth:0,
-                borderTopColor:'#D3D3D3', 
-                elevation:0
-              },
-              tabBarShowLabel:false,
-              tabBarIndicatorContainerStyle: {
-                width: 0, height: 0, elevation: 0,     
-              },          
-              tabBarPressColor:'pink'
-          }}>
-            <Tab.Screen name="Photos" component={PhotosTab}
-              options={{
-                tabBarIcon: ({ focused }) => { 
-                  return <AntDesign name="picture" size={25} color={focused?"black":'gray'}/>
-                },}}
-            />
-            <Tab.Screen name="History" component={HistoryTab}
-              options={{
-                tabBarIcon: ({ focused }) => { return <MaterialIcons name="timeline" size={25} color={focused?"black":'gray'}/>},
-              }}
-            />
-          </Tab.Navigator>
+            <Tab.Navigator  
+              screenOptions={{
+                headerShown:false 
+              }}>
+              <Tab.Screen name="Photos" component={PhotosTab}/>
+              <Tab.Screen name="History" component={HistoryTab}/>
+            </Tab.Navigator>
         </ScrollView>
-      <View style={{width:'100%', position:'relative', paddingHorizontal:10, paddingVertical:8, marginHorizontal:-15 , flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+      <View style={{backgroundColor:'white', width:'100%', position:'relative', paddingHorizontal:10, paddingVertical:8, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
         <View>
           <View style={{flexDirection:'row', alignItems:'center'}}>
             <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}><Feather name='send' size={23} color="gray"/></TouchableOpacity>
