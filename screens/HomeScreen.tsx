@@ -2,14 +2,22 @@ import { View, Text, Button, TextInput, TouchableOpacity, FlatList } from 'react
 import React, { useLayoutEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign, Ionicons, Feather } from 'react-native-vector-icons'
 import Carproject from '../components/Carproject';
+import { useSelector, useDispatch } from 'react-redux';
 import { CarprojectData } from '../utils/types';
+import { selectTheme } from '../slices/themeSlice';
 import { data } from '../utils/data';
 
 const HomeScreen = () => {
   const navigation:any = useNavigation()
+  const theme = useSelector(selectTheme)
+  const dispatch = useDispatch()
+
+  console.log(theme)
+
  
   useLayoutEffect(() => {
     navigation.setOptions({
