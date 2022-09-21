@@ -6,6 +6,7 @@ import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import ProjectScreen from './screens/ProjectScreen'
 import CreateScreen from './screens/CreateScreen'
+import SettingsScreen from './screens/SettingsScreen'
 import ChatsScreen from './screens/ChatsScreen'
 import useAuth from './hooks/useAuth'
 import EditProfileScreen from './screens/modals/EditProfileModal';
@@ -30,6 +31,7 @@ const StackNavigator = () => {
             <Stack.Screen name='Project' component={ProjectScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Camera' component={MyCamera} options={{headerShown:false}}/>
+            <Stack.Screen name='Settings' component={SettingsScreen}/>
           </Stack.Group>
           <Stack.Group screenOptions={{presentation: 'modal',  headerShown:false}}>
             {/* <Stack.Screen name='EditProfile' component={EditProfileScreen}/> */}

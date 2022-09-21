@@ -42,7 +42,7 @@ const ProjectScreen = () => {
           headerRight: () => 
                 <Text style={{fontSize:11, color:'gray'}}>{createdAt}</Text>
         })  
-      }, [])
+      }, [theme])
 
   return (
     <View style={{flex:1}}>
@@ -57,8 +57,9 @@ const ProjectScreen = () => {
 
           <FlatList
             horizontal
-            style={{marginTop:8}}
+            style={{marginTop:8, marginRight:-15}}
             showsHorizontalScrollIndicator={false}
+            snapToInterval={105}
             data={car.performance}
             renderItem={({item})=> (
               <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>

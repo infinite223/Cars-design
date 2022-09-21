@@ -1,9 +1,8 @@
 import { View, Text, Modal, Alert, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
- import { db } from '../../hooks/useAuth'
 import { setDoc, collection, doc, serverTimestamp, addDoc } from 'firebase/firestore'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
 
 

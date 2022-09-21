@@ -15,7 +15,7 @@ const HomeScreen = () => {
   const theme = useSelector(selectTheme)
   const dispatch = useDispatch()
 
-  console.log(theme.background)
+  console.log(theme, "dds")
 
  
   useLayoutEffect(() => {
@@ -28,7 +28,7 @@ const HomeScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}><Ionicons name={'md-person-outline'} size={25} color={theme.fontColor} style={{ marginRight: 0 }}/></TouchableOpacity>
       </View>
     })
-  }, [])
+  }, [theme])
 
   return (
     <View style={{flex:1,  backgroundColor:theme.background}}>

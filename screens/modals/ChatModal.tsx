@@ -6,11 +6,14 @@ import { User } from '../../utils/types';
 import { Ionicons } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { RNCamera, FaceDetector } from 'react-native-camera';
+import { useSelector } from 'react-redux';
+import { selectTheme } from './../../slices/themeSlice';
 
 const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({author, modalVisible, setModalVisible}) => {
     const navigation = useNavigation<any>()
     const [nickname, setNickname] = useState('')
     const [description, setDescription] = useState('')
+    const theme = useSelector(selectTheme)
 
     const complate = (nickname && description)? true:false
 
@@ -35,7 +38,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
             height:130,  
             flex: 1,
             paddingHorizontal:15,
-            backgroundColor:'white'
+            backgroundColor: theme.background
         }}>          
            <View style={{flexDirection:'row', alignItems:'center'}}>
                 <TouchableOpacity onPress={() => (navigation.navigate('Profile'), setModalVisible(false))}>
@@ -45,18 +48,23 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
                         source={{uri:author.imageUri}}    
                     />
                 </TouchableOpacity>
-                <Text style={{marginLeft:8, fontSize:18}}>{author.name}</Text>
+                <Text style={{marginLeft:8, fontSize:18, color:theme.fontColor}}>{author.name}</Text>
            </View>
            <ScrollView style={{flex:1}}>
 
            </ScrollView>
            <View style={{flexDirection:'row', alignItems:'center', marginVertical:15}}>
-            <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}>
-                <Ionicons name='camera-outline' size={24} />
+            <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
+              style={{ borderColor:'gray',backgroundColor:theme.backgroundContent, borderRadius:20, paddingVertical:7, paddingHorizontal:10}}
+            >
+                <Ionicons name='camera-outline' size={24} color={theme.fontColor}/>
              </TouchableOpacity>
-             <TextInput placeholder='Type message' style={{marginHorizontal:10, color:'black', flex:1, borderColor:'gray', fontSize:18, backgroundColor:'#eee', borderRadius:20, paddingVertical:5, paddingHorizontal:15}}/>
+             <TextInput
+              placeholderTextColor={theme.fontColorContent}
+              placeholder='Type message'
+              style={{marginHorizontal:10, color:theme.fontColor, flex:1, borderColor:'gray', fontSize:18, backgroundColor:theme.backgroundContent, borderRadius:20, paddingVertical:5, paddingHorizontal:15}}/>
              <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:0}}>
-                <Ionicons name='send-outline' size={24} />
+                <Ionicons name='send-outline' size={24} color={theme.fontColor}/>
              </TouchableOpacity>
            </View>
         </View>
