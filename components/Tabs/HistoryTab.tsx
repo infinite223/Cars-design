@@ -6,16 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import FullWidthImage from 'react-native-fullwidth-image'
 import { MaterialIcons } from 'react-native-vector-icons';
+import { useSelector } from 'react-redux';
+import { selectTheme } from './../../slices/themeSlice';
 
 
 const HistoryTab = () => {
   const navigationTab:any = useNavigation()
   const windowWidth = Dimensions.get('window').width;
+  const theme = useSelector(selectTheme)
 
   const [opacity, setOpacity] = useState(.7)
 
   return (
-    <View style={{ flex:1, backgroundColor:'white'}}>
+    <View style={{ flex:1, backgroundColor:theme.background}}>
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/>
       <ScrollView>
         <FlatList
@@ -79,7 +82,7 @@ const style = StyleSheet.create({
   renderItem: {
     position:'relative',
     marginBottom:5,
-    borderBottomWidth:1,
+  //  borderBottomWidth:1,
     borderColor:'#eee'
   },
   zoomIcon: {

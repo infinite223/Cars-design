@@ -1,9 +1,13 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { selectTheme } from './../slices/themeSlice';
 
 export const CircleData:React.FC<{type:string, number:number, colors:string[]}> = ({type, number, colors}) => {
   
+  const theme = useSelector(selectTheme)
+
   const getType = () => {
     let correctType
     switch (type) {
@@ -30,8 +34,8 @@ export const CircleData:React.FC<{type:string, number:number, colors:string[]}> 
         colors={colors}
         style={styles.grediant}
         >
-        <View style={styles.buttonContainer}>
-          <Text style={{color:'#333', fontSize:12, textAlign:'center'}}>{getType()}</Text>
+        <View style={[styles.buttonContainer, {backgroundColor:theme.background}]}>
+          <Text style={{color:theme.fontColor, fontSize:12, textAlign:'center'}}>{getType()}</Text>
           <Text style={{color:colors[0], fontWeight:'bold', fontSize:18}}>{number}</Text>  
         </View>
         </LinearGradient>
@@ -57,7 +61,6 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       justifyContent: 'center',
       alignItems:'center',
-      backgroundColor: '#ffffff',
       width: '90%',
       margin: 2,
       borderRadius:50

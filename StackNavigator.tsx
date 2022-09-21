@@ -10,13 +10,18 @@ import ChatsScreen from './screens/ChatsScreen'
 import useAuth from './hooks/useAuth'
 import EditProfileScreen from './screens/modals/EditProfileModal';
 import MyCamera from './screens/CameraScreen'
+import { useSelector } from 'react-redux';
+import { selectTheme } from './slices/themeSlice';
 
 const Stack = createNativeStackNavigator()
 
 const StackNavigator = () => {
   const { user } :any = useAuth()
+  const theme = useSelector(selectTheme)
   return (
-    <Stack.Navigator screenOptions={{ headerShadowVisible: false,}}>
+    <Stack.Navigator screenOptions={{ headerShadowVisible: false, headerStyle:{
+      backgroundColor:theme.background
+    }}}>
         {user ?
           <>
           <Stack.Group>
