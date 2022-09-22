@@ -21,7 +21,7 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:10, fontSize:18, color:theme.fontColor}}>{data[0].author.name}</Text>,
+           headerTitle: () => <Text style={{marginLeft:10, fontSize:20, color:theme.fontColor}}>{data[0].author.name}</Text>,
            headerLeft: () => (
             <View style={{flexDirection:"row", alignItems:'center', width:65, justifyContent:'space-around'}}>
                <TouchableOpacity onPress={() => navigation.goBack()}>

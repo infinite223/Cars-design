@@ -7,6 +7,7 @@ import { MaterialIcons, Ionicons, Octicons } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
 import ThemeModal from './modals/SettingsModals/ThemeModal';
+import InformationModal from './modals/SettingsModals/InformationModeal';
 
 const SettingsScreen = () => {
   const theme = useSelector(selectTheme)
@@ -15,11 +16,12 @@ const SettingsScreen = () => {
 
   const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
   const [themeModalVisible, setThemeModalVisible] = useState(false)
+  const [informationModalVisible, setInformationModalVisible] = useState(false)
 
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () => <Text style={{marginLeft:5, fontSize:18, color:theme.fontColor}}>Settings</Text>,
+       headerTitle: () => <Text style={{marginLeft:5, fontSize:20, color:theme.fontColor}}>Settings</Text>,
        headerLeft: () => (
         <TouchableOpacity onPress={() => navigation.goBack()}>
             <MaterialIcons name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
@@ -30,12 +32,13 @@ const SettingsScreen = () => {
   return (
     <View style={[style.settingsContainer, {backgroundColor:theme.background}]}>
         <ThemeModal  modalVisible={themeModalVisible} setModalVisible={setThemeModalVisible}/>
+        <InformationModal  modalVisible={informationModalVisible} setModalVisible={setInformationModalVisible}/>
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
         <TouchableOpacity style={style.option} onPress={()=>setThemeModalVisible(true)}>
             <Ionicons name='color-palette-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>Theme</Text>
         </TouchableOpacity>  
-        <TouchableOpacity style={style.option}>
+        <TouchableOpacity style={style.option} onPress={()=>setInformationModalVisible(true)}>
             <Octicons name='info' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>Information</Text>
         </TouchableOpacity>  

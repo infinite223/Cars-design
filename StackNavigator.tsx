@@ -9,7 +9,7 @@ import CreateScreen from './screens/CreateScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import ChatsScreen from './screens/ChatsScreen'
 import useAuth from './hooks/useAuth'
-import EditProfileScreen from './screens/modals/EditProfileModal';
+import EditProfileScreen from './screens/modals/SettingsModals/EditProfileModal';
 import MyCamera from './screens/CameraScreen'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './slices/themeSlice';
