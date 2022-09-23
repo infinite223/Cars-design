@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
 import ThemeModal from './modals/SettingsModals/ThemeModal';
 import InformationModal from './modals/SettingsModals/InformationModeal';
+import LanguageModal from './modals/SettingsModals/LanguageModal';
 
 const SettingsScreen = () => {
   const theme = useSelector(selectTheme)
@@ -17,6 +18,7 @@ const SettingsScreen = () => {
   const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
   const [themeModalVisible, setThemeModalVisible] = useState(false)
   const [informationModalVisible, setInformationModalVisible] = useState(false)
+  const [languageModalVisible, setLanguageModalVisible] = useState(false)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,6 +36,7 @@ const SettingsScreen = () => {
         <ThemeModal  modalVisible={themeModalVisible} setModalVisible={setThemeModalVisible}/>
         <InformationModal  modalVisible={informationModalVisible} setModalVisible={setInformationModalVisible}/>
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
+        <LanguageModal modalVisible={languageModalVisible} setModalVisible={setLanguageModalVisible}/>
         <TouchableOpacity style={style.option} onPress={()=>setThemeModalVisible(true)}>
             <Ionicons name='color-palette-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>Theme</Text>
@@ -46,7 +49,7 @@ const SettingsScreen = () => {
             <Ionicons name='person-circle-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>Edit Profile</Text>
         </TouchableOpacity>  
-        <TouchableOpacity style={style.option}>
+        <TouchableOpacity style={style.option} onPress={()=>setLanguageModalVisible(true)}>
             <Ionicons name='language-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>Language</Text>
         </TouchableOpacity> 
