@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../../slices/themeSlice';
 import { selectLanguage } from './../../../slices/languageSlice';
 import { setLanguage } from './../../../slices/languageSlice'
+import { translations } from '../../../utils/translations'
 
 
 const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
@@ -15,6 +16,10 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     console.log(language, "xd")
+    const _translations = translations.screens.modals.settingsModals.languageModal.header
+
+    console.log(_translations)
+
     const dispatch = useDispatch()
 
     return (
@@ -41,7 +46,9 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
             borderWidth:1,
             borderRadius:10,
         }}>
-            <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>Select language</Text>
+            <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>
+                {language==="en"?_translations.en:_translations.pl}
+            </Text>
             <View style={{flex:1, width:'100%', flexDirection:'row', height:"100%", alignItems:'center', justifyContent:'space-around'}}>
                 <TouchableOpacity
                     onPress={()=>dispatch(setLanguage('pl'))}

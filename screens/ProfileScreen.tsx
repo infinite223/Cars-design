@@ -10,6 +10,8 @@ import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
 import CreateProjectScreen from './modals/CreateProjectModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
+import { selectLanguage } from './../slices/languageSlice';
+import { translations } from './../utils/translations';
 
 const ProfileScreen = () => {
     const navigation:any = useNavigation()
@@ -17,6 +19,8 @@ const ProfileScreen = () => {
     const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
     const [createProjectModalVisible, setCreateProjectModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
+    const language = useSelector(selectLanguage)
+    const { followersText, viewsText, followingText, headerText, headerProjectsText } = translations.screens.ProfileScreen
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -37,7 +41,7 @@ const ProfileScreen = () => {
             </View>
           ),
           headerRight: () => <View style={{flexDirection:'row', alignItems:'center'}}> 
-           <TouchableOpacity onPress={()=>setCreateProjectModalVisible(true)}  style={{marginRight:10, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
+           <TouchableOpacity onPress={()=>setCreateProjectModalVisible(true)}  style={{marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
                 <Ionicons name="add-outline" size={20} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>
@@ -53,32 +57,34 @@ const ProfileScreen = () => {
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
         <CreateProjectScreen modalVisible={createProjectModalVisible} setModalVisible={setCreateProjectModalVisible}/>
         <View style={{marginVertical:5}}>
-            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600', color:theme.fontColor}}>About me</Text>
+            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600', color:theme.fontColor}}>
+                {language==="en"?headerText.en:headerText.pl}
+            </Text>
             <Text style={{color:theme.fontColorContent}}>
                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.a
                  Blanditiis, nostrum...
             </Text>
         </View>
 
-        <View style={{flexDirection:'row', marginVertical:5}}>
-            <TouchableOpacity style={{flexDirection:'row', borderColor:theme.fontColorContent, borderRadius:7, borderWidth:1, paddingHorizontal:10, paddingVertical:5}}>
-                <Text style={{color:theme.fontColor}}>Followers</Text>
-                <Text style={{marginLeft:5, color:"#935"}}>23</Text>
+        <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
+            <TouchableOpacity style={{alignItems:'center', paddingVertical:5}}>
+                <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>23</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{marginLeft:10, flexDirection:'row', borderColor:theme.fontColorContent, borderRadius:7, borderWidth:1, paddingHorizontal:10, paddingVertical:5}}>
-                <Text style={{color:theme.fontColor}}>Views</Text>
-                <Text style={{marginLeft:5, color:"#93f"}}>50</Text>
+            <TouchableOpacity style={{alignItems:'center',paddingVertical:5}}>
+                <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
+                <Text style={{fontSize:20,  color: theme.fontColor}}>50</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{marginLeft:10, flexDirection:'row', borderColor:theme.fontColorContent, borderRadius:7, borderWidth:1, paddingHorizontal:10, paddingVertical:5}}>
-                <Text style={{color:theme.fontColor}}>Following</Text>
-                <Text style={{marginLeft:5, color:"#a25"}}>65</Text>
+            <TouchableOpacity style={{alignItems:'center', paddingVertical:5}}>
+                <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>65</Text>
             </TouchableOpacity>
         </View>
 
-        <View style={{marginVertical:5}}>
-            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'800', marginVertical:10, color:theme.fontColor}}>Cars projects</Text>
+        <View style={{marginVertical:5, borderTopColor: theme.backgroundContent, borderWidth: 1}}>
+            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'800', marginVertical:10, color:theme.fontColor}}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>
             <FlatList
                 data={data}
                 renderItem={({item: {car, author, createdAt}})=> 

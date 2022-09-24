@@ -7,11 +7,15 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../../slices/themeSlice';
 import { setTheme } from './../../../slices/themeSlice'
+import { selectLanguage } from './../../../slices/languageSlice';
+import { translations } from './../../../utils/translations';
 
 
 const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
     const navigation = useNavigation()
     const theme = useSelector(selectTheme)
+    const language = useSelector(selectLanguage)
+    const _translations = translations.screens.modals.settingsModals.themeModal.headerText
     const dispatch = useDispatch()
 
     return (
@@ -39,7 +43,7 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
             borderWidth:1,
             borderRadius:10,
         }}>
-            <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>Select theme</Text>
+            <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>{language==="en"?_translations.en:_translations.pl}</Text>
             <View style={{flex:1, width:'100%', flexDirection:'row', height:"100%", alignItems:'center', justifyContent:'space-around'}}>
                 <TouchableOpacity onPress={()=>dispatch(setTheme({
                         background:'white',
@@ -50,7 +54,7 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
                     ))} 
                     style={{alignItems:'center', justifyContent:'center'}}>
                         <View style={{borderColor:theme.backgroundContent, borderWidth:1,backgroundColor:'white', width:70, height:70, borderRadius:20}}></View>
-                        <Text style={{color:theme.fontColor, fontSize:20, paddingVertical:10}}>White</Text>
+                        <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:10}}>{language==="en"?"White":"Jasny"}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -62,7 +66,7 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
                        }))}
                     style={{alignItems:'center', justifyContent:'center'}}>
                         <View style={{borderColor:theme.backgroundContent, borderWidth:1, backgroundColor:'black', width:70, height:70, borderRadius:20}}></View>
-                        <Text style={{color:theme.fontColor, fontSize:20, paddingVertical:10}}>Black</Text>
+                        <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:10}}>{language==="en"?"Black":'Ciemny'}</Text>
                 </TouchableOpacity>
             </View>
         </View>
