@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from './screens/HomeScreen'
@@ -19,10 +19,19 @@ const Stack = createNativeStackNavigator()
 const StackNavigator = () => {
   const { user } :any = useAuth()
   const theme = useSelector(selectTheme)
-  return (
-    <Stack.Navigator screenOptions={{ headerShadowVisible: false, headerStyle:{
+  return (<>
+    <View style={{ 
+      position: 'absolute',
+      height: '100%', 
+      width: '100%', 
+      backgroundColor: theme.background
+   }}/>
+    <Stack.Navigator screenOptions={{
+     headerShadowVisible: false,
+     headerStyle:{
       backgroundColor:theme.background
-    }}}>
+    },
+    }}>
         {user ?
           <>
           <Stack.Group>
@@ -39,7 +48,7 @@ const StackNavigator = () => {
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>
         } 
-    </Stack.Navigator>
+    </Stack.Navigator></>
   )
 }
 

@@ -15,11 +15,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
     const navigation = useNavigation()
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-    console.log(language, "xd")
     const _translations = translations.screens.modals.settingsModals.languageModal.header
-
-    console.log(_translations)
-
     const dispatch = useDispatch()
 
     return (
