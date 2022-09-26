@@ -31,8 +31,7 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
             width:"70%", 
             position:'absolute',
             left:55,
-            top:200,
-            height:250,  
+            top:200, 
             flex: .5,
             justifyContent: 'space-between',
             alignItems: "center",
@@ -45,25 +44,25 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
         }}>
             <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>{language==="en"?_translations.en:_translations.pl}</Text>
             <View style={{flex:1, width:'100%', flexDirection:'row', height:"100%", alignItems:'center', justifyContent:'space-around'}}>
-                <TouchableOpacity onPress={()=>dispatch(setTheme({
+                <TouchableOpacity onPress={()=>(dispatch(setTheme({
                         background:'white',
                         backgroundContent:'#aaa',
                         fontColor:'black',
                         fontColorContent: '#333'
                     }
-                    ))} 
+                    )), setModalVisible(!modalVisible))} 
                     style={{alignItems:'center', justifyContent:'center'}}>
                         <View style={{borderColor:theme.backgroundContent, borderWidth:1,backgroundColor:'white', width:70, height:70, borderRadius:20}}></View>
                         <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:10}}>{language==="en"?"White":"Jasny"}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={()=>dispatch(setTheme({
+                    onPress={()=>(dispatch(setTheme({
                         background:'black', 
                         backgroundContent:'#333',
                         fontColor:'white',
                         fontColorContent: '#aaa'
-                       }))}
+                       })), setModalVisible(!modalVisible))}
                     style={{alignItems:'center', justifyContent:'center'}}>
                         <View style={{borderColor:theme.backgroundContent, borderWidth:1, backgroundColor:'black', width:70, height:70, borderRadius:20}}></View>
                         <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:10}}>{language==="en"?"Black":'Ciemny'}</Text>

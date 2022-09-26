@@ -6,12 +6,16 @@ import useAuth from '../../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../../slices/themeSlice';
+import { selectLanguage } from './../../../slices/languageSlice';
+import { translations } from './../../../utils/translations';
 
 
 const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
     const { user, logout }:any = useAuth()
     const navigation = useNavigation()
     const theme = useSelector(selectTheme)
+    const language = useSelector(selectLanguage)
+    const { about, author, rules, support, title, version } = translations.screens.modals.settingsModals.informationModal
 
     return (
     <Modal
@@ -23,9 +27,9 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
         }}
       >
         <ScrollView style={[style.mainContainer, {backgroundColor:theme.background}]}>
-            <Text style={[style.headerText, {color:theme.fontColor}]}>Information</Text>
+            <Text style={[style.headerText, {color:theme.fontColor}]}>{language==="en"?title.en:title.pl}</Text>
             <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>Abaut car projects</Text>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?about.en:about.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet eligendi id necessitatibus
                     quae assumenda possimus exercitationem provident nihil odit sapiente, vero, velit sunt
@@ -33,19 +37,19 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
                 </Text>
             </View>
             <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>Version App</Text>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?version.en:version.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                    1.0.0
                 </Text>
             </View>
             <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>Author</Text>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?author.en:author.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                    Dawid Szmigiel
                 </Text>
             </View>
             <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>Rules</Text>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?rules.en:rules.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem 
                    eos, soluta ipsam maxime cum reiciendis iure 
@@ -54,7 +58,7 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
                 </Text>
             </View>
             <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>Support</Text>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?support.en:support.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                     dawidszmigiel9@gmail.com
                 </Text>

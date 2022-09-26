@@ -49,7 +49,7 @@ export const AuthProvider = ({children}) => {
 
   const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(
     {
-      clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com',
+       clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com',
       // redirect_uri:'https://www.cars-projects-317ef.firebaseapp.com/__/auth/handler/',
       //  response_type:'code',
       //    permissions: ["public_profile", "email", "gender", "location"],
@@ -63,7 +63,7 @@ export const AuthProvider = ({children}) => {
     if (response?.type === 'success') {
       const { id_token, accessToken } = response.params;
       console.log("response")
-      const credential = GoogleAuthProvider.credential(id_token, accessToken);
+      const credential = GoogleAuthProvider.credential(id_token);
       await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
       .finally(()=>setLoading(false))
     }

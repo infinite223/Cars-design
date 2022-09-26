@@ -66,7 +66,10 @@ const ProfileScreen = () => {
             </Text>
         </View>
 
-        <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
+        <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5, marginHorizontal: -15,
+            borderWidth:2, borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent,
+            paddingHorizontal:15
+        }}>
             <TouchableOpacity style={{alignItems:'center', paddingVertical:5}}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>23</Text>
@@ -83,7 +86,7 @@ const ProfileScreen = () => {
             </TouchableOpacity>
         </View>
 
-        <View style={{marginVertical:5, borderTopColor: theme.backgroundContent, borderWidth: 1}}>
+        <View style={{marginVertical:5, borderTopColor: theme.backgroundContent, borderWidth: 0}}>
             <Text style={{letterSpacing:1, fontSize:17, fontWeight:'800', marginVertical:10, color:theme.fontColor}}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>
             <FlatList
                 data={data}

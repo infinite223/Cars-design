@@ -2,6 +2,32 @@ export const translations = {
     screens: {
         modals: {
             settingsModals: {
+                informationModal: {
+                    title: {
+                        en: "Information",
+                        pl: "Informacje"
+                    },
+                    about: {
+                        en: "Abaut cars projects",
+                        pl: "O cars projects"
+                    },
+                    version: {
+                        en:'Version App',
+                        pl: "Wersja aplikacji"
+                    },
+                    author: {
+                        en: 'Author',
+                        pl: "Autor"
+                    },
+                    rules: {
+                        en: "Rules",
+                        pl: "Regulamin"
+                    },
+                    support: {
+                        en: "Support",
+                        pl: "Pomoc techniczna"
+                    }
+                },
                 themeModal: {
                     headerText: {
                         en: 'Select theme',

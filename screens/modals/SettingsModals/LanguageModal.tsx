@@ -47,7 +47,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
             </Text>
             <View style={{flex:1, width:'100%', flexDirection:'row', height:"100%", alignItems:'center', justifyContent:'space-around'}}>
                 <TouchableOpacity
-                    onPress={()=>dispatch(setLanguage('pl'))}
+                    onPress={()=> (dispatch(setLanguage('pl')), setModalVisible(!modalVisible))}
                     style={{
                         borderWidth: language==='pl'?1:0, borderColor: theme.backgroundContent, borderRadius:10,
                         alignItems:'center', justifyContent:'center'
@@ -56,7 +56,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    onPress={()=>dispatch(setLanguage('en'))}
+                    onPress={()=>(dispatch(setLanguage('en')), setModalVisible(!modalVisible))}
                     style={{
                         borderWidth: language==='en'?1:0, borderColor: theme.backgroundContent, borderRadius:10,
                         alignItems:'center', justifyContent:'center'
