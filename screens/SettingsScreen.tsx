@@ -88,6 +88,6 @@ const style = StyleSheet.create({
         marginLeft:10
     },
     logOutButton: {
-        marginVertical:10
+        marginVertical:5
     }
 })

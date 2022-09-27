@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
@@ -27,7 +27,7 @@ const ProfileScreen = () => {
            headerBackVisible:false,
            headerTitle: () => <Text style={{marginLeft:10, fontSize:20, color:theme.fontColor}}>{data[0].author.name}</Text>,
            headerLeft: () => (
-            <View style={{flexDirection:"row", alignItems:'center', width:65, justifyContent:'space-around'}}>
+            <View style={style.headerLeftContainer}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <MaterialIcons name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
                 </TouchableOpacity>
@@ -40,7 +40,7 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
             </View>
           ),
-          headerRight: () => <View style={{flexDirection:'row', alignItems:'center'}}> 
+          headerRight: () => <View style={style.headerRightContainer}> 
            <TouchableOpacity onPress={()=>setCreateProjectModalVisible(true)}  style={{marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
                 <Ionicons name="add-outline" size={20} color={theme.fontColor}/>
             </TouchableOpacity>
@@ -51,13 +51,12 @@ const ProfileScreen = () => {
         })  
       }, [theme])
     
-    console.log(user.photoURL)
   return (
-    <View style={{flex:1, backgroundColor:theme.background, paddingHorizontal:15, position:'relative'}}>
+    <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
         <CreateProjectScreen modalVisible={createProjectModalVisible} setModalVisible={setCreateProjectModalVisible}/>
         <View style={{marginVertical:5}}>
-            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'600', color:theme.fontColor}}>
+            <Text style={[style.headerText, {color:theme.fontColor}]}>
                 {language==="en"?headerText.en:headerText.pl}
             </Text>
             <Text style={{color:theme.fontColorContent}}>
@@ -66,33 +65,30 @@ const ProfileScreen = () => {
             </Text>
         </View>
 
-        <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5, marginHorizontal: -15,
-            borderWidth:2, borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent,
-            paddingHorizontal:15
-        }}>
-            <TouchableOpacity style={{alignItems:'center', paddingVertical:5}}>
+        <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
+            <TouchableOpacity style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>23</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{alignItems:'center',paddingVertical:5}}>
+            <TouchableOpacity style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
                 <Text style={{fontSize:20,  color: theme.fontColor}}>50</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{alignItems:'center', paddingVertical:5}}>
+            <TouchableOpacity style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>65</Text>
             </TouchableOpacity>
         </View>
 
-        <View style={{marginVertical:5, borderTopColor: theme.backgroundContent, borderWidth: 0}}>
-            <Text style={{letterSpacing:1, fontSize:17, fontWeight:'800', marginVertical:10, color:theme.fontColor}}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>
+        <View style={{marginVertical:5}}>
+            <Text style={[style.titleText, {color:theme.fontColor}]}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>
             <FlatList
                 data={data}
                 renderItem={({item: {car, author, createdAt}})=> 
-                    <TouchableOpacity style={{paddingVertical:5, borderBottomWidth:0, borderColor: "#222", position:'relative', flex:.5, flexDirection:'row', alignItems:'center' }} onPress={()=>navigation.navigate('Project', {car, author, createdAt})}>
-                        <Image style={{height:50, width:50, borderRadius:50, borderWidth:1, borderColor:theme.backgroundContent, resizeMode:'cover'}} source={{uri:car.imagesCar[0]}}/>
+                    <TouchableOpacity style={style.renderItem} onPress={()=>navigation.navigate('Project', {car, author, createdAt})}>
+                        <Image style={[style.imageIcon, {borderColor:theme.backgroundContent}]} source={{uri:car.imagesCar[0]}}/>
                         <View style={{marginHorizontal:10, flex:1}}>
                             <Text style={{letterSpacing:1, color:theme.fontColor}}>{car.CarMake}</Text>
                             <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
@@ -102,21 +98,63 @@ const ProfileScreen = () => {
                     </TouchableOpacity>}
             />
         </View>
-
-        {/* <TouchableOpacity 
-            onPress={()=>setCreateProjectModalVisible(true)} 
-            style={{position:'absolute', bottom:15, right:15, alignItems:'center', justifyContent:'center'}
-        }>
-            <LinearGradient         
-                colors={["#339", "#935"]}
-                start={[0.7, 0.2]}
-                style={{paddingHorizontal:10, paddingVertical:10, borderRadius:50}}
-            > 
-                <Entypo name='plus' size={35} color="white"/>
-            </LinearGradient> 
-        </TouchableOpacity> */}
     </View>
   )
 }
 
 export default ProfileScreen
+
+const style = StyleSheet.create({
+    headerLeftContainer: {
+        flexDirection:"row", 
+        alignItems:'center', 
+        width:65, 
+        justifyContent:'space-around'
+    },
+    headerRightContainer: {
+        flexDirection:'row', 
+        alignItems:'center'
+    },
+    mainContainer: {
+        flex:1, 
+        paddingHorizontal:15, 
+        position:'relative'
+    },
+    headerText: {
+        letterSpacing:1, 
+        fontSize:17, 
+        fontWeight:'600'
+    },
+    infoContainer: {
+        flexDirection:'row', 
+        justifyContent:'space-around', 
+        marginVertical:5, 
+        marginHorizontal: -15,
+        borderWidth:2,
+        paddingHorizontal:15
+    },
+    itemInfo: {
+        alignItems:'center', 
+        paddingVertical:5
+    },
+    titleText: {
+        letterSpacing:1, 
+        fontSize:17, 
+        fontWeight:'800', 
+        marginVertical:10,
+    },
+    renderItem: {
+        paddingVertical:5, 
+        position:'relative', 
+        flex:.5, 
+        flexDirection:'row', 
+        alignItems:'center' 
+    },
+    imageIcon: {
+        height:50, 
+        width:50, 
+        borderRadius:50, 
+        borderWidth:1,
+        resizeMode:'cover'
+    }
+})

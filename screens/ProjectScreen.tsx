@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Share, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Share, FlatList } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -49,10 +49,10 @@ const ProjectScreen = () => {
       <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/>
       <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
         <View style={{marginHorizontal:15}}>
-          <Text style={{color:theme.fontColorContent, maxWidth:'80%', fontSize:12}}>{car.description}</Text>
-          <View style={{flexDirection:'row', alignItems:'center', marginVertical:5}}>
+          <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{car.description}</Text>
+          <View style={style.locationContainer}>
               <MaterialIcons name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
-              <Text style={{fontSize:17, fontWeight:'600', letterSpacing:1, color:theme.fontColor}}>{author.place}</Text>
+              <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place}</Text>
           </View>
 
           <FlatList
@@ -65,6 +65,7 @@ const ProjectScreen = () => {
               <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
             )}
           />
+
         </View>
             <Tab.Navigator  
               screenOptions={{
@@ -74,9 +75,9 @@ const ProjectScreen = () => {
               <Tab.Screen name="History" component={HistoryTab}/>
             </Tab.Navigator>
         </ScrollView>
-      <View style={{backgroundColor:theme.background, width:'100%', position:'relative', paddingHorizontal:10, paddingVertical:8, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+      <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
-          <View style={{flexDirection:'row', alignItems:'center'}}>
+          <View style={style.iconsContainer}>
             <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}><Feather name='send' size={23} color={theme.fontColor}/></TouchableOpacity>
             <TouchableOpacity onPress={onShare} style={{marginRight:6}}><EvilIcons name='share-google' size={30} color={theme.fontColor}/></TouchableOpacity>
             <TouchableOpacity onPress={()=>likeProject(id)}><EvilIcons name='heart' size={32} color={theme.fontColor}/></TouchableOpacity>
@@ -86,7 +87,7 @@ const ProjectScreen = () => {
             
           </View> 
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={{flexDirection:'row', alignItems:'center'}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={style.iconsContainer}>
           <Text style={{marginRight:10,  color:theme.fontColor}}>{author.name}</Text>
           <Avatar
             size={34}
@@ -100,3 +101,33 @@ const ProjectScreen = () => {
 }
 
 export default ProjectScreen
+
+const style = StyleSheet.create({
+  descriptopnText: {
+    maxWidth:'80%',
+    fontSize:12
+  },
+  locationContainer: {
+    flexDirection:'row', 
+    alignItems:'center',
+    marginVertical:5
+  },
+  locationPlace: {
+    fontSize:17, 
+    fontWeight:'600', 
+    letterSpacing:1,
+  },
+  bottomNav: {
+    width:'100%', 
+    position:'relative', 
+    paddingHorizontal:10, 
+    paddingVertical:8, 
+    flexDirection:'row', 
+    justifyContent:'space-between', 
+    alignItems:'center'
+  },
+  iconsContainer: {
+    flexDirection:'row', 
+    alignItems:'center'
+  }
+})

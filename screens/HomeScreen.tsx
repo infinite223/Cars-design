@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput, TouchableOpacity, FlatList } from 'react-native'
+import { View, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
@@ -41,9 +41,14 @@ const HomeScreen = () => {
         keyExtractor={carProject => carProject.id}
         renderItem={(carData)=> <Carproject data={carData.item}/>}
       />
-      {/* <Button title='logout' onPress={logout}/> */}
     </View>
   )
 }
   
 export default HomeScreen
+
+const style = StyleSheet.create({
+  projectsContainer: {
+
+  }
+})

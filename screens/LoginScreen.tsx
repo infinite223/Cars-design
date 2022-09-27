@@ -1,4 +1,4 @@
-import { View, Text, Button, TouchableOpacity, TouchableHighlight, ImageBackground, Image } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
@@ -14,11 +14,11 @@ const LoginScreen = () => {
 
   return (
     <ImageBackground style={{flex:1}} source={require('../assets/background.png')}>
-      <View style={{flex:1, justifyContent:'space-around', alignItems:'center', backgroundColor:''}}>
+      <View style={style.headerContainer}>
         <View style={{alignItems:'center'}}>
         
-          <Text style={{fontFamily:'monospace', fontSize:35, fontWeight:'bold'}}>Cars projects</Text>
-          <Text style={{fontSize:15, color:'gray', marginHorizontal:"17%", textAlign:'center'}}>
+          <Text style={style.logoText}>Cars projects</Text>
+          <Text style={style.aboutText}>
             Do you have your own car project? Share it with the rest of the world for others to see.
           </Text>
           {/* <Image style={{width:50, height:50, borderRadius:10, marginTop:20}} source={require('../assets/icon.png')}/> */}
@@ -42,3 +42,22 @@ const LoginScreen = () => {
 }
 
 export default LoginScreen
+
+const style = StyleSheet.create({
+  headerContainer: {
+    flex:1,
+    justifyContent:'space-around', 
+    alignItems:'center'
+  },
+  logoText: {
+    fontFamily:'monospace', 
+    fontSize:35, 
+    fontWeight:'bold'
+  },
+  aboutText: {
+    fontSize:15, 
+    color:'gray', 
+    marginHorizontal:"17%", 
+    textAlign:'center'
+  }
+})

@@ -1,4 +1,4 @@
-import { View, Text, Modal, Alert, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { View, Text, Modal, Alert, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Avatar } from '@rneui/themed';
@@ -33,14 +33,8 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
           setModalVisible(!modalVisible);
         }}
       > 
-        <View style={{
-            width:"100%", 
-            height:130,  
-            flex: 1,
-            paddingHorizontal:15,
-            backgroundColor: theme.background
-        }}>          
-           <View style={{flexDirection:'row', alignItems:'center'}}>
+        <View style={[style.mainContainer, {backgroundColor: theme.background}]}>          
+           <View style={style.headerContainer}>
                 <TouchableOpacity onPress={() => (navigation.navigate('Profile'), setModalVisible(false))}>
                     <Avatar
                         size={34}
@@ -53,16 +47,16 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
            <ScrollView style={{flex:1}}>
 
            </ScrollView>
-           <View style={{flexDirection:'row', alignItems:'center', marginVertical:15}}>
+           <View style={style.bottomNav}>
             <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
-              style={{ borderColor:'gray',backgroundColor:theme.backgroundContent, borderRadius:20, paddingVertical:7, paddingHorizontal:10}}
+              style={[style.cameraIcon, { backgroundColor:theme.backgroundContent}]}
             >
                 <Ionicons name='camera-outline' size={24} color={theme.fontColor}/>
              </TouchableOpacity>
              <TextInput
               placeholderTextColor={theme.fontColorContent}
               placeholder='Type message'
-              style={{marginHorizontal:10, color:theme.fontColor, flex:1, borderColor:'gray', fontSize:18, backgroundColor:theme.backgroundContent, borderRadius:20, paddingVertical:5, paddingHorizontal:15}}/>
+              style={[style.inputMessage, {color:theme.fontColor, backgroundColor:theme.backgroundContent}]}/>
              <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:0}}>
                 <Ionicons name='send-outline' size={24} color={theme.fontColor}/>
              </TouchableOpacity>
@@ -73,3 +67,36 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 }
 
 export default ChatModal
+
+const style = StyleSheet.create({
+  mainContainer: {
+    width:"100%", 
+    height:130,  
+    flex: 1,
+    paddingHorizontal:15
+  },
+  headerContainer: {
+    flexDirection:'row', 
+    alignItems:'center'
+  },
+  bottomNav: {
+    flexDirection:'row', 
+    alignItems:'center', 
+    marginVertical:15
+  },
+  cameraIcon: {
+    borderColor:'gray', 
+    borderRadius:20, 
+    paddingVertical:7, 
+    paddingHorizontal:10
+  },
+  inputMessage: {
+    marginHorizontal:10,
+    flex:1, 
+    borderColor:'gray', 
+    fontSize:18, 
+    borderRadius:20, 
+    paddingVertical:5, 
+    paddingHorizontal:15
+  }
+})
