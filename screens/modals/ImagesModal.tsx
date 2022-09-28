@@ -1,14 +1,16 @@
-import { View, Text, Modal, Alert, TouchableOpacity, TextInput, StyleSheet, Image } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Modal, Alert, Dimensions, Animated, StyleSheet, Image } from 'react-native'
+import React, { useRef, useState, useEffect, useLayoutEffect } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { FlatList } from 'react-native-gesture-handler';
 
 
-const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void, photos:string[]}> = ({modalVisible, setModalVisible, photos}) => {
+const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void, photos:string[], index: number}> = ({modalVisible, setModalVisible, photos, index}) => {
     
     const theme = useSelector(selectTheme)
+    const widthScreen = Dimensions.get('screen').width
+    const scrollX = useRef(new Animated.Value(0)).current
 
     return (
     <Modal
@@ -20,14 +22,41 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={[style.mainContainer, {backgroundColor: theme.background}]}>      
-          <FlatList
+        <View style={[style.mainContainer, {backgroundColor: theme.background}]}>   
+          <View style={StyleSheet.absoluteFillObject}>
+            {photos.map((photoUri, index)=> {
+              const inputRange = [
+                (index - 1) * widthScreen,
+                index * widthScreen,
+                (index + 1) * widthScreen 
+              ]
+              const opacity = scrollX.interpolate({
+                inputRange,
+                outputRange:[0,1,0]
+              })
+              return <Animated.Image 
+                key={`photo-${index}`}
+                source={{uri: photoUri}}
+                style={[
+                  StyleSheet.absoluteFillObject,
+                  {opacity: opacity}
+                ]}
+                blurRadius={50}
+               />
+            })}
+          </View>   
+          <Animated.FlatList
             data={photos}
-            contentContainerStyle={{flex:1}}
-            style={{width:300}}
+            initialScrollIndex={index}
+            pagingEnabled
             horizontal
-            renderItem={({item})=> 
-                <Image style={{width:300, height:200}} source={{uri: item}}/>
+            onScroll={Animated.event(
+              [{nativeEvent: { contentOffset: {x: scrollX} }}],
+              { useNativeDriver: true }
+            )}
+            renderItem={({item})=> <View style={[style.renderPhoto, {width:widthScreen}]}>
+               <Image style={{width:340, height:220, resizeMode: 'cover', borderRadius:10}} source={{uri: item}}/>
+            </View>          
             }   
           />              
         </View>
@@ -46,5 +75,14 @@ const style = StyleSheet.create({
     },
     headerText: {
         fontSize:20,
+    },
+    renderPhoto: {
+      justifyContent:'center', 
+      alignItems:'center',
+      shadowColor: "#000", 
+      shadowOpacity: .5, 
+      shadowOffset: {width: 0, height: 0}, 
+      shadowRadius:20, 
+      elevation:50,      
     }
 })
