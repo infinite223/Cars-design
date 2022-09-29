@@ -7,6 +7,12 @@ export type User = {
     uid:string
 }
 
+export type Image = {
+    url: string,
+    place?:string,
+    likes?:number
+}
+
 export type HistoryCar = {
     date?:string, 
     photosUrl?:string[], 

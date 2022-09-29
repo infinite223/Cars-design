@@ -16,12 +16,15 @@ import { onShare, likeProject } from '../utils/functions/projectFunctions';
 import ChatModal from './modals/ChatModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
+import ImagesModal from './modals/ImagesModal';
+import MapModal from './modals/MapModal';
 
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
     const navigationTabs: any = useNavigation()
     const [chatModalVisible, setChatModalVisible] = useState(false)
+    const [mapModalVisible, setMapModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
     const route = useRoute<any>()
     const {id, car, author, createdAt } = route.params;
@@ -31,7 +34,9 @@ const ProjectScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:5, fontSize:21, color:theme.fontColor}}>{car.CarMake} {car.model}</Text>,
+           headerTitle: () => <Text style={{marginLeft:5, fontSize:21, color:theme.fontColor}}>{car.CarMake} 
+           <Text style={{color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}> {car.model}</Text>
+           </Text>,
            headerLeft: () => (
             <View style={{flexDirection:"row", alignItems:'center', justifyContent:'space-around'}}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -47,13 +52,16 @@ const ProjectScreen = () => {
   return (
     <View style={{flex:1}}>
       <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/>
+      <MapModal modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>
       <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
         <View style={{marginHorizontal:15}}>
           <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{car.description}</Text>
-          <View style={style.locationContainer}>
+          <TouchableOpacity onPress={()=>setMapModalVisible(true)}>
+            <View style={style.locationContainer}>
               <MaterialIcons name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
               <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place}</Text>
-          </View>
+            </View>
+          </TouchableOpacity>
 
           <FlatList
             horizontal

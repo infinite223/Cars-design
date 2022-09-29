@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
@@ -22,9 +22,9 @@ const PhotosTab = () => {
         data={data[selectedProject].car.imagesCar}
         numColumns={2}
         renderItem={({item, index}) => (
-          <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
+          <TouchableWithoutFeedback onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
             <Image style={{width:200, height:120}} source={{uri:item}}/>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         )}
       />
 

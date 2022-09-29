@@ -55,7 +55,7 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
               { useNativeDriver: true }
             )}
             renderItem={({item})=> <View style={[style.renderPhoto, {width:widthScreen}]}>
-               <Image style={{width:340, height:220, resizeMode: 'cover', borderRadius:10}} source={{uri: item}}/>
+               <Image style={{width:350, height:220, resizeMode: 'cover', borderRadius:10}} source={{uri: item}}/>
             </View>          
             }   
           />              
@@ -67,7 +67,7 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
 export default ImagesModal
 
 const style = StyleSheet.create({
-    mainContainer: {
+    mainContainer: {       
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
