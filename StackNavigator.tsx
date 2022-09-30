@@ -41,9 +41,10 @@ const StackNavigator = () => {
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Camera' component={MyCamera} options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>
+            <Stack.Screen name='Create' component={CreateScreen}/>
           </Stack.Group>
           <Stack.Group screenOptions={{presentation: 'modal',  headerShown:false}}>
-            {/* <Stack.Screen name='EditProfile' component={EditProfileScreen}/> */}
+            {/* <Stack.Screen name='EditProfile' component= {EditProfileScreen}/> */}
           </Stack.Group>   
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>

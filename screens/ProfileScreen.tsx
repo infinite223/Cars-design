@@ -41,7 +41,7 @@ const ProfileScreen = () => {
             </View>
           ),
           headerRight: () => <View style={style.headerRightContainer}> 
-           <TouchableOpacity onPress={()=>setCreateProjectModalVisible(true)}  style={{marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
+           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
                 <Ionicons name="add-outline" size={20} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>
