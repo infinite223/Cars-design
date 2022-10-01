@@ -4,10 +4,6 @@ import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { MaterialIcons, AntDesignd, AntDesign, Ionicons, EvilIcons, Entypo, Octicons } from 'react-native-vector-icons';
-import { data } from '../utils/data';
-import { LinearGradient } from 'expo-linear-gradient';
-import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
-import CreateProjectScreen from './modals/CreateProjectModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { selectLanguage } from './../slices/languageSlice';
@@ -19,10 +15,20 @@ const CreateScreen = () => {
     const navigation:any = useNavigation()
     const { user, logout }:any = useAuth()
     const [selectPlaceOnMapModalVisible, setSelectPlaceOnMapModalVisible] = useState(false)
-    const [origin, setOrigin] = useState('Set place where people can find you')
+    const [origin, setOrigin] = useState<any>({
+        region:{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+        },
+        place:{
+            description: "Set place where people can find you"
+        }
+    })
+    console.log(origin)
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-    const { followersText, viewsText, followingText, headerText, headerProjectsText } = translations.screens.ProfileScreen
 
     const [make, setMake] = useState('')
     const [model, setModel] = useState('')
@@ -45,13 +51,13 @@ const CreateScreen = () => {
     
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-        <SelectPlaceOnMap setOrigin={setOrigin} modalVisible={selectPlaceOnMapModalVisible} setModalVisible={setSelectPlaceOnMapModalVisible}/>
+        <SelectPlaceOnMap origin={origin} setOrigin={setOrigin} modalVisible={selectPlaceOnMapModalVisible} setModalVisible={setSelectPlaceOnMapModalVisible}/>
         <CustomInput placeholder='Type car make' setValue={setMake}/>
         <CustomInput placeholder='Type car model' setValue={setModel}/>
         <CustomInput placeholder='Description...' setValue={setDescription}/>
         <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>
             <MaterialIcons name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
-            <Text style={[style.locationText, {color: theme.fontColor}]}>{origin}</Text>
+            <Text style={[style.locationText, {color: theme.fontColor}]}>{origin.place?.description}</Text>
         </TouchableOpacity>
         <View style={style.performanceContainer}>
             <TextInput placeholder='Hp'/>
