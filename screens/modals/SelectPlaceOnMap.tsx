@@ -1,6 +1,6 @@
 import { View, Text, Modal, Alert, Dimensions, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { Ionicons } from 'react-native-vector-icons';
+import { Ionicons, Entypo } from 'react-native-vector-icons';
 import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { RNCamera, FaceDetector } from 'react-native-camera';
@@ -75,6 +75,10 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 initialRegion={region}
                 region={region}
             />
+            <TouchableOpacity disabled={!origin.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>
+                <Text style={[style.text, {color:origin.region?'black':'gray'}]}>Set place</Text>
+                <Entypo  name={'check'} size={22} color="black"/>
+            </TouchableOpacity>
         </Modal>
   )
 }
@@ -85,5 +89,23 @@ export default SelectPlaceOnMap
 const style = StyleSheet.create({
     googleSearchInput: {
 
+    },
+    setButton: {
+        position:'absolute',
+        bottom: 20,
+        right: 20,
+        paddingHorizontal:15,
+        paddingLeft:20,
+        paddingVertical:5,
+        backgroundColor: 'white',
+        borderRadius:50,
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    text: {
+        fontSize: 20,
+        letterSpacing:2,
+        marginRight:8
     }
 })
