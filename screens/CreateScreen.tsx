@@ -14,7 +14,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
-    const [image, setImage] = useState<any>(null);
+    const [images, setImages] = useState<string[]>([]);
     const { user, logout }:any = useAuth()
     const [selectPlaceOnMapModalVisible, setSelectPlaceOnMapModalVisible] = useState(false)
     const [origin, setOrigin] = useState<any>({
@@ -68,27 +68,28 @@ const CreateScreen = () => {
 		console.log(result);
 	
 		if (!result.cancelled) {
-		   setImage(result.uri);
+		   setImages([...images, result.uri]);
 		}
 	};
+
     
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-        <Text style={[style.text, {color: theme.fontColorContent, marginTop:0}]}>Car information</Text>
+        <Text style={[style.text, {color: theme.fontColorContent, marginTop:0}]}>Information</Text>
         <SelectPlaceOnMap origin={origin} setOrigin={setOrigin} modalVisible={selectPlaceOnMapModalVisible} setModalVisible={setSelectPlaceOnMapModalVisible}/>
-        <CustomInput placeholder='Type car make' setValue={setMake}/>
-        <CustomInput placeholder='Type car model' setValue={setModel}/>
-        <CustomInput placeholder='Description...' setValue={setDescription}/>
+        <CustomInput placeholder='Type car make' setValue={setMake} marginLeft={0}/>
+        <CustomInput placeholder='Type car model' setValue={setModel} marginLeft={0}/>
+        <CustomInput placeholder='Description...' setValue={setDescription} marginLeft={0}/>
 
-        <Text style={[style.text, {color: theme.fontColorContent}]}>Perfonrmance car</Text>
+        <Text style={[style.text, {color: theme.fontColorContent}]}>Perfonrmance</Text>
         <ScrollView style={style.performanceContainer} horizontal>   
-            <CustomInput placeholder='HP' setValue={setMake}/>
-            <CustomInput placeholder='Nm' setValue={setMake}/>
-            <CustomInput placeholder='0-100km/h (s)' setValue={setMake}/>
-            <CustomInput placeholder='100-200km/h  (s)' setValue={setMake}/>
+            <CustomInput placeholder='HP' setValue={setMake} marginLeft={0}/>
+            <CustomInput placeholder='Nm' setValue={setMake} marginLeft={5}/>
+            <CustomInput placeholder='0-100km/h (s)' setValue={setMake} marginLeft={5}/>
+            <CustomInput placeholder='100-200km/h  (s)' setValue={setMake} marginLeft={5}/>
         </ScrollView>
 
-        <Text style={[style.text, {color: theme.fontColorContent}]}>Location car</Text>
+        <Text style={[style.text, {color: theme.fontColorContent}]}>Location</Text>
         <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>
             <MaterialIcons name='place' color={theme.fontColorContent} size={20} style={{marginRight:0}}/>
             <Text style={[style.locationText, {color: theme.fontColorContent}]}>{origin.place?.description}</Text>
@@ -97,10 +98,22 @@ const CreateScreen = () => {
         <Text style={[style.text, {color: theme.fontColorContent}]}>Photos car</Text>
         <ScrollView style={{ flex: 1, marginTop:5, flexDirection:'row' }} horizontal>		
 			<TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>
-                <Text style={[style.chooseImageText, {color: theme.fontColor}]}>Choose image</Text>
+                {/* <Text style={[style.chooseImageText, {color: theme.fontColor}]}>Choose image</Text> */}
                 <Entypo name="plus" size={30} color={theme.fontColor}/>
             </TouchableOpacity>
-			{image && <Image source={{ uri: image }} style={{ width: 120, height: 120, marginStart:10, borderRadius:15 }} />}
+            {images.map((uri:string)=> {
+                console.log(uri)
+                return  (
+                    <View style={{alignItems:'center', justifyContent:'center', height:120}}>
+                        <Image source={{ uri: uri }} style={{ width: 120, height: 120, marginStart:15, borderRadius:15 }} />
+                        <TouchableOpacity onPress={()=>setImages(images.filter((item)=>item!==uri))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>
+                            <Entypo name="minus" size={30} color={theme.fontColor}/>
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
+            )}
+		
 		</ScrollView>
     </View>
   )
@@ -128,14 +141,15 @@ const style = StyleSheet.create({
     setLocationButton: {
         alignItems:'center',
         flexDirection:'row',
-        justifyContent:'center',
+       justifyContent:'center',
 
         borderRadius: 15,
-        borderWidth: 1,
+        borderWidth: 0,
+        backgroundColor:'#152',
         
         paddingHorizontal:15,
         paddingVertical: 10,
-        marginVertical: 5 
+        marginVertical: 4 
     },
     locationText: {
         fontSize:15,
@@ -150,7 +164,7 @@ const style = StyleSheet.create({
     },
     text: {
         fontSize:14, 
-        textAlign:'center',
+        textAlign:'left',
         marginLeft:10, 
         marginTop:5,
         letterSpacing:1
