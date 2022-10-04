@@ -42,6 +42,32 @@ export const translations = {
                 }
             },
         },
+        CreateScreen: {
+            navTitleText: {
+                en: "Add project",
+                pl:"Dodaj projekt"
+            },
+            informationText: {
+                en: "Information",
+                pl: "Informacje"
+            },
+            perfonrmanceText: {
+                en: "Perfonrmance",
+                pl: "Osiągi"
+            },
+            locationText: {
+                en: "Location",
+                pl: "Lokalizacja"
+            },
+            photoText: {
+                en: "Photos",
+                pl: "Zdjęcia"
+            },
+            cameraError: {
+                en: "Sorry, Camera roll permissions are required to make this work!",
+                pl: ""
+            }
+        },
         SettingsScreen: {
             HeaderText: {
                 en:'Settings',

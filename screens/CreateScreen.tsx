@@ -26,18 +26,18 @@ const CreateScreen = () => {
     console.log(origin)
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-
     const [make, setMake] = useState('')
     const [model, setModel] = useState('')
     const [description, setDescription] = useState('')
+
+    const {informationText, cameraError, locationText, navTitleText, perfonrmanceText, photoText} = translations.screens.CreateScreen
 
 
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{marginLeft:5, fontSize:20, color:theme.fontColor}}>
-                {/* {language==="en"?HeaderText.en:HeaderText.pl} */}
-                Add project
+                {language==="en"?navTitleText.en:navTitleText.pl}
             </Text>,
            headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -51,7 +51,7 @@ const CreateScreen = () => {
 		if (Platform.OS !== 'web') {
 			const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
-			alert('Sorry, Camera roll permissions are required to make this work!');
+			alert(language==="en"?cameraError.en:cameraError.pl);
 			}
 		}
 		})();
@@ -75,13 +75,17 @@ const CreateScreen = () => {
     
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-        <Text style={[style.text, {color: theme.fontColorContent, marginTop:0}]}>Information</Text>
+        <Text style={[style.text, {color: theme.fontColorContent, marginTop:0}]}>
+         {language==="en"?informationText.en:informationText.pl}
+        </Text>
         <SelectPlaceOnMap origin={origin} setOrigin={setOrigin} modalVisible={selectPlaceOnMapModalVisible} setModalVisible={setSelectPlaceOnMapModalVisible}/>
         <CustomInput placeholder='Type car make' setValue={setMake} marginLeft={0}/>
         <CustomInput placeholder='Type car model' setValue={setModel} marginLeft={0}/>
         <CustomInput placeholder='Description...' setValue={setDescription} marginLeft={0}/>
 
-        <Text style={[style.text, {color: theme.fontColorContent}]}>Perfonrmance</Text>
+        <Text style={[style.text, {color: theme.fontColorContent}]}>
+            {language==="en"?perfonrmanceText.en:perfonrmanceText.pl}
+        </Text>
         <ScrollView style={style.performanceContainer} horizontal>   
             <CustomInput placeholder='HP' setValue={setMake} marginLeft={0}/>
             <CustomInput placeholder='Nm' setValue={setMake} marginLeft={5}/>
@@ -89,20 +93,22 @@ const CreateScreen = () => {
             <CustomInput placeholder='100-200km/h  (s)' setValue={setMake} marginLeft={5}/>
         </ScrollView>
 
-        <Text style={[style.text, {color: theme.fontColorContent}]}>Location</Text>
+        <Text style={[style.text, {color: theme.fontColorContent}]}>
+            {language==="en"?locationText.en:locationText.pl}   
+        </Text>
         <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>
             <MaterialIcons name='place' color={theme.fontColorContent} size={20} style={{marginRight:0}}/>
             <Text style={[style.locationText, {color: theme.fontColorContent}]}>{origin.place?.description}</Text>
         </TouchableOpacity> 
 
-        <Text style={[style.text, {color: theme.fontColorContent}]}>Photos car</Text>
+        <Text style={[style.text, {color: theme.fontColorContent}]}>               
+          {language==="en"?photoText.en:photoText.pl}
+        </Text>
         <ScrollView style={{ flex: 1, marginTop:5, flexDirection:'row' }} horizontal>		
 			<TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>
-                {/* <Text style={[style.chooseImageText, {color: theme.fontColor}]}>Choose image</Text> */}
                 <Entypo name="plus" size={30} color={theme.fontColor}/>
             </TouchableOpacity>
             {images.map((uri:string)=> {
-                console.log(uri)
                 return  (
                     <View style={{alignItems:'center', justifyContent:'center', height:120}}>
                         <Image source={{ uri: uri }} style={{ width: 120, height: 120, marginStart:15, borderRadius:15 }} />

@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { RNCamera, FaceDetector } from 'react-native-camera';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_MAPS_APIKEY } from '@env'
+import { useSelector } from 'react-redux';
+import { selectLanguage } from './../../slices/languageSlice';
 
 interface SelectPlaceOnMapProps {
     origin: any,
@@ -17,6 +19,7 @@ interface SelectPlaceOnMapProps {
 const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, modalVisible, setModalVisible}) => {
     const navigation = useNavigation<any>()
     const widthScreen = Dimensions.get("screen").width
+    const language = useSelector(selectLanguage)
     const [region, setRegion] = useState<any>({
             latitude: 37.78825,
             longitude: -122.4324,
@@ -76,7 +79,7 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 region={region}
             />
             <TouchableOpacity disabled={!origin.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>
-                <Text style={[style.text, {color:origin.region?'black':'gray'}]}>Set place</Text>
+                {/* <Text style={[style.text, {color:origin.region?'black':'gray'}]}>Set place</Text> */}
                 <Entypo  name={'check'} size={22} color="black"/>
             </TouchableOpacity>
         </Modal>

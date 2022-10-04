@@ -17,11 +17,7 @@ const HomeScreen = () => {
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
-  const dispatch = useDispatch()
-
-  console.log(theme, "dds")
-
- 
+   
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,

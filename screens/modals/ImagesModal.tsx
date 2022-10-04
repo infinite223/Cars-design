@@ -18,7 +18,6 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-        //   Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
