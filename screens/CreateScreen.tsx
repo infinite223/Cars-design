@@ -51,7 +51,7 @@ const CreateScreen = () => {
 		if (Platform.OS !== 'web') {
 			const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
-			alert(language==="en"?cameraError.en:cameraError.pl);
+			    alert(language==="en"?cameraError.en:cameraError.pl);
 			}
 		}
 		})();

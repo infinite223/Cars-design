@@ -36,7 +36,6 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 setModalVisible(!modalVisible);
             }}
         >   
-            {/* <TextInput style={style.googleSearchInput}/> */}
             <GooglePlacesAutocomplete 
                 onPress={(data, details=null) => {
                     setRegion({
@@ -79,7 +78,6 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 region={region}
             />
             <TouchableOpacity disabled={!origin.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>
-                {/* <Text style={[style.text, {color:origin.region?'black':'gray'}]}>Set place</Text> */}
                 <Entypo  name={'check'} size={22} color="black"/>
             </TouchableOpacity>
         </Modal>
