@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Share, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Image, FlatList } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -45,7 +45,10 @@ const ProjectScreen = () => {
             </View>
           ),
           headerRight: () => 
-                <Text style={{fontSize:11, color:'gray'}}>{createdAt}</Text>
+                // <Text style={{fontSize:11, color:'gray'}}>{createdAt}</Text>
+
+              <Image style={{width:50, height:50, borderRadius:15}} source={require('./../assets/cars_projects_IconV2.png')}/>
+
         })  
       }, [theme])
 

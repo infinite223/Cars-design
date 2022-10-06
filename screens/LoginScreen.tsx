@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign, Ionicons } from 'react-native-vector-icons';
+import { LoginForm } from '../components/LoginForm';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -18,7 +19,7 @@ const LoginScreen = () => {
       <View style={style.headerContainer}>
         <View style={{alignItems:'center'}}>
 
-          <Image style={{width:150, height:150}} source={require("./../assets/cars_projects_Icon.png")}/>
+          <Image style={{width:150, height:150}} source={require("./../assets/cars_projects_IconV2.png")}/>
         
           <Text style={style.logoText}>Cars projects</Text>
           <Text style={style.aboutText}>
@@ -28,18 +29,7 @@ const LoginScreen = () => {
         </View>
 
         <View style={{marginTop:100, marginBottom:0, alignItems:'center'}}>
-            <View style={{alignItems:'center'}}>
-              <Text style={{fontSize:12, color:'gray'}}>Your email</Text>
-              <TextInput style={{borderBottomWidth:1, width:250, borderColor:'#ddd', textAlign:'center'}}/>
-            </View>
-            <View style={{alignItems:'center', marginTop:20}}>
-              <Text style={{fontSize:12, color:'gray'}}>your password</Text>
-              <TextInput style={{borderBottomWidth:1, width:250, borderColor:'#ddd', textAlign:'center'}}/>
-            </View>
-
-            <TouchableOpacity style={{marginVertical:20, backgroundColor:'#1b3', width:250, alignItems:'center', paddingVertical:4, borderRadius:15}}>
-              <Text style={{fontSize:20, color:"white", fontWeight:'bold'}}>Login</Text>
-            </TouchableOpacity>
+            <LoginForm/>
             <View style={{flexDirection:'row', alignItems:'center'}}>
               <TouchableOpacity style={{ alignItems:'center'}}>
                 <Text style={{fontSize:15, color:"#1b3"}}>Create account</Text>
