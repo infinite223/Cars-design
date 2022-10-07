@@ -39,6 +39,14 @@ export type CarprojectData = {
     car:Car
 }
 
+export type MeetingRoom = {
+    name: string,
+    createdBy: User,
+    place: string,
+    people: User[],
+    image: string
+}
+
 export type Performance = [
     {type:string, value:number},
     {type:string, value:number},

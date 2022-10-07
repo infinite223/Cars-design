@@ -1,6 +1,6 @@
 import { CarprojectData } from "./types"
 
-const urlImageCar1 = "https://th.bing.com/th/id/R.f59bb5bc1131cc89bc30a50de98fb5e0?rik=qHjGzRpR7TSxxw&riu=http%3a%2f%2fcarsradars.com%2fwp-content%2fuploads%2f2019%2f03%2fcautofotoimg_0199.jpg&ehk=E%2fpd1PO5%2fjGT9UynDb9gkaE4ARnCilDJJLWhht3u2rE%3d&risl=&pid=ImgRaw&r=0" 
+export const urlImageCar1 = "https://th.bing.com/th/id/R.f59bb5bc1131cc89bc30a50de98fb5e0?rik=qHjGzRpR7TSxxw&riu=http%3a%2f%2fcarsradars.com%2fwp-content%2fuploads%2f2019%2f03%2fcautofotoimg_0199.jpg&ehk=E%2fpd1PO5%2fjGT9UynDb9gkaE4ARnCilDJJLWhht3u2rE%3d&risl=&pid=ImgRaw&r=0" 
 const urlImageCar2 = 'https://th.bing.com/th/id/R.e6219b8599871949d22e6da815c40436?rik=S9DPx%2frtLqwTZw&riu=http%3a%2f%2fwww.e-tapetki.pl%2ftapetki%2fduze%2f218679_bmw-m4.jpg&ehk=sT%2b0n%2fgwxf%2bkKWGDwwqsHxHWNOp%2beaIO7mY32DITMuw%3d&risl=&pid=ImgRaw&r=0'
 const urlImageAuthor = "https://th.bing.com/th/id/R.657afe7932946deea8032c84dbcd9642?rik=o7n%2fQlA2X5Iy%2fw&pid=ImgRaw&r=0"
 const urlImageCar3 = 'https://s1.cdn.autoevolution.com/images/news/gallery/new-bmw-m3-and-m4-hd-wallpapers-are-here_118.jpg'
