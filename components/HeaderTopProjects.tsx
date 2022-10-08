@@ -2,14 +2,17 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { Feather } from 'react-native-vector-icons';
+import { Feather, Ionicons } from 'react-native-vector-icons';
 import MeetingRoomModal from '../screens/modals/MeetingRoomModal';
 import { data, urlImageCar1 } from './../utils/data';
 import { MeetingRoom } from '../utils/types';
 
 export const HeaderTopProjects = () => {
     const meetingsRooms:MeetingRoom[] = [
-        {name: "Kraakow spot", createdBy:data[0].author, place: "Kraków", people: [data[0].author], image: urlImageCar1}
+        {name: "Kraakow spot", createdBy:data[0].author, place: "Kraków", people: [data[0].author], image: urlImageCar1},
+        {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
+        {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
+        {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'}
     ]
 
     const theme = useSelector(selectTheme)
@@ -18,20 +21,22 @@ export const HeaderTopProjects = () => {
   return (
     <View style={style.mainContainer}>
       <MeetingRoomModal modalVisible={meetingRoomModalVisible} setModalVisible={setMeetingRoomModalVisible}/>
-      <Text style={[style.headerText, {color:theme.fontColorContent}]}>
-        Spots
-      </Text>
       <View style={style.roomsContainer}>
-        <TouchableOpacity style={[style.createButton, {borderColor: theme.fontColorContent}]}>
-            <Feather name="plus" color={theme.fontColorContent} size={20}/>
-        </TouchableOpacity>
         {meetingsRooms?
             <FlatList
+                horizontal
                 data={meetingsRooms}
                 renderItem={({item}) => {
-                    return <TouchableOpacity style={style.meetingRoom}>
+                    return <TouchableOpacity style={[style.meetingRoom]}>
                         <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={10} source={{uri: item.image}}/>
-                        <Text style={[style.nameText, {color: theme.fontColor}]}>{item.name} {item.place}</Text>
+                        <View style={style.textContainer}>
+                            <Text style={[style.nameText, {color: theme.fontColor}]}>{item.name}</Text>
+                            <Text style={[style.placeText, {color: '#5b9'}]}>{item.place}</Text>
+                        </View>  
+                        <View style={style.countPeople}>
+                            <Text style={[{color: theme.fontColorContent, marginRight:3, fontSize:12}]}>{item.people.length}</Text>
+                            <Ionicons name="md-people-outline" size={14} color={theme.fontColorContent}/>
+                        </View>                                          
                     </TouchableOpacity>
                 }}
             />:
@@ -46,52 +51,57 @@ export const HeaderTopProjects = () => {
 
 const style = StyleSheet.create({
     mainContainer : {
-        // alignItems:'center',
-
-        marginHorizontal:10
+         justifyContent:'center'
     },
     logo: {
         width:50,
         height:50,
         borderRadius:10
     },
-    headerText: {
-        marginLeft:4,
-        fontSize:12       
-    },
-    createButton: {
-        alignItems:'center',
-        justifyContent:'center',
-        borderRadius:18,
-        borderWidth:1,
-        padding:5,
-        width:45,
-        height:45,
-    },
     roomsContainer: {
         flexDirection: 'row',
         alignItems:'center',
-        marginTop:10,
-        marginBottom:15
+        marginTop:3,
+        marginBottom:15,
+        paddingHorizontal:5
     },
     warningText: {
         marginLeft:12,
         maxWidth:250
     },
     meetingRoom: {
-        marginHorizontal:10,
-        borderRadius:25,
-        position:'relative'
+        marginHorizontal:5,
+        position:'relative',
+        flexDirection:'row',
+        borderRadius:10
     },
     imageRoom: {
-        width: 100,
-        height: 50,
+        width: 140,
+        height: 80,
         borderRadius:10,
-        opacity: .5
+        opacity: .5,
+        backgroundColor: 'black'      
+    },
+    textContainer: {
+        position: 'absolute',
+        backgroundColor: 'rgba(0,0,0, .2)',
+        borderRadius:15,
+        paddingHorizontal:8,
+        paddingVertical:2,
+        margin:5,
     },
     nameText: {
-        position: 'absolute',
-        margin:5,
         fontSize:12
+    },
+    placeText: {
+        fontSize:10
+    },
+    countPeople: {
+        position: 'absolute',
+        bottom:2,
+        right:2,
+        flexDirection:'row',
+        alignItems:'center',
+        paddingHorizontal:5
     }
 })
