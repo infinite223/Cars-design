@@ -7,7 +7,7 @@ import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import FullWidthImage from 'react-native-fullwidth-image'
 import { MaterialIcons } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../../slices/themeSlice';
+import { selectTheme } from '../../slices/themeSlice';
 
 
 const HistoryTab = () => {

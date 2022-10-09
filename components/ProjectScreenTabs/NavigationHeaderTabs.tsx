@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../../slices/themeSlice';
+import { selectTheme } from '../../slices/themeSlice';
 
 export const NavigationHeaderTabs: React.FC<{navigationTab:any, tabName:string}> = ({navigationTab, tabName}) => {
   const theme = useSelector(selectTheme)

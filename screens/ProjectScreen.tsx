@@ -7,9 +7,9 @@ import { MaterialIcons, AntDesignd, EvilIcons, AntDesign, Feather, Ionicons } fr
 import { CircleData } from '../components/CircleData';
 import { Car } from '../utils/types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PhotosTab from '../components/Tabs/PhotosTab';
+import PhotosTab from '../components/ProjectScreenTabs/PhotosTab';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import HistoryTab from '../components/Tabs/HistoryTab';
+import HistoryTab from '../components/ProjectScreenTabs/HistoryTab';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
 import { onShare, likeProject } from '../utils/functions/projectFunctions';

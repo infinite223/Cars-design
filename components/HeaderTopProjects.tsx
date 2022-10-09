@@ -6,8 +6,10 @@ import { Feather, Ionicons } from 'react-native-vector-icons';
 import MeetingRoomModal from '../screens/modals/MeetingRoomModal';
 import { data, urlImageCar1 } from './../utils/data';
 import { MeetingRoom } from '../utils/types';
+import { useNavigation } from '@react-navigation/native';
 
 export const HeaderTopProjects = () => {
+    const navigation = useNavigation<any>()
     const meetingsRooms:MeetingRoom[] = [
         {name: "Kraakow spot", createdBy:data[0].author, place: "Kraków", people: [data[0].author], image: urlImageCar1},
         {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
@@ -16,18 +18,16 @@ export const HeaderTopProjects = () => {
     ]
 
     const theme = useSelector(selectTheme)
-    const [meetingRoomModalVisible, setMeetingRoomModalVisible] = useState(false)
 
   return (
     <View style={style.mainContainer}>
-      <MeetingRoomModal modalVisible={meetingRoomModalVisible} setModalVisible={setMeetingRoomModalVisible}/>
       <View style={style.roomsContainer}>
         {meetingsRooms?
             <FlatList
                 horizontal
                 data={meetingsRooms}
                 renderItem={({item}) => {
-                    return <TouchableOpacity style={[style.meetingRoom]}>
+                    return <TouchableOpacity onPress={()=>navigation.navigate('MeetingRoom')} style={[style.meetingRoom]}>
                         <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={10} source={{uri: item.image}}/>
                         <View style={style.textContainer}>
                             <Text style={[style.nameText, {color: theme.fontColor}]}>{item.name}</Text>

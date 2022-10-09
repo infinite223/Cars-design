@@ -13,6 +13,7 @@ import EditProfileScreen from './screens/modals/SettingsModals/EditProfileModal'
 import MyCamera from './screens/CameraScreen'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './slices/themeSlice';
+import MeetingRoomScreen from './screens/MeetingRoomScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -42,6 +43,7 @@ const StackNavigator = () => {
             <Stack.Screen name='Camera' component={MyCamera} options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>
             <Stack.Screen name='Create' component={CreateScreen}/>
+            <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
           </Stack.Group>
           <Stack.Group screenOptions={{presentation: 'modal',  headerShown:false}}>
             {/* <Stack.Screen name='EditProfile' component= {EditProfileScreen}/> */}
