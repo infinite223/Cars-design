@@ -11,7 +11,7 @@ const urlImageCar6 = 'https://i.pinimg.com/originals/47/9e/4b/479e4bba13f9aac504
 export const data:CarprojectData[] = [
     {
       id:"1",
-      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place:"Kraków"},
+      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place: {city: "Krakow", latitude:123, longitude:132}},
       createdAt:"02 11 2021",
       car: { 
         CarMake: "BMW", 
@@ -34,7 +34,7 @@ export const data:CarprojectData[] = [
     },
     {
       id:"2",
-      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place:"Kraków"},
+      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place: {city: "Krakow", latitude:123, longitude:132}},
       createdAt:"02 11 2021",
       car: { 
         CarMake: "VW", 
@@ -57,7 +57,7 @@ export const data:CarprojectData[] = [
     },
     {
       id:"3",
-      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place:"Kraków"},
+      author:{uid:"12dssa3123edsa21",name:"Darek", email:"dasadas@gmail.com", imageUri:urlImageAuthor, place: {city: "Krakow", latitude:123, longitude:132}},
       createdAt:"02 11 2021",
       car: { 
         CarMake: "BMW", 

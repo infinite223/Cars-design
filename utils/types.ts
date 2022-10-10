@@ -3,13 +3,19 @@ export type User = {
     email:string
     imageUri:string,
     carProjects?:CarprojectData[],
-    place?:string,
+    place?:Place,
     uid:string
+}
+
+export type Place = {
+    city: string
+    latitude: number,
+    longitude: number
 }
 
 export type Image = {
     url: string,
-    place?:string,
+    place?:Place,
     likes?:number
 }
 
@@ -42,7 +48,7 @@ export type CarprojectData = {
 export type MeetingRoom = {
     name: string,
     createdBy: User,
-    place: string,
+    place: Place,
     people: User[],
     image: string
 }

@@ -11,10 +11,10 @@ import { useNavigation } from '@react-navigation/native';
 export const HeaderTopProjects = () => {
     const navigation = useNavigation<any>()
     const meetingsRooms:MeetingRoom[] = [
-        {name: "Kraakow spot", createdBy:data[0].author, place: "Kraków", people: [data[0].author], image: urlImageCar1},
-        {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
-        {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
-        {name: "Opole spot", createdBy:data[0].author, place: "Opole", people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'}
+        {name: "Kraakow spot", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: urlImageCar1},
+        {name: "Opole spot", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
+        {name: "Opole spot", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
+        {name: "Opole spot", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'}
     ]
 
     const theme = useSelector(selectTheme)
@@ -27,11 +27,11 @@ export const HeaderTopProjects = () => {
                 horizontal
                 data={meetingsRooms}
                 renderItem={({item}) => {
-                    return <TouchableOpacity onPress={()=>navigation.navigate('MeetingRoom')} style={[style.meetingRoom]}>
+                    return <TouchableOpacity onPress={()=>navigation.navigate('MeetingRoom', item)} style={[style.meetingRoom]}>
                         <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={10} source={{uri: item.image}}/>
                         <View style={style.textContainer}>
                             <Text style={[style.nameText, {color: theme.fontColor}]}>{item.name}</Text>
-                            <Text style={[style.placeText, {color: '#5b9'}]}>{item.place}</Text>
+                            <Text style={[style.placeText, {color: '#5b9'}]}>{item.place.city}</Text>
                         </View>  
                         <View style={style.countPeople}>
                             <Text style={[{color: theme.fontColorContent, marginRight:3, fontSize:12}]}>{item.people.length}</Text>
