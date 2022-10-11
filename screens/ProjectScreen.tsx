@@ -62,7 +62,7 @@ const ProjectScreen = () => {
           <TouchableOpacity onPress={()=>setMapModalVisible(true)}>
             <View style={style.locationContainer}>
               <MaterialIcons name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
-              <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place}</Text>
+              <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place.city}</Text>
             </View>
           </TouchableOpacity>
 

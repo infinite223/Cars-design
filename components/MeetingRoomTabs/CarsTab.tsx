@@ -7,6 +7,7 @@ import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import ImagesModal from '../../screens/modals/ImagesModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
+import { selectRoom } from './../../slices/selectedRoomSlice';
 
 const CarsTab = () => {
   const navigationTab:any = useNavigation()
@@ -15,9 +16,10 @@ const CarsTab = () => {
   const selectedProject = 0
 
   const theme = useSelector(selectTheme)
+  const room = useSelector(selectRoom)
+  console.log(room)
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>
-      {/* <ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={data[selectedProject].car.imagesCar} index={selectImage}/> */}
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="Cars"/>
       {/* <FlatList
         style={{flex:1}}
@@ -30,7 +32,6 @@ const CarsTab = () => {
           </TouchableWithoutFeedback>
         )}
       /> */}
-
    </View>
   )
 }

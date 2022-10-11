@@ -50,7 +50,8 @@ export type MeetingRoom = {
     createdBy: User,
     place: Place,
     people: User[],
-    image: string
+    image: string,
+    date: string
 }
 
 export type Performance = [

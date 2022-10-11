@@ -1,19 +1,17 @@
 import { View, Text, Modal, Alert, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
-import { Avatar } from '@rneui/themed';
 import { User } from '../utils/types';
 import { Ionicons } from 'react-native-vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RNCamera, FaceDetector } from 'react-native-camera';
-import { MeetingRoom } from '../utils/types';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CarsTab from './../components/MeetingRoomTabs/CarsTab';
-import ChatTab from './../components/MeetingRoomTabs/ChatTab';
+import ChatTab from './../components/MeetingRoomTabs/ChatTab';      
 import MapViewDirections from 'react-native-maps-directions';
+import { selectRoom } from './../slices/selectedRoomSlice';
 
 const MeetingRoomScreen = () => {
     const navigation = useNavigation<any>()
@@ -21,17 +19,16 @@ const MeetingRoomScreen = () => {
 
     const Tab = createNativeStackNavigator();
     const route = useRoute<any>()
-    const {people, name, place} = route.params;
+    const {people, name, place, date} = route.params;
+    const selectedRoom = useSelector(selectRoom)
+
+    console.log(place)
 
   return (
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
-    <View style={style.textContainer}>
-      <Text style={style.name}>{name}</Text>
-      <Text style={style.place}>{place.city}</Text>
-    </View>
     <ScrollView contentContainerStyle={{flex:1}}>
       <MapView
-        style={{flex:.6}}
+        style={{flex:.45}}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -44,30 +41,24 @@ const MeetingRoomScreen = () => {
             latitude: 37.78825,
             longitude: -122.4324,
           }}
-          title="Spot"
+          title={name}
           identifier='Origin'
-          description='dsads'
+          description={place.city}
         />
-        {people.map((person:User)=> {
-          console.log(person, "xd")
-          return <Marker coordinate={{
-            latitude: person?.place?.latitude?person.place?.latitude:0,
-            longitude: person?.place?.longitude?person.place?.longitude:0
-          }}
-          
-          title="Spot"
-          identifier='Origin'
-          description='dsads'/>
-        })}
       </MapView>
       <View style={{flex:.4}}>
-      <Tab.Navigator  
-        screenOptions={{
-          headerShown:false 
-        }}>
-        <Tab.Screen name="Cars" component={CarsTab}/>
-        <Tab.Screen name="Chat" component={ChatTab}/>
-      </Tab.Navigator>
+        <View style={style.textContainer}>
+          <Text style={[style.date]}>{date}</Text>
+          <Text style={[style.name, {color: theme.fontColor}]}>{name}</Text>
+          <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text>
+        </View>
+        <Tab.Navigator  
+          screenOptions={{
+            headerShown:false 
+          }}>
+          <Tab.Screen name="Cars" component={CarsTab}/>
+          <Tab.Screen name="Chat" component={ChatTab}/>
+        </Tab.Navigator>
       </View>        
     </ScrollView>     
   </View>
@@ -82,21 +73,20 @@ const style = StyleSheet.create({
       position:'relative'
     },
     textContainer: {
-      position:'absolute',
-      zIndex:1,
-      top:30,
+      paddingVertical:20,
       width:'100%',
       alignItems: 'center',
       justifyContent: 'center'
     },
+    date: {
+      color:'#1b3'
+    },
     name:{ 
       fontSize: 18,
       fontWeight: 'bold',
-      color:'black',
-      letterSpacing:2
+      letterSpacing:1
     },
     place: {
       fontSize:13,
-      color: '#1b3'
     }
   })
