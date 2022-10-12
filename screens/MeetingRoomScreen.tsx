@@ -1,14 +1,14 @@
 import { View, Text, Modal, Alert, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { User } from '../utils/types';
-import { Ionicons } from 'react-native-vector-icons';
+import { Ionicons, EvilIcons } from 'react-native-vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RNCamera, FaceDetector } from 'react-native-camera';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CarsTab from './../components/MeetingRoomTabs/CarsTab';
+import PeopleTab from './../components/MeetingRoomTabs/PeopleTab';
 import ChatTab from './../components/MeetingRoomTabs/ChatTab';      
 import MapViewDirections from 'react-native-maps-directions';
 import { selectRoom } from './../slices/selectedRoomSlice';
@@ -46,17 +46,17 @@ const MeetingRoomScreen = () => {
           description={place.city}
         />
       </MapView>
-      <View style={{flex:.4}}>
+      <View style={{flex:.55, zIndex:2, borderRadius:20}}>
         <View style={style.textContainer}>
-          <Text style={[style.date]}>{date}</Text>
-          <Text style={[style.name, {color: theme.fontColor}]}>{name}</Text>
+          <Text style={[style.date, {color: theme.fontColor}]}>{date}</Text>
+          <Text style={[style.name]}>{name}</Text>
           <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text>
         </View>
         <Tab.Navigator  
           screenOptions={{
             headerShown:false 
           }}>
-          <Tab.Screen name="Cars" component={CarsTab}/>
+          <Tab.Screen name="People" component={PeopleTab}/>
           <Tab.Screen name="Chat" component={ChatTab}/>
         </Tab.Navigator>
       </View>        
@@ -73,7 +73,7 @@ const style = StyleSheet.create({
       position:'relative'
     },
     textContainer: {
-      paddingVertical:20,
+      paddingTop:20,
       width:'100%',
       alignItems: 'center',
       justifyContent: 'center'
@@ -84,7 +84,8 @@ const style = StyleSheet.create({
     name:{ 
       fontSize: 18,
       fontWeight: 'bold',
-      letterSpacing:1
+      letterSpacing:1,
+      color:'#1b3'
     },
     place: {
       fontSize:13,

@@ -49,7 +49,13 @@ export type MeetingRoom = {
     name: string,
     createdBy: User,
     place: Place,
-    people: User[],
+    people: Array<{
+        name:string,
+        place?:Place,
+        carProjects:CarprojectData,
+        imageUri:string,
+        uid:string
+    }>,
     image: string,
     date: string
 }

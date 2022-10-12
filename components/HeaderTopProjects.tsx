@@ -12,10 +12,10 @@ import { setSelectedRoom } from '../slices/selectedRoomSlice';
 export const HeaderTopProjects = () => {
     const navigation = useNavigation<any>()
     const meetingsRooms:MeetingRoom[] = [
-        {name: "Kraakow spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: urlImageCar1},
-        {name: "Opole spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
-        {name: "Opole spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
-        {name: "Opole spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [data[0].author], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'}
+        {name: "Kraakow spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [{name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}], image: urlImageCar1},
+        {name: "Opole spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [{name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
+        {name: "Opole spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [{name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'},
+        {name: "Opole spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, people: [{name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}], image: 'https://jr-wheels.pl/zdjecia/2020/12/15/412/24/582fot1_01.jpg'}
     ]
 
     const theme = useSelector(selectTheme)
