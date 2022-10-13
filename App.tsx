@@ -7,16 +7,19 @@ import { Provider } from 'react-redux';
 import { LogBox, StatusBar } from 'react-native';
 import { store } from './store';
 import { selectTheme } from './slices/themeSlice';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 LogBox.ignoreAllLogs()
 
 export default function App() {
   // const theme = useSelector(selectTheme)
-  return (
+  return (   
     <Provider store={store}>
       <NavigationContainer>
         <AuthProvider>
+         <GestureHandlerRootView style={{flex:1}}>
           <StackNavigator/>
+          </GestureHandlerRootView>
         </AuthProvider>
       </NavigationContainer>
     </Provider>
