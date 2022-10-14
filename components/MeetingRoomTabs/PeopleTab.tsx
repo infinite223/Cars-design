@@ -26,12 +26,12 @@ const PeopleTab = () => {
     <View style={{flex:1, backgroundColor: theme.background}}>
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="People"/>
       <FlatList
-        style={{flex:1}}
+        style={{flex:1}}  
         scrollEnabled={true}
         data={room.people}
         renderItem={({item, index}) => (
-          <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
-            <View style={style.renderItem}>
+          <TouchableOpacity onPress={()=> navigationTab.navigate('Profile')}>
+            <View style={[style.renderItem, {backgroundColor: "#222"}]}>
              <Avatar size={34} rounded source={{uri: item.imageUri}}/>
              <View style={style.textContainer}>
               <Text style={[style.nameText, {color: theme.fontColor}]}>
@@ -59,18 +59,19 @@ const style = StyleSheet.create({
   renderItem: {
     position: 'relative',
     flexDirection:'row',
-    paddingHorizontal:20,
-    marginHorizontal:7,
-    paddingVertical:15,
+    paddingHorizontal:15,
+    marginHorizontal:15,
+    paddingVertical:12,
+    marginVertical:5,
     flex:1,
     alignItems: 'center',    
     borderRadius:10,
-    backgroundColor:'#222'
+  //  backgroundColor:'#222'
   },
   textContainer: {
     marginLeft:15
   },
-  nameText: {
+  nameText: { 
     fontSize:15,
   },
   carText: {
@@ -80,7 +81,7 @@ const style = StyleSheet.create({
     width:90,
     height:40,
     position: 'absolute',
-    right: 20,
+    right: 15,
     borderRadius: 2
   }
 })

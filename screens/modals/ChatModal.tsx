@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RNCamera, FaceDetector } from 'react-native-camera';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
+import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 
 const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({author, modalVisible, setModalVisible}) => {
     const navigation = useNavigation<any>()
@@ -29,7 +30,6 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-        //   Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       > 
@@ -47,20 +47,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
            <ScrollView style={{flex:1}}>
 
            </ScrollView>
-           <View style={style.bottomNav}>
-            <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
-              style={[style.cameraIcon, { backgroundColor:theme.backgroundContent}]}
-            >
-                <Ionicons name='camera-outline' size={24} color={theme.fontColor}/>
-             </TouchableOpacity>
-             <TextInput
-              placeholderTextColor={theme.fontColorContent}
-              placeholder='Type message'
-              style={[style.inputMessage, {color:theme.fontColor, backgroundColor:theme.backgroundContent}]}/>
-             <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:0}}>
-                <Ionicons name='send-outline' size={24} color={theme.fontColor}/>
-             </TouchableOpacity>
-           </View>
+           <ChatFunctionsConatiner author={author} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
         </View>
       </Modal>
   )

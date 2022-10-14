@@ -11,7 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PeopleTab from './../components/MeetingRoomTabs/PeopleTab';
 import ChatTab from './../components/MeetingRoomTabs/ChatTab';      
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { selectRoom } from './../slices/selectedRoomSlice';
+import { selectedTabInRoom, selectRoom } from './../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
@@ -19,6 +19,7 @@ const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 const MeetingRoomScreen = () => {
     const navigation = useNavigation<any>()
     const theme = useSelector(selectTheme)
+    const tabInRoom  = useSelector(selectedTabInRoom)
     const translateY = useSharedValue(0)
 
     const Tab = createNativeStackNavigator();
@@ -33,7 +34,7 @@ const MeetingRoomScreen = () => {
     .onUpdate((event)=> {
       translateY.value = event.translationY + context.value.y;
       translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT)
-       translateY.value = Math.min(translateY.value, -SCREEN_HEIGHT / 2.7)
+      translateY.value = Math.min(translateY.value, -SCREEN_HEIGHT / 2.7)
     })
     .onEnd(()=> {
       if(translateY.value>-SCREEN_HEIGHT/2.5){
@@ -45,7 +46,7 @@ const MeetingRoomScreen = () => {
     })
     const selectedRoom = useSelector(selectRoom)
 
-    const rRoomContentSheetStyle = useAnimatedStyle(()=>{
+    const rRoomContentSheetStyle = useAnimatedStyle(() => {
       const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [15, 5], Extrapolate.CLAMP )
       return {
         borderRadius,
@@ -53,9 +54,26 @@ const MeetingRoomScreen = () => {
       }
     })
 
+    const rNameSpotSheetStyle = useAnimatedStyle(() => {
+      const fontSize = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT - 150], [23, 10], Extrapolate.CLAMP  )
+
+      return {
+        fontSize
+      }
+    })
+
     useEffect(() => {
       translateY.value = withSpring(-SCREEN_HEIGHT/2.3, { damping: 50})
     }, [])
+
+    console.log(tabInRoom)
+
+    useEffect(() => {
+      if(tabInRoom.tab=="Chat"){
+        translateY.value = withSpring(-SCREEN_HEIGHT, { damping: 50})
+      }
+
+    }, [tabInRoom])
     
 
   return (
@@ -83,13 +101,13 @@ const MeetingRoomScreen = () => {
       <GestureDetector gesture={gesture}>
         <Animated.View style={[style.mainContent, rRoomContentSheetStyle, {backgroundColor: theme.background}]}>
           <View style={[style.textContainer]}>
-            <Text style={[style.date, {color: theme.fontColor}]}>{date}</Text>
-            <Text style={[style.name]}>{name}</Text>
+            <Text style={[style.date, {color: theme.fontColorContent}]}>{date}</Text>
+            <Animated.Text style={[style.name, rNameSpotSheetStyle]}>{name}</Animated.Text>
             <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text>
           </View>
-          <Tab.Navigator  
+          <Tab.Navigator 
             screenOptions={{
-              headerShown:false 
+              headerShown:false,
             }}>
             <Tab.Screen name="People" component={PeopleTab}/>
             <Tab.Screen name="Chat" component={ChatTab}/>
@@ -110,26 +128,27 @@ const style = StyleSheet.create({
     },
     mainContent: {
       zIndex:10,
-      height: SCREEN_HEIGHT,
+      height: SCREEN_HEIGHT+50,
       width: "100%",
       position: 'absolute',
       top: SCREEN_HEIGHT,
-      borderRadius: 15
+      borderRadius: 15,
     },
     textContainer: {
-      paddingTop:20,
+      paddingTop:30,
       width:'100%',
       alignItems: 'center',
       justifyContent: 'center'
     },
     date: {
+      fontSize:12,
       color:'#1b3',
-      fontFamily: 'Roboto'
     },
     name:{ 
-      fontSize: 18,
-      fontWeight: 'bold',
-      letterSpacing:1,
+      // fontSize: 18,
+      //fontWeight: 'bold',
+       letterSpacing:2,
+      fontFamily: 'notoserif',
       color:'#1b3'
     },
     place: {
