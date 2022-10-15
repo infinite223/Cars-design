@@ -25,16 +25,16 @@ const ChatFunctionsConatiner:React.FC<{author?:User, modalVisible:boolean, setMo
   return (
     <View style={style.bottomNav}>
       <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
-        style={[style.cameraIcon, { backgroundColor:theme.backgroundContent}]}
+        style={[style.cameraIcon, { borderColor:theme.backgroundContent}]}
       >
-             <Ionicons name='camera-outline' size={24} color={theme.fontColor}/>
-             </TouchableOpacity>
-             <TextInput
-              placeholderTextColor={theme.fontColorContent}
-              placeholder='Type message'
-              style={[style.inputMessage, {color:theme.fontColor, backgroundColor:theme.backgroundContent}]}/>
-             <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:0}}>
-                <Ionicons name='send-outline' size={24} color={theme.fontColor}/>
+             <Ionicons name='camera-outline' size={20} color={theme.fontColor}/>
+      </TouchableOpacity>
+      <TextInput
+        placeholderTextColor={theme.fontColorContent}
+        placeholder='Type message'
+        style={[style.inputMessage, {color:theme.fontColor, borderColor:theme.backgroundContent}]}/>
+      <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:8}}>
+        <Ionicons name='send-outline' size={24} color={theme.fontColor}/>
       </TouchableOpacity>
     </View>
   )
@@ -49,15 +49,17 @@ const style = StyleSheet.create({
     marginVertical:15
   },
   cameraIcon: {
-    borderColor:'gray', 
+    // borderColor:'gray', 
+    borderWidth:1,
     borderRadius:20, 
-    paddingVertical:7, 
-    paddingHorizontal:10
+    paddingVertical:9, 
+    paddingHorizontal:11
   },
   inputMessage: {
     marginHorizontal:10,
     flex:1, 
     borderColor:'gray', 
+    borderWidth:1,
     fontSize:18, 
     borderRadius:20, 
     paddingVertical:5, 
