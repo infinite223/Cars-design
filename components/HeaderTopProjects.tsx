@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { Feather, Ionicons } from 'react-native-vector-icons';
-import MeetingRoomModal from '../screens/modals/MeetingRoomModal';
 import { data, urlImageCar1 } from './../utils/data';
 import { MeetingRoom } from '../utils/types';
 import { useNavigation } from '@react-navigation/native';

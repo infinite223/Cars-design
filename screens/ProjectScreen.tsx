@@ -1,22 +1,17 @@
-import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, FlatList } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
-import useAuth from '../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
-import { MaterialIcons, AntDesignd, EvilIcons, AntDesign, Feather, Ionicons } from 'react-native-vector-icons';
+import { MaterialIcons, EvilIcons, Feather } from 'react-native-vector-icons';
 import { CircleData } from '../components/CircleData';
-import { Car } from '../utils/types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PhotosTab from '../components/ProjectScreenTabs/PhotosTab';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HistoryTab from '../components/ProjectScreenTabs/HistoryTab';
-import { LinearGradient } from 'expo-linear-gradient';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
 import { onShare, likeProject } from '../utils/functions/projectFunctions';
 import ChatModal from './modals/ChatModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import ImagesModal from './modals/ImagesModal';
 import MapModal from './modals/MapModal';
 
 

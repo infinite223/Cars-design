@@ -1,10 +1,8 @@
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
-import ImagesModal from '../../screens/modals/ImagesModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import { selectRoom } from '../../slices/selectedRoomSlice';
@@ -31,7 +29,7 @@ const PeopleTab = () => {
         data={room.people}
         renderItem={({item, index}) => (
           <TouchableOpacity onPress={()=> navigationTab.navigate('Profile')}>
-            <View style={[style.renderItem, {backgroundColor: "#222"}]}>
+            <View style={[style.renderItem, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
              <Avatar size={34} rounded source={{uri: item.imageUri}}/>
              <View style={style.textContainer}>
               <Text style={[style.nameText, {color: theme.fontColor}]}>
@@ -66,7 +64,6 @@ const style = StyleSheet.create({
     flex:1,
     alignItems: 'center',    
     borderRadius:10,
-  //  backgroundColor:'#222'
   },
   textContainer: {
     marginLeft:15

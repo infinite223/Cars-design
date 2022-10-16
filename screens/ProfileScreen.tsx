@@ -3,9 +3,8 @@ import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
-import { MaterialIcons, AntDesignd, AntDesign, Ionicons, EvilIcons, Entypo, Octicons } from 'react-native-vector-icons';
+import { MaterialIcons, Ionicons, EvilIcons } from 'react-native-vector-icons';
 import { data } from '../utils/data';
-import { LinearGradient } from 'expo-linear-gradient';
 import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
 import CreateProjectScreen from './modals/CreateProjectModal';
 import { useSelector } from 'react-redux';
@@ -130,7 +129,8 @@ const style = StyleSheet.create({
         justifyContent:'space-around', 
         marginVertical:5, 
         marginHorizontal: -15,
-        borderWidth:2,
+        borderTopWidth:2,
+        borderBottomWidth:2,
         paddingHorizontal:15
     },
     itemInfo: {

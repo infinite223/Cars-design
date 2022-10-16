@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions, ImageBackgroundBase } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
-import FullWidthImage from 'react-native-fullwidth-image'
 import { MaterialIcons } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';

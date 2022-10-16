@@ -1,10 +1,7 @@
-import { View, Text, Modal, Alert, Dimensions, Animated, StyleSheet, Image } from 'react-native'
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
+import { View, Modal, Dimensions, Animated, StyleSheet, Image } from 'react-native'
+import React, { useRef} from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
-import { FlatList } from 'react-native-gesture-handler';
-
 
 const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void, photos:string[], index: number}> = ({modalVisible, setModalVisible, photos, index}) => {
     

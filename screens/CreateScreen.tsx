@@ -1,9 +1,8 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, TextInput, ScrollView, Platform, Button  } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity,  ScrollView, Platform  } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
-import { Avatar } from "@rneui/themed";
-import { MaterialIcons, AntDesignd, AntDesign, Ionicons, EvilIcons, Entypo, Octicons } from 'react-native-vector-icons';
+import { MaterialIcons, Entypo } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { selectLanguage } from './../slices/languageSlice';
@@ -147,7 +146,7 @@ const style = StyleSheet.create({
     setLocationButton: {
         alignItems:'center',
         flexDirection:'row',
-       justifyContent:'center',
+        justifyContent:'center',
 
         borderRadius: 15,
         borderWidth: 0,

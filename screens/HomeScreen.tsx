@@ -1,12 +1,9 @@
 import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image } from 'react-native'
 import React, { useLayoutEffect } from 'react'
-import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign, Ionicons, Feather, MaterialIcons } from 'react-native-vector-icons'
 import Carproject from '../components/Carproject';
-import { useSelector, useDispatch } from 'react-redux';
-import { CarprojectData } from '../utils/types';
+import { useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
 import { data } from '../utils/data';
 import { selectLanguage } from './../slices/languageSlice';

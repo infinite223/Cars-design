@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet, TextInput, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
-import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign, Ionicons } from 'react-native-vector-icons';
 import { LoginForm } from '../components/LoginForm';
 

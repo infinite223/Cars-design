@@ -1,11 +1,9 @@
-import { View, Text, Modal, Alert, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
 import { Avatar } from '@rneui/themed';
 import { User } from '../../utils/types';
 import { Ionicons } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { RNCamera, FaceDetector } from 'react-native-camera';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';

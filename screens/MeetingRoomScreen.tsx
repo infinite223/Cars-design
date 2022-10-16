@@ -1,10 +1,7 @@
-import { View, Text, Modal, TouchableOpacity, Dimensions, ScrollView, StyleSheet } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { User } from '../utils/types';
-import { Ionicons, EvilIcons } from 'react-native-vector-icons';
+import { View, Text, Dimensions, ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { RNCamera, FaceDetector } from 'react-native-camera';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,7 +9,7 @@ import PeopleTab from './../components/MeetingRoomTabs/PeopleTab';
 import ChatTab from './../components/MeetingRoomTabs/ChatTab';      
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { selectedTabInRoom, selectRoom } from './../slices/selectedRoomSlice';
-import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 
@@ -145,8 +142,7 @@ const style = StyleSheet.create({
       color:'#1b3',
     },
     name:{ 
-      // fontSize: 18,
-      //fontWeight: 'bold',
+      fontWeight: 'bold',
        letterSpacing:2,
       fontFamily: 'notoserif',
       color:'#1b3'

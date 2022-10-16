@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import { View, Image, TouchableWithoutFeedback } from 'react-native'
 import React, { useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'

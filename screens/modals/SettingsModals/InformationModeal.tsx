@@ -1,7 +1,5 @@
-import { View, Text, Modal, Alert, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native'
-import React, { useState } from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
-import { setDoc, collection, doc, serverTimestamp, addDoc } from 'firebase/firestore'
+import { View, Text, Modal, StyleSheet, ScrollView } from 'react-native'
+import React from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux';

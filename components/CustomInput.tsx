@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { TextInput, StyleSheet } from 'react-native'
 import React, {useState} from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';

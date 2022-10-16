@@ -1,9 +1,8 @@
-import { View, Text, Modal, Alert, Dimensions, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { Ionicons, Entypo } from 'react-native-vector-icons';
+import { Modal, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { Entypo } from 'react-native-vector-icons';
 import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
-import { RNCamera, FaceDetector } from 'react-native-camera';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_MAPS_APIKEY } from '@env'
 import { useSelector } from 'react-redux';

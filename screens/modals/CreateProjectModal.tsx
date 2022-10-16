@@ -1,6 +1,5 @@
-import { View, Text, Modal, Alert, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { View, Text, Modal, TextInput, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 
