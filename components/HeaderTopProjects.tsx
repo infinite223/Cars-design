@@ -30,7 +30,7 @@ export const HeaderTopProjects = () => {
                 data={meetingsRooms}
                 renderItem={({item}) => {
                     return <TouchableOpacity onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))} style={[style.meetingRoom]}>
-                        <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={20} source={{uri: item.image}}/>
+                        <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/>
                         <View style={style.textContainer}>
                             <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
                             <Text style={[style.placeText, {color: '#5b9'}]}>{item.place.city}</Text>

@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -102,13 +102,18 @@ const MeetingRoomScreen = () => {
             <Animated.Text style={[style.name, rNameSpotSheetStyle]}>{name}</Animated.Text>
             <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text>
           </View>
-          <Tab.Navigator 
-            screenOptions={{
-              headerShown:false,
-            }}>
-            <Tab.Screen name="People" component={PeopleTab}/>
-            <Tab.Screen name="Chat" component={ChatTab}/>
-          </Tab.Navigator>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={{flex:1}}
+          >
+            <Tab.Navigator 
+              screenOptions={{
+                headerShown:false,
+              }}>
+              <Tab.Screen name="People" component={PeopleTab}/>
+              <Tab.Screen name="Chat" component={ChatTab}/>
+            </Tab.Navigator>
+          </KeyboardAvoidingView>
         </Animated.View> 
       </GestureDetector>       
     </ScrollView>     

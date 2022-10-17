@@ -13,17 +13,15 @@ const ChatTab = () => {
   const theme = useSelector(selectTheme)
   const [modalVisible, setModalVisible] = useState(false)
 
-  const [opacity, setOpacity] = useState(.7)
-
   return (
     <View style={[style.mainContainer, { backgroundColor:theme.background}]}>
-      <NavigationHeaderTabs navigationTab={navigationTab} tabName="Chat"/>
-      <ScrollView style={{flex:1}}>
-        
-      </ScrollView>
-      <View style={style.chatFunctions}>
-        <ChatFunctionsConatiner modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-      </View>
+        <NavigationHeaderTabs navigationTab={navigationTab} tabName="Chat"/>
+        <ScrollView style={{flex:1}}>
+          
+        </ScrollView>
+        <View style={style.chatFunctions}>
+          <ChatFunctionsConatiner modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        </View>
     </View> 
   )
 }
@@ -38,6 +36,6 @@ const style = StyleSheet.create({
     paddingHorizontal:15,
     width:'100%',
     position: 'absolute',
-    bottom:-10
+    bottom:0
   }
 })

@@ -51,7 +51,8 @@
     "react-native-web": "0.17.1",
     "react-redux": "^8.0.2",
     "tailwind-rn": "^4.2.0",
-    "tailwindcss-react-native": "^1.7.10"
+    "tailwindcss-react-native": "^1.7.10",
+    "expo-notifications": "~0.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
