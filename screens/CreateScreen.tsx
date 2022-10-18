@@ -96,8 +96,8 @@ const CreateScreen = () => {
             {language==="en"?locationText.en:locationText.pl}   
         </Text>
         <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>
-            <MaterialIcons name='place' color={theme.fontColorContent} size={20} style={{marginRight:0}}/>
-            <Text style={[style.locationText, {color: theme.fontColorContent}]}>{origin.place?.description}</Text>
+            <MaterialIcons name='place' color={theme.backgroundContent} size={20} style={{marginRight:0}}/>
+            <Text style={[style.locationText, {color: theme.backgroundContent}]}>{origin.place?.description}</Text>
         </TouchableOpacity> 
 
         <Text style={[style.text, {color: theme.fontColorContent}]}>               
@@ -150,7 +150,7 @@ const style = StyleSheet.create({
 
         borderRadius: 15,
         borderWidth: 0,
-        backgroundColor:'#152',
+        backgroundColor:'#1b3',
         
         paddingHorizontal:15,
         paddingVertical: 10,
@@ -158,7 +158,8 @@ const style = StyleSheet.create({
     },
     locationText: {
         fontSize:15,
-        marginLeft: 10
+        marginLeft: 10,
+        color:'black'
     },
     input: {
         borderWidth:1,

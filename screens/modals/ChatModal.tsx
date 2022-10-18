@@ -40,7 +40,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
                         source={{uri:author.imageUri}}    
                     />
                 </TouchableOpacity>
-                <Text style={{marginLeft:8, fontSize:18, color:theme.fontColor}}>{author.name}</Text>
+                <Text style={{marginLeft:15, fontSize:18, color:theme.fontColor}}>{author.name}</Text>
            </View>
            <ScrollView style={{flex:1}}>
 
@@ -62,7 +62,8 @@ const style = StyleSheet.create({
   },
   headerContainer: {
     flexDirection:'row', 
-    alignItems:'center'
+    alignItems:'center',
+    marginHorizontal:5
   },
   bottomNav: {
     flexDirection:'row', 

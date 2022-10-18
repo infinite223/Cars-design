@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated, Easing } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 import { useSelector } from 'react-redux';
@@ -27,18 +27,39 @@ export const CircleData:React.FC<{type:string, number:number, colors:string[]}> 
     return correctType
   }
 
+  const spinValue = new Animated.Value(0);
+
+  Animated.loop(
+    Animated.timing(
+    spinValue,
+      {
+       toValue: 1,
+       duration: 15000,
+       easing: Easing.linear,
+       useNativeDriver: true
+      }
+    )
+   ).start();
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  })
+
   
   return (
-    <View style={type==="100-200km/h"?{marginRight:5}:{marginRight:21}}>
-     <LinearGradient
-        colors={colors}
-        style={styles.grediant}
-        >
-        <View style={[styles.buttonContainer, {backgroundColor:theme.background}]}>
-          <Text style={{color:theme.fontColor, fontSize:12, textAlign:'center'}}>{getType()}</Text>
-          <Text style={{color:colors[0], fontWeight:'bold', fontSize:18}}>{number}</Text>  
-        </View>
-        </LinearGradient>
+    <View style={[styles.container, {backgroundColor: theme.background}]}>
+      <Animated.View style={[{transform: [{rotate: spin}]}]}>
+      <LinearGradient
+          colors={colors}
+          style={styles.grediant}
+          >
+          </LinearGradient>
+          </Animated.View>
+          <View style={[styles.buttonContainer, {backgroundColor:theme.background}]}>
+            <Text style={{color:theme.fontColor, fontSize:12, textAlign:'center'}}>{getType()}</Text>
+            <Text style={{color:colors[0], fontWeight:'bold', fontSize:18}}>{number}</Text>  
+          </View>
     </View>
   )
 }
@@ -46,22 +67,27 @@ export const CircleData:React.FC<{type:string, number:number, colors:string[]}> 
 const styles = StyleSheet.create({
   container: {
       flex: 1.0,
+      position:'relative',
       justifyContent: 'center',
+      alignItems:'center',
       backgroundColor: '#ecf0f1',
+      // paddingHorizontal:5
   },
   grediant: {
       height: 105,
       width: 105,
       justifyContent: 'center',
       alignSelf: 'center',
-      borderRadius:50
+      borderRadius:50,
   },
   buttonContainer: {
+      position:'absolute',
+      height: 100,
+      width: 100,
       flex: 1.0,
       alignSelf: 'center',
       justifyContent: 'center',
       alignItems:'center',
-      width: '90%',
       margin: 2,
       borderRadius:50
   },

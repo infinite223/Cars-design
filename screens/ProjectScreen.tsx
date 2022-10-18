@@ -40,8 +40,6 @@ const ProjectScreen = () => {
             </View>
           ),
           headerRight: () => 
-                // <Text style={{fontSize:11, color:'gray'}}>{createdAt}</Text>
-
               <Image style={{width:50, height:50, borderRadius:15}} source={require('./../assets/cars_projects_IconV2.png')}/>
 
         })  
@@ -63,8 +61,8 @@ const ProjectScreen = () => {
 
           <FlatList
             horizontal
-            style={{marginTop:8, marginRight:-15}}
             showsHorizontalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={{width: 20}} />}
             snapToInterval={105}
             data={car.performance}
             renderItem={({item})=> (

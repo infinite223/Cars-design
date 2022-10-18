@@ -8,6 +8,8 @@ import { selectTheme } from '../../slices/themeSlice';
 import { selectRoom } from '../../slices/selectedRoomSlice';
 import { Avatar } from '@rneui/base';
 import { MeetingRoom } from '../../utils/types';
+import { selectLanguage } from '../../slices/languageSlice';
+import { Octicons } from 'react-native-vector-icons';
 
 const PeopleTab = () => {
   const navigationTab:any = useNavigation()
@@ -16,6 +18,7 @@ const PeopleTab = () => {
   const selectedProject = 0
 
   const theme = useSelector(selectTheme)
+  const language = useSelector(selectLanguage)
   const room:MeetingRoom = useSelector(selectRoom)
 
   console.log(room.people[0].carProjects)
@@ -27,6 +30,11 @@ const PeopleTab = () => {
         style={{flex:1}}  
         scrollEnabled={true}
         data={room.people}
+        ListHeaderComponent={()=>(
+          <TouchableOpacity style={style.signMeButton}>
+            <Text style={style.singMeText}>{language==='pl'?"Dołącz":"Join"}</Text>
+          </TouchableOpacity> 
+        )}
         renderItem={({item, index}) => (
           <TouchableOpacity onPress={()=> navigationTab.navigate('Profile')}>
             <View style={[style.renderItem, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
@@ -80,5 +88,22 @@ const style = StyleSheet.create({
     position: 'absolute',
     right: 15,
     borderRadius: 2
+  },
+  signMeButton: {
+    flexDirection:'row',
+    justifyContent:'center',
+    paddingHorizontal:15,
+    backgroundColor: '#1b3',
+    marginHorizontal:15,
+    paddingVertical:10,
+    marginVertical:3,
+    flex:1,
+    alignItems: 'center',    
+    borderRadius:10,
+  },
+  singMeText: {
+    fontSize:14,
+    letterSpacing:2,
+    fontWeight:'bold',
   }
 })
