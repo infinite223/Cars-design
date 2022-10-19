@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
@@ -7,24 +7,30 @@ import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import { MaterialIcons } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
+import ImagesModal from './../../screens/modals/ImagesModal';
 
 
 const HistoryTab = () => {
   const navigationTab:any = useNavigation()
   const windowWidth = Dimensions.get('window').width;
+  const [imagesModalVisible, setImagesModalVisible] = useState(false)
+  const [selectStage, setSelectStage] = useState<{images?:string[], index:number}>({images: [], index:0})
+  console.log(selectStage)
   const theme = useSelector(selectTheme)
+  const selectedProject = 0
 
   const [opacity, setOpacity] = useState(.7)
 
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
+      {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={selectStage.images} index={0}/>}
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/>
       <ScrollView>
         <FlatList
           scrollEnabled={true}        
           contentContainerStyle={{flex:1}}
           data={data[0].car.history}
-          renderItem={({item})=>(
+          renderItem={({item, index})=>(
             <View style={style.renderItem}>
               {item.photosUrl&&
                 <FlatList
@@ -37,7 +43,7 @@ const HistoryTab = () => {
                     //<FullWidthImage style={{width:200, height:140}} source={{uri: photo.item}}/>
                   )}
                 />}
-                  <TouchableOpacity style={style.zoomIcon}>
+                  <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:item.photosUrl, index}))} style={style.zoomIcon}>
                     <MaterialIcons name="zoom-out-map" size={22} color="white"/>
                   </TouchableOpacity>
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>

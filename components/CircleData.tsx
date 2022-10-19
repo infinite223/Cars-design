@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems:'center',
       backgroundColor: '#ecf0f1',
-      // paddingHorizontal:5
+      marginVertical:10
   },
   grediant: {
       height: 105,
