@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, FlatList }
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
-import { MaterialIcons, EvilIcons, Feather } from 'react-native-vector-icons';
+import { Icon } from '@rneui/base';
 import { CircleData } from '../components/CircleData';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PhotosTab from '../components/ProjectScreenTabs/PhotosTab';
@@ -35,8 +35,8 @@ const ProjectScreen = () => {
            headerLeft: () => (
             <View style={{flexDirection:"row", alignItems:'center', justifyContent:'space-around'}}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialIcons name={'arrow-back-ios'} size={20} color={theme.fontColor}/>
-                </TouchableOpacity>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={20} color={theme.fontColor}/>
+                </TouchableOpacity> 
             </View>
           ),
           headerRight: () => 
@@ -54,7 +54,7 @@ const ProjectScreen = () => {
           <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{car.description}</Text>
           <TouchableOpacity onPress={()=>setMapModalVisible(true)}>
             <View style={style.locationContainer}>
-              <MaterialIcons name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
+              <Icon type="materialicon" name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
               <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place.city}</Text>
             </View>
           </TouchableOpacity>
@@ -82,9 +82,15 @@ const ProjectScreen = () => {
       <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
           <View style={style.iconsContainer}>
-            <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}><Feather name='send' size={23} color={theme.fontColor}/></TouchableOpacity>
-            <TouchableOpacity onPress={onShare} style={{marginRight:6}}><EvilIcons name='share-google' size={30} color={theme.fontColor}/></TouchableOpacity>
-            <TouchableOpacity onPress={()=>likeProject(id)}><EvilIcons name='heart' size={32} color={theme.fontColor}/></TouchableOpacity>
+            <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}>
+              <Icon type='feather' name='send' size={23} color={theme.fontColor}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onShare} style={{marginRight:6}}>
+              <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>likeProject(id)}>         
+              <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
+            </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>23</Text>
           </View>
           <View>

@@ -5,7 +5,8 @@ export const translations = {
                 informationModal: {
                     title: {
                         en: "Information",
-                        pl: "Informacje"
+                        pl: "Informacje",
+                        
                     },
                     about: {
                         en: "Abaut cars projects",

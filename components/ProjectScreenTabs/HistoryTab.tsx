@@ -4,10 +4,10 @@ import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
-import { MaterialIcons } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ImagesModal from './../../screens/modals/ImagesModal';
+import { Icon } from '@rneui/base';
 
 
 const HistoryTab = () => {
@@ -43,8 +43,8 @@ const HistoryTab = () => {
                     //<FullWidthImage style={{width:200, height:140}} source={{uri: photo.item}}/>
                   )}
                 />}
-                  <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:item.photosUrl, index}))} style={style.zoomIcon}>
-                    <MaterialIcons name="zoom-out-map" size={22} color="white"/>
+                  <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:item.photosUrl, index}))} style={style.zoomIcon}>                   
+                    <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
                   </TouchableOpacity>
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
                     <Text style={style.name}>{item.name}</Text>

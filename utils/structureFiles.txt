@@ -1,0 +1,63 @@
+📦components
+ ┣ 📂MeetingRoomTabs
+ ┃ ┣ 📜ChatTab.tsx
+ ┃ ┣ 📜NavigationHeaderTabs.tsx
+ ┃ ┗ 📜PeopleTab.tsx
+ ┣ 📂ProjectScreenTabs
+ ┃ ┣ 📜HistoryTab.tsx
+ ┃ ┣ 📜NavigationHeaderTabs.tsx
+ ┃ ┗ 📜PhotosTab.tsx
+ ┣ 📜Carproject.tsx
+ ┣ 📜ChatFunctionsConatiner.tsx
+ ┣ 📜CircleData.tsx
+ ┣ 📜CustomInput.tsx
+ ┣ 📜HeaderTopProjects.tsx
+ ┗ 📜LoginForm.tsx
+
+ 📦assets
+ ┣ 📜adaptive-icon.png
+ ┣ 📜background.png
+ ┣ 📜cars_projects_Icon.png
+ ┣ 📜cars_projects_IconV2.png
+ ┣ 📜favicon.png
+ ┣ 📜icon.png
+ ┗ 📜splash.png
+
+ 📦hooks
+ ┗ 📜useAuth.js
+
+ 📦screens
+ ┣ 📂modals
+ ┃ ┣ 📂SettingsModals
+ ┃ ┃ ┣ 📜EditProfileModal.tsx
+ ┃ ┃ ┣ 📜InformationModeal.tsx
+ ┃ ┃ ┣ 📜LanguageModal.tsx
+ ┃ ┃ ┗ 📜ThemeModal.tsx
+ ┃ ┣ 📜ChatModal.tsx
+ ┃ ┣ 📜CreateProjectModal.tsx
+ ┃ ┣ 📜ImagesModal.tsx
+ ┃ ┣ 📜MapModal.tsx
+ ┃ ┗ 📜SelectPlaceOnMap.tsx
+ ┣ 📜CameraScreen.js
+ ┣ 📜ChatsScreen.tsx
+ ┣ 📜CreateScreen.tsx
+ ┣ 📜HomeScreen.tsx
+ ┣ 📜LoginScreen.tsx
+ ┣ 📜MeetingRoomScreen.tsx
+ ┣ 📜ProfileScreen.tsx
+ ┣ 📜ProjectScreen.tsx
+ ┗ 📜SettingsScreen.tsx
+
+ 📦slices
+ ┣ 📜languageSlice.js
+ ┣ 📜selectedRoomSlice.js
+ ┗ 📜themeSlice.js
+
+ 📦utils
+ ┣ 📂functions
+ ┃ ┣ 📜colorsCircle.tsx
+ ┃ ┗ 📜projectFunctions.tsx
+ ┣ 📜data.tsx
+ ┣ 📜structureFiles.tsx
+ ┣ 📜translations.tsx
+ ┗ 📜types.ts

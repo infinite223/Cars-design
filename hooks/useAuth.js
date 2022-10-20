@@ -53,12 +53,7 @@ export const AuthProvider = ({children}) => {
 
   const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(
     {
-       clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com',
-      // redirect_uri:'https://www.cars-projects-317ef.firebaseapp.com/__/auth/handler/',
-      //  response_type:'code',
-      //    permissions: ["public_profile", "email", "gender", "location"],
-      // scopes: ["profile", "email"],
-      //  clientSecret:'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'
+       clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'
     },
   );
 

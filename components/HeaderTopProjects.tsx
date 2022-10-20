@@ -2,11 +2,11 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { Feather, Ionicons } from 'react-native-vector-icons';
 import { data, urlImageCar1 } from './../utils/data';
 import { MeetingRoom } from '../utils/types';
 import { useNavigation } from '@react-navigation/native';
 import { setSelectedRoom } from '../slices/selectedRoomSlice';
+import { Icon } from '@rneui/base';
 
 export const HeaderTopProjects = () => {
     const navigation = useNavigation<any>()
@@ -37,7 +37,7 @@ export const HeaderTopProjects = () => {
                         </View>  
                         <View style={style.countPeople}>
                             <Text style={[{color: theme.fontColorContent, marginRight:3, fontSize:12}]}>{item.people.length}</Text>
-                            <Ionicons name="md-people-outline" size={14} color={theme.fontColorContent}/>
+                            <Icon type='ionicon' name="md-people-outline" size={14} color={theme.fontColorContent}/>
                         </View>                                          
                     </TouchableOpacity>
                 }}

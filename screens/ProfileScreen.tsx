@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
-import { MaterialIcons, Ionicons, EvilIcons } from 'react-native-vector-icons';
+import { Icon } from "@rneui/themed";
 import { data } from '../utils/data';
 import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
 import CreateProjectScreen from './modals/CreateProjectModal';
@@ -28,7 +28,11 @@ const ProfileScreen = () => {
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialIcons name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
+                    <Icon
+                        name='arrow-back-ios'
+                        type='MaterialIcons'
+                        color={theme.fontColor}
+                    />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
                     <Avatar
@@ -41,10 +45,21 @@ const ProfileScreen = () => {
           ),
           headerRight: () => <View style={style.headerRightContainer}> 
            <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
-                <Ionicons name="add-outline" size={20} color={theme.fontColor}/>
+                {/* <Ionicons name="add-outline" size={20} color={theme.fontColor}/> */}
+                <Icon
+                    name='add-outline'
+                    type='ionicon'
+                    size={20} 
+                    color={theme.fontColor}
+                />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>
-                <Ionicons name="ios-settings-outline" size={24} color={theme.fontColor}/>
+            <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>   
+                <Icon                 
+                    name='ios-settings-outline'
+                    type='ionicon'
+                    size={20} 
+                    color={theme.fontColor}
+                />
             </TouchableOpacity>
           </View>
         })  
@@ -63,6 +78,9 @@ const ProfileScreen = () => {
                  Blanditiis, nostrum...
             </Text>
         </View>
+        <TouchableOpacity onPress={()=>setEditProfileModalVisible(true)} style={[style.editButton, {backgroundColor: theme.fontColorContent}]}>
+            <Text style={[{color: theme.background}]}>Edit profile</Text>
+        </TouchableOpacity>
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
             <TouchableOpacity style={style.itemInfo}>
@@ -93,7 +111,12 @@ const ProfileScreen = () => {
                             <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
                         </View>
                         <Text style={{fontSize:17, marginRight:5, color:theme.fontColor}}>{car.likes}</Text>
-                        <EvilIcons name='heart' size={30} color={theme.fontColor}/>
+                        <Icon                 
+                            name='heart'
+                            type='evilicon'
+                            size={28} 
+                            color={theme.fontColor}
+                        />
                     </TouchableOpacity>}
             />
         </View>
@@ -129,8 +152,8 @@ const style = StyleSheet.create({
         justifyContent:'space-around', 
         marginVertical:5, 
         marginHorizontal: -15,
-        borderTopWidth:2,
-        borderBottomWidth:2,
+        borderTopWidth:1,
+        borderBottomWidth:1,
         paddingHorizontal:15
     },
     itemInfo: {
@@ -142,6 +165,15 @@ const style = StyleSheet.create({
         fontSize:17, 
         fontWeight:'800', 
         marginVertical:10,
+    },
+    editButton:{
+        alignItems:'center',
+        justifyContent:'center',
+        marginVertical:10,
+        borderRadius:10,
+        paddingVertical:5,
+       
+
     },
     renderItem: {
         paddingVertical:5, 

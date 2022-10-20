@@ -1,12 +1,12 @@
 import { Modal, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { Entypo } from 'react-native-vector-icons';
 import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { GOOGLE_MAPS_APIKEY } from '@env'
+// import { GOOGLE_MAPS_APIKEY } from '@env'
 import { useSelector } from 'react-redux';
 import { selectLanguage } from './../../slices/languageSlice';
+import { Icon } from '@rneui/base';
 
 interface SelectPlaceOnMapProps {
     origin: any,
@@ -76,8 +76,8 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 initialRegion={region}
                 region={region}
             />
-            <TouchableOpacity disabled={!origin.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>
-                <Entypo  name={'check'} size={22} color="black"/>
+            <TouchableOpacity disabled={!origin.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>             
+                <Icon type='entypo' name={'check'} size={22} color="black"/>
             </TouchableOpacity>
         </Modal>
   )

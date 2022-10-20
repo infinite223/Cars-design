@@ -9,7 +9,6 @@ import { selectRoom } from '../../slices/selectedRoomSlice';
 import { Avatar } from '@rneui/base';
 import { MeetingRoom } from '../../utils/types';
 import { selectLanguage } from '../../slices/languageSlice';
-import { Octicons } from 'react-native-vector-icons';
 
 const PeopleTab = () => {
   const navigationTab:any = useNavigation()

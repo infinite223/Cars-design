@@ -1,10 +1,10 @@
 import { View, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { User } from '../utils/types';
-import { Ionicons } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
+import { Icon } from '@rneui/base';
 
 
 const ChatFunctionsConatiner:React.FC<{author?:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({setModalVisible}) => {
@@ -23,8 +23,8 @@ const ChatFunctionsConatiner:React.FC<{author?:User, modalVisible:boolean, setMo
     <View style={style.bottomNav}>
       <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
         style={[style.cameraIcon, { borderColor:theme.backgroundContent}]}
-      >
-        <Ionicons name='camera-outline' size={20} color={theme.fontColor}/>
+      >       
+        <Icon type="ionicon" name="camera-outline" size={20} color={theme.fontColor}/>
       </TouchableOpacity>
       <TextInput
         placeholderTextColor={theme.fontColorContent}
@@ -32,7 +32,7 @@ const ChatFunctionsConatiner:React.FC<{author?:User, modalVisible:boolean, setMo
         style={[style.inputMessage, {color:theme.fontColor, borderColor:theme.backgroundContent}]}
       />
       <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:8}}>
-        <Ionicons name='send-outline' size={24} color={theme.fontColor}/>
+        <Icon type="ionicon" name="send-outline" size={20} color={theme.fontColor}/>
       </TouchableOpacity>
     </View>
   )

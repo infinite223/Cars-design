@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "react-app-rewired start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test"
   },
   "dependencies": {
     "@firebase/auth": "^0.20.6",
@@ -51,7 +53,7 @@
     "react-native-scroll-indicator": "^0.1.0",
     "react-native-tab-view": "^3.1.1",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "0.17.1",
+    "react-native-web": "^0.17.1",
     "react-redux": "^8.0.2",
     "tailwind-rn": "^4.2.0",
     "tailwindcss-react-native": "^1.7.10"

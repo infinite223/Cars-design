@@ -6,8 +6,8 @@ import { User } from '../utils/types';
 import { Avatar } from '@rneui/base';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { MaterialIcons } from 'react-native-vector-icons'
 import { selectLanguage } from './../slices/languageSlice';
+import { Icon } from '@rneui/themed';
 
 const ChatsScreen = () => {
     const navigation:any = useNavigation()
@@ -27,7 +27,7 @@ const ChatsScreen = () => {
           </Text>,
          headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-              <MaterialIcons name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
+              <Icon type="materialicon" name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
           </TouchableOpacity>
       )})
     }, [theme, language])
