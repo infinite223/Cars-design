@@ -92,17 +92,18 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'center',
     paddingHorizontal:15,
-    backgroundColor: '#1b3',
+    backgroundColor: '#272',
     marginHorizontal:15,
-    paddingVertical:10,
+    paddingVertical:7,
     marginVertical:3,
     flex:1,
     alignItems: 'center',    
     borderRadius:10,
   },
   singMeText: {
-    fontSize:14,
+    fontSize:17,
     letterSpacing:2,
     fontWeight:'bold',
+    color:'white'
   }
 })

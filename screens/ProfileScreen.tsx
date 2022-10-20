@@ -78,8 +78,8 @@ const ProfileScreen = () => {
                  Blanditiis, nostrum...
             </Text>
         </View>
-        <TouchableOpacity onPress={()=>setEditProfileModalVisible(true)} style={[style.editButton, {backgroundColor: theme.fontColorContent}]}>
-            <Text style={[{color: theme.background}]}>Edit profile</Text>
+        <TouchableOpacity onPress={()=>setEditProfileModalVisible(true)} style={[style.editButton, {backgroundColor: '#272'}]}>
+            <Text style={[{color:'white'}]}>Edit profile</Text>
         </TouchableOpacity>
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
@@ -170,10 +170,8 @@ const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         marginVertical:10,
-        borderRadius:10,
+        borderRadius:6,
         paddingVertical:5,
-       
-
     },
     renderItem: {
         paddingVertical:5, 

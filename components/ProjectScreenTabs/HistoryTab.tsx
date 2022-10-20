@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ImagesModal from './../../screens/modals/ImagesModal';
 import { Icon } from '@rneui/base';
+import { getColorsCircle } from './../../utils/functions/colorsCircle';
 
 
 const HistoryTab = () => {
@@ -39,35 +40,33 @@ const HistoryTab = () => {
                   style={style.imagesContainer}
                   data={item.photosUrl}
                   renderItem={(photo)=> (
-                      <Image style={{flex:1, width:windowWidth, height:240}} source={{uri: photo.item}}/>
-                    //<FullWidthImage style={{width:200, height:140}} source={{uri: photo.item}}/>
-                  )}
-                />}
+                      <Image style={{flex:1, width:windowWidth, height:240}} source={{uri: photo.item}}/>                  )}
+                  />}
                   <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:item.photosUrl, index}))} style={style.zoomIcon}>                   
                     <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
                   </TouchableOpacity>
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
                     <Text style={style.name}>{item.name}</Text>
                     <View style={style.performanceContainer}>
-                  <View style={style.performance}>
-                    <Text style={style.performanceValue}>{item.performance?.[0].value} </Text>
-                    <Text style={style.performanceType}>{item.performance?.[0].type}</Text>
+                    {item.performance?.[0].value&&<View style={style.performance}>
+                      <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance[0].value} </Text>
+                      <Text style={style.performanceType}>{item.performance?.[0].type}</Text>
+                    </View>}
+                    {item.performance?.[1].value&&<View style={style.performance}>
+                      <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance?.[1].value} </Text>
+                      <Text style={style.performanceType}>{item.performance?.[1].type}</Text>
+                    </View>}
+                    {item.performance?.[2]?.type&&
+                    <View style={style.performance}>
+                      <Text style={style.performanceValue}>{item.performance?.[2]?.value} </Text>
+                      <Text style={style.performanceType}>{item.performance?.[2]?.type}</Text>
+                    </View>}
+                    {item.performance?.[3]?.type&&
+                    <View style={style.performance}>
+                      <Text style={style.performanceValue}>{item.performance?.[3]?.value} </Text>
+                      <Text style={style.performanceType}>{item.performance?.[3]?.type}</Text>
+                    </View>}
                   </View>
-                  <View style={style.performance}>
-                    <Text style={style.performanceValue}>{item.performance?.[1].value} </Text>
-                    <Text style={style.performanceType}>{item.performance?.[1].type}</Text>
-                  </View>
-                  {item.performance?.[3]?.type&&
-                  <View style={style.performance}>
-                    <Text style={style.performanceValue}>{item.performance?.[2]?.value} </Text>
-                    <Text style={style.performanceType}>{item.performance?.[2]?.type}</Text>
-                  </View>}
-                  {item.performance?.[3]?.type&&
-                  <View style={style.performance}>
-                    <Text style={style.performanceValue}>{item.performance?.[3]?.value} </Text>
-                    <Text style={style.performanceType}>{item.performance?.[3]?.type}</Text>
-                  </View>}
-                </View>
                <View style={style.footer}>
                   {item.company&&<Text  style={style.company}>{item.company}</Text>}
                   {item.date&&<Text style={style.date}>{item.date}</Text>}
@@ -97,14 +96,10 @@ const style = StyleSheet.create({
     zIndex:3
   },
   nameContainer: {  
-   // marginLeft:10, 
-    alignItems:'center',
-    justifyContent:'center',
-
     position:'absolute',
     width:'100%',
     height:"100%",
-    //marginTop:10,
+    paddingVertical:15,
     paddingHorizontal:15
   },
   name:{
@@ -122,15 +117,13 @@ const style = StyleSheet.create({
   },
   performanceContainer:{
     flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center'
   },
   performance: {
     flexDirection:'row',
     alignItems:'center',
     paddingHorizontal:1,
     paddingVertical:5,
-    marginHorizontal:5
+    marginRight:5
   },
   performanceValue: {
     fontSize:20,
@@ -156,7 +149,8 @@ const style = StyleSheet.create({
     bottom:10,
     alignItems:'center',
     justifyContent:'space-between',
-    marginVertical:5
+    marginVertical:5,
+    paddingLeft:15
   },
   company: {
     fontWeight:'600',
