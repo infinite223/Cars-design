@@ -6,6 +6,14 @@ export type User = {
     place?:Place,
     uid:string
 }
+// const engine = require('../assets/componentsIcons/engine.png')
+
+export type Component = {
+    type: string,
+    name: string,
+    icon: string,
+    description?: string
+}
 
 export type Place = {
     city: string
@@ -26,6 +34,7 @@ export type HistoryCar = {
     description?:string,
     company?:string,
     performance?:Performance,
+    components?: Component[]
 }
 
 export type Car = {

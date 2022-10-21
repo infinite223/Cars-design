@@ -67,6 +67,21 @@ const HistoryTab = () => {
                       <Text style={style.performanceType}>{item.performance?.[3]?.type}</Text>
                     </View>}
                   </View>
+                  {item.components&&
+                      <FlatList
+                        style={style.componentsContainer}
+                        ItemSeparatorComponent={()=><View style={{width:10}}/>}
+                        horizontal
+                        data={item.components}
+                        renderItem={({item})=> (
+                          <View style={style.component}>
+                            <Text style={[style.typeComponent, {color: theme.fontColorContent}]}>{item.type}</Text>
+                            <Image source={require('../../assets/componentsIcons/engine.png')} style={{width:70, height:70}}/>
+                            <Text style={[style.nameComponent, {color: theme.fontColor}]}>{item.name}</Text>
+                          </View>
+                        )}
+                      />}
+
                <View style={style.footer}>
                   {item.company&&<Text  style={style.company}>{item.company}</Text>}
                   {item.date&&<Text style={style.date}>{item.date}</Text>}
@@ -86,7 +101,6 @@ const style = StyleSheet.create({
   renderItem: {
     position:'relative',
     marginBottom:5,
-  //  borderBottomWidth:1,
     borderColor:'#eee'
   },
   zoomIcon: {
@@ -139,8 +153,26 @@ const style = StyleSheet.create({
   imagesContainer: {
     flex:1,
     flexDirection:'row',
-    // marginHorizontal:15,
     marginTop:5,
+  },
+  componentsContainer: {
+   
+  },
+  component:{
+    alignItems:'center',
+    justifyContent:'center',
+    width:100,
+    height:110,
+    backgroundColor: 'rgba(1,1,1,.2)',
+    paddingHorizontal:10,
+    paddingVertical:6,
+    borderRadius:10
+  },
+  typeComponent: {
+    fontSize:12
+  },
+  nameComponent: {
+
   },
   footer: {
     flexDirection:'row',

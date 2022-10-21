@@ -2,7 +2,6 @@ import { View, Text, Image, StyleSheet, TouchableOpacity,  ScrollView, Platform 
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
-import { MaterialIcons, Entypo } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { selectLanguage } from './../slices/languageSlice';
@@ -10,6 +9,7 @@ import { translations } from './../utils/translations';
 import SelectPlaceOnMap from './modals/SelectPlaceOnMap';
 import CustomInput from './../components/CustomInput';
 import * as ImagePicker from 'expo-image-picker';
+import { Icon } from '@rneui/themed';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
@@ -39,8 +39,8 @@ const CreateScreen = () => {
                 {language==="en"?navTitleText.en:navTitleText.pl}
             </Text>,
            headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialIcons name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
+            <TouchableOpacity onPress={() => navigation.goBack()}>            
+                <Icon type='materialicon' name="arrow-back-ios"  size={22} color={theme.fontColor}/>
             </TouchableOpacity>
         )})
       }, [theme, language])
@@ -95,8 +95,8 @@ const CreateScreen = () => {
         <Text style={[style.text, {color: theme.fontColorContent}]}>
             {language==="en"?locationText.en:locationText.pl}   
         </Text>
-        <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>
-            <MaterialIcons name='place' color={'#bbb'} size={20} style={{marginRight:0}}/>
+        <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>         
+            <Icon type='materialicon' name='place' color={'#bbb'} size={20} style={{marginRight:0}}/>
             <Text style={[style.locationText]}>{origin.place?.description}</Text>
         </TouchableOpacity> 
 
@@ -104,15 +104,15 @@ const CreateScreen = () => {
           {language==="en"?photoText.en:photoText.pl}
         </Text>
         <ScrollView style={{ flex: 1, marginTop:5, flexDirection:'row' }} horizontal>		
-			<TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>
-                <Entypo name="plus" size={30} color={theme.fontColor}/>
+			<TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
+                <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
             </TouchableOpacity>
             {images.map((uri:string)=> {
                 return  (
                     <View style={{alignItems:'center', justifyContent:'center', height:120}}>
                         <Image source={{ uri: uri }} style={{ width: 120, height: 120, marginStart:15, borderRadius:15 }} />
-                        <TouchableOpacity onPress={()=>setImages(images.filter((item)=>item!==uri))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>
-                            <Entypo name="minus" size={30} color={theme.fontColor}/>
+                        <TouchableOpacity onPress={()=>setImages(images.filter((item)=>item!==uri))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
+                            <Icon type='entypo' name="minus" size={30} color={theme.fontColor}/>
                         </TouchableOpacity>
                     </View>
                 )
