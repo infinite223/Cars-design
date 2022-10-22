@@ -29,7 +29,7 @@ export default CustomInput
 const style = StyleSheet.create({
     input: {
         borderWidth:1,
-        borderRadius: 15,
+        borderRadius: 10,
         fontSize:16,
         paddingHorizontal: 15,
         paddingVertical: 4,

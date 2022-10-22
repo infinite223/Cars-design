@@ -29,7 +29,7 @@ const CreateScreen = () => {
     const [model, setModel] = useState('')
     const [description, setDescription] = useState('')
 
-    const {informationText, cameraError, locationText, navTitleText, perfonrmanceText, photoText} = translations.screens.CreateScreen
+    const {informationText, cameraError, locationText, historyText, navTitleText, perfonrmanceText, photoText} = translations.screens.CreateScreen
 
 
     useLayoutEffect(() => {
@@ -103,7 +103,7 @@ const CreateScreen = () => {
         <Text style={[style.text, {color: theme.fontColorContent}]}>               
           {language==="en"?photoText.en:photoText.pl}
         </Text>
-        <ScrollView style={{ flex: 1, marginTop:5, flexDirection:'row' }} horizontal>		
+        <ScrollView style={{ flexGrow:.0,  marginTop:5, flexDirection:'row' }} horizontal>		
 			<TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
                 <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
             </TouchableOpacity>
@@ -117,9 +117,11 @@ const CreateScreen = () => {
                     </View>
                 )
             }
-            )}
-		
+            )}	
 		</ScrollView>
+        <View style={style.historyContainer}>
+            <Text style={[style.historyText, {color: theme.fontColorContent}]}>{language==="en"?historyText.en:historyText.pl}</Text>
+        </View>
     </View>
   )
 }
@@ -150,7 +152,7 @@ const style = StyleSheet.create({
 
         borderRadius: 15,
         borderWidth: 0,
-        backgroundColor:'#272',
+        backgroundColor:'#252',
         
         paddingHorizontal:15,
         paddingVertical: 10,
@@ -194,6 +196,17 @@ const style = StyleSheet.create({
         textAlign:'center', 
         marginBottom:10, 
         fontSize:12,
+        letterSpacing:1
+    },
+    historyContainer: {
+        flex:1,
+
+    },
+    historyText: {
+        fontSize:14, 
+        textAlign:'left',
+        marginLeft:10, 
+        marginTop:5,
         letterSpacing:1
     }
 })

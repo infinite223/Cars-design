@@ -64,6 +64,10 @@ export const translations = {
                 en: "Photos",
                 pl: "Zdjęcia"
             },
+            historyText: {
+                en: "History",
+                pl: "Historia"
+            },
             cameraError: {
                 en: "Sorry, Camera roll permissions are required to make this work!",
                 pl: ""
