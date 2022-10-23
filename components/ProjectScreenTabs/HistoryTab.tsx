@@ -9,6 +9,7 @@ import { selectTheme } from '../../slices/themeSlice';
 import ImagesModal from './../../screens/modals/ImagesModal';
 import { Icon } from '@rneui/base';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
+import { hexToRGB } from './../../utils/functions/hexToRgb';
 
 
 const HistoryTab = () => {
@@ -21,6 +22,16 @@ const HistoryTab = () => {
   const selectedProject = 0
 
   const [opacity, setOpacity] = useState(.7)
+  const getBackground = () => {
+    let outputBackground = "rgba(11,23,21,.4)"
+    const hpValue = data[0].car.performance?.[0].value
+    if(hpValue){
+      const rgbObject = hexToRGB(getColorsCircle(hpValue, 'hp')[0])
+      outputBackground = `rgba(${rgbObject.red},${rgbObject.green}, ${rgbObject.blue}, .3)`
+      console.log(rgbObject)
+    }
+    return outputBackground
+  }
 
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
@@ -67,18 +78,23 @@ const HistoryTab = () => {
                       <Text style={style.performanceType}>{item.performance?.[3]?.type}</Text>
                     </View>}
                   </View>
-                  {item.components&&
+                  {(item.components && item.performance)&&
                       <FlatList
-                        style={style.componentsContainer}
+                        style={[style.componentsContainer]}
                         ItemSeparatorComponent={()=><View style={{width:10}}/>}
                         horizontal
                         data={item.components}
                         renderItem={({item})=> (
-                          <View style={style.component}>
-                            <Text style={[style.typeComponent, {color: theme.fontColorContent}]}>{item.type}</Text>
-                            <Image source={require('../../assets/componentsIcons/engine.png')} style={{width:70, height:70}}/>
-                            <Text style={[style.nameComponent, {color: theme.fontColor}]}>{item.name}</Text>
-                          </View>
+                          <TouchableOpacity style={[style.component, {backgroundColor: 'rgba(1,1,1, .25)'}]}>
+                            <Text style={[style.typeComponent]}>{item.type}</Text>
+                            <Image 
+                              source={item.type=="turbo"?
+                                require('../../assets/componentsIcons/turbo_white.png'):
+                                require('../../assets/componentsIcons/engine_white.png')} 
+                              style={style.imageComponent}
+                            />
+                            <Text style={[style.nameComponent]}>{item.name}</Text>
+                          </TouchableOpacity>
                         )}
                       />}
 
@@ -160,19 +176,28 @@ const style = StyleSheet.create({
   },
   component:{
     alignItems:'center',
-    justifyContent:'center',
+    justifyContent:'space-around',
     width:100,
     height:110,
-    backgroundColor: 'rgba(1,1,1,.2)',
+    //backgroundColor: 'rgba(1,1,1,.2)',
     paddingHorizontal:10,
     paddingVertical:6,
-    borderRadius:10
+    borderRadius:15
   },
   typeComponent: {
-    fontSize:12
+    textTransform:'uppercase',
+    fontSize:12,
+    color:'#bbb',
+    letterSpacing:1
   },
   nameComponent: {
-
+    color:'white',
+    fontWeight:'bold',
+    letterSpacing:1
+  },
+  imageComponent: {
+    width:35, 
+    height:35,
   },
   footer: {
     flexDirection:'row',
