@@ -32,7 +32,7 @@ const CreateScreen = () => {
     const widthScreen = Dimensions.get('window').width
     const flatListRef = useRef<any>(null)
 
-    console.log(flatListRef.current, 'a')
+    console.log(flatListRef.current)
 
     const steps = [
         <View>
@@ -43,7 +43,15 @@ const CreateScreen = () => {
                 <CustomInput placeholder='Description...' setValue={setDescription} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
             </View>
         </View>,
-        <View><Text style={[style.headerText]}>Performance</Text></View>
+        <View>
+            <Text style={[style.headerText]}>Performance</Text>
+            <View>
+                <CustomInput placeholder='Type car Hp' setValue={setMake} helpText="(np. 360)" performance="hp"/>
+                <CustomInput placeholder='Type car Nm' setValue={setModel} helpText="(np. 530)" performance="nm"/>
+                <CustomInput placeholder='0-100km/h (s)' setValue={setDescription} helpText="(np. 5)" performance="_0_100"/>
+                <CustomInput placeholder='100-200km/h (s)' setValue={setDescription} helpText="(np. 13)" performance="_100_200"/>
+            </View>
+        </View>    
     ]
 
     const {informationText, cameraError, locationText, historyText, navTitleText, perfonrmanceText, photoText} = translations.screens.CreateScreen
@@ -84,8 +92,6 @@ const CreateScreen = () => {
 			allowsEditing: true,
 		});
 	
-		console.log(result);
-	
 		if (!result.cancelled) {
 		   setImages([...images, result.uri]);
 		}
@@ -100,7 +106,7 @@ const CreateScreen = () => {
             style={{width:widthScreen}}
             data={steps}
             horizontal
-            scrollEnabled={false}
+            // scrollEnabled={false}
             renderItem={({item})=> (
                 <View style={[style.renderItem, {width: widthScreen}]}>
                     {item}
