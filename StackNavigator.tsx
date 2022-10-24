@@ -42,7 +42,7 @@ const StackNavigator = () => {
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Camera' component={MyCamera} options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>
-            <Stack.Screen name='Create' component={CreateScreen}/>
+            <Stack.Screen name='Create' component={CreateScreen} />
             <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
           </Stack.Group>
           <Stack.Group screenOptions={{presentation: 'modal',  headerShown:false}}>

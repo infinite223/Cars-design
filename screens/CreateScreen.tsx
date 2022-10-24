@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity,  ScrollView, Platform  } from 'react-native'
-import React, { useLayoutEffect, useState, useEffect } from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity,  Dimensions, Platform  } from 'react-native'
+import React, { useLayoutEffect, useState, useEffect, useRef } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import SelectPlaceOnMap from './modals/SelectPlaceOnMap';
 import CustomInput from './../components/CustomInput';
 import * as ImagePicker from 'expo-image-picker';
 import { Icon } from '@rneui/themed';
+import { FlatList } from 'react-native-gesture-handler';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
@@ -28,6 +29,22 @@ const CreateScreen = () => {
     const [make, setMake] = useState('')
     const [model, setModel] = useState('')
     const [description, setDescription] = useState('')
+    const widthScreen = Dimensions.get('window').width
+    const flatListRef = useRef<any>(null)
+
+    console.log(flatListRef.current, 'a')
+
+    const steps = [
+        <View>
+            <Text style={[style.headerText]}>Basic information</Text>
+            <View>
+                <CustomInput placeholder='Type car make' setValue={setMake} helpText="(BMW, Audi, Ford...)"/>
+                <CustomInput placeholder='Type car model' setValue={setModel} helpText="(Mustang, Scirocco, M4...)"/>
+                <CustomInput placeholder='Description...' setValue={setDescription} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
+            </View>
+        </View>,
+        <View><Text style={[style.headerText]}>Performance</Text></View>
+    ]
 
     const {informationText, cameraError, locationText, historyText, navTitleText, perfonrmanceText, photoText} = translations.screens.CreateScreen
 
@@ -42,7 +59,10 @@ const CreateScreen = () => {
             <TouchableOpacity onPress={() => navigation.goBack()}>            
                 <Icon type='materialicon' name="arrow-back-ios"  size={22} color={theme.fontColor}/>
             </TouchableOpacity>
-        )})
+            ),
+            headerRight: () => <Image style={style.logo} source={require('./../assets/cars_projects_IconV2.png')}/>
+            
+    })
       }, [theme, language])
 
       useEffect(() => {
@@ -74,54 +94,19 @@ const CreateScreen = () => {
     
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-        <Text style={[style.text, {color: theme.fontColorContent, marginTop:0}]}>
-         {language==="en"?informationText.en:informationText.pl}
-        </Text>
-        <SelectPlaceOnMap origin={origin} setOrigin={setOrigin} modalVisible={selectPlaceOnMapModalVisible} setModalVisible={setSelectPlaceOnMapModalVisible}/>
-        <CustomInput placeholder='Type car make' setValue={setMake} marginLeft={0}/>
-        <CustomInput placeholder='Type car model' setValue={setModel} marginLeft={0}/>
-        <CustomInput placeholder='Description...' setValue={setDescription} marginLeft={0}/>
-
-        <Text style={[style.text, {color: theme.fontColorContent}]}>
-            {language==="en"?perfonrmanceText.en:perfonrmanceText.pl}
-        </Text>
-        <ScrollView style={style.performanceContainer} horizontal>   
-            <CustomInput placeholder='HP' setValue={setMake} marginLeft={0}/>
-            <CustomInput placeholder='Nm' setValue={setMake} marginLeft={5}/>
-            <CustomInput placeholder='0-100km/h (s)' setValue={setMake} marginLeft={5}/>
-            <CustomInput placeholder='100-200km/h  (s)' setValue={setMake} marginLeft={5}/>
-        </ScrollView>
-
-        <Text style={[style.text, {color: theme.fontColorContent}]}>
-            {language==="en"?locationText.en:locationText.pl}   
-        </Text>
-        <TouchableOpacity onPress={()=>setSelectPlaceOnMapModalVisible(true)} style={[style.setLocationButton, {borderColor: theme.backgroundContent}]}>         
-            <Icon type='materialicon' name='place' color={'#bbb'} size={20} style={{marginRight:0}}/>
-            <Text style={[style.locationText]}>{origin.place?.description}</Text>
-        </TouchableOpacity> 
-
-        <Text style={[style.text, {color: theme.fontColorContent}]}>               
-          {language==="en"?photoText.en:photoText.pl}
-        </Text>
-        <ScrollView style={{ flexGrow:.0,  marginTop:5, flexDirection:'row' }} horizontal>		
-			<TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
-                <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
-            </TouchableOpacity>
-            {images.map((uri:string)=> {
-                return  (
-                    <View style={{alignItems:'center', justifyContent:'center', height:120}}>
-                        <Image source={{ uri: uri }} style={{ width: 120, height: 120, marginStart:15, borderRadius:15 }} />
-                        <TouchableOpacity onPress={()=>setImages(images.filter((item)=>item!==uri))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
-                            <Icon type='entypo' name="minus" size={30} color={theme.fontColor}/>
-                        </TouchableOpacity>
-                    </View>
-                )
-            }
-            )}	
-		</ScrollView>
-        <View style={style.historyContainer}>
-            <Text style={[style.historyText, {color: theme.fontColorContent}]}>{language==="en"?historyText.en:historyText.pl}</Text>
-        </View>
+        <FlatList
+            ref={flatListRef}
+            pagingEnabled
+            style={{width:widthScreen}}
+            data={steps}
+            horizontal
+            scrollEnabled={false}
+            renderItem={({item})=> (
+                <View style={[style.renderItem, {width: widthScreen}]}>
+                    {item}
+                </View>
+            )}
+        />
     </View>
   )
 }
@@ -138,75 +123,22 @@ const style = StyleSheet.create({
     mainContainer: {
         flex:1, 
         paddingHorizontal:15, 
-        position:'relative'
+        position:'relative',
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    renderItem: {
+        paddingHorizontal:20
     },
     headerText: {
-        letterSpacing:1, 
-        fontSize:17, 
-        fontWeight:'600'
-    },
-    setLocationButton: {
-        alignItems:'center',
-        flexDirection:'row',
-        justifyContent:'center',
-
-        borderRadius: 15,
-        borderWidth: 0,
-        backgroundColor:'#252',
-        
-        paddingHorizontal:15,
-        paddingVertical: 10,
-        marginVertical: 4 
-    },
-    locationText: {
-        fontSize:15,
-        marginLeft: 10,
-        color:'white'
-    },
-    input: {
-        borderWidth:1,
-        borderRadius: 15,
+        color: '#293',
         fontSize:20,
-        paddingHorizontal: 15,
-        paddingVertical: 5
+        letterSpacing:2
     },
-    text: {
-        fontSize:14, 
-        textAlign:'left',
-        marginLeft:10, 
-        marginTop:5,
-        letterSpacing:1
-    },
-    performanceContainer: { 
-        flexDirection: 'row',
-        flexGrow:0,
-        // paddingHorizontal: 15,
-    },
-    addImageButton: {
-        borderWidth:1,
-        borderRadius:15,
-        alignItems:'center',
-        justifyContent:'center',
-
-        width:120,
-        height:120
-    },
-    chooseImageText: {
-        maxWidth:"70%", 
-        textAlign:'center', 
-        marginBottom:10, 
-        fontSize:12,
-        letterSpacing:1
-    },
-    historyContainer: {
-        flex:1,
-
-    },
-    historyText: {
-        fontSize:14, 
-        textAlign:'left',
-        marginLeft:10, 
-        marginTop:5,
-        letterSpacing:1
+    logo: {
+        width:40,
+        height:40,
+        borderRadius:10,
+        marginRight:10
     }
 })
