@@ -23,39 +23,52 @@ const CreateScreen = () => {
             description: "Set place where people can find you"
         }
     })
-    console.log(origin)
+
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-    const [make, setMake] = useState('')
-    const [model, setModel] = useState('')
-    const [description, setDescription] = useState('')
+    const [makeValue, setMakeValue] = useState('')
+    const [modelValue, setModelValue] = useState('')
+    const [powerValue, setPowerValue] = useState('')
+    const [torqueValue, setTorqueValue] = useState('')
+    const [descriptionValue, setDescriptionValue] = useState('')
     const widthScreen = Dimensions.get('window').width
     const flatListRef = useRef<any>(null)
 
-    console.log(flatListRef.current)
+    const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText } = translations.screens.CreateScreen
+
+    let validate = makeValue && descriptionValue?true:false;
+
+    console.log(validate)
+
+    const goToNextStep = () => {
+        flatListRef?.current?.scrollToOffset({
+            offset: 1 * widthScreen,
+            animated: true
+        })
+    }
 
     const steps = [
-        <View>
+        <View style={{flex:1}}>
             <Text style={[style.headerText]}>Basic information</Text>
             <View>
-                <CustomInput placeholder='Type car make' setValue={setMake} helpText="(BMW, Audi, Ford...)"/>
-                <CustomInput placeholder='Type car model' setValue={setModel} helpText="(Mustang, Scirocco, M4...)"/>
-                <CustomInput placeholder='Description...' setValue={setDescription} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
+                <CustomInput placeholder={language==='en'?make.en:make.pl} setValue={setMakeValue} helpText="(BMW, Audi, Ford...)"/>
+                <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={setModelValue} helpText="(Mustang, Scirocco, M4...)"/>
+                <CustomInput placeholder={language==='en'?description.en:description.pl} setValue={setDescriptionValue} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
             </View>
+            <TouchableOpacity onPress={goToNextStep} style={style.nextStepButton}>
+                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+            </TouchableOpacity>
         </View>,
         <View>
             <Text style={[style.headerText]}>Performance</Text>
             <View>
-                <CustomInput placeholder='Type car Hp' setValue={setMake} helpText="(np. 360)" performance="hp"/>
-                <CustomInput placeholder='Type car Nm' setValue={setModel} helpText="(np. 530)" performance="nm"/>
-                <CustomInput placeholder='0-100km/h (s)' setValue={setDescription} helpText="(np. 5)" performance="_0_100"/>
-                <CustomInput placeholder='100-200km/h (s)' setValue={setDescription} helpText="(np. 13)" performance="_100_200"/>
+                <CustomInput placeholder={language==='en'?power.en:power.pl} setValue={setPowerValue} helpText="(np. 360)" performance="hp"/>
+                <CustomInput placeholder={language==='en'?torque.en:torque.pl} setValue={setTorqueValue} helpText="(np. 530)" performance="nm"/>
+                <CustomInput placeholder='0-100km/h (s)' setValue={setTorqueValue} helpText="(np. 5)" performance="_0_100"/>
+                <CustomInput placeholder='100-200km/h (s)' setValue={setTorqueValue} helpText="(np. 13)" performance="_100_200"/>
             </View>
         </View>    
     ]
-
-    const {informationText, cameraError, locationText, historyText, navTitleText, perfonrmanceText, photoText} = translations.screens.CreateScreen
-
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -106,7 +119,7 @@ const CreateScreen = () => {
             style={{width:widthScreen}}
             data={steps}
             horizontal
-            // scrollEnabled={false}
+            scrollEnabled={false}
             renderItem={({item})=> (
                 <View style={[style.renderItem, {width: widthScreen}]}>
                     {item}
@@ -146,5 +159,16 @@ const style = StyleSheet.create({
         height:40,
         borderRadius:10,
         marginRight:10
+    },
+    nextStepButton: {
+        position: 'absolute', 
+        bottom: 20, 
+        right: 10,
+        backgroundColor: '#273', 
+        paddingHorizontal:14, 
+        borderRadius:50, 
+        paddingVertical:14,
+        alignItems:'center',
+        justifyContent:'center'
     }
 })

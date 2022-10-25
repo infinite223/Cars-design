@@ -48,29 +48,17 @@ export const translations = {
                 en: "Add project",
                 pl:"Dodaj projekt"
             },
-            informationText: {
-                en: "Information",
-                pl: "Informacje"
-            },
-            perfonrmanceText: {
-                en: "Perfonrmance",
-                pl: "Osiągi"
-            },
-            locationText: {
-                en: "Location",
-                pl: "Lokalizacja"
-            },
-            photoText: {
-                en: "Photos",
-                pl: "Zdjęcia"
-            },
-            historyText: {
-                en: "History",
-                pl: "Historia"
-            },
             cameraError: {
                 en: "Sorry, Camera roll permissions are required to make this work!",
                 pl: ""
+            },
+            inputPlaceholders: {
+                make: { en: 'Type car make', pl: 'Podaj marke samochodu'},
+                model: { en: 'Type car make', pl: 'Podaj model samochodu'},
+                description: { en: 'Short description....', pl: 'Krótki opis...'},
+                power: { en: 'Type the power of the car', pl: 'Podaj moc samochodu'},
+                torque: { en: 'Type the torque of the car', pl: 'Podaj moment obrotowy samochodu' }
+
             }
         },
         SettingsScreen: {

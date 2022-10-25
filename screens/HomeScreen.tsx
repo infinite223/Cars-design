@@ -1,7 +1,6 @@
 import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { AntDesign, Ionicons, Feather, MaterialIcons } from 'react-native-vector-icons'
 import Carproject from '../components/Carproject';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
@@ -9,6 +8,7 @@ import { data } from '../utils/data';
 import { selectLanguage } from './../slices/languageSlice';
 import { translations } from '../utils/translations'; 
 import { HeaderTopProjects } from './../components/HeaderTopProjects';
+import { Icon } from '@rneui/themed';
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
@@ -23,8 +23,12 @@ const HomeScreen = () => {
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Chats')}><MaterialIcons name={'messenger-outline'} size={22} color={theme.fontColor} style={{ marginRight: 15, opacity: .7 }}/></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}><Ionicons name={'md-person-outline'} size={22} color={theme.fontColor} style={{ marginRight: 0 }}/></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Chats')}>
+          <Icon type='materialicon' name={'messenger-outline'} size={22} color={theme.fontColor} style={{ marginRight: 15, opacity: .7 }}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Icon type='ionicon' name={'md-person-outline'} size={22} color={theme.fontColor} style={{ marginRight: 0 }}/>
+        </TouchableOpacity>
       </View>
     })
   }, [theme])

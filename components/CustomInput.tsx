@@ -20,8 +20,8 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
         <TextInput 
             style={[style.input, {borderColor: focus?'#253':theme.backgroundContent, color: theme.fontColor}]} 
             placeholder={placeholder}
-            placeholderTextColor={theme.fontColorContent}
-            onChangeText={(text)=>setValue1(text)}
+            placeholderTextColor={focus?theme.fontColorContent:theme.backgroundContent}
+            onChangeText={(text)=>(setValue1(text), setValue(text))}
             onFocus={()=>setFocus(true)}
             onEndEditing={()=>setFocus(false)}
         />
