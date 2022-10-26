@@ -1,19 +1,19 @@
 import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from './screens/HomeScreen'
-import LoginScreen from './screens/LoginScreen'
-import ProfileScreen from './screens/ProfileScreen'
-import ProjectScreen from './screens/ProjectScreen'
+import HomeScreen from './screens/Home'
+import LoginScreen from './screens/Login'
+import ProfileScreen from './screens/Profile'
+import ProjectScreen from './screens/Project'
 import CreateScreen from './screens/CreateProject'
-import SettingsScreen from './screens/SettingsScreen'
+import SettingsScreen from './screens/Settings'
 import ChatsScreen from './screens/Chats'
 import useAuth from './hooks/useAuth'
 import EditProfileScreen from './screens/modals/SettingsModals/EditProfileModal';
-import MyCamera from './screens/CameraScreen'
+import MyCamera from './screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './slices/themeSlice';
-import MeetingRoomScreen from './screens/MeetingRoomScreen';
+import MeetingRoomScreen from './screens/MeetingRoom';
 
 const Stack = createNativeStackNavigator()
 

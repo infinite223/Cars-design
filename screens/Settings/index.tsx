@@ -1,16 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../slices/themeSlice';
-import useAuth from '../hooks/useAuth';
+import { selectTheme } from './../../slices/themeSlice';
+import useAuth from '../../hooks/useAuth';
 import { useNavigation } from '@react-navigation/native';
-import EditProfileScreen from './modals/SettingsModals/EditProfileModal';
-import ThemeModal from './modals/SettingsModals/ThemeModal';
-import InformationModal from './modals/SettingsModals/InformationModeal';
-import LanguageModal from './modals/SettingsModals/LanguageModal';
-import { selectLanguage } from './../slices/languageSlice';
-import { translations } from './../utils/translations';
+import EditProfileScreen from './../modals/SettingsModals/EditProfileModal';
+import ThemeModal from './../modals/SettingsModals/ThemeModal';
+import InformationModal from './../modals/SettingsModals/InformationModeal';
+import LanguageModal from './../modals/SettingsModals/LanguageModal';
+import { selectLanguage } from './../../slices/languageSlice';
+import { translations } from './../../utils/translations';
 import { Icon } from '@rneui/themed';
+import { style } from './style';
 
 const SettingsScreen = () => {
   const theme = useSelector(selectTheme)
@@ -72,22 +73,3 @@ const SettingsScreen = () => {
 
 export default SettingsScreen
 
-
-const style = StyleSheet.create({
-    settingsContainer: {
-        flex:1,
-        paddingHorizontal:15,
-    },
-    option: {
-        paddingVertical:5,
-        flexDirection:'row',
-        alignItems:'center',
-    },
-    optionName: {   
-        fontSize:18,
-        marginLeft:10
-    },
-    logOutButton: {
-        marginVertical:5
-    }
-})

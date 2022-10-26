@@ -1,6 +1,7 @@
 import { Text, View,StyleSheet, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import React, { useEffect ,useState  } from 'react';
+import { cameraStyle } from './style';
 
 export default function MyCamera() {
     let n =null
@@ -44,26 +45,3 @@ export default function MyCamera() {
         </View>
     );
 }
-
-const cameraStyle = StyleSheet.create({
-    mainView: {
-    flex: 1,
-    },
-    childView: {
-    flex: 1,
-    },
-    textStyle: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: 'white'
-    },
-    deepView: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    },
-    touchStyle: {
-    flex: 0.1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-    }})

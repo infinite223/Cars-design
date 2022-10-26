@@ -1,14 +1,15 @@
 import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import Carproject from '../components/Carproject';
+import Carproject from '../../components/Carproject';
 import { useSelector } from 'react-redux';
-import { selectTheme } from '../slices/themeSlice';
-import { data } from '../utils/data';
-import { selectLanguage } from './../slices/languageSlice';
-import { translations } from '../utils/translations'; 
-import { HeaderTopProjects } from './../components/HeaderTopProjects';
+import { selectTheme } from '../../slices/themeSlice';
+import { data } from '../../utils/data';
+import { selectLanguage } from './../../slices/languageSlice';
+import { translations } from '../../utils/translations'; 
+import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
+import { style } from './style';
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
@@ -19,7 +20,7 @@ const HomeScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
-      headerLeft: () => <Image style={style.logo} source={require('./../assets/cars_projects_IconV2.png')}/>,
+      headerLeft: () => <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
@@ -48,15 +49,3 @@ const HomeScreen = () => {
 }
   
 export default HomeScreen
-
-const style = StyleSheet.create({
-  projectsContainer: {
-
-  },
-  logo: {
-    width:40,
-    height:40,
-    borderRadius:10,
-    marginRight:10
-  }
-})

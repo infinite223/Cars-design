@@ -3,15 +3,16 @@ import React, { useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../slices/themeSlice';
+import { selectTheme } from './../../slices/themeSlice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PeopleTab from './../components/MeetingRoomTabs/PeopleTab';
-import ChatTab from './../components/MeetingRoomTabs/ChatTab';      
+import PeopleTab from './../../components/MeetingRoomTabs/PeopleTab';
+import ChatTab from './../../components/MeetingRoomTabs/ChatTab';      
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { selectedTabInRoom, selectRoom } from './../slices/selectedRoomSlice';
+import { selectedTabInRoom, selectRoom } from './../../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-
+import { style } from './style';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
+
 
 const MeetingRoomScreen = () => {
     const navigation = useNavigation<any>()
@@ -123,36 +124,3 @@ const MeetingRoomScreen = () => {
 
 export default MeetingRoomScreen
 
-const style = StyleSheet.create({
-    mainContainer: {
-      flex:1,
-      position:'relative'
-    },
-    mainContent: {
-      zIndex:10,
-      height: SCREEN_HEIGHT+50,
-      width: "100%",
-      position: 'absolute',
-      top: SCREEN_HEIGHT,
-      borderRadius: 15,
-    },
-    textContainer: {
-      paddingTop:30,
-      width:'100%',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    date: {
-      fontSize:12,
-      color:'#1b3',
-    },
-    name:{ 
-      fontWeight: 'bold',
-       letterSpacing:2,
-      fontFamily: 'notoserif',
-      color:'#1b3'
-    },
-    place: {
-      fontSize:13,
-    }
-  })

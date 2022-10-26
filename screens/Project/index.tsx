@@ -3,16 +3,17 @@ import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { Icon } from '@rneui/base';
-import { CircleData } from '../components/CircleData';
+import { CircleData } from '../../components/CircleData';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PhotosTab from '../components/ProjectScreenTabs/PhotosTab';
-import HistoryTab from '../components/ProjectScreenTabs/HistoryTab';
-import { getColorsCircle } from './../utils/functions/colorsCircle';
-import { onShare, likeProject } from '../utils/functions/projectFunctions';
-import ChatModal from './modals/ChatModal';
+import PhotosTab from '../../components/ProjectScreenTabs/PhotosTab';
+import HistoryTab from '../../components/ProjectScreenTabs/HistoryTab';
+import { getColorsCircle } from './../../utils/functions/colorsCircle';
+import { onShare, likeProject } from '../../utils/functions/projectFunctions';
+import ChatModal from './../modals/ChatModal';
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../slices/themeSlice';
-import MapModal from './modals/MapModal';
+import { selectTheme } from './../../slices/themeSlice';
+import MapModal from './../modals/MapModal';
+import { style } from './style';
 
 
 const ProjectScreen = () => {
@@ -40,7 +41,7 @@ const ProjectScreen = () => {
             </View>
           ),
           headerRight: () => 
-              <Image style={{width:50, height:50, borderRadius:15}} source={require('./../assets/cars_projects_IconV2.png')}/>
+              <Image style={{width:50, height:50, borderRadius:15}} source={require('../../assets/cars_projects_IconV2.png')}/>
 
         })  
       }, [theme])
@@ -112,32 +113,3 @@ const ProjectScreen = () => {
 
 export default ProjectScreen
 
-const style = StyleSheet.create({
-  descriptopnText: {
-    maxWidth:'80%',
-    fontSize:12
-  },
-  locationContainer: {
-    flexDirection:'row', 
-    alignItems:'center',
-    marginVertical:5
-  },
-  locationPlace: {
-    fontSize:17, 
-    fontWeight:'600', 
-    letterSpacing:1,
-  },
-  bottomNav: {
-    width:'100%', 
-    position:'relative', 
-    paddingHorizontal:10, 
-    paddingVertical:8, 
-    flexDirection:'row', 
-    justifyContent:'space-between', 
-    alignItems:'center'
-  },
-  iconsContainer: {
-    flexDirection:'row', 
-    alignItems:'center'
-  }
-})

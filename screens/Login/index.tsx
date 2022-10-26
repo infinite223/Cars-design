@@ -1,9 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { useLayoutEffect } from 'react'
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
-import { LoginForm } from '../components/LoginForm';
+import { LoginForm } from '../../components/LoginForm';
 import { Icon } from '@rneui/base';
+import { style } from './style';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -17,7 +18,7 @@ const LoginScreen = () => {
       <View style={style.headerContainer}>
         <View style={{alignItems:'center'}}>
 
-          <Image style={{width:150, height:150}} source={require("./../assets/cars_projects_IconV2.png")}/>
+          <Image style={{width:150, height:150}} source={require("../../assets/cars_projects_IconV2.png")}/>
         
           <Text style={style.logoText}>Cars projects</Text>
           <Text style={style.aboutText}>
@@ -51,23 +52,3 @@ const LoginScreen = () => {
 }
 
 export default LoginScreen
-
-const style = StyleSheet.create({
-  headerContainer: {
-    flex:1,
-    justifyContent:'center', 
-    alignItems:'center',
-    backgroundColor:'white'
-  },
-  logoText: {
-    fontFamily:'monospace', 
-    fontSize:35, 
-    fontWeight:'bold'
-  },
-  aboutText: {
-    fontSize:15, 
-    color:'gray', 
-    marginHorizontal:"17%", 
-    textAlign:'center'
-  }
-})
