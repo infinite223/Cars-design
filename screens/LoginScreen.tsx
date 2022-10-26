@@ -2,8 +2,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
-import { AntDesign, Ionicons } from 'react-native-vector-icons';
 import { LoginForm } from '../components/LoginForm';
+import { Icon } from '@rneui/base';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -14,7 +14,6 @@ const LoginScreen = () => {
   }, [])
 
   return (
-    // <ImageBackground style={{flex:1}} source={require('../assets/background.png')}>
       <View style={style.headerContainer}>
         <View style={{alignItems:'center'}}>
 
@@ -24,7 +23,6 @@ const LoginScreen = () => {
           <Text style={style.aboutText}>
             Do you have your own car project? Share it with the rest of the world for others to see.
           </Text>
-          {/* <Image style={{width:50, height:50, borderRadius:10, marginTop:20}} source={require('../assets/icon.png')}/> */}
         </View>
 
         <View style={{marginTop:100, marginBottom:0, alignItems:'center'}}>
@@ -36,7 +34,7 @@ const LoginScreen = () => {
               <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>
               <TouchableOpacity onPress={()=>signInAsTester()} style={{alignItems:'center', flexDirection:'row'}}>
                 <Text style={{fontSize:15, color:"gray"}}>Demo</Text>
-                <Ionicons name="ios-chevron-forward-outline" size={22} color="gray"/>
+                <Icon type='ionicon' name="ios-chevron-forward-outline" size={22} color="gray"/>
               </TouchableOpacity>
             </View>
         </View> 
@@ -45,17 +43,10 @@ const LoginScreen = () => {
           style={{elevation:5, flexDirection:'row', alignItems:'center', position:'absolute', bottom:20}}
           onPress={()=>signInWithGoogle()}
         >
-          {/* <LinearGradient
-            colors={["#339", "#935"]}
-            start={[0.7, 0.2]}
-            style={{paddingHorizontal:25, paddingVertical:8, borderRadius:20}}
-          >  */}
-             <Text style={{fontSize:13, color:"gray", letterSpacing:2}}>Sign up with google</Text>
-             <AntDesign name='google' size={19} style={{marginLeft:8}} color="gray"/>
-          {/* </LinearGradient>    */}
+          <Text style={{fontSize:13, color:"gray", letterSpacing:2}}>Sign up with google</Text>
+          <Icon type='antdesign' name='google' size={19} style={{marginLeft:8}} color="gray"/>
         </TouchableOpacity> 
       </View>
-    // </ImageBackground>
   )
 }
 

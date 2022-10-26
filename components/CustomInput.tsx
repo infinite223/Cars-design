@@ -24,6 +24,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
             onChangeText={(text)=>(setValue1(text), setValue(text))}
             onFocus={()=>setFocus(true)}
             onEndEditing={()=>setFocus(false)}
+            keyboardType={performance?'numeric':'default'}
         />
         <View style={style.footerContainer}>
             {helpText&&<Text style={[style.helperText, {color: theme.fontColorContent}]}>{helpText}</Text>}

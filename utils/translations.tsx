@@ -52,6 +52,10 @@ export const translations = {
                 en: "Sorry, Camera roll permissions are required to make this work!",
                 pl: ""
             },
+            headerText: {
+                en: 'Basic information',
+                pl: "Podstawowe informacje"
+            },
             inputPlaceholders: {
                 make: { en: 'Type car make', pl: 'Podaj marke samochodu'},
                 model: { en: 'Type car make', pl: 'Podaj model samochodu'},
