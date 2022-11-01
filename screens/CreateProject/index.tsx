@@ -61,9 +61,9 @@ const CreateScreen = () => {
                 {language==="en"?navTitleText.en:navTitleText.pl}
             </Text>,
            headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()}>            
-                <Icon type='materialicon' name="arrow-back-ios"  size={22} color={theme.fontColor}/>
-            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:5}}>
+                <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
+            </TouchableOpacity> 
             ),
             headerRight: () => <Image style={style.logo} source={require('./../../assets/cars_projects_IconV2.png')}/>
             

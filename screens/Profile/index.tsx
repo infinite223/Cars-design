@@ -28,14 +28,15 @@ const ProfileScreen = () => {
            headerTitle: () => <Text style={{marginLeft:10, fontSize:20, color:theme.fontColor}}>{data[0].author.name}</Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
-               <TouchableOpacity onPress={() => navigation.goBack()}>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{marginHorizontal:5}}>
                     <Icon
+                        size={24}
                         name='arrow-back-ios'
                         type='MaterialIcons'
                         color={theme.fontColor}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
+                <TouchableOpacity style={{marginVertical:10}} onPress={() => setEditProfileModalVisible(true)}>
                     <Avatar
                         size={34}
                         rounded
@@ -50,7 +51,7 @@ const ProfileScreen = () => {
                 <Icon
                     name='add-outline'
                     type='ionicon'
-                    size={20} 
+                    size={22} 
                     color={theme.fontColor}
                 />
             </TouchableOpacity>
@@ -58,7 +59,7 @@ const ProfileScreen = () => {
                 <Icon                 
                     name='ios-settings-outline'
                     type='ionicon'
-                    size={20} 
+                    size={25} 
                     color={theme.fontColor}
                 />
             </TouchableOpacity>

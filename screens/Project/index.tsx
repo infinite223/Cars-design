@@ -34,14 +34,12 @@ const ProjectScreen = () => {
            <Text style={{color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}> {car.model}</Text>
            </Text>,
            headerLeft: () => (
-            <View style={{flexDirection:"row", alignItems:'center', justifyContent:'space-around'}}>
-               <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={20} color={theme.fontColor}/>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:5}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
-            </View>
           ),
           headerRight: () => 
-              <Image style={{width:50, height:50, borderRadius:15}} source={require('../../assets/cars_projects_IconV2.png')}/>
+              <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
 
         })  
       }, [theme])

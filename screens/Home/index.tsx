@@ -25,10 +25,10 @@ const HomeScreen = () => {
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
         <TouchableOpacity onPress={() => navigation.navigate('Chats')}>
-          <Icon type='materialicon' name={'messenger-outline'} size={22} color={theme.fontColor} style={{ marginRight: 15, opacity: .7 }}/>
+          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 15, opacity: .7 }}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Icon type='ionicon' name={'md-person-outline'} size={22} color={theme.fontColor} style={{ marginRight: 0 }}/>
+          <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
       </View>
     })
@@ -37,12 +37,12 @@ const HomeScreen = () => {
   return (
     <View style={{flex:1,  backgroundColor:theme.background}}>
       <FlatList style={{flex:1, height:"100%"}}
+         ListHeaderComponent={()=> {
+          return <HeaderTopProjects/>
+        }}
         data={data}
         keyExtractor={carProject => carProject.id}
         renderItem={(carData)=> <Carproject data={carData.item}/>}
-        ListHeaderComponent={()=> {
-          return <HeaderTopProjects/>
-        }}
       />
     </View>
   )

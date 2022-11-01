@@ -1,14 +1,16 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
 import { LoginForm } from '../../components/LoginForm';
 import { Icon } from '@rneui/base';
 import { style } from './style';
+import { RegisterForm } from '../../components/RegisterForm';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
   const { signInWithGoogle, signInAsTester }:any = useAuth()
+  const [showRegisterForm, setShowRegisterForm] = useState(false)
 
   useLayoutEffect(() => {
     navigation.setOptions({headerShown:false})
@@ -27,9 +29,9 @@ const LoginScreen = () => {
         </View>
 
         <View style={{marginTop:100, marginBottom:0, alignItems:'center'}}>
-            <LoginForm/>
+            {!showRegisterForm?<LoginForm/>:<RegisterForm/>}
             <View style={{flexDirection:'row', alignItems:'center'}}>
-              <TouchableOpacity style={{ alignItems:'center'}}>
+              <TouchableOpacity onPress={()=>setShowRegisterForm(true)} style={{ alignItems:'center'}}>
                 <Text style={{fontSize:15, color:"#1b3"}}>Create account</Text>
               </TouchableOpacity>
               <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>

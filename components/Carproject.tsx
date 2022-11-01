@@ -13,7 +13,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   return (
     <TouchableWithoutFeedback onPress={() => navigation.navigate('Project', {id, car, author, createdAt}) }>
       <View>
-        <View style={{backgroundColor:theme.background, marginVertical:3 ,flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+        <View style={{backgroundColor:theme.background, marginVertical:5, paddingHorizontal:10 ,flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
             <View style={{ flexDirection:'row', alignItems:'center'}}>
                 <Image style={{margin:5, width:25, height:25, borderRadius:50}} source={{uri:author.imageUri}}/>
                 <Text style={{fontSize:17, fontWeight:'500',color:theme.fontColor, margin:5}}>{car.CarMake} {car.model}</Text>

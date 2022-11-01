@@ -26,7 +26,8 @@ export const style = StyleSheet.create({
         width:40,
         height:40,
         borderRadius:10,
-        marginRight:10
+        marginRight:10,
+        marginVertical:10
     },
     nextStepButton: {
         position: 'absolute', 
@@ -37,6 +38,7 @@ export const style = StyleSheet.create({
         borderRadius:50, 
         paddingVertical:14,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        marginRight:-10
     }
 })

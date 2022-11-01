@@ -45,9 +45,12 @@ const MeetingRoomScreen = () => {
     const selectedRoom = useSelector(selectRoom)
 
     const rRoomContentSheetStyle = useAnimatedStyle(() => {
-      const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [15, 5], Extrapolate.CLAMP )
+      const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 5], Extrapolate.CLAMP )
+      const paddingTop = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [0, 15], Extrapolate.CLAMP )
+
       return {
         borderRadius,
+        paddingTop,
         transform: [{translateY: translateY.value}]
       }
     })

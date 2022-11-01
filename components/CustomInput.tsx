@@ -58,8 +58,8 @@ const style = StyleSheet.create({
         // textAlign:'center'
     },
     dotPerformance: {
-        width:7, 
-        height:7,
+        width:10, 
+        height:10,
         borderRadius:50,
         borderWidth:1,
         borderColor:'#223'

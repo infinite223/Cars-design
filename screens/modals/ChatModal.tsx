@@ -57,7 +57,8 @@ const style = StyleSheet.create({
     width:"100%", 
     height:130,  
     flex: 1,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    paddingTop:15
   },
   headerContainer: {
     flexDirection:'row', 

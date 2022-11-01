@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
@@ -14,7 +14,7 @@ const ChatTab = () => {
   const [modalVisible, setModalVisible] = useState(false)
 
   return (
-    <View style={[style.mainContainer, { backgroundColor:theme.background}]}>
+    <SafeAreaView style={[style.mainContainer, { backgroundColor:theme.background}]}>
         <NavigationHeaderTabs navigationTab={navigationTab} tabName="Chat"/>
         <ScrollView style={{flex:1}}>
           
@@ -22,7 +22,7 @@ const ChatTab = () => {
         <View style={style.chatFunctions}>
           <ChatFunctionsConatiner modalVisible={modalVisible} setModalVisible={setModalVisible}/>
         </View>
-    </View> 
+    </SafeAreaView> 
   )
 }
 
@@ -30,12 +30,13 @@ export default ChatTab
 
 const style = StyleSheet.create({
   mainContainer: {
+    position:'relative',
     flex:1,
   },
   chatFunctions: {
     paddingHorizontal:15,
     width:'100%',
     position: 'absolute',
-    bottom:0
+    bottom:10
   }
 })
