@@ -12,9 +12,12 @@ import * as ImagePicker from 'expo-image-picker';
 import { Icon } from '@rneui/themed';
 import { FlatList } from 'react-native-gesture-handler';
 import { style } from './style'
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { Car } from '../../utils/types'
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
+    const db = getFirestore()
     const [images, setImages] = useState<string[]>([]);
     const { user, logout }:any = useAuth()
     const [selectPlaceOnMapModalVisible, setSelectPlaceOnMapModalVisible] = useState(false)
@@ -48,8 +51,18 @@ const CreateScreen = () => {
     let validatePerformance = carData.power && carData.torque?true:false;
 
     const goToNextStep = () => {
+        setIndex(index + 1)
+        console.log(flatListRef)
         flatListRef?.current?.scrollToOffset({
-            offset: index +1 * widthScreen,
+            offset: (index+1) * widthScreen,
+            animated: true
+        })
+    }
+
+    const goToPrevStep = () => {
+        if(index>=0) setIndex(index - 1)
+        flatListRef?.current?.scrollToOffset({
+            offset:(index-1) * widthScreen,
             animated: true
         })
     }
@@ -94,9 +107,35 @@ const CreateScreen = () => {
 		}
 	};
 
+    const addProject = async () => {
+        console.log(carData)
+        const finishCar:Car = {
+            CarMake:carData.make,
+            model:carData.model,
+            likes:0,
+            description:carData.description,
+            performance: [
+                {type:'hp', value:carData.power},
+                {type:'nm', value: carData.torque},
+                {type: '_0_100', value:carData._0_100},
+                {type: '_100_200', value:carData._100_200}
+            ],
+            history:[],
+            imagesCar: []
+        } 
+        await setDoc(doc(db, "Projects", user.uid), finishCar)
+          .then(s=>console.log(s))
+          .catch(e=>console.log(e))
+    }
+
+    console.log(index)
+
     const steps = [
         <View style={{flex:1}}> 
-            <Text style={[style.headerText]}>{language==='en'?headerText.en:headerText.pl}</Text>
+            <View style={style.headerContainer}>
+                {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
+                <Text style={[style.headerText]}>{language==='en'?headerText.en:headerText.pl}</Text>
+            </View>
             <View>
                 <CustomInput placeholder={language==='en'?make.en:make.pl} setValue={(text)=>setCarData({...carData, make:text})} helpText="(BMW, Audi, Ford...)"/>
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
@@ -107,7 +146,12 @@ const CreateScreen = () => {
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <Text style={[style.headerText]}>Performance</Text>
+            <View style={style.headerContainer}>
+                <TouchableOpacity onPress={goToPrevStep}>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
+                </TouchableOpacity>
+                <Text style={[style.headerText, { marginLeft:-20}]}>Performance</Text>
+            </View>
             <View>
                 <CustomInput placeholder={language==='en'?power.en:power.pl}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
                 <CustomInput placeholder={language==='en'?torque.en:torque.pl}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
@@ -117,7 +161,39 @@ const CreateScreen = () => {
             <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'#243'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>
-        </View>    
+        </View>,
+        <View style={{flex:1}}>
+            <View style={style.headerContainer}>
+                <TouchableOpacity onPress={goToPrevStep}>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
+                </TouchableOpacity>
+                <Text style={[style.headerText, { marginLeft:-20 }]}>Images</Text>
+            </View>
+            <View>
+                {/* Images upload... */}
+            </View>
+            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'#243'}]}>
+                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+            </TouchableOpacity>
+        </View>,
+        <View style={{flex:1}}>
+            <View style={style.headerContainer}>
+                <TouchableOpacity onPress={goToPrevStep}>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
+                </TouchableOpacity>
+                <Text style={[style.headerText, { marginLeft:-20 }]}>               
+                    History
+                </Text>
+            </View>
+
+            <View>
+                {/* Add stages */}
+            </View>
+            <TouchableOpacity onPress={addProject} style={[style.nextStepButton, {flexDirection:'row', backgroundColor: validatePerformance?'#273':'#243'}]}>
+                <Text style={[style.finishButton, { color: theme.fontColor}]}>Finish</Text>
+                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+            </TouchableOpacity>
+        </View>            
     ]
 
   return (

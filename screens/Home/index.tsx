@@ -10,12 +10,19 @@ import { translations } from '../../utils/translations';
 import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
 import { style } from './style';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
+
+  const db = getFirestore()
+
+  const addData = async () => {
+
+  }
    
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -24,7 +31,9 @@ const HomeScreen = () => {
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Chats')}>
+        <TouchableOpacity onPress={() => 
+          navigation.navigate('Chats')
+        }>
           <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 15, opacity: .9 }}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

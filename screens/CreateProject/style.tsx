@@ -20,13 +20,24 @@ export const style = StyleSheet.create({
     headerText: {
         color: '#293',
         fontSize:20,
-        letterSpacing:2,
-        borderRadius:10,
-        backgroundColor:'#111411',
+        letterSpacing:3,
         fontWeight:'bold',
-        paddingHorizontal:10,
-        paddingVertical:5,
-        marginVertical:4
+        textAlign:'center',
+        flex:1,
+    },
+    headerContainer: {
+        position:'relative',
+        paddingHorizontal:15,
+        paddingVertical:7,
+        marginVertical:4,
+        backgroundColor:'#111411',
+        borderRadius:15,
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    backIcon: {
+        paddingLeft:3,
+        paddingRight:8
     },
     logo: {
         width:40,
@@ -46,5 +57,11 @@ export const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         marginRight:-10
+    },
+    finishButton: {
+        fontSize:18,
+        letterSpacing:3,
+        paddingHorizontal:7,
+        fontWeight:'600'
     }
 })
