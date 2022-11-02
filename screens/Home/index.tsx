@@ -25,7 +25,7 @@ const HomeScreen = () => {
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
         <TouchableOpacity onPress={() => navigation.navigate('Chats')}>
-          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 15, opacity: .7 }}/>
+          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 15, opacity: .9 }}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>

@@ -61,6 +61,7 @@ const ProjectScreen = () => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingRight:8}}
             ItemSeparatorComponent={() => <View style={{width: 20}} />}
             snapToInterval={105}
             data={car.performance}
@@ -82,13 +83,13 @@ const ProjectScreen = () => {
         <View>
           <View style={style.iconsContainer}>
             <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}>
-              <Icon type='feather' name='send' size={23} color={theme.fontColor}/>
+              <Icon type='feather' name='send' size={26} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={onShare} style={{marginRight:6}}>
-              <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
+              <Icon type="evilicon" name='share-google' size={34} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>likeProject(id)}>         
-              <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
+              <Icon type="evilicon" name='heart' size={36} color={theme.fontColor}/>
             </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>23</Text>
           </View>
@@ -97,9 +98,9 @@ const ProjectScreen = () => {
           </View> 
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={style.iconsContainer}>
-          <Text style={{marginRight:10,  color:theme.fontColor}}>{author.name}</Text>
+          <Text style={{marginRight:14,  color:theme.fontColor}}>{author.name}</Text>
           <Avatar
-            size={34}
+            size={39}
             rounded
             source={{uri:author.imageUri}}    
           />

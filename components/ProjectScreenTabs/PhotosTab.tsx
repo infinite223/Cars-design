@@ -4,6 +4,7 @@ import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
+import { Dimensions } from 'react-native';
 import ImagesModal from '../../screens/modals/ImagesModal';
 
 const PhotosTab = () => {
@@ -11,6 +12,8 @@ const PhotosTab = () => {
   const [imagesModalVisible, setImagesModalVisible] = useState(false)
   const [selectImage, setSelectImage] = useState(0)
   const selectedProject = 0
+
+  const screenWidth = Dimensions.get('window').width
 
   return (
     <View style={{flex:1, backgroundColor:'white'}}>
@@ -23,7 +26,7 @@ const PhotosTab = () => {
         numColumns={2}
         renderItem={({item, index}) => (
           <TouchableWithoutFeedback onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
-            <Image style={{width:200, height:120}} source={{uri:item}}/>
+            <Image style={{width:screenWidth/2, height:120}} source={{uri:item}}/>
           </TouchableWithoutFeedback>
         )}
       />

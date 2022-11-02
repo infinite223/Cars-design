@@ -36,7 +36,7 @@ const MeetingRoomScreen = () => {
     })
     .onEnd(()=> {
       if(translateY.value>-SCREEN_HEIGHT/2.5){
-        translateY.value =  withSpring( -SCREEN_HEIGHT/2.5, { damping: 50})
+        translateY.value =  withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
       }
       if(translateY.value<-SCREEN_HEIGHT/2){
         translateY.value =  withSpring( -SCREEN_HEIGHT, { damping: 50})
@@ -45,7 +45,7 @@ const MeetingRoomScreen = () => {
     const selectedRoom = useSelector(selectRoom)
 
     const rRoomContentSheetStyle = useAnimatedStyle(() => {
-      const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 5], Extrapolate.CLAMP )
+      const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 0], Extrapolate.CLAMP )
       const paddingTop = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [0, 15], Extrapolate.CLAMP )
 
       return {
@@ -64,7 +64,7 @@ const MeetingRoomScreen = () => {
     })
 
     useEffect(() => {
-      translateY.value = withSpring(-SCREEN_HEIGHT/2.3, { damping: 50})
+      translateY.value = withSpring(-SCREEN_HEIGHT/2.2, { damping: 50})
     }, [])
 
     console.log(tabInRoom)

@@ -8,7 +8,7 @@ export const style = StyleSheet.create({
     },
     mainContent: {
       zIndex:10,
-      height: SCREEN_HEIGHT+50,
+      height: SCREEN_HEIGHT+20,
       width: "100%",
       position: 'absolute',
       top: SCREEN_HEIGHT,

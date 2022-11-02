@@ -17,6 +17,7 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
 
     return (
     <Modal
+        style={{backgroundColor:'black'}}     
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -71,8 +72,8 @@ export default InformationModal
 const style = StyleSheet.create({
     mainContainer: {
         width:"100%",  
-        flex: 1,
-        paddingHorizontal:15
+        paddingHorizontal:15,
+        paddingTop:10
     },
     headerText: {
         fontSize:20,

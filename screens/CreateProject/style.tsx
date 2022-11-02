@@ -20,7 +20,13 @@ export const style = StyleSheet.create({
     headerText: {
         color: '#293',
         fontSize:20,
-        letterSpacing:2
+        letterSpacing:2,
+        borderRadius:10,
+        backgroundColor:'#111411',
+        fontWeight:'bold',
+        paddingHorizontal:10,
+        paddingVertical:5,
+        marginVertical:4
     },
     logo: {
         width:40,

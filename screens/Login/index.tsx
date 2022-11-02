@@ -18,32 +18,33 @@ const LoginScreen = () => {
 
   return (
       <View style={style.headerContainer}>
-        <View style={{alignItems:'center'}}>
+          <View style={{alignItems:'center'}}>
 
-          <Image style={{width:150, height:150}} source={require("../../assets/cars_projects_IconV2.png")}/>
-        
-          <Text style={style.logoText}>Cars projects</Text>
-          <Text style={style.aboutText}>
-            Do you have your own car project? Share it with the rest of the world for others to see.
-          </Text>
-        </View>
+            <Image style={{width:150, height:150}} source={require("../../assets/cars_projects_IconV2.png")}/>
+          
+            <Text style={style.logoText}>Cars projects</Text>
+            <Text style={style.aboutText}>
+              Do you have your own car project? Share it with the rest of the world for others to see.
+            </Text>
+          </View>
 
-        <View style={{marginTop:100, marginBottom:0, alignItems:'center'}}>
-            {!showRegisterForm?<LoginForm/>:<RegisterForm/>}
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-              <TouchableOpacity onPress={()=>setShowRegisterForm(true)} style={{ alignItems:'center'}}>
-                <Text style={{fontSize:15, color:"#1b3"}}>Create account</Text>
-              </TouchableOpacity>
-              <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>
-              <TouchableOpacity onPress={()=>signInAsTester()} style={{alignItems:'center', flexDirection:'row'}}>
-                <Text style={{fontSize:15, color:"gray"}}>Demo</Text>
-                <Icon type='ionicon' name="ios-chevron-forward-outline" size={22} color="gray"/>
-              </TouchableOpacity>
-            </View>
-        </View> 
+          <View style={{marginBottom:0, alignItems:'center'}}>
+              {!showRegisterForm?<LoginForm/>:<RegisterForm/>}
+              <View style={{flexDirection:'row', alignItems:'center'}}>
+                <TouchableOpacity onPress={()=>setShowRegisterForm(!showRegisterForm)} style={{ alignItems:'center'}}>
+                  <Text style={{fontSize:18, color:"#1b3", fontWeight:'bold'}}>{showRegisterForm?'login':'Create account'}</Text>
+                </TouchableOpacity>
+                <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>
+                <TouchableOpacity onPress={()=>signInAsTester()} style={{alignItems:'center', flexDirection:'row'}}>
+                  <Text style={{fontSize:18, color:"gray"}}>Demo</Text>
+                  <Icon type='ionicon' name="ios-chevron-forward-outline" size={22} color="gray"/>
+                </TouchableOpacity>
+              </View>
+          </View> 
+
         
         <TouchableOpacity 
-          style={{elevation:5, flexDirection:'row', alignItems:'center', position:'absolute', bottom:20}}
+          style={{elevation:5, flexDirection:'row', alignItems:'center', marginTop:10}}
           onPress={()=>signInWithGoogle()}
         >
           <Text style={{fontSize:13, color:"gray", letterSpacing:2}}>Sign up with google</Text>

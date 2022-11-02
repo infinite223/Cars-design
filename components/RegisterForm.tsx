@@ -9,17 +9,24 @@ import { getAuth, connectAuthEmulator  } from '@firebase/auth'
 export const RegisterForm = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [repeatPassword, setRepeatPassword] = useState('')
+    const [error, setError] = useState('')
  
     const auth = getAuth()
 
     const register = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((s)=>console.log(s))
-        .catch((e)=>console.log(e))
+        if(repeatPassword===password){
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((s)=>console.log(s))
+            .catch((e)=>console.log(e))
+        }
+        else {
+            setError('Passwords are not the same')
+        }
     }
 
   return (
-    <View>
+    <View style={{alignItems:'center'}}>
         <View style={{alignItems:'center'}}>
             <Text style={style.labelText}>Your email</Text>
             <TextInput textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
@@ -27,6 +34,10 @@ export const RegisterForm = () => {
         <View style={{alignItems:'center', marginTop:20}}>
             <Text style={style.labelText}>your password ...</Text>
             <TextInput textContentType='password' style={style.input} onChangeText={setPassword}/>
+        </View>
+        <View style={{alignItems:'center', marginTop:20}}>
+            <Text style={style.labelText}>Repeat password ...</Text>
+            <TextInput textContentType='password' style={style.input} onChangeText={setRepeatPassword}/>
         </View>
 
         <TouchableOpacity style={style.submitButton} onPress={register}>
@@ -48,15 +59,15 @@ const style = StyleSheet.create({
         textAlign:'center'
     },
     submitButton: {
-        marginVertical:20, 
+        marginVertical:25, 
         backgroundColor:'#1b3',
-        width:250, 
         alignItems:'center', 
-        paddingVertical:4, 
+        paddingVertical:6, 
+        paddingHorizontal:50,
         borderRadius:15
     },
     buttonText: {
-        fontSize:20, 
+        fontSize:17, 
         color:"white", 
         fontWeight:'bold'
     }

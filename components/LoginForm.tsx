@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@firebase/auth'
 import { getAuth, connectAuthEmulator  } from '@firebase/auth'
 
-connectAuthEmulator(getAuth(), "http://localhost:9099");
+// connectAuthEmulator(getAuth(), "http://localhost:9099");
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('')
@@ -19,7 +19,7 @@ export const LoginForm = () => {
     }
 
   return (
-    <View>
+    <View style={{alignItems:'center'}}>
         <View style={{alignItems:'center'}}>
             <Text style={style.labelText}>Your email</Text>
             <TextInput textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
@@ -50,13 +50,13 @@ const style = StyleSheet.create({
     submitButton: {
         marginVertical:20, 
         backgroundColor:'#1b3',
-        width:250, 
         alignItems:'center', 
-        paddingVertical:4, 
+        paddingVertical:6, 
+        paddingHorizontal:50,
         borderRadius:15
     },
     buttonText: {
-        fontSize:20, 
+        fontSize:17, 
         color:"white", 
         fontWeight:'bold'
     }

@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export const style = StyleSheet.create({
     headerContainer: {
       flex:1,
-      justifyContent:'center', 
+      justifyContent:'space-evenly', 
       alignItems:'center',
       backgroundColor:'white'
     },

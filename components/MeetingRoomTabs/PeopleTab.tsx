@@ -23,7 +23,7 @@ const PeopleTab = () => {
   console.log(room.people[0].carProjects)
 
   return (
-    <View style={{flex:1, backgroundColor: theme.background}}>
+    <View style={{flex:1, backgroundColor: theme.background, paddingBottom:30}}>
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="People"/>
       <FlatList
         style={{flex:1}}  

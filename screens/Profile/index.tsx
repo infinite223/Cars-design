@@ -80,7 +80,7 @@ const ProfileScreen = () => {
                  Blanditiis, nostrum...
             </Text>
         </View>
-        <TouchableOpacity onPress={()=>setEditProfileModalVisible(true)} style={[style.editButton, {backgroundColor: '#252'}]}>
+        <TouchableOpacity onPress={()=>setEditProfileModalVisible(true)} style={[style.editButton, {backgroundColor: '#272'}]}>
             <Text style={[{color:'white'}]}>Edit profile</Text>
         </TouchableOpacity>
 

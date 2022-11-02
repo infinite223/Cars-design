@@ -1,10 +1,11 @@
-import { View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native'
+import { View, StyleSheet, ScrollView, Dimensions, SafeAreaView, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../ChatFunctionsConatiner';
+import { KeyboardAvoidingViewComponent } from 'react-native';
 
 
 const ChatTab = () => {
@@ -19,9 +20,9 @@ const ChatTab = () => {
         <ScrollView style={{flex:1}}>
           
         </ScrollView>
-        <View style={style.chatFunctions}>
+        <KeyboardAvoidingView style={style.chatFunctions}>
           <ChatFunctionsConatiner modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-        </View>
+        </KeyboardAvoidingView>
     </SafeAreaView> 
   )
 }
@@ -36,7 +37,7 @@ const style = StyleSheet.create({
   chatFunctions: {
     paddingHorizontal:15,
     width:'100%',
-    position: 'absolute',
-    bottom:10
+    //position: 'absolute',
+    bottom:5
   }
 })
