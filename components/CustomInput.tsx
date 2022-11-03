@@ -15,19 +15,21 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
     const theme = useSelector(selectTheme)
     const [value1, setValue1] = useState('')
     const [focus, setFocus] = useState(false)
+
+    console.log(theme)
   return (
     <View>
         <TextInput 
             style={[style.input, {borderColor: focus?'#253':theme.backgroundContent, color: theme.fontColor}]} 
             placeholder={placeholder}
-            placeholderTextColor={focus?theme.fontColorContent:theme.backgroundContent}
+            placeholderTextColor={theme.fontColorContent}
             onChangeText={(text)=>(setValue1(text), setValue(text))}
             onFocus={()=>setFocus(true)}
             onEndEditing={()=>setFocus(false)}
             keyboardType={performance?'numeric':'default'}
         />
         <View style={style.footerContainer}>
-            {helpText&&<Text style={[style.helperText, {color: theme.fontColorContent}]}>{helpText}</Text>}
+            {helpText&&<Text style={[style.helperText, {color: focus?theme.fontColorContent:theme.backgroundContent}]}>{helpText}</Text>}
             {performance&&<View style={[style.dotPerformance, {backgroundColor:getColorsCircle(parseInt(value1), performance)[0]}]}/>}
         </View>
       
@@ -55,7 +57,6 @@ const style = StyleSheet.create({
     helperText: {
         fontSize: 12,
         letterSpacing:1,
-        // textAlign:'center'
     },
     dotPerformance: {
         width:10, 

@@ -36,29 +36,29 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
             paddingHorizontal:10,
             paddingVertical:15,
             borderColor:theme.backgroundContent,
-            borderWidth:1,
-            borderRadius:10,
+            borderWidth:2,
+            borderRadius:15,
         }}>
-            <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>
+            <Text style={{color: theme.fontColor, fontSize:22, marginTop:10, marginBottom:30}}>
                 {language==="en"?_translations.en:_translations.pl}
             </Text>
             <View style={{flex:1, width:'100%', flexDirection:'row', height:"100%", alignItems:'center', justifyContent:'space-around'}}>
                 <TouchableOpacity
                     onPress={()=> (dispatch(setLanguage('pl')), setModalVisible(!modalVisible))}
                     style={{
-                        borderWidth: language==='pl'?1:0, borderColor: theme.backgroundContent, borderRadius:10,
+                        backgroundColor: language==='pl'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:10,
                         alignItems:'center', justifyContent:'center'
                 }}>
-                        <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:15, paddingVertical:5}}>Polski</Text>
+                        <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:20, paddingVertical:5}}>Polski</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
                     onPress={()=>(dispatch(setLanguage('en')), setModalVisible(!modalVisible))}
                     style={{
-                        borderWidth: language==='en'?1:0, borderColor: theme.backgroundContent, borderRadius:10,
+                        backgroundColor: language==='en'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:10,
                         alignItems:'center', justifyContent:'center'
                 }}>
-                        <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:15, paddingVertical:5}}>English</Text>
+                        <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:20, paddingVertical:5}}>English</Text>
                 </TouchableOpacity>
             </View>
         </View>

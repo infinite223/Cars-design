@@ -19,7 +19,7 @@ export const style = StyleSheet.create({
     },
     headerText: {
         color: '#293',
-        fontSize:20,
+        fontSize:18,
         letterSpacing:3,
         fontWeight:'bold',
         textAlign:'center',
@@ -33,7 +33,8 @@ export const style = StyleSheet.create({
         backgroundColor:'#111411',
         borderRadius:15,
         flexDirection:'row',
-        alignItems:'center'
+        alignItems:'center',
+        opacity:.7
     },
     backIcon: {
         paddingLeft:3,
@@ -57,6 +58,22 @@ export const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         marginRight:-10
+    },
+    addImageButton: {
+        borderWidth:1,
+        borderRadius:15,
+        alignItems:'center',
+        justifyContent:'center',
+
+        width:120,
+        height:120
+    },
+    chooseImageText: {
+        maxWidth:"70%", 
+        textAlign:'center', 
+        marginBottom:10, 
+        fontSize:12,
+        letterSpacing:1
     },
     finishButton: {
         fontSize:18,

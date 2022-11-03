@@ -15,6 +15,9 @@ export const style = StyleSheet.create({
         marginLeft:10
     },
     logOutButton: {
-        marginVertical:5
+        marginVertical:7,
+        borderRadius: 15,
+        paddingHorizontal:15,
+        paddingVertical:8
     }
 })

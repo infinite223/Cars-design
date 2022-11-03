@@ -34,23 +34,27 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
             alignItems: "center",
             backgroundColor:theme.background,
             paddingHorizontal:10,
-            paddingVertical:5,
+            paddingVertical:15,
             borderColor:theme.backgroundContent,
             borderWidth:1,
-            borderRadius:10,
+            borderRadius:15,
         }}>
-            <Text style={{color: theme.fontColor, fontSize:22, marginVertical:20}}>{language==="en"?_translations.en:_translations.pl}</Text>
+            <Text style={{color: theme.fontColor, fontSize:22, marginTop:10, marginBottom:20}}>{language==="en"?_translations.en:_translations.pl}</Text>
             <View style={{flex:1, width:'100%', flexDirection:'row', height:"100%", alignItems:'center', justifyContent:'space-around'}}>
                 <TouchableOpacity onPress={()=>(dispatch(setTheme({
                         background:'white',
-                        backgroundContent:'#aaa',
+                        backgroundContent:'#eee',
                         fontColor:'black',
                         fontColorContent: '#333'
                     }
                     )), setModalVisible(!modalVisible))} 
-                    style={{alignItems:'center', justifyContent:'center'}}>
+                    style={{
+                        alignItems:'center', justifyContent:'center',
+                        backgroundColor: theme.background==="white"?theme.backgroundContent:theme.background,
+                        borderRadius:15, paddingHorizontal:20, paddingVertical:8, paddingTop:12
+                    }}>
                         <View style={{borderColor:theme.backgroundContent, borderWidth:1,backgroundColor:'white', width:70, height:70, borderRadius:20}}></View>
-                        <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:10}}>{language==="en"?"White":"Jasny"}</Text>
+                        <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:5}}>{language==="en"?"White":"Jasny"}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -60,9 +64,13 @@ const ThemeModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean
                         fontColor:'white',
                         fontColorContent: '#aaa'
                        })), setModalVisible(!modalVisible))}
-                    style={{alignItems:'center', justifyContent:'center'}}>
+                    style={{
+                        alignItems:'center', justifyContent:'center', 
+                        backgroundColor:  theme.background==="black"?theme.backgroundContent:theme.background,
+                        borderRadius:15, paddingHorizontal:20, paddingVertical:8, paddingTop:12
+                    }}>
                         <View style={{borderColor:theme.backgroundContent, borderWidth:1, backgroundColor:'black', width:70, height:70, borderRadius:20}}></View>
-                        <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:10}}>{language==="en"?"Black":'Ciemny'}</Text>
+                        <Text style={{color:theme.fontColor, fontSize:15, paddingVertical:5}}>{language==="en"?"Black":'Ciemny'}</Text>
                 </TouchableOpacity>
             </View>
         </View>

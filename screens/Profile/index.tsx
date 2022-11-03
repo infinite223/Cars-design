@@ -28,7 +28,7 @@ const ProfileScreen = () => {
            headerTitle: () => <Text style={{marginLeft:10, fontSize:20, color:theme.fontColor}}>{data[0].author.name}</Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{marginHorizontal:5}}>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:5}}>
                     <Icon
                         size={24}
                         name='arrow-back-ios'
@@ -46,20 +46,23 @@ const ProfileScreen = () => {
             </View>
           ),
           headerRight: () => <View style={style.headerRightContainer}> 
-           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor}}>
+           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{
+                //  marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor
+                paddingHorizontal:5
+            }}>
                 {/* <Ionicons name="add-outline" size={20} color={theme.fontColor}/> */}
                 <Icon
-                    name='add-outline'
-                    type='ionicon'
-                    size={22} 
+                    name='post-add'
+                    type='materialicon'
+                    size={27} 
                     color={theme.fontColor}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>   
+            <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{paddingHorizontal:5}}>   
                 <Icon                 
                     name='ios-settings-outline'
                     type='ionicon'
-                    size={25} 
+                    size={27} 
                     color={theme.fontColor}
                 />
             </TouchableOpacity>
@@ -80,8 +83,8 @@ const ProfileScreen = () => {
                  Blanditiis, nostrum...
             </Text>
         </View>
-        <TouchableOpacity onPress={()=>setEditProfileModalVisible(true)} style={[style.editButton, {backgroundColor: '#272'}]}>
-            <Text style={[{color:'white'}]}>Edit profile</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.editButton, {backgroundColor: '#272'}]}>
+            <Text style={[{color:'white'}]}>Add project car</Text>
         </TouchableOpacity>
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>

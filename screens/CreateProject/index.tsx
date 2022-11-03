@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity,  Dimensions, Platform  } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity,  Dimensions, Platform, ScrollView  } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
@@ -13,13 +13,17 @@ import { Icon } from '@rneui/themed';
 import { FlatList } from 'react-native-gesture-handler';
 import { style } from './style'
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { Car } from '../../utils/types'
+import { app } from '../../hooks/useAuth';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
+   // const storage = getStorage(app, "gs://my-custom-bucket");
     const db = getFirestore()
-    const [images, setImages] = useState<string[]>([]);
+    const [images, setImages] = useState<any[]>([]);
     const { user, logout }:any = useAuth()
+    const storage = getStorage();
     const [selectPlaceOnMapModalVisible, setSelectPlaceOnMapModalVisible] = useState(false)
     const [origin, setOrigin] = useState<any>({
         region:null,
@@ -40,7 +44,7 @@ const CreateScreen = () => {
         _0_100: 0,
         _100_200: 0
     })
-
+    
     const widthScreen = Dimensions.get('window').width
     const flatListRef = useRef<any>(null)
     const [index, setIndex] = useState(0)
@@ -101,38 +105,61 @@ const CreateScreen = () => {
 			quality: 1,			
 			allowsEditing: true,
 		});
+
+        
 	
 		if (!result.cancelled) {
-		   setImages([...images, result.uri]);
+		   setImages([...images, result]);
 		}
 	};
 
+    console.log(images)
+
+    const uploadImages = async () => {
+        const response = await fetch(images[0].uri)
+        const blob = await response.blob()
+        const immageFullName = images[0].uri.split('/')[images[0].uri.split('/').length-1]
+        const storageRef = ref(storage, `${user.uid}/${carData.make}-${carData.model}/${immageFullName}`);
+
+
+        try {
+            uploadBytes(storageRef, blob).then((snapshot) => {
+                console.log(snapshot)
+                console.log('Uploaded a blob or file!');
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const addProject = async () => {
-        console.log(carData)
-        const finishCar:Car = {
-            CarMake:carData.make,
-            model:carData.model,
-            likes:0,
-            description:carData.description,
-            performance: [
-                {type:'hp', value:carData.power},
-                {type:'nm', value: carData.torque},
-                {type: '_0_100', value:carData._0_100},
-                {type: '_100_200', value:carData._100_200}
-            ],
-            history:[],
-            imagesCar: []
-        } 
-        await setDoc(doc(db, "Projects", user.uid), finishCar)
-          .then(s=>console.log(s))
-          .catch(e=>console.log(e))
+        uploadImages()
+       // console.log(immageFullName)
+     
+        // const finishCar:Car = {
+        //     CarMake:carData.make,
+        //     model:carData.model,
+        //     likes:0,
+        //     description:carData.description,
+        //     performance: [
+        //         {type:'hp', value:carData.power},
+        //         {type:'nm', value: carData.torque},
+        //         {type: '_0_100', value:carData._0_100},
+        //         {type: '_100_200', value:carData._100_200}
+        //     ],
+        //     history:[],
+        //     imagesCar: []
+        // } 
+        // await setDoc(doc(db, "Projects", user.uid), finishCar)
+        //   .then(s=>console.log(s))
+        //   .catch(e=>console.log(e))
     }
 
     console.log(index)
 
     const steps = [
         <View style={{flex:1}}> 
-            <View style={style.headerContainer}>
+            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
                 <Text style={[style.headerText]}>{language==='en'?headerText.en:headerText.pl}</Text>
             </View>
@@ -141,12 +168,12 @@ const CreateScreen = () => {
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
                 <CustomInput placeholder={language==='en'?description.en:description.pl} setValue={(text)=>setCarData({...carData, description:text})} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
             </View>
-            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'#243'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
+                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <View style={style.headerContainer}>
+            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
@@ -158,26 +185,42 @@ const CreateScreen = () => {
                 <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text)})} helpText="(np. 5)" performance="_0_100"/>
                 <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text)})} helpText="(np. 13)" performance="_100_200"/>
             </View>
-            <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'#243'}]}>
+            <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <View style={style.headerContainer}>
+            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
                 <Text style={[style.headerText, { marginLeft:-20 }]}>Images</Text>
             </View>
-            <View>
-                {/* Images upload... */}
-            </View>
-            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'#243'}]}>
+            <Text style={[ {color: theme.fontColorContent}]}>               
+          {/* {language==="en"?photoText.en:photoText.pl} */}
+            </Text>
+            <ScrollView style={{ flexGrow:.0,  marginTop:5, flexDirection:'row' }} horizontal>		
+                <TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
+                    <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
+                </TouchableOpacity>
+                {images.map((image:any)=> {
+                    return  (
+                        <View style={{alignItems:'center', justifyContent:'center', height:120}}>
+                            <Image source={{ uri: image.uri }} style={{ width: 120, height: 120, marginStart:15, borderRadius:15 }} />
+                            <TouchableOpacity onPress={()=>setImages(images.filter((item)=>item!==image))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
+                                <Icon type='entypo' name="minus" size={30} color={theme.fontColor}/>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
+                )}	
+            </ScrollView>
+            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <View style={style.headerContainer}>
+            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
@@ -189,7 +232,7 @@ const CreateScreen = () => {
             <View>
                 {/* Add stages */}
             </View>
-            <TouchableOpacity onPress={addProject} style={[style.nextStepButton, {flexDirection:'row', backgroundColor: validatePerformance?'#273':'#243'}]}>
+            <TouchableOpacity onPress={addProject} style={[style.nextStepButton, {flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
                 <Text style={[style.finishButton, { color: theme.fontColor}]}>Finish</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>
