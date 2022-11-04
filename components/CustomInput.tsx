@@ -16,7 +16,6 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
     const [value1, setValue1] = useState('')
     const [focus, setFocus] = useState(false)
 
-    console.log(theme)
   return (
     <View>
         <TextInput 

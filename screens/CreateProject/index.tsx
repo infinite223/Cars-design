@@ -16,12 +16,13 @@ import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { Car } from '../../utils/types'
 import { app } from '../../hooks/useAuth';
+import ErrorModal from '../modals/ErrorModal';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
-   // const storage = getStorage(app, "gs://my-custom-bucket");
     const db = getFirestore()
     const [images, setImages] = useState<any[]>([]);
+    const [showError, setShowError] = useState({show:false, message:''})
     const { user, logout }:any = useAuth()
     const storage = getStorage();
     const [selectPlaceOnMapModalVisible, setSelectPlaceOnMapModalVisible] = useState(false)
@@ -113,7 +114,6 @@ const CreateScreen = () => {
 		}
 	};
 
-    console.log(images)
 
     const uploadImages = async () => {
         const response = await fetch(images[0].uri)
@@ -133,7 +133,18 @@ const CreateScreen = () => {
     }
 
     const addProject = async () => {
-        uploadImages()
+        if(user.uid){
+            uploadImages()
+        }
+        else {
+            const errorMessage = language==='pl'
+                ?'Musisz być zalogowany aby dodać swój projekt'
+                :'You must be login to add project' 
+          
+            setShowError({show:true, message: errorMessage})
+            console.log(showError)
+        }
+        
        // console.log(immageFullName)
      
         // const finishCar:Car = {
@@ -155,8 +166,6 @@ const CreateScreen = () => {
         //   .catch(e=>console.log(e))
     }
 
-    console.log(index)
-
     const steps = [
         <View style={{flex:1}}> 
             <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
@@ -168,7 +177,7 @@ const CreateScreen = () => {
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
                 <CustomInput placeholder={language==='en'?description.en:description.pl} setValue={(text)=>setCarData({...carData, description:text})} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
             </View>
-            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
+            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
         </View>,
@@ -185,7 +194,7 @@ const CreateScreen = () => {
                 <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text)})} helpText="(np. 5)" performance="_0_100"/>
                 <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text)})} helpText="(np. 13)" performance="_100_200"/>
             </View>
-            <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
+            <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>
         </View>,
@@ -215,7 +224,7 @@ const CreateScreen = () => {
                 }
                 )}	
             </ScrollView>
-            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
+            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>
         </View>,
@@ -232,15 +241,16 @@ const CreateScreen = () => {
             <View>
                 {/* Add stages */}
             </View>
-            <TouchableOpacity onPress={addProject} style={[style.nextStepButton, {flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(10, 160, 20, .5)'}]}>
+            {!showError.show&&<TouchableOpacity onPress={addProject} style={[style.nextStepButton, {flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Text style={[style.finishButton, { color: theme.fontColor}]}>Finish</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>            
     ]
 
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
+        {showError.show&&<ErrorModal show={showError.show} message={showError.message} resetError={setShowError}/>}
         <FlatList
             ref={flatListRef}
             pagingEnabled

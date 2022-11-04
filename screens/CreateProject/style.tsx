@@ -52,9 +52,9 @@ export const style = StyleSheet.create({
         bottom: 20, 
         right: 10,
         backgroundColor: '#273', 
-        paddingHorizontal:14, 
+        paddingHorizontal:18, 
         borderRadius:50, 
-        paddingVertical:14,
+        paddingVertical:17,
         alignItems:'center',
         justifyContent:'center',
         marginRight:-10

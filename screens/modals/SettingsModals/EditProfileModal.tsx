@@ -4,6 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { setDoc, collection, doc, serverTimestamp, addDoc } from 'firebase/firestore'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux';
+import { selectTheme } from './../../../slices/themeSlice';
 
 
 const EditProfileScreen:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
@@ -13,21 +15,23 @@ const EditProfileScreen:React.FC<{modalVisible:boolean, setModalVisible: (value:
     const { user, logout }:any = useAuth()
     const navigation = useNavigation()
 
+    const theme = useSelector(selectTheme)
+
     const complate = (nickname && description)? true:false
 
     const updateProfile = async () => {
-        await setDoc(doc(db, "users", user.uid), {
-            user:user.uid,
-            niclanme:nickname,
-            description:description,
-            timestamp:serverTimestamp()
-            // a:"b"
-        })
-        // const dbRef = collection(db, "users");
-        // // console.log(dbRef)
-        // await addDoc(dbRef, {xd:"s"})
-        .then((a)=> console.log(a))
-        .catch((e) => console.log(e))
+        // await setDoc(doc(db, "users", user.uid), {
+        //     user:user.uid,
+        //     niclanme:nickname,
+        //     description:description,
+        //     timestamp:serverTimestamp()
+        //     // a:"b"
+        // })
+        // // const dbRef = collection(db, "users");
+        // // // console.log(dbRef)
+        // // await addDoc(dbRef, {xd:"s"})
+        // .then((a)=> console.log(a))
+        // .catch((e) => console.log(e))
      }
 
     return (
@@ -46,11 +50,11 @@ const EditProfileScreen:React.FC<{modalVisible:boolean, setModalVisible: (value:
             flex: 1,
             justifyContent: 'space-evenly',
             alignItems: "center",
-            backgroundColor:'white'
+            backgroundColor: theme.background
         }}>
             
 
-            <View style={{alignItems:'center'}}>
+            {/* <View style={{alignItems:'center'}}>
                 <Text style={{ margin:20, fontFamily:'monospace', fontSize:30, fontWeight:'bold'}}>Cars projects</Text>
                 <Text style={{fontSize:25}}>Your profile</Text>
                 <TextInput style={{fontSize:20, marginTop:15, textAlign:'center'}} placeholder='Nickname' onChangeText={setNickname}/>
@@ -67,7 +71,7 @@ const EditProfileScreen:React.FC<{modalVisible:boolean, setModalVisible: (value:
                         Update profile
                     </Text>
                 </LinearGradient> 
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
       </Modal>
   )
