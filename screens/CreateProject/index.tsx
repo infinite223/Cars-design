@@ -17,11 +17,14 @@ import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { Car } from '../../utils/types'
 import { app } from '../../hooks/useAuth';
 import ErrorModal from '../modals/ErrorModal';
+import SelectList from 'react-native-dropdown-select-list'
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
     const db = getFirestore()
     const [images, setImages] = useState<any[]>([]);
+    const [makesCategory, setMakesCategory] = useState<{key:number, value:string}[]>([])
+    const [selected, setSelected] = useState("");
     const [showError, setShowError] = useState({show:false, message:''})
     const { user, logout }:any = useAuth()
     const storage = getStorage();
@@ -98,6 +101,24 @@ const CreateScreen = () => {
 		}
 		})();
 	}, []);
+
+    useEffect(() => {
+        const getMakes = async () => {
+          await fetch('https://carapi.app/api/makes')
+           .then((response) => response.json())
+           .then((data:any) => 
+               {
+                let newArray = data.data.map((item:any) => {
+                    return {key: item.id, value: item.name}
+                })
+                setMakesCategory(newArray)
+               }
+           );
+           
+        }
+        getMakes()
+        console.log(makesCategory)
+    }, [])
 	
 	const chooseImg = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
@@ -165,7 +186,7 @@ const CreateScreen = () => {
         //   .then(s=>console.log(s))
         //   .catch(e=>console.log(e))
     }
-
+    
     const steps = [
         <View style={{flex:1}}> 
             <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
@@ -173,7 +194,14 @@ const CreateScreen = () => {
                 <Text style={[style.headerText]}>{language==='en'?headerText.en:headerText.pl}</Text>
             </View>
             <View>
-                <CustomInput placeholder={language==='en'?make.en:make.pl} setValue={(text)=>setCarData({...carData, make:text})} helpText="(BMW, Audi, Ford...)"/>
+                {makesCategory&&
+                <SelectList                 
+                    setSelected={setSelected} 
+                    inputStyles={{color:'white'}}
+                    dropdownTextStyles={{color:'white'}}
+                    data={makesCategory} 
+                />}
+                {/* <CustomInput placeholder={language==='en'?make.en:make.pl} setValue={(text)=>setCarData({...carData, make:text})} helpText="(BMW, Audi, Ford...)"/> */}
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
                 <CustomInput placeholder={language==='en'?description.en:description.pl} setValue={(text)=>setCarData({...carData, description:text})} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
             </View>
@@ -203,11 +231,11 @@ const CreateScreen = () => {
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-20 }]}>Images</Text>
+                <Text style={[style.headerText, { marginLeft:-20 }]}>
+                    {language==="en"?'Images':'Zdjęcia'}
+                </Text>
             </View>
-            <Text style={[ {color: theme.fontColorContent}]}>               
-          {/* {language==="en"?photoText.en:photoText.pl} */}
-            </Text>
+
             <ScrollView style={{ flexGrow:.0,  marginTop:5, flexDirection:'row' }} horizontal>		
                 <TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
                     <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
