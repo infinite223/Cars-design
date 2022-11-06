@@ -48,14 +48,14 @@ const CreateScreen = () => {
         _0_100: 0,
         _100_200: 0
     })
-    
+    console.log(carData)
     const widthScreen = Dimensions.get('window').width
     const flatListRef = useRef<any>(null)
     const [index, setIndex] = useState(0)
 
     const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText } = translations.screens.CreateScreen
 
-    let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
+    let validateBasicInfo = selected && carData.model && carData.description?true:false;
     let validatePerformance = carData.power && carData.torque?true:false;
 
     const goToNextStep = () => {
@@ -186,6 +186,14 @@ const CreateScreen = () => {
         //   .then(s=>console.log(s))
         //   .catch(e=>console.log(e))
     }
+
+    const fincdMake = (number:number) => {
+        let find = makesCategory.find((make)=>make.key===number)?.value
+        if(typeof find === 'undefined'){
+            find = ''
+        }
+        return find
+    }
     
     const steps = [
         <View style={{flex:1}}> 
@@ -195,11 +203,17 @@ const CreateScreen = () => {
             </View>
             <View>
                 {makesCategory&&
-                <SelectList                 
-                    setSelected={setSelected} 
-                    inputStyles={{color:'white'}}
-                    dropdownTextStyles={{color:'white'}}
+                <SelectList    
+                    searchPlaceholder='Search car make'
+                    searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
+                    placeholder="Select car make"    
+                    setSelected={(num:any)=>setCarData({...carData, make:fincdMake(num)})} 
+                    boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10}}
+                    inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
+                    dropdownTextStyles={{color: theme.fontColor}}
+                    dropdownStyles={{borderWidth:1, borderColor: theme.backgroundContent}}
                     data={makesCategory} 
+                    
                 />}
                 {/* <CustomInput placeholder={language==='en'?make.en:make.pl} setValue={(text)=>setCarData({...carData, make:text})} helpText="(BMW, Audi, Ford...)"/> */}
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>

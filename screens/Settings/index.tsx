@@ -67,7 +67,7 @@ const SettingsScreen = () => {
         <TouchableOpacity onPress={()=> logout()} style={[style.logOutButton, {backgroundColor:theme.backgroundContent}]}>
             <Text style={{fontSize:18, color:theme.fontColor}}>
                 {language==="en"?logOutText.en:logOutText.pl}
-                <Text style={{letterSpacing:1, fontWeight:'bold'}}>{user.name==="Tester"&&' DEMO'}</Text>
+                <Text style={{letterSpacing:0, fontWeight:'bold'}}>{user.name==="Tester"&&' Demo'}</Text>
             </Text>       
         </TouchableOpacity> 
     </View>
