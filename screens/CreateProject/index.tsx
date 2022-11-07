@@ -50,12 +50,13 @@ const CreateScreen = () => {
     })
     console.log(carData)
     const widthScreen = Dimensions.get('window').width
+    const heightScreen = Dimensions.get('window').height
     const flatListRef = useRef<any>(null)
     const [index, setIndex] = useState(0)
 
     const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText } = translations.screens.CreateScreen
 
-    let validateBasicInfo = selected && carData.model && carData.description?true:false;
+    let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
     let validatePerformance = carData.power && carData.torque?true:false;
 
     const goToNextStep = () => {
@@ -117,7 +118,6 @@ const CreateScreen = () => {
            
         }
         getMakes()
-        console.log(makesCategory)
     }, [])
 	
 	const chooseImg = async () => {
@@ -135,7 +135,7 @@ const CreateScreen = () => {
 		}
 	};
 
-
+    console.log(images)
     const uploadImages = async () => {
         const response = await fetch(images[0].uri)
         const blob = await response.blob()
@@ -203,19 +203,19 @@ const CreateScreen = () => {
             </View>
             <View>
                 {makesCategory&&
-                <SelectList    
-                    searchPlaceholder='Search car make'
-                    searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
-                    placeholder="Select car make"    
-                    setSelected={(num:any)=>setCarData({...carData, make:fincdMake(num)})} 
-                    boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10}}
-                    inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
-                    dropdownTextStyles={{color: theme.fontColor}}
-                    dropdownStyles={{borderWidth:1, borderColor: theme.backgroundContent}}
-                    data={makesCategory} 
-                    
-                />}
-                {/* <CustomInput placeholder={language==='en'?make.en:make.pl} setValue={(text)=>setCarData({...carData, make:text})} helpText="(BMW, Audi, Ford...)"/> */}
+                    <SelectList    
+                        searchPlaceholder='Search car make'
+                        searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
+                        placeholder="Select car make"    
+                        setSelected={(num:any)=>setCarData({...carData, make:fincdMake(num)})} 
+                        boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10}}
+                        inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
+                        dropdownTextStyles={{color: theme.fontColor}}
+                        dropdownStyles={{borderWidth:1, borderColor: theme.backgroundContent}}
+                        data={makesCategory} 
+                        
+                    />
+                }
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
                 <CustomInput placeholder={language==='en'?description.en:description.pl} setValue={(text)=>setCarData({...carData, description:text})} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
             </View>
@@ -250,22 +250,38 @@ const CreateScreen = () => {
                 </Text>
             </View>
 
-            <ScrollView style={{ flexGrow:.0,  marginTop:5, flexDirection:'row' }} horizontal>		
-                <TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
-                    <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
-                </TouchableOpacity>
-                {images.map((image:any)=> {
-                    return  (
-                        <View style={{alignItems:'center', justifyContent:'center', height:120}}>
-                            <Image source={{ uri: image.uri }} style={{ width: 120, height: 120, marginStart:15, borderRadius:15 }} />
-                            <TouchableOpacity onPress={()=>setImages(images.filter((item)=>item!==image))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
+            <View style={{ flexGrow:.0,  marginTop:20 }} >		
+                <View style={style.headerImages}>
+                    <TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
+                        <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
+                    </TouchableOpacity>
+                    <View style={[style.helpTextConteiner]}>             
+                        <Text style={[{color: theme.fontColor}]}>
+                            Choose images to your gallery
+                        </Text>
+                        <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
+                            On long press photo u can set place
+                        </Text>
+                    </View>
+                </View>
+
+                <FlatList 
+                    style={{marginTop:20, maxHeight:heightScreen/1.6}}
+                    data={images}
+                    numColumns={2}
+                    scrollEnabled
+                    // contentContainerStyle={{maxHeight:500}}
+                    ItemSeparatorComponent={()=><View style={{width:20}}/>}
+                    renderItem={({item})=> (
+                        <View style={{alignItems:'center', justifyContent:'center', height:120, marginVertical:10}}>
+                            <Image source={{ uri: item.uri }} style={{ width: widthScreen / 2.5, height: 120, marginStart:15, borderRadius:15 }} />
+                            <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.uri!==item.uri))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
                                 <Icon type='entypo' name="minus" size={30} color={theme.fontColor}/>
                             </TouchableOpacity>
                         </View>
-                    )
-                }
-                )}	
-            </ScrollView>
+                    )}
+                />
+            </View>
             <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>

@@ -84,7 +84,7 @@ const ProfileScreen = () => {
             </Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.editButton, {backgroundColor: '#272'}]}>
-            <Text style={[{color:'white'}]}>Add project car</Text>
+            <Text style={[{color:'#ddd', fontSize:15, letterSpacing:1}]}>ADD PROJECT CAR</Text>
         </TouchableOpacity>
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>

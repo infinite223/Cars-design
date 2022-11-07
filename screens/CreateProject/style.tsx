@@ -30,8 +30,8 @@ export const style = StyleSheet.create({
         paddingHorizontal:15,
         paddingVertical:7,
         marginVertical:4,
-        backgroundColor:'#111411',
-        borderRadius:15,
+        marginHorizontal:-15,
+        borderRadius:0,
         flexDirection:'row',
         alignItems:'center',
         opacity:.7
@@ -58,6 +58,12 @@ export const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         marginRight:-10
+    },
+    headerImages: {
+        flexDirection:'row'
+    },
+    helpTextConteiner: {
+        marginLeft:20
     },
     addImageButton: {
         borderWidth:1,
