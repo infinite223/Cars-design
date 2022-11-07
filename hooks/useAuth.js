@@ -70,15 +70,15 @@ export const AuthProvider = ({children}) => {
 
     const logout = () => {
       setLoading(true)
-      if(user.uid){
-        signOut(auth).catch((err)=>setError(err)).finally(()=>setLoading(false))
-        const { id_token, accessToken, oauthIdToken } = response.params;
-        AuthSession.revokeAsync({token: id_token, clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'}, Google.discovery)
-        .then(()=>console.log("xd")).catch((e)=>console.log(e))
-      }
-      else {
+      // if(user.uid){
+      //   signOut(auth).catch((err)=>setError(err)).finally(()=>setLoading(false))
+      //   const { id_token, accessToken, oauthIdToken } = response.params;
+      //   AuthSession.revokeAsync({token: id_token, clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'}, Google.discovery)
+      //   .then(()=>console.log("xd")).catch((e)=>console.log(e))
+      // }
+      // else {
         setUser(null)
-      }
+      // }
     }
   
     const memoedValue = useMemo(() => ({

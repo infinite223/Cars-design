@@ -81,10 +81,17 @@ export const style = StyleSheet.create({
         fontSize:12,
         letterSpacing:1
     },
-    finishButton: {
+    finishButtonText: {
         fontSize:18,
         letterSpacing:3,
         paddingHorizontal:7,
         fontWeight:'600'
+    },
+    stageComponent: {
+        flex:1, 
+        borderRadius:15,
+        paddingHorizontal:15,
+        paddingVertical:10,
+        marginVertical:5,
     }
 })

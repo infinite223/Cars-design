@@ -19,6 +19,7 @@ const SettingsScreen = () => {
   const { HeaderText, InfoText, LanguageText, NotifyText, ProfileText, ThemeText, logOutText } = translations.screens.SettingsScreen
   const navigation:any = useNavigation()
   const { user, logout }:any = useAuth()
+  console.log(user.displayName)
 
   const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
   const [themeModalVisible, setThemeModalVisible] = useState(false)
@@ -67,7 +68,7 @@ const SettingsScreen = () => {
         <TouchableOpacity onPress={()=> logout()} style={[style.logOutButton, {backgroundColor:theme.backgroundContent}]}>
             <Text style={{fontSize:18, color:theme.fontColor}}>
                 {language==="en"?logOutText.en:logOutText.pl}
-                <Text style={{letterSpacing:0, fontWeight:'bold'}}>{user.name==="Tester"&&' Demo'}</Text>
+                <Text style={{letterSpacing:0, fontWeight:'bold'}}>{user.name==="Tester"?' Demo':'  '+user.displayName}</Text>
             </Text>       
         </TouchableOpacity> 
     </View>

@@ -18,6 +18,7 @@ import { Car } from '../../utils/types'
 import { app } from '../../hooks/useAuth';
 import ErrorModal from '../modals/ErrorModal';
 import SelectList from 'react-native-dropdown-select-list'
+import { uploadImages } from '../../firebase/uploadImages';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation()
@@ -35,6 +36,7 @@ const CreateScreen = () => {
             description: "Set place where people can find you"
         }
     })
+    const [originImage, setOriginImage] = useState<any>({})
 
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
@@ -48,13 +50,14 @@ const CreateScreen = () => {
         _0_100: 0,
         _100_200: 0
     })
+    const [showwSelectPlaceVisible, setShowwSelectPlaceVisible] = useState(false)
     console.log(carData)
     const widthScreen = Dimensions.get('window').width
     const heightScreen = Dimensions.get('window').height
     const flatListRef = useRef<any>(null)
     const [index, setIndex] = useState(0)
 
-    const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText } = translations.screens.CreateScreen
+    const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
 
     let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
     let validatePerformance = carData.power && carData.torque?true:false;
@@ -128,34 +131,33 @@ const CreateScreen = () => {
 			allowsEditing: true,
 		});
 
-        
 	
 		if (!result.cancelled) {
-		   setImages([...images, result]);
+		   setImages([...images, {...result, place: {}}]);
 		}
 	};
 
     console.log(images)
-    const uploadImages = async () => {
-        const response = await fetch(images[0].uri)
-        const blob = await response.blob()
-        const immageFullName = images[0].uri.split('/')[images[0].uri.split('/').length-1]
-        const storageRef = ref(storage, `${user.uid}/${carData.make}-${carData.model}/${immageFullName}`);
+    // const uploadImages = async () => {
+    //     const response = await fetch(images[0].uri)
+    //     const blob = await response.blob()
+    //     const immageFullName = images[0].uri.split('/')[images[0].uri.split('/').length-1]
+    //     const storageRef = ref(storage, `${user.uid}/${carData.make}-${carData.model}/${immageFullName}`);
 
 
-        try {
-            uploadBytes(storageRef, blob).then((snapshot) => {
-                console.log(snapshot)
-                console.log('Uploaded a blob or file!');
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    //     try {
+    //         uploadBytes(storageRef, blob).then((snapshot) => {
+    //             console.log(snapshot)
+    //             console.log('Uploaded a blob or file!');
+    //         });
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     const addProject = async () => {
         if(user.uid){
-            uploadImages()
+            uploadImages(images, carData.make, carData.model, user)
         }
         else {
             const errorMessage = language==='pl'
@@ -197,6 +199,7 @@ const CreateScreen = () => {
     
     const steps = [
         <View style={{flex:1}}> 
+            {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
             <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
                 <Text style={[style.headerText]}>{language==='en'?headerText.en:headerText.pl}</Text>
@@ -270,15 +273,14 @@ const CreateScreen = () => {
                     data={images}
                     numColumns={2}
                     scrollEnabled
-                    // contentContainerStyle={{maxHeight:500}}
                     ItemSeparatorComponent={()=><View style={{width:20}}/>}
                     renderItem={({item})=> (
-                        <View style={{alignItems:'center', justifyContent:'center', height:120, marginVertical:10}}>
+                        <TouchableOpacity onLongPress={()=>setShowwSelectPlaceVisible(true)} style={{alignItems:'center', justifyContent:'center', height:120, marginVertical:10}}>
                             <Image source={{ uri: item.uri }} style={{ width: widthScreen / 2.5, height: 120, marginStart:15, borderRadius:15 }} />
-                            <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.uri!==item.uri))} style={{position:'absolute', backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
-                                <Icon type='entypo' name="minus" size={30} color={theme.fontColor}/>
+                            <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.uri!==item.uri))} style={{position:'absolute', top:10, right:10, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
+                                <Icon type='entypo' name="minus" size={20} color={theme.fontColor}/>
                             </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
                     )}
                 />
             </View>
@@ -297,10 +299,19 @@ const CreateScreen = () => {
             </View>
 
             <View>
-                {/* Add stages */}
+               <Text style={[{color: theme.fontColorContent, marginTop:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>
+               <FlatList
+                style={{marginTop:10}}
+                data={[{name:'Stage 1'}, {name: 'Stage 2'}]}
+                renderItem={({item})=>(
+                    <TouchableOpacity style={[style.stageComponent, {backgroundColor: theme.backgroundContent}]}>
+                        <Text style={[{color: theme.fontColor}]}>{item.name}</Text>
+                    </TouchableOpacity>
+                )}
+               />
             </View>
-            {!showError.show&&<TouchableOpacity onPress={addProject} style={[style.nextStepButton, {flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
-                <Text style={[style.finishButton, { color: theme.fontColor}]}>Finish</Text>
+            {!showError.show&&<TouchableOpacity onPress={addProject} style={[style.nextStepButton, {borderRadius:25 ,  paddingVertical:12, flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+                <Text style={[style.finishButtonText, { color: theme.fontColor}]}>Finish</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>}
         </View>            

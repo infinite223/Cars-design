@@ -62,7 +62,10 @@ export const translations = {
                 description: { en: 'Short description....', pl: 'Krótki opis...'},
                 power: { en: 'Type the power of the car', pl: 'Podaj moc samochodu'},
                 torque: { en: 'Type the torque of the car', pl: 'Podaj moment obrotowy samochodu' }
-
+            },
+            historyHeaderText: {
+                en: 'The history of the car is a place where you can put the changes, the stages that have taken place in the car, show off the effects',
+                pl: 'Historia samochodu jest to miejsce gdzie możesz umieścić zmiany, etapy które zaszły w samochodzie, pochwalić się efektami'
             }
         },
         SettingsScreen: {

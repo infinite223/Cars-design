@@ -23,7 +23,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 
     return (
     <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
