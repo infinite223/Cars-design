@@ -1,11 +1,11 @@
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
-export const uploadImages = async (images:any, make:string, model:string, user:any) => {
+export const uploadImages = async (images:any, make:string, model:string, userUid:string) => {
     const storage = getStorage();
     const response = await fetch(images[0].uri)
     const blob = await response.blob()
     const immageFullName = images[0].uri.split('/')[images[0].uri.split('/').length-1]
-    const storageRef = ref(storage, `${user.uid}/${make}-${model}/${immageFullName}`);
+    const storageRef = ref(storage, `${userUid}/${make}-${model}/${immageFullName}`);
 
 
     try {

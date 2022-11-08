@@ -75,3 +75,8 @@ export type Performance = [
     {type:string, value:number}?,
     {type:string, value:number}?
 ]
+
+export type Error = {
+    show:boolean,
+    message:string
+}

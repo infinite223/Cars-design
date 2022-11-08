@@ -8,10 +8,11 @@ interface CustomInputProps {
     placeholder:string,
     setValue: (value:string) => void,
     helpText?: string,
-    performance?:string
+    performance?:string,
+    max?:number
 }
 
-const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, performance}) => {
+const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, performance, max}) => {
     const theme = useSelector(selectTheme)
     const [value1, setValue1] = useState('')
     const [focus, setFocus] = useState(false)
@@ -26,6 +27,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
             onFocus={()=>setFocus(true)}
             onEndEditing={()=>setFocus(false)}
             keyboardType={performance?'numeric':'default'}
+            maxLength={max}
         />
         <View style={style.footerContainer}>
             {helpText&&<Text style={[style.helperText, {color: focus?theme.fontColorContent:theme.backgroundContent}]}>{helpText}</Text>}

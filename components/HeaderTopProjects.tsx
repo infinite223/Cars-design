@@ -36,8 +36,8 @@ export const HeaderTopProjects = () => {
                             <Text style={[style.placeText, {color: '#5b9'}]}>{item.place.city}</Text>
                         </View>  
                         <View style={style.countPeople}>
-                            <Text style={[{color: theme.fontColorContent, marginRight:3, fontSize:12}]}>{item.people.length}</Text>
-                            <Icon type='ionicon' name="md-people-outline" size={14} color={theme.fontColorContent}/>
+                            <Text style={[{color: theme.fontColor, marginRight:5, fontSize:12}]}>{item.people.length}</Text>
+                            <Icon type='ionicon' name="md-people-outline" size={14} color={theme.fontColor}/>
                         </View>                                          
                     </TouchableOpacity>
                 }}
@@ -64,7 +64,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems:'center',
         marginTop:3,
-        marginBottom:15,
         paddingHorizontal:5
     },
     warningText: {
@@ -78,8 +77,8 @@ const style = StyleSheet.create({
         borderRadius:10
     },
     imageRoom: {
-        width: 140,
-        height: 80,
+        width: 160,
+        height: 100,
         borderRadius:10,
         opacity: .9,
         backgroundColor: 'black'      

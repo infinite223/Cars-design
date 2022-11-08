@@ -19,23 +19,21 @@ import { app } from '../../hooks/useAuth';
 import ErrorModal from '../modals/ErrorModal';
 import SelectList from 'react-native-dropdown-select-list'
 import { uploadImages } from '../../firebase/uploadImages';
+import { chooseImg } from '../../utils/functions/chooseImg';
+import { HistoryCar } from '../../utils/types'
+import { findMakeInCategores } from '../../utils/functions/findMakeInCaategores';
+import { addProject } from '../../firebase/addProject';
+import { getMakes } from '../../utils/functions/getMakes';
 
 const CreateScreen = () => {
+    const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
+
     const navigation:any = useNavigation()
-    const db = getFirestore()
     const [images, setImages] = useState<any[]>([]);
     const [makesCategory, setMakesCategory] = useState<{key:number, value:string}[]>([])
-    const [selected, setSelected] = useState("");
     const [showError, setShowError] = useState({show:false, message:''})
     const { user, logout }:any = useAuth()
-    const storage = getStorage();
-    const [selectPlaceOnMapModalVisible, setSelectPlaceOnMapModalVisible] = useState(false)
-    const [origin, setOrigin] = useState<any>({
-        region:null,
-        place:{
-            description: "Set place where people can find you"
-        }
-    })
+
     const [originImage, setOriginImage] = useState<any>({})
 
     const theme = useSelector(selectTheme)
@@ -50,17 +48,15 @@ const CreateScreen = () => {
         _0_100: 0,
         _100_200: 0
     })
+    const [stages, setStages] = useState<HistoryCar[]>()
+
     const [showwSelectPlaceVisible, setShowwSelectPlaceVisible] = useState(false)
-    console.log(carData)
+
     const widthScreen = Dimensions.get('window').width
     const heightScreen = Dimensions.get('window').height
+
     const flatListRef = useRef<any>(null)
     const [index, setIndex] = useState(0)
-
-    const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
-
-    let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
-    let validatePerformance = carData.power && carData.torque?true:false;
 
     const goToNextStep = () => {
         setIndex(index + 1)
@@ -95,108 +91,25 @@ const CreateScreen = () => {
     })
       }, [theme, language])
 
-      useEffect(() => {
-		(async () => {
-		if (Platform.OS !== 'web') {
-			const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-			if (status !== 'granted') {
-			    alert(language==="en"?cameraError.en:cameraError.pl);
-			}
-		}
+    useEffect(() => {
+	    (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert(language==="en"?cameraError.en:cameraError.pl);
+                }
+            }
 		})();
 	}, []);
 
     useEffect(() => {
-        const getMakes = async () => {
-          await fetch('https://carapi.app/api/makes')
-           .then((response) => response.json())
-           .then((data:any) => 
-               {
-                let newArray = data.data.map((item:any) => {
-                    return {key: item.id, value: item.name}
-                })
-                setMakesCategory(newArray)
-               }
-           );
-           
-        }
-        getMakes()
+        getMakes(setMakesCategory)
     }, [])
+
+    let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
+    let validatePerformance = carData.power && carData.torque?true:false;
 	
-	const chooseImg = async () => {
-		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All,
-			aspect: [4, 3],
-			quality: 1,			
-			allowsEditing: true,
-		});
 
-	
-		if (!result.cancelled) {
-		   setImages([...images, {...result, place: {}}]);
-		}
-	};
-
-    console.log(images)
-    // const uploadImages = async () => {
-    //     const response = await fetch(images[0].uri)
-    //     const blob = await response.blob()
-    //     const immageFullName = images[0].uri.split('/')[images[0].uri.split('/').length-1]
-    //     const storageRef = ref(storage, `${user.uid}/${carData.make}-${carData.model}/${immageFullName}`);
-
-
-    //     try {
-    //         uploadBytes(storageRef, blob).then((snapshot) => {
-    //             console.log(snapshot)
-    //             console.log('Uploaded a blob or file!');
-    //         });
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    const addProject = async () => {
-        if(user.uid){
-            uploadImages(images, carData.make, carData.model, user)
-        }
-        else {
-            const errorMessage = language==='pl'
-                ?'Musisz być zalogowany aby dodać swój projekt'
-                :'You must be login to add project' 
-          
-            setShowError({show:true, message: errorMessage})
-            console.log(showError)
-        }
-        
-       // console.log(immageFullName)
-     
-        // const finishCar:Car = {
-        //     CarMake:carData.make,
-        //     model:carData.model,
-        //     likes:0,
-        //     description:carData.description,
-        //     performance: [
-        //         {type:'hp', value:carData.power},
-        //         {type:'nm', value: carData.torque},
-        //         {type: '_0_100', value:carData._0_100},
-        //         {type: '_100_200', value:carData._100_200}
-        //     ],
-        //     history:[],
-        //     imagesCar: []
-        // } 
-        // await setDoc(doc(db, "Projects", user.uid), finishCar)
-        //   .then(s=>console.log(s))
-        //   .catch(e=>console.log(e))
-    }
-
-    const fincdMake = (number:number) => {
-        let find = makesCategory.find((make)=>make.key===number)?.value
-        if(typeof find === 'undefined'){
-            find = ''
-        }
-        return find
-    }
-    
     const steps = [
         <View style={{flex:1}}> 
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
@@ -210,7 +123,7 @@ const CreateScreen = () => {
                         searchPlaceholder='Search car make'
                         searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
                         placeholder="Select car make"    
-                        setSelected={(num:any)=>setCarData({...carData, make:fincdMake(num)})} 
+                        setSelected={(selectNumber:any)=>setCarData({...carData, make:findMakeInCategores(selectNumber, makesCategory)})} 
                         boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10}}
                         inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
                         dropdownTextStyles={{color: theme.fontColor}}
@@ -220,7 +133,12 @@ const CreateScreen = () => {
                     />
                 }
                 <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
-                <CustomInput placeholder={language==='en'?description.en:description.pl} setValue={(text)=>setCarData({...carData, description:text})} helpText="(np. Projekt został stowrzony...max 40 letters)"/>
+                <CustomInput 
+                 placeholder={language==='en'?description.en:description.pl} 
+                 setValue={(text)=>setCarData({...carData, description:text})}
+                 max={100}
+                 helpText={language==='pl'?"(np. Projekt został stowrzony...max 100 letters)":"(np. Project was created...max 100 letters)"}
+                />
             </View>
             <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
@@ -255,7 +173,7 @@ const CreateScreen = () => {
 
             <View style={{ flexGrow:.0,  marginTop:20 }} >		
                 <View style={style.headerImages}>
-                    <TouchableOpacity onPress={chooseImg} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
+                    <TouchableOpacity onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
                         <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
                     </TouchableOpacity>
                     <View style={[style.helpTextConteiner]}>             
@@ -302,7 +220,7 @@ const CreateScreen = () => {
                <Text style={[{color: theme.fontColorContent, marginTop:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>
                <FlatList
                 style={{marginTop:10}}
-                data={[{name:'Stage 1'}, {name: 'Stage 2'}]}
+                data={stages}
                 renderItem={({item})=>(
                     <TouchableOpacity style={[style.stageComponent, {backgroundColor: theme.backgroundContent}]}>
                         <Text style={[{color: theme.fontColor}]}>{item.name}</Text>
@@ -310,7 +228,7 @@ const CreateScreen = () => {
                 )}
                />
             </View>
-            {!showError.show&&<TouchableOpacity onPress={addProject} style={[style.nextStepButton, {borderRadius:25 ,  paddingVertical:12, flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+            {!showError.show&&<TouchableOpacity onPress={()=>addProject(images, carData.make, carData.model, user.uid, language, setShowError)} style={[style.nextStepButton, {borderRadius:25 ,  paddingVertical:12, flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Text style={[style.finishButtonText, { color: theme.fontColor}]}>Finish</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>}

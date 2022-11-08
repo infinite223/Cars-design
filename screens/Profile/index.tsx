@@ -6,7 +6,6 @@ import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/themed";
 import { data } from '../../utils/data';
 import EditProfileScreen from './../modals/SettingsModals/EditProfileModal';
-import CreateProjectScreen from './../modals/CreateProjectModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
@@ -17,7 +16,6 @@ const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const { user, logout }:any = useAuth()
     const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
-    const [createProjectModalVisible, setCreateProjectModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { followersText, viewsText, followingText, headerText, headerProjectsText } = translations.screens.ProfileScreen
@@ -46,11 +44,7 @@ const ProfileScreen = () => {
             </View>
           ),
           headerRight: () => <View style={style.headerRightContainer}> 
-           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{
-                //  marginRight:13, borderWidth:1, borderRadius:8, borderColor:theme.fontColor
-                paddingHorizontal:5
-            }}>
-                {/* <Ionicons name="add-outline" size={20} color={theme.fontColor}/> */}
+           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{paddingHorizontal:5}}>           
                 <Icon
                     name='post-add'
                     type='materialicon'
@@ -73,7 +67,6 @@ const ProfileScreen = () => {
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
-        <CreateProjectScreen modalVisible={createProjectModalVisible} setModalVisible={setCreateProjectModalVisible}/>
         <View style={{marginVertical:5}}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>
                 {language==="en"?headerText.en:headerText.pl}

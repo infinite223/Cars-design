@@ -19,8 +19,6 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 
     }
 
-    console.log(author.uid)
-
     return (
     <Modal
         animationType="fade"
