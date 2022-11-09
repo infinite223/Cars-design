@@ -124,6 +124,10 @@ export const translations = {
             headerProjectsText: {
                 en: 'Projects',
                 pl: 'Projekty'
+            },
+            addProjectButton: {
+                en: 'ADD PROJECT CAR',
+                pl: 'DODAJ PROJEKT'
             }
         }
     }

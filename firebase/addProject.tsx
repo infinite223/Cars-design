@@ -1,5 +1,6 @@
 import { Error } from "../utils/types"
-import { uploadImages } from "./uploadImages"
+import { uploadImage } from "./uploadImages"
+import * as ImagePicker from 'expo-image-picker';
 
 export const addProject = async (
         images:any, 
@@ -10,7 +11,9 @@ export const addProject = async (
         setShowError: (value:Error)=>void
     ) => {
     if(userUid){
-        uploadImages(images, make, model, userUid)
+        images.forEach(async (image:any) => {
+            await uploadImage(image, make, model, userUid)
+        });
     }
     else {
         const errorMessage = language==='pl'

@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/themed";
 import { data } from '../../utils/data';
@@ -14,16 +14,22 @@ import { style } from './style';
 
 const ProfileScreen = () => {
     const navigation:any = useNavigation()
+    const route = useRoute<any>()
+    const profileUser = route.params.state;
+    console.log(profileUser)
     const { user, logout }:any = useAuth()
+    const isMyProfile = user.uid===profileUser.uid
     const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-    const { followersText, viewsText, followingText, headerText, headerProjectsText } = translations.screens.ProfileScreen
+    const { followersText, viewsText, followingText, headerText, headerProjectsText, addProjectButton } = translations.screens.ProfileScreen
 
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:10, fontSize:20, color:theme.fontColor}}>{data[0].author.name}</Text>,
+           headerTitle: () => <Text style={{marginLeft:10, fontSize:17, color:theme.fontColor}}>
+            {profileUser.displayName}
+            </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:5}}>
@@ -56,7 +62,7 @@ const ProfileScreen = () => {
                 <Icon                 
                     name='ios-settings-outline'
                     type='ionicon'
-                    size={27} 
+                    size={25} 
                     color={theme.fontColor}
                 />
             </TouchableOpacity>
@@ -77,7 +83,9 @@ const ProfileScreen = () => {
             </Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.editButton, {backgroundColor: '#272'}]}>
-            <Text style={[{color:'#ddd', fontSize:15, letterSpacing:1}]}>ADD PROJECT CAR</Text>
+            <Text style={[{color:'#ddd', fontSize:15, letterSpacing:1}]}>
+                {language==='en'?addProjectButton.en:addProjectButton.pl}
+            </Text>
         </TouchableOpacity>
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>

@@ -154,8 +154,8 @@ const CreateScreen = () => {
             <View>
                 <CustomInput placeholder={language==='en'?power.en:power.pl}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
                 <CustomInput placeholder={language==='en'?torque.en:torque.pl}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
-                <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text)})} helpText="(np. 5)" performance="_0_100"/>
-                <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text)})} helpText="(np. 13)" performance="_100_200"/>
+                <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text.replace(',', '.'))})} helpText="(np. 5.3)" performance="_0_100"/>
+                <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text.replace(',', '.'))})} helpText="(np. 13.9)" performance="_100_200"/>
             </View>
             <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
