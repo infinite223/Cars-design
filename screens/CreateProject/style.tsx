@@ -18,7 +18,7 @@ export const style = StyleSheet.create({
         paddingHorizontal:20
     },
     headerText: {
-        color: '#293',
+        color: '#2b3',
         fontSize:18,
         letterSpacing:3,
         fontWeight:'bold',
@@ -90,15 +90,29 @@ export const style = StyleSheet.create({
     stageComponent: {
         flexDirection:'row',
         alignItems:'center',
+        borderTopWidth:1,
+        borderRadius:5,
+        paddingVertical:12  
+    },
+    removeStage: {
         borderRadius:15,
-        paddingVertical:10,
-        marginVertical:5,
+        paddingHorizontal:10,
+        paddingVertical:7,
+        marginRight:10,
+        marginLeft:-5
+    },
+    stageContent:{
+        borderRadius:15,
+        paddingBottom:10,
+        paddingHorizontal:5
     },
     stageAddButton: {
         backgroundColor:'#273',
         flexDirection:'row',
         alignItems:'center',
-        paddingHorizontal:15
+        paddingHorizontal:15,
+        marginVertical:10,
+        borderRadius:15
     },
     addStageText: {
         textTransform:'uppercase',

@@ -109,48 +109,18 @@ const CreateScreen = () => {
     let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
     let validatePerformance = carData.power && carData.torque?true:false;
 
-
-
-    const SECTIONS = [
-        {
-          title: 'First',
-          content: 'Lorem ipsum...',
-        },
-        {
-          title: 'Second',
-          content: 'Lorem ipsum...',
-        },
-      ];
-
-    const [activeSections, setActiveSections] = useState([])
-
-    const _renderSectionTitle = (section:any) => {
-        return (
-          <View style={{width:100, backgroundColor:'red', flex:1, height:200}}>
-            <Text style={{color:theme.fontColor}}>dsadsa</Text>
-          </View>
-        );
-      };
+    useEffect(() => {
+      if(stages.length>6){
+        setStages(stages.slice(0, 6))
+        setShowError({show:true, message:'Max count stages is 8'})
+      }
+    }, [stages])
     
-    const _renderHeader = (section:any) => {
-        return (
-          <View style={{width:100, backgroundColor:'red', flex:1, height:200}}>
-            <Text style={{color:theme.fontColor}}>{section.name}dsdas</Text>
-          </View>
-        );
-      };
-    
-      const _renderContent = (section:any) => {
-        return (
-          <View>
-            <Text style={{color:theme.fontColor}}>dsadsadasdsadadsadsadsadas</Text>
-          </View>
-        );
-      };
-	
+
 
     const steps = [
         <View style={{flex:1}}> 
+            {/* {showError&&<ErrorModal show={showError.show} message={showError.message} resetError={setShowError}/>} */}
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
             <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
@@ -256,31 +226,12 @@ const CreateScreen = () => {
             </View>
 
             <View>
-               <Text style={[{color: theme.fontColorContent, marginTop:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>
-               {/* <FlatList
-                style={{marginTop:10}}
-                data={stages}
-                ListFooterComponent={()=>(
-                    <TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
-                        <Icon type='octicon' name='plus' color={theme.fontColor} size={17}/>
-                        <Text style={[style.addStageText, {color: theme.fontColor}]}>dodaj stage {stages.length+1}</Text>
-                    </TouchableOpacity>
-                )}
-                renderItem={({item, index})=>(
-                    <TouchableOpacity style={[style.stageComponent, {backgroundColor: theme.backgroundContent}]}>
-                        {index===stages.length-1&&<TouchableOpacity onPress={()=>setStages(stages.filter((stage)=>stage.name!==item.name))} style={{paddingHorizontal:15}}>
-                            <Icon type='entypo' name='minus' color={theme.fontColor} size={17}/>
-                        </TouchableOpacity>}
-                        <Text style={[{color: theme.fontColor, marginHorizontal:index===stages.length-1?0:15}]}>{item.name}</Text>
-                    </TouchableOpacity>
-                )}
-               /> */}
-
+               <Text style={[{color: theme.fontColorContent, marginVertical:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>       
                <AccordionView setStages={setStages} stages={stages} />
-               <TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
+               {stages.length<6&&<TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
                         <Icon type='octicon' name='plus' color={theme.fontColor} size={17}/>
                         <Text style={[style.addStageText, {color: theme.fontColor}]}>dodaj stage {stages.length+1}</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
             {!showError.show&&<TouchableOpacity onPress={()=>addProject(images, carData.make, carData.model, user.uid, language, setShowError)} style={[style.nextStepButton, {borderRadius:25 ,  paddingVertical:12, flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Text style={[style.finishButtonText, { color: theme.fontColor}]}>Finish</Text>
