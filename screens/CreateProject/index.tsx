@@ -18,12 +18,13 @@ import { Car } from '../../utils/types'
 import { app } from '../../hooks/useAuth';
 import ErrorModal from '../modals/ErrorModal';
 import SelectList from 'react-native-dropdown-select-list'
-import { uploadImages } from '../../firebase/uploadImages';
 import { chooseImg } from '../../utils/functions/chooseImg';
 import { HistoryCar } from '../../utils/types'
 import { findMakeInCategores } from '../../utils/functions/findMakeInCaategores';
 import { addProject } from '../../firebase/addProject';
 import { getMakes } from '../../utils/functions/getMakes';
+import Accordion from 'react-native-collapsible/Accordion';
+import { AccordionView } from './stages';
 
 const CreateScreen = () => {
     const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
@@ -33,7 +34,6 @@ const CreateScreen = () => {
     const [makesCategory, setMakesCategory] = useState<{key:number, value:string}[]>([])
     const [showError, setShowError] = useState({show:false, message:''})
     const { user, logout }:any = useAuth()
-
     const [originImage, setOriginImage] = useState<any>({})
 
     const theme = useSelector(selectTheme)
@@ -48,14 +48,14 @@ const CreateScreen = () => {
         _0_100: 0,
         _100_200: 0
     })
-    const [stages, setStages] = useState<HistoryCar[]>()
+    const [stages, setStages] = useState<HistoryCar[]>([])
 
     const [showwSelectPlaceVisible, setShowwSelectPlaceVisible] = useState(false)
 
     const widthScreen = Dimensions.get('window').width
     const heightScreen = Dimensions.get('window').height
 
-    const flatListRef = useRef<any>(null)
+    const flatListRef = useRef<FlatList>(null)
     const [index, setIndex] = useState(0)
 
     const goToNextStep = () => {
@@ -108,6 +108,45 @@ const CreateScreen = () => {
 
     let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
     let validatePerformance = carData.power && carData.torque?true:false;
+
+
+
+    const SECTIONS = [
+        {
+          title: 'First',
+          content: 'Lorem ipsum...',
+        },
+        {
+          title: 'Second',
+          content: 'Lorem ipsum...',
+        },
+      ];
+
+    const [activeSections, setActiveSections] = useState([])
+
+    const _renderSectionTitle = (section:any) => {
+        return (
+          <View style={{width:100, backgroundColor:'red', flex:1, height:200}}>
+            <Text style={{color:theme.fontColor}}>dsadsa</Text>
+          </View>
+        );
+      };
+    
+    const _renderHeader = (section:any) => {
+        return (
+          <View style={{width:100, backgroundColor:'red', flex:1, height:200}}>
+            <Text style={{color:theme.fontColor}}>{section.name}dsdas</Text>
+          </View>
+        );
+      };
+    
+      const _renderContent = (section:any) => {
+        return (
+          <View>
+            <Text style={{color:theme.fontColor}}>dsadsadasdsadadsadsadsadas</Text>
+          </View>
+        );
+      };
 	
 
     const steps = [
@@ -149,7 +188,7 @@ const CreateScreen = () => {
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-20}]}>Performance</Text>
+                <Text style={[style.headerText, { marginLeft:-25}]}>Performance</Text>
             </View>
             <View>
                 <CustomInput placeholder={language==='en'?power.en:power.pl}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
@@ -166,7 +205,7 @@ const CreateScreen = () => {
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-20 }]}>
+                <Text style={[style.headerText, { marginLeft:-25 }]}>
                     {language==="en"?'Images':'Zdjęcia'}
                 </Text>
             </View>
@@ -211,22 +250,37 @@ const CreateScreen = () => {
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-20 }]}>               
+                <Text style={[style.headerText, { marginLeft:-25 }]}>               
                     History
                 </Text>
             </View>
 
             <View>
                <Text style={[{color: theme.fontColorContent, marginTop:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>
-               <FlatList
+               {/* <FlatList
                 style={{marginTop:10}}
                 data={stages}
-                renderItem={({item})=>(
-                    <TouchableOpacity style={[style.stageComponent, {backgroundColor: theme.backgroundContent}]}>
-                        <Text style={[{color: theme.fontColor}]}>{item.name}</Text>
+                ListFooterComponent={()=>(
+                    <TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
+                        <Icon type='octicon' name='plus' color={theme.fontColor} size={17}/>
+                        <Text style={[style.addStageText, {color: theme.fontColor}]}>dodaj stage {stages.length+1}</Text>
                     </TouchableOpacity>
                 )}
-               />
+                renderItem={({item, index})=>(
+                    <TouchableOpacity style={[style.stageComponent, {backgroundColor: theme.backgroundContent}]}>
+                        {index===stages.length-1&&<TouchableOpacity onPress={()=>setStages(stages.filter((stage)=>stage.name!==item.name))} style={{paddingHorizontal:15}}>
+                            <Icon type='entypo' name='minus' color={theme.fontColor} size={17}/>
+                        </TouchableOpacity>}
+                        <Text style={[{color: theme.fontColor, marginHorizontal:index===stages.length-1?0:15}]}>{item.name}</Text>
+                    </TouchableOpacity>
+                )}
+               /> */}
+
+               <AccordionView setStages={setStages} stages={stages} />
+               <TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
+                        <Icon type='octicon' name='plus' color={theme.fontColor} size={17}/>
+                        <Text style={[style.addStageText, {color: theme.fontColor}]}>dodaj stage {stages.length+1}</Text>
+                </TouchableOpacity>
             </View>
             {!showError.show&&<TouchableOpacity onPress={()=>addProject(images, carData.make, carData.model, user.uid, language, setShowError)} style={[style.nextStepButton, {borderRadius:25 ,  paddingVertical:12, flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Text style={[style.finishButtonText, { color: theme.fontColor}]}>Finish</Text>

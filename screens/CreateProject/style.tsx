@@ -88,10 +88,21 @@ export const style = StyleSheet.create({
         fontWeight:'600'
     },
     stageComponent: {
-        flex:1, 
+        flexDirection:'row',
+        alignItems:'center',
         borderRadius:15,
-        paddingHorizontal:15,
         paddingVertical:10,
         marginVertical:5,
+    },
+    stageAddButton: {
+        backgroundColor:'#273',
+        flexDirection:'row',
+        alignItems:'center',
+        paddingHorizontal:15
+    },
+    addStageText: {
+        textTransform:'uppercase',
+        letterSpacing:1,
+        marginLeft:15
     }
 })

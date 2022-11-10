@@ -10,11 +10,20 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from './../../utils/translations';
+import { RouteProp } from '@react-navigation/native';
+
 import { style } from './style';
+
+type ProfileScreenProps = {
+    A: undefined;
+    B: {
+      state: {uid:string, displayName:string}
+    };
+  }
 
 const ProfileScreen = () => {
     const navigation:any = useNavigation()
-    const route = useRoute<any>()
+    const route = useRoute<RouteProp<ProfileScreenProps, 'B'>>()
     const profileUser = route.params.state;
     console.log(profileUser)
     const { user, logout }:any = useAuth()

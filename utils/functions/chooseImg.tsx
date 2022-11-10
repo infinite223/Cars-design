@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 
-export const chooseImg = async (images:[], setImages: ([]) => void) => {
+export const chooseImg = async (images:any[], setImages: (value:any[]) => void) => {
     let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         aspect: [4, 3],

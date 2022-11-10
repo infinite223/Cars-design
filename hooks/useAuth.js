@@ -39,7 +39,8 @@ export const AuthProvider = ({children}) => {
   useEffect(() => 
     onAuthStateChanged(auth, (user) => {
       if(user){
-        setUser(user)
+        // get user data from firebase 
+        setUser(user, )
       }
       else {
         setUser(null)
