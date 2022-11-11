@@ -2,7 +2,7 @@ import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, P
 import React, { useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PeopleTab from './../../components/MeetingRoomTabs/PeopleTab';
@@ -23,7 +23,6 @@ const MeetingRoomScreen = () => {
     const Tab = createNativeStackNavigator();
     const route = useRoute<any>()
     const context = useSharedValue({y: 0})
-    const dispatch = useDispatch()
     const focuseOnSearch = useSelector(selectFocuseOnSearch)
     const {people, name, place, date} = route.params;
     const gesture = Gesture.Pan()

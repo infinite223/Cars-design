@@ -86,7 +86,8 @@ export const style = StyleSheet.create({
         borderRadius:25,  
         paddingVertical:12, 
         flexDirection:'row',
-        borderWidth:1
+        borderWidth:1,
+
     },
     finishButtonText: {
         fontSize:18,
@@ -99,20 +100,31 @@ export const style = StyleSheet.create({
         alignItems:'center',
         borderTopWidth:0,
         borderRadius:5,
-        paddingVertical:12  
+        paddingVertical:9 
     },
     removeStage: {
         borderRadius:15,
         paddingHorizontal:10,
-        paddingVertical:7,
+        alignItems:'center',
+        justifyContent:'center',
+        paddingVertical:0,  
         marginRight:10,
-        marginLeft:-5
+        marginLeft:10
     },
     stageContent:{
-        marginTop:-20,
-        borderRadius:15,
+        marginTop:-10,
+        borderRadius:25,
         paddingBottom:10,
-        paddingHorizontal:5
+        paddingHorizontal:10,
+        paddingVertical:5,
+        backgroundColor:'#222',
+        
+    },
+    stageName: {
+        paddingVertical:7, 
+        paddingHorizontal:15,
+        borderRadius:15,
+        fontSize:16,
     },
     stageAddButton: {
         backgroundColor:'#273',
@@ -126,5 +138,41 @@ export const style = StyleSheet.create({
         textTransform:'uppercase',
         letterSpacing:1,
         marginLeft:15
-    }
+    },
+    componentsContainer: {
+   
+    },
+    addComponentButton: {
+      paddingHorizontal:20,
+      paddingVertical:3,
+      marginVertical:10,
+      alignItems:'center',
+      justifyContent:'center',
+      borderRadius:15  
+    },
+    component:{
+      alignItems:'center',
+      justifyContent:'space-around',
+      width:100,
+      height:110,
+      //backgroundColor: 'rgba(1,1,1,.2)',
+      paddingHorizontal:10,
+      paddingVertical:6,
+      borderRadius:15
+    },
+    typeComponent: {
+      textTransform:'uppercase',
+      fontSize:12,
+      color:'#bbb',
+      letterSpacing:1
+    },
+    nameComponent: {
+      color:'white',
+      fontWeight:'bold',
+      letterSpacing:1
+    },
+    imageComponent: {
+      width:35, 
+      height:35,
+    },
 })
