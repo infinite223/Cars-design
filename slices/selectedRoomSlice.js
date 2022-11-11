@@ -3,7 +3,8 @@ import { MeetingRoom } from '../utils/types'
 
 const initialState = {
     room: "",
-    tab: 'People'
+    tab: 'People',
+    focuseOnSearch: false
 }
 
 export const selectedRoomSlice = createSlice({
@@ -15,12 +16,16 @@ export const selectedRoomSlice = createSlice({
         },
         setSelectedTabInRoom: (state, action) => {
             state.tab = action.payload
-        }
+        },
+        setFocuseOnSearch: (state, action) => {
+            state.focuseOnSearch = action.payload
+        },
     }
 })
 
-export const { setSelectedRoom, setSelectedTabInRoom } = selectedRoomSlice.actions
+export const { setSelectedRoom, setSelectedTabInRoom, setFocuseOnSearch } = selectedRoomSlice.actions
 export const selectRoom = (state) => state.room.room
 export const selectedTabInRoom = (state) => state.room.tab
+export const selectFocuseOnSearch = (state) => state.room.focuseOnSearch
 
 export default selectedRoomSlice.reducer;

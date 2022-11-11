@@ -15,9 +15,13 @@ export const style = StyleSheet.create({
         marginLeft:10
     },
     logOutButton: {
+        position:'absolute',
+        bottom:15,
+        width:'100%',
+        alignSelf:'center',
         marginVertical:7,
         borderRadius: 15,
         paddingHorizontal:15,
         paddingVertical:8
-    }
+    } 
 })

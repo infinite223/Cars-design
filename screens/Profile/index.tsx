@@ -36,12 +36,12 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:10, fontSize:17, color:theme.fontColor}}>
-            {profileUser.displayName}
+           headerTitle: () => <Text style={{marginLeft:25, fontSize:17, color:theme.fontColor}}>
+            {user.uid?profileUser.displayName:'Demo'}
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:5}}>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:20}}>
                     <Icon
                         size={24}
                         name='arrow-back-ios'
@@ -49,7 +49,7 @@ const ProfileScreen = () => {
                         color={theme.fontColor}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={{marginVertical:10}} onPress={() => setEditProfileModalVisible(true)}>
+                <TouchableOpacity style={{marginVertical:10, marginLeft:10}} onPress={() => setEditProfileModalVisible(true)}>
                     <Avatar
                         size={34}
                         rounded
@@ -59,12 +59,14 @@ const ProfileScreen = () => {
             </View>
           ),
           headerRight: () => <View style={style.headerRightContainer}> 
-           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{paddingHorizontal:5}}>           
+           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{flexDirection:'row', alignItems:'center', position:'relative'}}>  
+                <Text style={{fontSize:15, zIndex:5, color: theme.fontColor, fontStyle:'italic', letterSpacing:1, fontFamily:'tahoma'}}>Spot</Text>         
                 <Icon
-                    name='post-add'
-                    type='materialicon'
-                    size={27} 
-                    color={theme.fontColor}
+                    name='plus'
+                    type='entypo'
+                    size={25} 
+                    color={'#2b3'}
+                    style={{zIndex:3, right:5, top:-5}}
                 />
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{paddingHorizontal:5}}>   

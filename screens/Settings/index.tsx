@@ -29,11 +29,11 @@ const SettingsScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () => <Text style={{marginLeft:5, fontSize:20, color:theme.fontColor}}>
+       headerTitle: () => <Text style={{ fontSize:20, color:theme.fontColor}}>
             {language==="en"?HeaderText.en:HeaderText.pl}
         </Text>,
        headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:5}}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
          <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
         </TouchableOpacity> 
     )})
@@ -66,7 +66,7 @@ const SettingsScreen = () => {
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?NotifyText.en:NotifyText.pl}</Text>
         </TouchableOpacity> 
         <TouchableOpacity onPress={()=> logout()} style={[style.logOutButton, {backgroundColor:theme.backgroundContent}]}>
-            <Text style={{fontSize:18, color:theme.fontColor}}>
+            <Text style={{fontSize:16, color:theme.fontColor}}>
                 {language==="en"?logOutText.en:logOutText.pl}
                 <Text>{user.name==="Tester"?' Demo':'  '+user.displayName}</Text>
             </Text>       

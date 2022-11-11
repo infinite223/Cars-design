@@ -2,13 +2,13 @@ import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, P
 import React, { useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PeopleTab from './../../components/MeetingRoomTabs/PeopleTab';
 import ChatTab from './../../components/MeetingRoomTabs/ChatTab';      
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { selectedTabInRoom, selectRoom } from './../../slices/selectedRoomSlice';
+import { selectedTabInRoom, selectRoom, selectFocuseOnSearch, setFocuseOnSearch } from './../../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { style } from './style';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
@@ -23,6 +23,8 @@ const MeetingRoomScreen = () => {
     const Tab = createNativeStackNavigator();
     const route = useRoute<any>()
     const context = useSharedValue({y: 0})
+    const dispatch = useDispatch()
+    const focuseOnSearch = useSelector(selectFocuseOnSearch)
     const {people, name, place, date} = route.params;
     const gesture = Gesture.Pan()
     .onStart(()=> {
@@ -38,7 +40,7 @@ const MeetingRoomScreen = () => {
       if(translateY.value>-SCREEN_HEIGHT/2.5){
         translateY.value =  withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
       }
-      if(translateY.value<-SCREEN_HEIGHT/2){
+      if(translateY.value<-SCREEN_HEIGHT/2 || focuseOnSearch){
         translateY.value =  withSpring( -SCREEN_HEIGHT, { damping: 50})
       }
     })
@@ -46,7 +48,7 @@ const MeetingRoomScreen = () => {
 
     const rRoomContentSheetStyle = useAnimatedStyle(() => {
       const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 0], Extrapolate.CLAMP )
-      const paddingTop = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [0, 15], Extrapolate.CLAMP )
+      const paddingTop = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [0, 25], Extrapolate.CLAMP )
 
       return {
         borderRadius,
@@ -68,13 +70,12 @@ const MeetingRoomScreen = () => {
     }, [])
 
     console.log(tabInRoom)
-
     useEffect(() => {
-      if(tabInRoom.tab=="Chat"){
+      if(tabInRoom.tab=="Chat" || focuseOnSearch){
         translateY.value = withSpring(-SCREEN_HEIGHT, { damping: 50})
       }
 
-    }, [tabInRoom])
+    }, [tabInRoom, focuseOnSearch])
     
 
   return (

@@ -30,11 +30,11 @@ const ProjectScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:5, fontSize:21, color:theme.fontColor}}>{car.CarMake} 
+           headerTitle: () => <Text style={{ fontSize:21, color:theme.fontColor}}>{car.CarMake} 
            <Text style={{color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}> {car.model}</Text>
            </Text>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:5}}>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
@@ -51,11 +51,9 @@ const ProjectScreen = () => {
       <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
         <View style={{marginHorizontal:15}}>
           <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{car.description}</Text>
-          <TouchableOpacity onPress={()=>setMapModalVisible(true)}>
-            <View style={style.locationContainer}>
+          <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={style.locationContainer}>          
               <Icon type="materialicon" name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
               <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place.city}</Text>
-            </View>
           </TouchableOpacity>
 
           <FlatList

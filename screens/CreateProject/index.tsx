@@ -82,7 +82,7 @@ const CreateScreen = () => {
                 {language==="en"?navTitleText.en:navTitleText.pl}
             </Text>,
            headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:5}}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
                 <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
             </TouchableOpacity> 
             ),
@@ -225,15 +225,19 @@ const CreateScreen = () => {
                 </Text>
             </View>
 
-            <View>
+            <ScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}}>
                <Text style={[{color: theme.fontColorContent, marginVertical:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>       
                <AccordionView setStages={setStages} stages={stages} />
                {stages.length<6&&<TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
                         <Icon type='octicon' name='plus' color={theme.fontColor} size={17}/>
                         <Text style={[style.addStageText, {color: theme.fontColor}]}>dodaj stage {stages.length+1}</Text>
                 </TouchableOpacity>}
-            </View>
-            {!showError.show&&<TouchableOpacity onPress={()=>addProject(images, carData.make, carData.model, user.uid, language, setShowError)} style={[style.nextStepButton, {borderRadius:25 ,  paddingVertical:12, flexDirection:'row', backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+            </ScrollView>
+            {!showError.show&&
+            <TouchableOpacity 
+                onPress={()=>addProject(images, carData.make, carData.model, user.uid, language, setShowError)} 
+                style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
+            >
                 <Text style={[style.finishButtonText, { color: theme.fontColor}]}>Finish</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
             </TouchableOpacity>}

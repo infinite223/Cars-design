@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { style } from './style';
 import { HistoryCar } from '../../utils/types'
+import CustomInput from '../../components/CustomInput';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SECTIONS = [
   {
@@ -30,19 +32,11 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
   useEffect(() => {
     (stages.length>0 && stages)&&setActiveSections([stages.length-1])
   }, [stages])
-  
 
-  const _renderSectionTitle = (stage:HistoryCar) => {
-    return (
-      <TouchableOpacity style={[style.stageComponent, {backgroundColor: theme.backgroundContent}]}>
-        {/* onPress={()=>setStages(stages.filter((stage)=>stage.name!==stage.name))} */}
-        <TouchableOpacity  style={{paddingHorizontal:15}}>
-            <Icon type='entypo' name='minus' color={theme.fontColor} size={17}/>
-        </TouchableOpacity>
-        <Text style={[{color: theme.fontColor, marginHorizontal:15}]}>{stage.name}</Text>
-      </TouchableOpacity>
-    );
-  };
+  const editStage = () => {
+    // edit stages....
+  }
+  
 
   const _renderHeader = (stage:HistoryCar) => {
     return (
@@ -55,7 +49,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
           >
             <Icon type='entypo' name='minus' size={22} color={theme.fontColor}/>
           </TouchableOpacity>)}
-          <Text style={{color: theme.fontColor}}>{stage.name}</Text>
+          <Text style={{color: theme.fontColor, paddingVertical:7, fontSize:16}}>{stage.name}</Text>
         </View>
 
         <Icon type='materialicon' name='keyboard-arrow-down' size={22} color={theme.fontColorContent}/>
@@ -65,24 +59,25 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
 
   const _renderContent = (stage:HistoryCar) => {
     return (
-      <View style={[style.stageContent ]}>
-        <Text style={{color: theme.fontColor}}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam esse consectetur dolore, ab mollitia et id nisi ducimus velit officia qui iusto. Debitis quidem at enim vel adipisci eligendi amet!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, maxime, quae reprehenderit deleniti molestiae architecto recusandae ipsa tempora, porro non velit nemo blanditiis soluta qui minus atque cum. Sunt, natus!
+      <View style={[style.stageContent]}>
+        <View style={{height:1}}></View>
+        <CustomInput fontSize={15} placeholder='Type stage description' setValue={()=>editStage()} max={100}/>
+        <CustomInput fontSize={15} placeholder='Type power (hp)' performance='hp' helpText='( np. 350 )' setValue={()=>editStage()} max={100}/>
+        <CustomInput fontSize={15} placeholder='Type torque (Nm)' performance='nm'  helpText='( np. 431 )'  setValue={()=>editStage()} max={100}/>
+        <CustomInput fontSize={15} placeholder='Type 0-100km/h (s)' performance='_0_100'  helpText='( np. 5.2 )'  setValue={()=>editStage()} max={100}/>
+        <CustomInput fontSize={15} placeholder='Type 100-200km/h (s)' performance='_100_200'  helpText='( np. 14.3 )'  setValue={()=>editStage()} max={100}/>
 
-        </Text>
       </View>
     );
   };
 
     return (
-      <Accordion
-        sections={stages}
-        activeSections={activeSections}
-        // renderSectionTitle={_renderSectionTitle}
-        renderHeader={_renderHeader}
-        renderContent={_renderContent}
-        onChange={(x:any)=>setActiveSections(x)}
-      />
+        <Accordion
+          sections={stages}
+          activeSections={activeSections}
+          renderHeader={_renderHeader}
+          renderContent={_renderContent}
+          onChange={(x:any)=>setActiveSections(x)}
+        />     
     );
 }

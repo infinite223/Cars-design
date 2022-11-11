@@ -9,10 +9,11 @@ interface CustomInputProps {
     setValue: (value:string) => void,
     helpText?: string,
     performance?:string,
-    max?:number
+    max?:number,
+    fontSize?:number
 }
 
-const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, performance, max}) => {
+const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, performance, max, fontSize}) => {
     const theme = useSelector(selectTheme)
     const [value1, setValue1] = useState('')
     const [focus, setFocus] = useState(false)
@@ -20,7 +21,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
   return (
     <View>
         <TextInput 
-            style={[style.input, {borderColor: focus?'#253':theme.backgroundContent, color: theme.fontColor}]} 
+            style={[style.input, {fontSize:fontSize?fontSize:18, borderColor: focus?'#253':theme.backgroundContent, color: theme.fontColor}]} 
             placeholder={placeholder}
             placeholderTextColor={theme.fontColorContent}
             onChangeText={(text)=>(setValue1(text), setValue(text))}
@@ -43,7 +44,6 @@ export default CustomInput
 const style = StyleSheet.create({
     input: {
         borderBottomWidth:1,
-        fontSize:18,
         paddingHorizontal: 5,
         paddingVertical: 9,
         marginVertical:3

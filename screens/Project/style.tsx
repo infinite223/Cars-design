@@ -8,7 +8,8 @@ export const style = StyleSheet.create({
     locationContainer: {
       flexDirection:'row', 
       alignItems:'center',
-      marginVertical:5
+      marginVertical:5,
+      alignSelf:'flex-start'
     },
     locationPlace: {
       fontSize:17, 

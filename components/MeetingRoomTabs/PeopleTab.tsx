@@ -1,12 +1,12 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
-import { selectRoom } from '../../slices/selectedRoomSlice';
-import { Avatar } from '@rneui/base';
+import { selectRoom, setFocuseOnSearch } from '../../slices/selectedRoomSlice';
+import { Avatar, Icon } from '@rneui/base';
 import { MeetingRoom } from '../../utils/types';
 import { selectLanguage } from '../../slices/languageSlice';
 
@@ -15,6 +15,7 @@ const PeopleTab = () => {
   const [imagesModalVisible, setImagesModalVisible] = useState(false)
   const [selectImage, setSelectImage] = useState(0)
   const selectedProject = 0
+  const dispatch = useDispatch()
 
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
@@ -30,9 +31,17 @@ const PeopleTab = () => {
         scrollEnabled={true}
         data={room.people}
         ListHeaderComponent={()=>(
-          <TouchableOpacity style={style.signMeButton}>
-            <Text style={style.singMeText}>{language==='pl'?"Dołącz":"Join"}</Text>
-          </TouchableOpacity> 
+          <View>
+            <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
+              <View style={{alignItems:'center', flexDirection:'row'}}>
+                <Icon type='evilicon' name='search' size={35} color={theme.fontColorContent}/>
+                <TextInput onEndEditing={()=>dispatch(setFocuseOnSearch(false))} onPressIn={()=>dispatch(setFocuseOnSearch(true))} style={{color: theme.fontColor, marginLeft:15}} placeholder='Search people...' placeholderTextColor={theme.fontColorContent}/>
+              </View>
+                <TouchableOpacity style={style.signMeButton}>
+                <Text style={style.singMeText}>{language==='pl'?"Dołącz":"Join"}</Text>
+              </TouchableOpacity> 
+            </View> 
+          </View>
         )}
         renderItem={({item, index}) => (
           <TouchableOpacity onPress={()=> navigationTab.navigate('Profile')}>
@@ -93,18 +102,25 @@ const style = StyleSheet.create({
     justifyContent:'center',
     paddingHorizontal:15,
     backgroundColor: '#272',
-    marginHorizontal:15,
     paddingVertical:7,
-    marginVertical:3,
-    marginBottom:10,
-    flex:1,
     alignItems: 'center',    
     borderRadius:10,
   },
   singMeText: {
-    fontSize:17,
+    fontSize:15,
     letterSpacing:2,
     fontWeight:'bold',
     color:'white'
+  },
+  searchContainer: {
+    flexDirection:'row',
+    justifyContent:'space-between',
+    paddingHorizontal:15,
+    borderRadius:10,
+    paddingVertical:7,
+    marginHorizontal:15,
+
+
+    marginBottom:5
   }
 })

@@ -24,6 +24,7 @@ export const style = StyleSheet.create({
         fontWeight:'bold',
         textAlign:'center',
         flex:1,
+
     },
     headerContainer: {
         position:'relative',
@@ -81,6 +82,12 @@ export const style = StyleSheet.create({
         fontSize:12,
         letterSpacing:1
     },
+    finishButton: {
+        borderRadius:25,  
+        paddingVertical:12, 
+        flexDirection:'row',
+        borderWidth:1
+    },
     finishButtonText: {
         fontSize:18,
         letterSpacing:3,
@@ -90,7 +97,7 @@ export const style = StyleSheet.create({
     stageComponent: {
         flexDirection:'row',
         alignItems:'center',
-        borderTopWidth:1,
+        borderTopWidth:0,
         borderRadius:5,
         paddingVertical:12  
     },
@@ -102,6 +109,7 @@ export const style = StyleSheet.create({
         marginLeft:-5
     },
     stageContent:{
+        marginTop:-20,
         borderRadius:15,
         paddingBottom:10,
         paddingHorizontal:5
