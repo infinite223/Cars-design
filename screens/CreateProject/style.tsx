@@ -24,7 +24,6 @@ export const style = StyleSheet.create({
         fontWeight:'bold',
         textAlign:'center',
         flex:1,
-
     },
     headerContainer: {
         position:'relative',

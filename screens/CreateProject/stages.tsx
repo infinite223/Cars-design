@@ -8,6 +8,7 @@ import { style } from './style';
 import { HistoryCar } from '../../utils/types'
 import CustomInput from '../../components/CustomInput';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import AddComponentModal from '../modals/AddComponentModal';
 
 const SECTIONS = [
   {
@@ -61,6 +62,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
   const _renderContent = (stage:HistoryCar) => {
     return (
       <View style={[style.stageContent]}>
+        {showAddComponentModal&&<AddComponentModal setComponent={()=>editStage()} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
         <View style={{height:1}}></View>
         <CustomInput fontSize={15} placeholder='Type stage description' setValue={()=>editStage()} max={100}/>
         <CustomInput fontSize={15} placeholder='Type power (hp)' performance='hp' helpText='( np. 350 )' setValue={()=>editStage()} max={100}/>
