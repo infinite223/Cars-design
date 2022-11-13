@@ -38,7 +38,8 @@ export const style = StyleSheet.create({
     },
     backIcon: {
         paddingLeft:3,
-        paddingRight:8
+        paddingRight:15,
+        paddingVertical:'10%'
     },
     logo: {
         width:40,
@@ -52,9 +53,9 @@ export const style = StyleSheet.create({
         bottom: 20, 
         right: 10,
         backgroundColor: '#273', 
-        paddingHorizontal:18, 
+        paddingHorizontal:22, 
         borderRadius:50, 
-        paddingVertical:17,
+        paddingVertical:20,
         alignItems:'center',
         justifyContent:'center',
         marginRight:-10
@@ -132,7 +133,7 @@ export const style = StyleSheet.create({
         borderRadius:15
     },
     addStageText: {
-        textTransform:'uppercase',
+        // textTransform:'uppercase',
         letterSpacing:1,
         marginLeft:15
     },
@@ -142,9 +143,11 @@ export const style = StyleSheet.create({
     addComponentButton: {
       paddingHorizontal:20,
       paddingVertical:3,
-      marginVertical:10,
+      marginVertical:20,
       alignItems:'center',
       justifyContent:'center',
+      marginLeft:20,
+      marginTop:20,
       borderRadius:15  
     },
     component:{
@@ -159,14 +162,16 @@ export const style = StyleSheet.create({
     },
     typeComponent: {
       textTransform:'uppercase',
-      fontSize:12,
+      textAlign:'center',
+      fontSize:10,
       color:'#bbb',
       letterSpacing:1
     },
     nameComponent: {
       color:'white',
       fontWeight:'bold',
-      letterSpacing:1
+      letterSpacing:1,
+      fontSize:12
     },
     imageComponent: {
       width:35, 

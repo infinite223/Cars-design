@@ -33,18 +33,19 @@ const HomeScreen = () => {
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity onPress={() => 
+        <TouchableOpacity style={style.iconPadding} onPress={() => 
           navigation.navigate('Chats')
         }>
-          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 15, opacity: .9 }}/>
+          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile', {state: user})}>
+        <TouchableOpacity style={style.iconPadding} onPress={() => navigation.navigate('Profile', {state: user})}>
           <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
       </View>
     })
   }, [theme])
 
+  
   return (
     <View style={{flex:1,  backgroundColor:theme.background}}>
       <FlatList style={{flex:1, height:"100%"}}

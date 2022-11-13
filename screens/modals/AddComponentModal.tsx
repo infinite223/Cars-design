@@ -48,9 +48,11 @@ const AddComponentModal:React.FC<AddComponentModalProps> = ({ modalVisible, setM
                 data={carComponents}
                 renderItem={({item, index})=> (
                     <TouchableOpacity 
-                    onPress={()=>setSelectedComponent(index)} style={[{alignItems:'center'},  theme.background=='white'&&{backgroundColor:'#999', borderRadius:10, paddingHorizontal:10, paddingVertical:5}]}>
+                        onPress={()=>setSelectedComponent(index)} 
+                        style={[{alignItems:'center'},  theme.background=='white'&&{backgroundColor:'#999', borderRadius:10, paddingHorizontal:10, paddingVertical:5}]}
+                    >
                         <Image
-                            style={[style.imageCarComponent]}
+                            style={[style.imageCarComponent, {opacity:index===selectedComponent?1:.4}]}
                             source={
                                 item==='turbo'?require('../../assets/componentsIcons/turbo_white.png'):
                                 item==='intercooler'?require('../../assets/componentsIcons/intercooler_white.png'):
@@ -66,7 +68,7 @@ const AddComponentModal:React.FC<AddComponentModalProps> = ({ modalVisible, setM
 
             <View style={{ width:'100%', marginVertical:10}}>
                 <CustomInput fontSize={16} setValue={setNameComponent} placeholder='Name component' helpText='(np. K03, N54, 2JZ)'/> 
-                <CustomInput fontSize={16} setValue={setNameComponent} placeholder='Description component'/> 
+                <CustomInput fontSize={16} setValue={setDescriptionComponent} placeholder='Description component'/> 
             </View>
             <View style={style.footer}>
                 <TouchableOpacity style={style.exitButton} onPress={()=>setModalVisible(false)}>
@@ -74,7 +76,7 @@ const AddComponentModal:React.FC<AddComponentModalProps> = ({ modalVisible, setM
                     <Icon type='feather' name='x' size={18} color={"white"} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.addComponentButton} onPress={()=>setComponent({icon:'', type:carComponents[selectedComponent], name: nameComponent, description:descriptionComponent})}>
+                <TouchableOpacity style={style.addComponentButton} onPress={()=>(setComponent({icon:'', type:carComponents[selectedComponent], name: nameComponent, description:descriptionComponent}), setModalVisible(false))}>
                     <Text style={[{color: 'white'}]}>Add component</Text>
                 </TouchableOpacity>
             </View>
@@ -125,9 +127,9 @@ const style = StyleSheet.create({
     exitButton: {
         margin:10,
         borderRadius:15,
-        backgroundColor:'#D23',
-        paddingHorizontal:10,
-        paddingVertical:8
+        backgroundColor:'#333',
+        paddingHorizontal:9,
+        paddingVertical:7
     },
     addComponentButton: {
         marginVertical:10,

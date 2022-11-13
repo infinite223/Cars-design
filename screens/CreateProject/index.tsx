@@ -237,10 +237,14 @@ const CreateScreen = () => {
                     setActiveSections={setActiveSections}
                     activeSections={activeSections}
                 />
-               {(stages.length<6 && !showAddComponentModal)&&<TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
+               {(stages.length<6 && !showAddComponentModal)&&
+               <TouchableOpacity 
+                    onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`, company:'', components: [], date:'', description:'', performance:[{type:'hp', value:0}, {type:'nm',value:0}]}])} 
+                    style={[style.stageComponent, style.stageAddButton]}
+                >
                         <Icon type='octicon' name='plus' color={'white'} size={17}/>
-                        <Text style={[style.addStageText, {color: 'white'}]}>dodaj stage {stages.length+1}</Text>
-                </TouchableOpacity>}
+                        <Text style={[style.addStageText, {color: 'white'}]}>Dodaj stage {stages.length+1}</Text>
+                </TouchableOpacity>}    
             </ScrollView>
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 

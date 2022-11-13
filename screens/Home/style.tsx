@@ -10,5 +10,8 @@ export const style = StyleSheet.create({
       borderRadius:10,
       marginVertical:5,
       marginRight:10
+    },
+    iconPadding: {
+      paddingHorizontal:5
     }
   })

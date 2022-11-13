@@ -37,10 +37,20 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
     (stages.length>0 && stages)&&setActiveSections([stages.length-1])
   }, [stages])
 
-  const editStage = () => {
+  const editStage = (param:any) => {
     // edit stages....
+    const newStages = stages 
+    newStages[activeSections[0]].components?.push({icon:'', name: param.name, type:param.type, description:param.description}) 
+    setStages(newStages)
   }
-  
+
+  const removeComponent = (index:number) => {
+    const newStages = stages 
+    newStages[activeSections[0]].components?.splice(index)
+    setStages(newStages)
+    setActiveSections([])
+  }
+  console.log(stages)
 
   const _renderHeader = (stage:HistoryCar) => {
     return (
@@ -63,8 +73,8 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
 
   const _renderContent = (stage:HistoryCar) => {
     return (
-      <View style={[style.stageContent, theme.background==='black'?{backgroundColor: "#222"}:{backgroundColor:'#cdc'}]}>
-        {showAddComponentModal&&<AddComponentModal setComponent={()=>editStage()} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
+      <View style={[style.stageContent, theme.background==='black'?{backgroundColor: "#151515"}:{backgroundColor:'#cdc'}]}>
+        {showAddComponentModal&&<AddComponentModal setComponent={(param)=>editStage(param)} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
         <View style={{height:1}}></View>
         <CustomInput fontSize={15} placeholder='Type stage description' setValue={()=>editStage()} max={100}/>
         <CustomInput fontSize={15} placeholder='Type power (hp)' performance='hp' helpText='( np. 350 )' setValue={()=>editStage()} max={100}/>
@@ -72,25 +82,29 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
         <CustomInput fontSize={15} placeholder='Type 0-100km/h (s)' performance='_0_100'  helpText='( np. 5.2 )'  setValue={()=>editStage()} max={100}/>
         <CustomInput fontSize={15} placeholder='Type 100-200km/h (s)' performance='_100_200'  helpText='( np. 14.3 )'  setValue={()=>editStage()} max={100}/>
         
-        <Text style={[{color: theme.fontColor, marginLeft:5, fontSize:15, marginTop:5}]}>
+        <Text style={[{color: theme.fontColor, marginLeft:5, fontSize:15, marginVertical:10}]}>
           Add components that have been modified
         </Text>
           <FlatList
             data={stage.components}
             ItemSeparatorComponent={()=><View style={{width:10}}/>}
-            ListHeaderComponent={() => (
+            ListFooterComponent={() => (
                 <TouchableOpacity onPress={()=>setShowAddComponentModal(true)} style={[style.addComponentButton, {backgroundColor:theme.backgroundContent}]}>
                   <Text style={[{color:theme.fontColorContent, fontSize:40}]}>+</Text>
                 </TouchableOpacity>
             )}
             horizontal
-            renderItem={({item})=>(
-              <TouchableOpacity style={[style.component, {backgroundColor: 'rgba(1,1,1, .25)'}]}>
+            renderItem={({item, index})=>(
+              <TouchableOpacity onLongPress={()=>removeComponent(index)} style={[style.component, {backgroundColor: 'rgba(1,1,1, .2)'}]}>
                 <Text style={[style.typeComponent]}>{item.type}</Text>
                   <Image 
-                    source={item.type=="turbo"?
-                      require('../../assets/componentsIcons/turbo_white.png'):
-                      require('../../assets/componentsIcons/engine_white.png')} 
+                    source={      
+                      item.type==='turbo'?require('../../assets/componentsIcons/turbo_white.png'):
+                      item.type==='intercooler'?require('../../assets/componentsIcons/intercooler_white.png'):
+                      item.type==='engine'?require('../../assets/componentsIcons/engine_white.png'):
+                      item.type==='exhaust'?require('../../assets/componentsIcons/exhaust_white.png'):
+                      require('../../assets/componentsIcons/transmission_white.png')
+                    }
                     style={style.imageComponent}
                   />
                 <Text style={[style.nameComponent]}>{item.name}</Text>
