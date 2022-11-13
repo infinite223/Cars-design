@@ -99,7 +99,7 @@ export const style = StyleSheet.create({
         alignItems:'center',
         borderTopWidth:0,
         borderRadius:5,
-        paddingVertical:9 
+        paddingVertical:7 
     },
     removeStage: {
         borderRadius:15,
@@ -111,13 +111,11 @@ export const style = StyleSheet.create({
         marginLeft:10
     },
     stageContent:{
-        marginTop:-10,
-        borderRadius:25,
+        borderRadius:15,
         paddingBottom:10,
         paddingHorizontal:10,
-        paddingVertical:5,
-        backgroundColor:'#222',
-        
+        paddingVertical:0,   
+        marginVertical:5     
     },
     stageName: {
         paddingVertical:7, 

@@ -23,13 +23,15 @@ const SECTIONS = [
 
 interface AccordionViewProps {
   stages:HistoryCar[],
-  setStages: (value: HistoryCar[]) => void
+  setStages: (value: HistoryCar[]) => void,
+  showAddComponentModal:boolean,
+  setShowAddComponentModal: (vale: boolean) => void,
+  activeSections:number[],
+  setActiveSections: (vale: number[]) => void,
 }
 
-export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) => {
-  const [activeSections, setActiveSections] = useState<number[]>([])
+export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, showAddComponentModal, setShowAddComponentModal, activeSections, setActiveSections}) => {
   const theme = useSelector(selectTheme)
-  const [showAddComponentModal, setShowAddComponentModal] = useState(false)
 
   useEffect(() => {
     (stages.length>0 && stages)&&setActiveSections([stages.length-1])
@@ -48,7 +50,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
             {stage.name&& (stages.length-1<parseInt(stage.name.charAt(stage.name.length-1))&&
           <TouchableOpacity 
             onPress={()=>setStages(stages.filter(_stage=>_stage.name!==stage.name))} 
-            style={[style.removeStage, {backgroundColor:'#333'}]}
+            style={[style.removeStage, {backgroundColor: theme.backgroundContent}]}
           >
             <Icon type='entypo' name='trash' size={18} color={theme.fontColorContent}/> 
            </TouchableOpacity>)} 
@@ -61,7 +63,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
 
   const _renderContent = (stage:HistoryCar) => {
     return (
-      <View style={[style.stageContent]}>
+      <View style={[style.stageContent, theme.background==='black'?{backgroundColor: "#222"}:{backgroundColor:'#cdc'}]}>
         {showAddComponentModal&&<AddComponentModal setComponent={()=>editStage()} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
         <View style={{height:1}}></View>
         <CustomInput fontSize={15} placeholder='Type stage description' setValue={()=>editStage()} max={100}/>
@@ -102,6 +104,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages}) 
 
     return (
         <Accordion
+          underlayColor={theme.background}
           sections={stages}
           activeSections={activeSections}
           renderHeader={_renderHeader}

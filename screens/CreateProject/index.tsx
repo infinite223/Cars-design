@@ -32,6 +32,8 @@ const CreateScreen = () => {
     const navigation:any = useNavigation()
     const [images, setImages] = useState<any[]>([]);
     const [makesCategory, setMakesCategory] = useState<{key:number, value:string}[]>([])
+    const [showAddComponentModal, setShowAddComponentModal] = useState(false)
+    const [activeSections, setActiveSections] = useState<number[]>([])
     const [showError, setShowError] = useState({show:false, message:''})
     const { user, logout }:any = useAuth()
     const [originImage, setOriginImage] = useState<any>({})
@@ -133,7 +135,7 @@ const CreateScreen = () => {
                         searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
                         placeholder="Select car make"    
                         setSelected={(selectNumber:any)=>setCarData({...carData, make:findMakeInCategores(selectNumber, makesCategory)})} 
-                        boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10}}
+                        boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10, marginBottom:5}}
                         inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
                         dropdownTextStyles={{color: theme.fontColor}}
                         dropdownStyles={{borderWidth:1, borderColor: theme.backgroundContent}}
@@ -167,7 +169,7 @@ const CreateScreen = () => {
                 <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text.replace(',', '.'))})} helpText="(np. 13.9)" performance="_100_200"/>
             </View>
             <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'rgba(100, 160, 100, .3)'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
@@ -212,7 +214,7 @@ const CreateScreen = () => {
                 />
             </View>
             <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
@@ -227,19 +229,26 @@ const CreateScreen = () => {
 
             <ScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}}>
                <Text style={[{color: theme.fontColorContent, marginVertical:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>       
-               <AccordionView setStages={setStages} stages={stages} />
-               {stages.length<6&&<TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
-                        <Icon type='octicon' name='plus' color={theme.fontColor} size={17}/>
-                        <Text style={[style.addStageText, {color: theme.fontColor}]}>dodaj stage {stages.length+1}</Text>
+               <AccordionView 
+                    setStages={setStages} 
+                    stages={stages} 
+                    showAddComponentModal={showAddComponentModal} 
+                    setShowAddComponentModal={setShowAddComponentModal}
+                    setActiveSections={setActiveSections}
+                    activeSections={activeSections}
+                />
+               {(stages.length<6 && !showAddComponentModal)&&<TouchableOpacity onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`}])} style={[style.stageComponent, style.stageAddButton]}>
+                        <Icon type='octicon' name='plus' color={'white'} size={17}/>
+                        <Text style={[style.addStageText, {color: 'white'}]}>dodaj stage {stages.length+1}</Text>
                 </TouchableOpacity>}
             </ScrollView>
-            {!showError.show&&
+            {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
                 onPress={()=>addProject(images, carData.make, carData.model, user.uid, language, setShowError)} 
                 style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
             >
-                <Text style={[style.finishButtonText, { color: theme.fontColor}]}>Finish</Text>
-                <Icon type='materialicon' name="arrow-forward-ios" color={theme.fontColor} size={23}/>
+                <Text style={[style.finishButtonText, { color: 'white'}]}>Finish</Text>
+                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>}
         </View>            
     ]
