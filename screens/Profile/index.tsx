@@ -1,5 +1,6 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native'
+import { SearchBar } from '@rneui/base';
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
@@ -13,6 +14,8 @@ import { translations } from './../../utils/translations';
 import { RouteProp } from '@react-navigation/native';
 
 import { style } from './style';
+import { FilterProjects } from './../../components/FilterProjects';
+
 
 type ProfileScreenProps = {
     A: undefined;
@@ -25,14 +28,16 @@ const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<RouteProp<ProfileScreenProps, 'B'>>()
     const profileUser = route.params.state;
-    console.log(profileUser)
+   
+    const [userProjects, setUserProjects] = useState([...data])
+    const [search, setSearch] = useState('')
     const { user, logout }:any = useAuth()
     const isMyProfile = user.uid===profileUser.uid
     const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { followersText, viewsText, followingText, headerText, headerProjectsText, addProjectButton } = translations.screens.ProfileScreen
-
+    
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -69,18 +74,18 @@ const ProfileScreen = () => {
                     style={{zIndex:3, right:5, top:-5}}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{paddingHorizontal:5}}>   
+            <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{paddingRight:8, paddingLeft:3}}>   
                 <Icon                 
                     name='ios-settings-outline'
                     type='ionicon'
-                    size={25} 
+                    size={23} 
                     color={theme.fontColor}
                 />
             </TouchableOpacity>
           </View>
         })  
       }, [theme])
-    
+
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
@@ -93,11 +98,7 @@ const ProfileScreen = () => {
                  Blanditiis, nostrum...
             </Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.editButton, {backgroundColor: '#272'}]}>
-            <Text style={[{color:'white', fontSize:13, letterSpacing:1, fontWeight:'bold'}]}>
-                {language==='en'?addProjectButton.en:addProjectButton.pl}
-            </Text>
-        </TouchableOpacity>
+
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
             <TouchableOpacity style={style.itemInfo}>
@@ -116,26 +117,28 @@ const ProfileScreen = () => {
             </TouchableOpacity>
         </View>
 
-        <View style={{marginVertical:5}}>
-            <Text style={[style.titleText, {color:theme.fontColor}]}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>
-            <FlatList
-                data={data}
-                renderItem={({item: {car, author, createdAt}})=> 
-                    <TouchableOpacity style={style.renderItem} onPress={()=>navigation.navigate('Project', {car, author, createdAt})}>
-                        <Image style={[style.imageIcon, {borderColor:theme.backgroundContent}]} source={{uri:car.imagesCar[0]}}/>
-                        <View style={{marginHorizontal:10, flex:1}}>
-                            <Text style={{letterSpacing:1, color:theme.fontColor}}>{car.CarMake}</Text>
-                            <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
-                        </View>
-                        <Text style={{fontSize:17, marginRight:5, color:theme.fontColor}}>{car.likes}</Text>
-                        <Icon                 
-                            name='heart'
-                            type='evilicon'
-                            size={28} 
-                            color={theme.fontColor}
-                        />
-                    </TouchableOpacity>}
-            />
+        <View style={{marginVertical:0}}>
+            <Text style={[style.titleText, {color:theme.fontColor}]}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>        
+            <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
+                <View style={{alignItems:'center', flexDirection:'row'}}>
+                    <Icon type='evilicon' name='search' size={35} color={theme.fontColorContent}/>
+                    <TextInput
+                        style={{color: theme.fontColor, marginLeft:15}}
+                        placeholder='Search project'
+                        placeholderTextColor={theme.fontColorContent}
+                        onChangeText={setSearch}
+                    />
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: '#272'}]}>
+                    <Text style={[{color:'white', fontSize:13, letterSpacing:1, fontWeight:'400'}]}>
+                        {language==='en'?addProjectButton.en:addProjectButton.pl}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+           
+          
+            <FilterProjects userProjects={userProjects} input={search}/>
+           
         </View>
     </View>
   )

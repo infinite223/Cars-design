@@ -40,15 +40,16 @@ export const style = StyleSheet.create({
         fontWeight:'800', 
         marginVertical:10,
     },
-    editButton:{
+    addProjectButton:{
         alignItems:'center',
         justifyContent:'center',
-        marginVertical:10,
-        borderRadius:6,
+        borderRadius:10,
         paddingVertical:5,
+        paddingHorizontal:15
     },
     renderItem: {
         paddingVertical:5, 
+        paddingHorizontal:10,
         position:'relative', 
         flex:.5, 
         flexDirection:'row', 
@@ -60,5 +61,17 @@ export const style = StyleSheet.create({
         borderRadius:50, 
         borderWidth:1,
         resizeMode:'cover'
+    },
+    searchContainer: {
+       flexDirection:'row',
+        justifyContent:'space-between',
+        paddingHorizontal:15,
+        borderRadius:10,
+        paddingVertical:10,
+        marginBottom:15
+    },
+    searchInput: {
+        fontSize:15,
+
     }
 })
