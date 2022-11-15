@@ -239,7 +239,7 @@ const CreateScreen = () => {
                 />
                {(stages.length<6 && !showAddComponentModal)&&
                <TouchableOpacity 
-                    onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`, company:'', components: [], date:'', description:'', performance:[{type:'hp', value:0}, {type:'nm',value:0}]}])} 
+                    onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`, company:'', components: [], date:'', description:'', performance:[{type:'hp', value:0}, {type:'nm',value:0}, {type:'_0_100',value:0}, {type:'_100_200',value:0}]}])} 
                     style={[style.stageComponent, style.stageAddButton]}
                 >
                         <Icon type='octicon' name='plus' color={'white'} size={17}/>

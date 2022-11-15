@@ -94,7 +94,7 @@ const ProfileScreen = () => {
             </Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.editButton, {backgroundColor: '#272'}]}>
-            <Text style={[{color:'#ddd', fontSize:15, letterSpacing:1}]}>
+            <Text style={[{color:'white', fontSize:13, letterSpacing:1, fontWeight:'bold'}]}>
                 {language==='en'?addProjectButton.en:addProjectButton.pl}
             </Text>
         </TouchableOpacity>
