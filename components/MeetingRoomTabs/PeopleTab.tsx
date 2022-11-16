@@ -99,6 +99,7 @@ const style = StyleSheet.create({
   },
   signMeButton: {
     flexDirection:'row',
+    minWidth:100,
     justifyContent:'center',
     paddingHorizontal:15,
     backgroundColor: '#272',
@@ -115,7 +116,7 @@ const style = StyleSheet.create({
   searchContainer: {
     flexDirection:'row',
     justifyContent:'space-between',
-    paddingHorizontal:15,
+    paddingHorizontal:10,
     borderRadius:10,
     paddingVertical:7,
     marginHorizontal:15,

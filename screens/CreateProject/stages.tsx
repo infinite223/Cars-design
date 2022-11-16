@@ -9,6 +9,9 @@ import { HistoryCar, Performance } from '../../utils/types'
 import CustomInput from '../../components/CustomInput';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import AddComponentModal from '../modals/AddComponentModal';
+import { selectLanguage } from '../../slices/languageSlice';
+import { translations } from './../../utils/translations';
+import { editStage } from '../../utils/functions/editStage';
 
 const SECTIONS = [
   {
@@ -32,6 +35,10 @@ interface AccordionViewProps {
 
 export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, showAddComponentModal, setShowAddComponentModal, activeSections, setActiveSections}) => {
   const theme = useSelector(selectTheme)
+  const language = useSelector(selectLanguage)
+
+  const { addComponentHeader, inputs: { descriptionText, powerText, torqueText, _0_100Text, _100_200Text } } = translations.screens.CreateScreen.stages
+
   const [performance, setPerformance] = useState<Performance[]>([
     [{type:'hp', value:0},{type:'nm', value:0},{type:'_0_100', value:0}, {type:'_100_200', value:0}]])
 
@@ -42,54 +49,6 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
       setPerformance([...performance, [{type:'hp', value:0},{type:'nm', value:0},{type:'_0_100', value:0}, {type:'_100_200', value:0}]])
     }
   }, [stages])
-
-  const editStage = (param:any, type: string) => {
-    const newStages = stages
-
-    let newPerformance = performance
-
-    switch (type) {
-      case 'component':
-        newStages[activeSections[0]].components?.push({icon:'', name: param.name, type:param.type, description:param.description}) 
-        break;
-      case 'description':
-        newStages[activeSections[0]].description = param
-        break;
-      case 'hp':
-        newPerformance[activeSections[0]][0].value = param
-        setPerformance(newPerformance)
-        break
-      case 'nm':
-        newPerformance[activeSections[0]][1].value = param
-        setPerformance(newPerformance)
-        break
-      case '_0_100':
-    
-            let dataToEdit1 =  newPerformance[activeSections[0]] 
-            if( dataToEdit1[2]){
-              dataToEdit1[2].value = param
-              newPerformance[activeSections[0]][2] = dataToEdit1[2]
-              setPerformance(newPerformance)
-            }
-   
-        break
-      case '_100_200':
-        let dataToEdit2 = newPerformance[activeSections[0]] 
-        if( dataToEdit2[3]){
-          dataToEdit2[3].value = param
-          newPerformance[activeSections[0]][3] = dataToEdit2[3]
-          setPerformance(newPerformance)
-        }
-        break
-
-      default:
-        break;
-    }
-    newStages[activeSections[0]].performance = performance[activeSections[0]]
-    setStages(newStages)
-    console.log(stages)
-
-  }
 
   const removeComponent = (index:number) => {
     const newStages = stages 
@@ -121,17 +80,17 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
     
     return (
       <View style={[style.stageContent, theme.background==='black'?{backgroundColor: "#151515"}:{backgroundColor:'#cdc'}]}>
-        {showAddComponentModal&&<AddComponentModal setComponent={(param)=>editStage(param, 'component')} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
+        {showAddComponentModal&&<AddComponentModal setComponent={(param)=>editStage(activeSections, param, stages, performance,  'component', setPerformance, setStages)} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
         <View style={{height:1}}></View>
-        <CustomInput fontSize={15} placeholder='Type stage description' setValue={(val)=>editStage(val, 'description')} max={100}/> 
-        <CustomInput fontSize={15} placeholder='Type power (hp)' performance='hp' helpText='( np. 350 )'   setValue={(text)=>editStage(text, 'hp')} max={100}/>
-        <CustomInput fontSize={15} placeholder='Type torque (Nm)' performance='nm'  helpText='( np. 431 )'  setValue={(text)=>editStage(text, 'nm')} max={100}/>
-        <CustomInput fontSize={15} placeholder='Type 0-100km/h (s)' performance='_0_100'  helpText='( np. 5.2 )' setValue={(text)=>editStage(text, '_0_100')} max={100}/>
-        <CustomInput fontSize={15} placeholder='Type 100-200km/h (s)' performance='_100_200'  helpText='( np. 14.3 )' setValue={(text)=>editStage(text, '_100_200')} max={100}/>
+        <CustomInput fontSize={15} placeholder={language==='en'?descriptionText.en:descriptionText.pl} setValue={(val)=>editStage(activeSections, val, stages, performance,  'description', setPerformance, setStages)} max={100}/> 
+        <CustomInput fontSize={15} placeholder={language==='en'?powerText.en:powerText.pl} performance='hp' helpText='( np. 350 )'  setValue={(val)=>editStage(activeSections, val, stages, performance,  'hp', setPerformance, setStages)} max={100}/>
+        <CustomInput fontSize={15} placeholder={language==='en'?torqueText.en:torqueText.pl} performance='nm'  helpText='( np. 431 )'  setValue={(val)=>editStage(activeSections, val, stages, performance,  'nm', setPerformance, setStages)} max={100}/>
+        <CustomInput fontSize={15} placeholder={language==='en'?_0_100Text.en:_0_100Text.pl} performance='_0_100'  helpText='( np. 5.2 )' setValue={(val)=>editStage(activeSections, val, stages, performance,  '_0_100', setPerformance, setStages)} max={100}/>
+        <CustomInput fontSize={15} placeholder={language==='en'?_100_200Text.en:_100_200Text.pl} performance='_100_200'  helpText='( np. 14.3 )' setValue={(val)=>editStage(activeSections, val, stages, performance,  '_100_200', setPerformance, setStages)} max={100}/>
         
         <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-          <Text style={[{textAlign:'center', color: theme.fontColor, marginLeft:5, fontSize:15, marginVertical:10, maxWidth:150}]}>
-            Add components that have been modified
+          <Text style={[{textAlign:'center', color: theme.fontColorContent, marginLeft:5, fontSize:15, marginVertical:10, maxWidth:150}]}>
+            {language==='en'?addComponentHeader.en:addComponentHeader.pl}
           </Text>
           <TouchableOpacity onPress={()=>setShowAddComponentModal(true)} style={[style.addComponentButton, {backgroundColor:theme.backgroundContent}]}>
             <Text style={[{color:theme.fontColorContent, fontSize:40}]}>+</Text>
@@ -141,9 +100,6 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
           <FlatList
             data={stage.components}
             ItemSeparatorComponent={()=><View style={{width:15}}/>}
-            ListFooterComponent={() => (
-               <></>
-            )}
             horizontal
             renderItem={({item, index})=>(
               <TouchableOpacity onLongPress={()=>removeComponent(index)} style={[style.component, {backgroundColor: 'rgba(111,111,111, .1)'}]}>
@@ -161,8 +117,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
                 <Text style={[style.nameComponent, {color: theme.fontColor}]}>{item.name}</Text>
               </TouchableOpacity>
             )}
-          />
-     
+          />  
       </View>
     );
   };

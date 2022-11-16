@@ -121,24 +121,22 @@ const ProfileScreen = () => {
             <Text style={[style.titleText, {color:theme.fontColor}]}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>        
             <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
                 <View style={{alignItems:'center', flexDirection:'row'}}>
-                    <Icon type='evilicon' name='search' size={35} color={theme.fontColorContent}/>
+                    <Icon type='evilicon' name='search' size={30} color={theme.fontColorContent}/>
                     <TextInput
-                        style={{color: theme.fontColor, marginLeft:15}}
+                        style={{color: theme.fontColor, marginLeft:10}}
                         placeholder='Search project'
                         placeholderTextColor={theme.fontColorContent}
                         onChangeText={setSearch}
                     />
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: '#272'}]}>
-                    <Text style={[{color:'white', fontSize:13, letterSpacing:1, fontWeight:'400'}]}>
+                    <Text style={[{color:'white', fontSize:12}]}>
                         {language==='en'?addProjectButton.en:addProjectButton.pl}
                     </Text>
                 </TouchableOpacity>
             </View>
            
-          
-            <FilterProjects userProjects={userProjects} input={search}/>
-           
+            <FilterProjects userProjects={userProjects} input={search}/>          
         </View>
     </View>
   )

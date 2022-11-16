@@ -44,12 +44,12 @@ export const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         borderRadius:10,
-        paddingVertical:5,
+        paddingVertical:7,
         paddingHorizontal:15
     },
     renderItem: {
         paddingVertical:5, 
-        paddingHorizontal:10,
+        paddingHorizontal:5,
         position:'relative', 
         flex:.5, 
         flexDirection:'row', 
@@ -65,9 +65,10 @@ export const style = StyleSheet.create({
     searchContainer: {
        flexDirection:'row',
         justifyContent:'space-between',
-        paddingHorizontal:15,
+        paddingLeft:10,
+        paddingRight:7,
         borderRadius:10,
-        paddingVertical:10,
+        paddingVertical:7,
         marginBottom:15
     },
     searchInput: {

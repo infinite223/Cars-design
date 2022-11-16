@@ -1,8 +1,10 @@
 import { TextInput, StyleSheet, Text, View } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
+import { selectLanguage } from './../slices/languageSlice';
+import { validInpute } from './../utils/functions/validateInput';
 
 interface CustomInputProps {
     placeholder:string,
@@ -16,12 +18,29 @@ interface CustomInputProps {
 const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, performance, max, fontSize}) => {
     const theme = useSelector(selectTheme)
     const [value1, setValue1] = useState('')
+    const language = useSelector(selectLanguage)
     const [focus, setFocus] = useState(false)
+    const [validate, setValidate] = useState(false)
+
+
+    useEffect(() => {
+        if(validInpute(value1, theme, performance, focus)==='rgba(200, 10, 10, .5)'){
+            setValidate(false)
+        }
+        else{
+            setValidate(true)
+        }
+    }, [validInpute])
+    
 
   return (
     <View>
         <TextInput 
-            style={[style.input, {fontSize:fontSize?fontSize:18, borderColor: focus?'#253':theme.backgroundContent, color: theme.fontColor}]} 
+            style={[style.input, {
+                fontSize:fontSize?fontSize:18, 
+                borderColor: validInpute(value1, theme, performance, focus),
+                color: theme.fontColor
+            }]} 
             placeholder={placeholder}
             placeholderTextColor={theme.fontColorContent}
             onChangeText={(text)=>(setValue1(text), setValue(text))}
@@ -31,7 +50,9 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
             maxLength={max}
         />
         <View style={style.footerContainer}>
-            {helpText&&<Text style={[style.helperText, {color: focus?theme.fontColorContent:theme.backgroundContent}]}>{helpText}</Text>}
+            {helpText&&<Text style={[style.helperText, {color: focus?theme.fontColorContent:theme.backgroundContent}]}>
+                {validate?(language==='en'?"Incorrect value":"Nieprawidłowe dane"):helpText}
+            </Text>}
             {performance&&<View style={[style.dotPerformance, {backgroundColor:getColorsCircle(parseInt(value1), performance)[0]}]}/>}
         </View>
       

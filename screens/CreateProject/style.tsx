@@ -135,7 +135,7 @@ export const style = StyleSheet.create({
     addStageText: {
         // textTransform:'uppercase',
         letterSpacing:1,
-        marginLeft:15
+        marginLeft:10
     },
     componentsContainer: {
    

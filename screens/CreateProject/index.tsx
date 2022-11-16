@@ -25,6 +25,7 @@ import { addProject } from '../../firebase/addProject';
 import { getMakes } from '../../utils/functions/getMakes';
 import Accordion from 'react-native-collapsible/Accordion';
 import { AccordionView } from './stages';
+import { validInpute } from '../../utils/functions/validateInput';
 
 const CreateScreen = () => {
     const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
@@ -109,7 +110,7 @@ const CreateScreen = () => {
     }, [])
 
     let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
-    let validatePerformance = carData.power && carData.torque?true:false;
+    let validatePerformance = (validInpute(carData.power.toString(), theme, 'hp', true)!=='rgba(200, 10, 10, .5)') && (validInpute(carData.torque.toString(), theme, 'nm', true)!=='rgba(200, 10, 10, .5)')
 
     useEffect(() => {
       if(stages.length>6){
@@ -242,7 +243,7 @@ const CreateScreen = () => {
                     onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`, company:'', components: [], date:'', description:'', performance:[{type:'hp', value:0}, {type:'nm',value:0}, {type:'_0_100',value:0}, {type:'_100_200',value:0}]}])} 
                     style={[style.stageComponent, style.stageAddButton]}
                 >
-                        <Icon type='octicon' name='plus' color={'white'} size={17}/>
+                        <Icon type='octicon' name='plus' color={'white'} size={15}/>
                         <Text style={[style.addStageText, {color: 'white'}]}>Dodaj stage {stages.length+1}</Text>
                 </TouchableOpacity>}    
             </ScrollView>

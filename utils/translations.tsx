@@ -66,6 +66,34 @@ export const translations = {
             historyHeaderText: {
                 en: 'The history of the car is a place where you can put the changes, the stages that have taken place in the car, show off the effects',
                 pl: 'Historia samochodu jest to miejsce gdzie możesz umieścić zmiany, etapy które zaszły w samochodzie, pochwalić się efektami'
+            },
+            stages: {
+                addComponentHeader: {
+                    en: "Add components that have been modified",
+                    pl: "Dodaj część samochodu która była zmodyfikowana"
+                },
+                inputs: {
+                    descriptionText: {
+                        en: "Type stage description",
+                        pl: "Podaj opis modyfikacji, etapu"
+                    },
+                    powerText: {
+                        en: "Type power (hp)",
+                        pl: "Podaj moc (hp)"
+                    },
+                    torqueText: {
+                        en: 'Type torque (Nm)',
+                        pl: 'Podaj moment obrotowy (Nm)'
+                    },
+                    _0_100Text: {
+                        en: "Type 0-100km/h (s)",
+                        pl: "Podaj przyśpieszenie 0-100km/h (s)"
+                    },
+                    _100_200Text: {
+                        en: "Type 100-200km/h (s)",
+                        pl: "Podaj przyśpieszenie 100-200km/h (s)"
+                    }
+                }
             }
         },
         SettingsScreen: {
