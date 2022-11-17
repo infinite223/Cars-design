@@ -3,6 +3,7 @@ import React, { useRef, useState} from 'react'
 import useAuth from '../hooks/useAuth'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@firebase/auth'
 import { getAuth, connectAuthEmulator  } from '@firebase/auth'
+import { GradientButton } from './GradientButton'
 
 // connectAuthEmulator(getAuth(), "http://localhost:9099");
 
@@ -29,8 +30,8 @@ export const LoginForm = () => {
             <TextInput textContentType='password' style={style.input} onChangeText={setPassword}/>
         </View>
 
-        <TouchableOpacity style={style.submitButton} onPress={login}>
-            <Text style={style.buttonText}>Login</Text>
+        <TouchableOpacity style={{}} onPress={login}>
+            <GradientButton text='Login'/>
         </TouchableOpacity>
     </View>
   )

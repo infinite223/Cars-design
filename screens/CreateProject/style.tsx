@@ -129,7 +129,7 @@ export const style = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         paddingHorizontal:15,
-        marginVertical:10,
+        marginVertical:12,
         borderRadius:15
     },
     addStageText: {
@@ -141,14 +141,24 @@ export const style = StyleSheet.create({
    
     },
     addComponentButton: {
-      paddingHorizontal:20,
-      paddingVertical:3,
+      paddingHorizontal:17,
+      paddingVertical:0,
       marginVertical:20,
       alignItems:'center',
       justifyContent:'center',
       marginLeft:20,
       marginTop:20,
       borderRadius:15  
+    },
+    container: {
+        flexDirection:'row', 
+        alignItems:'center', 
+        justifyContent:'space-evenly',
+        
+        borderRadius:20,
+        paddingHorizontal:20,
+        paddingVertical:10,
+        marginVertical:10
     },
     component:{
       alignItems:'center',

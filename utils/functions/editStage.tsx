@@ -28,6 +28,9 @@ export const editStage = (
       case 'component':
         newStages[activeSections[0]].components?.push({icon:'', name: param.name, type:param.type, description:param.description}) 
         break;
+       case 'company':
+        newStages[activeSections[0]].company = param
+        break;
       case 'description':
         newStages[activeSections[0]].description = param
         break;

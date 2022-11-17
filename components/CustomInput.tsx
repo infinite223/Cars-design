@@ -12,10 +12,11 @@ interface CustomInputProps {
     helpText?: string,
     performance?:string,
     max?:number,
-    fontSize?:number
+    fontSize?:number,
+    borderColor?:string
 }
 
-const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, performance, max, fontSize}) => {
+const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, borderColor, performance, max, fontSize}) => {
     const theme = useSelector(selectTheme)
     const [value1, setValue1] = useState('')
     const language = useSelector(selectLanguage)
@@ -30,7 +31,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
         else{
             setValidate(true)
         }
-    }, [validInpute])
+    }, [value1])
     
 
   return (
@@ -38,7 +39,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
         <TextInput 
             style={[style.input, {
                 fontSize:fontSize?fontSize:18, 
-                borderColor: validInpute(value1, theme, performance, focus),
+                borderColor: validInpute(value1, theme, performance, focus, borderColor),
                 color: theme.fontColor
             }]} 
             placeholder={placeholder}
@@ -51,7 +52,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
         />
         <View style={style.footerContainer}>
             {helpText&&<Text style={[style.helperText, {color: focus?theme.fontColorContent:theme.backgroundContent}]}>
-                {validate?(language==='en'?"Incorrect value":"Nieprawidłowe dane"):helpText}
+                {!validate?(language==='en'?"Incorrect value":"Nieprawidłowe dane"):helpText}
             </Text>}
             {performance&&<View style={[style.dotPerformance, {backgroundColor:getColorsCircle(parseInt(value1), performance)[0]}]}/>}
         </View>

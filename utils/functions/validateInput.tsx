@@ -1,5 +1,5 @@
-export const validInpute = (value1:string, theme:any, performance:string | undefined, focus:boolean) => {
-    let borderColor = theme.backgroundContent
+export const validInpute = (value1:string, theme:any, performance:string | undefined, focus:boolean, defBorderColor?:string) => {
+    let borderColor = defBorderColor?defBorderColor:theme.backgroundContent
     if(value1.length>0){
         if(performance==='hp' || performance==='nm') {
             const validatePowerAndTorque =  parseFloat(value1) >= 10 && parseFloat(value1) < 10000
@@ -12,6 +12,6 @@ export const validInpute = (value1:string, theme:any, performance:string | undef
             borderColor = !validateAcceleration?'rgba(200, 10, 10, .5)':focus?'#253':theme.backgroundContent
         }
     }
-    
+ 
     return borderColor
 }

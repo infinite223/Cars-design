@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 
-export const chooseImg = async (images:any[], setImages: (value:any[]) => void) => {
+export const chooseImg = async (images:any[] | undefined, setImages: (value:any[]) => void, id?:number) => {
     let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         aspect: [4, 3],
@@ -9,7 +9,14 @@ export const chooseImg = async (images:any[], setImages: (value:any[]) => void) 
     });
 
 
-    if (!result.cancelled) {
-       setImages([...images, {...result, place: {}}]);
+    if (!result.canceled && images) {
+        console.log(result)
+        if(id!==undefined){
+            setImages([...images, {...result, place: {}, id:id}]);
+            console.log('dodaje')
+        }
+        else{
+            setImages([...images, {...result, place: {}}]);
+        }
     }
 };

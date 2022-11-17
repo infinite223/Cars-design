@@ -6,6 +6,7 @@ import { LoginForm } from '../../components/LoginForm';
 import { Icon } from '@rneui/base';
 import { style } from './style';
 import { RegisterForm } from '../../components/RegisterForm';
+import { GradientButton } from './../../components/GradientButton';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -41,7 +42,6 @@ const LoginScreen = () => {
                 </TouchableOpacity>
               </View>
           </View> 
-
         
         <TouchableOpacity 
           style={{elevation:5, flexDirection:'row', alignItems:'center', marginTop:10}}

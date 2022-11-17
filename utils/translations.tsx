@@ -92,7 +92,15 @@ export const translations = {
                     _100_200Text: {
                         en: "Type 100-200km/h (s)",
                         pl: "Podaj przyśpieszenie 100-200km/h (s)"
+                    },
+                    companyText: {
+                        en: "The company modifying your car",
+                        pl: "Firma modyfikująca auto"
                     }
+                },
+                addImageHeader:{
+                    en: "Add images, e.g. dyno graph",
+                    pl: "Dodaj zdjęcia, np. wykres z hamowni"
                 }
             }
         },

@@ -123,7 +123,6 @@ const CreateScreen = () => {
 
     const steps = [
         <View style={{flex:1}}> 
-            {/* {showError&&<ErrorModal show={showError.show} message={showError.message} resetError={setShowError}/>} */}
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
             <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}

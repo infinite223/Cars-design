@@ -32,7 +32,7 @@ const config = {
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null)
-  const [loadingInitial, setLoadingInitial] = useState(true)
+  const [loadingInitial, setLoadingInitial] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -40,13 +40,14 @@ export const AuthProvider = ({children}) => {
     onAuthStateChanged(auth, (user) => {
       if(user){
         // get user data from firebase 
-        setUser(user, )
+        setUser(user )
       }
       else {
         setUser(null)
       }
       setLoadingInitial(false)
-  }), [signInWithGoogle])
+    }
+  ), [signInWithGoogle])
 
   const signInAsTester = () => {
     setUser({name: "Tester"})
@@ -59,14 +60,17 @@ export const AuthProvider = ({children}) => {
   );
 
   useEffect(async () => {
-    setLoading(true)
-    if (response?.type === 'success') {
-      const { id_token, accessToken } = response.params;
-      console.log("response")
-      const credential = GoogleAuthProvider.credential(id_token);
-      await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
-      .finally(()=>setLoading(false))
+    const signFunction = async () => {
+      setLoading(true)
+      if (response?.type === 'success') {
+        const { id_token, accessToken } = response.params;
+        console.log("response")
+        const credential = GoogleAuthProvider.credential(id_token);
+        await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
+        .finally(()=>setLoading(false))
+      }
     }
+    signFunction()
   }, [response]);
 
     const logout = () => {
