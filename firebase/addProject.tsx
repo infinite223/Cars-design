@@ -1,19 +1,20 @@
-import { Error } from "../utils/types"
+import { Error, HistoryCar } from "../utils/types"
 import { uploadImage } from "./uploadImages"
-import * as ImagePicker from 'expo-image-picker';
+import { uploadDataCar } from './uploadDataCar';
 
 export const addProject = async (
         images:any, 
-        make:string, 
-        model:string, 
+        carData:any, 
         userUid:string, 
         language:string, 
+        stages:HistoryCar[],
         setShowError: (value:Error)=>void
     ) => {
     if(userUid){
-        images.forEach(async (image:any) => {
-            await uploadImage(image, make, model, userUid)
-        });
+        uploadDataCar(carData, stages, userUid, language, setShowError)
+        // images.forEach(async (image:any) => {
+        //     await uploadImage(image, carData.make, carData.model, userUid)
+        // });
     }
     else {
         const errorMessage = language==='pl'

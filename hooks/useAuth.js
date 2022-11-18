@@ -40,7 +40,7 @@ export const AuthProvider = ({children}) => {
     onAuthStateChanged(auth, (user) => {
       if(user){
         // get user data from firebase 
-        setUser(user )
+        setUser(user)
       }
       else {
         setUser(null)

@@ -154,6 +154,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
         <Accordion
           underlayColor={theme.background}
           sections={stages}
+          duration={800}
           activeSections={activeSections}
           renderHeader={_renderHeader}
           renderContent={_renderContent}

@@ -10,13 +10,14 @@ export const chooseImg = async (images:any[] | undefined, setImages: (value:any[
 
 
     if (!result.canceled && images) {
-        console.log(result)
+       
         if(id!==undefined){
-            setImages([...images, {...result, place: {}, id:id}]);
+            setImages([...images, {...result.assets[0], place: {}, id:id}]);
             console.log('dodaje')
         }
         else{
-            setImages([...images, {...result, place: {}}]);
+            setImages([...images, {...result.assets?.[0], place: {}}]);
+            console.log(images)
         }
     }
 };
