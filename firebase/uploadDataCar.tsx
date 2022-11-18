@@ -1,12 +1,16 @@
-import { Car, Error, HistoryCar } from "../utils/types";
+import { Car, Error, HistoryCar, Image } from "../utils/types";
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from "../hooks/useAuth";
 
-export const uploadDataCar = (
+export const uploadDataCar = async (
     carData:any, 
     stages:HistoryCar[],
+    firebaseImagesUri: Image[],
     userUid:string, 
     language:string,  
-    setShowError: (value:Error)=>void
+    setShowError: (value:Error)=>void,
 ) => {
+    console.log(firebaseImagesUri, 'ddd')
      const finishCarData:Car = {
         CarMake:carData.make,
         model:carData.model,
@@ -19,10 +23,10 @@ export const uploadDataCar = (
             {type: '_100_200', value:carData._100_200}
         ],
         history:stages,
-        imagesCar: []
+        imagesCar: firebaseImagesUri,
     } 
     console.log(finishCarData)
-    // await setDoc(doc(db, "Projects", user.uid), finishCar)
-    //   .then(s=>console.log(s))
-    //   .catch(e=>console.log(e))
+    await setDoc(doc(db, "Projects", userUid), finishCarData)
+      .then(s=>console.log(s))
+      .catch(e=>console.log(e))
 }

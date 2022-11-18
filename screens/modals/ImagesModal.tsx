@@ -2,8 +2,9 @@ import { View, Modal, Dimensions, Animated, StyleSheet, Image } from 'react-nati
 import React, { useRef} from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
+import { Image as ImageType } from '../../utils/types';
 
-const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void, photos:string[], index: number}> = ({modalVisible, setModalVisible, photos, index}) => {
+const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void, photos:ImageType[], index: number}> = ({modalVisible, setModalVisible, photos, index}) => {
     
     const theme = useSelector(selectTheme)
     const widthScreen = Dimensions.get('screen').width
@@ -32,7 +33,7 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
               })
               return <Animated.Image 
                 key={`photo-${index}`}
-                source={{uri: photoUri}}
+                source={{uri: photoUri.url}}
                 style={[
                   StyleSheet.absoluteFillObject,
                   {opacity: opacity}
@@ -51,7 +52,7 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
               { useNativeDriver: true }
             )}
             renderItem={({item})=> <View style={[style.renderPhoto, {width:widthScreen}]}>
-               <Image style={{width:350, height:220, resizeMode: 'cover', borderRadius:10}} source={{uri: item}}/>
+               <Image style={{width:350, height:220, resizeMode: 'cover', borderRadius:10}} source={{uri: item.url}}/>
             </View>          
             }   
           />              

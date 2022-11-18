@@ -35,7 +35,7 @@ const HistoryTab = () => {
 
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
-      {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={selectStage.images} index={0}/>}
+      {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/>
       <ScrollView>
         <FlatList
@@ -44,18 +44,18 @@ const HistoryTab = () => {
           data={data[0].car.history}
           renderItem={({item, index})=>(
             <View style={style.renderItem}>
-              {item.photosUrl&&
+              {/* {item&&
                 <FlatList
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   style={style.imagesContainer}
-                  data={item.photosUrl}
+                  data={item}
                   renderItem={(photo)=> (
                       <Image style={{flex:1, width:windowWidth, height:240}} source={{uri: photo.item}}/>                  )}
-                  />}
-                  <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:item.photosUrl, index}))} style={style.zoomIcon}>                   
+                  />} */}
+                  {/* <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:[item.photosUrl], index}))} style={style.zoomIcon}>                   
                     <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
                     <Text style={style.name}>{item.name}</Text>
                     <View style={style.performanceContainer}>

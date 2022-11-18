@@ -29,7 +29,7 @@ export type Image = {
 
 export type HistoryCar = {
     date?:string, 
-    photosUrl?:string[], 
+    photosUrl?:string, 
     name?:string, 
     description?:string,
     company?:string,
@@ -42,7 +42,7 @@ export type Car = {
     model:string,
     description:string,
     performance?:Performance,
-    imagesCar:string[],
+    imagesCar:Image[],
     likes:number,
     history:HistoryCar[]
 }

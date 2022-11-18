@@ -26,7 +26,7 @@ const PhotosTab = () => {
         numColumns={2}
         renderItem={({item, index}) => (
           <TouchableWithoutFeedback onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
-            <Image style={{width:screenWidth/2, height:120}} source={{uri:item}}/>
+            <Image style={{width:screenWidth/2, height:120}} source={{uri:item.url}}/>
           </TouchableWithoutFeedback>
         )}
       />

@@ -36,6 +36,8 @@ const CreateScreen = () => {
     const [showAddComponentModal, setShowAddComponentModal] = useState(false)
     const [activeSections, setActiveSections] = useState<number[]>([])
     const [showError, setShowError] = useState({show:false, message:''})
+    const [imagesStages, setImagesStages] = useState<any[]>([]);
+
     const { user, logout }:any = useAuth()
     const [originImage, setOriginImage] = useState<any>({})
 
@@ -236,6 +238,8 @@ const CreateScreen = () => {
                     setShowAddComponentModal={setShowAddComponentModal}
                     setActiveSections={setActiveSections}
                     activeSections={activeSections}
+                    imagesStages={imagesStages}
+                    setImagesStages={setImagesStages}
                 />
                {(stages.length<6 && !showAddComponentModal)&&
                <TouchableOpacity 
@@ -248,7 +252,7 @@ const CreateScreen = () => {
             </ScrollView>
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
-                onPress={()=>addProject(images, carData, user.uid, language, stages, setShowError)} 
+                onPress={()=>addProject(images, imagesStages, carData, user.uid, language, stages, setShowError)} 
                 style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Finish</Text>

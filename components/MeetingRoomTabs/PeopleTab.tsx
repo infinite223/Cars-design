@@ -57,7 +57,7 @@ const PeopleTab = () => {
              </View>
               <Image
                 style={style.imageCar}
-                source={{uri: item.carProjects.car.imagesCar[0]}}
+                source={{uri: item.carProjects.car.imagesCar[0].url}}
               />
             </View>          
           </TouchableOpacity>

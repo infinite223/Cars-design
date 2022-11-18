@@ -28,7 +28,7 @@ export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:strin
           style={style.renderItem} 
           // onPress={()=>navigation.navigate('Project', {car, author, createdAt})}
         >
-            <Image style={[style.imageIcon, {borderColor:theme.backgroundContent}]} source={{uri:car.imagesCar[0]}}/>
+            <Image style={[style.imageIcon, {borderColor:theme.backgroundContent}]} source={{uri:car.imagesCar[0].url}}/>
             <View style={{marginHorizontal:10, flex:1}}>
                 <Text style={{letterSpacing:1, color:theme.fontColor}}>{car.CarMake}</Text>
                 <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    

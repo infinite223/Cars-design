@@ -35,14 +35,15 @@ interface AccordionViewProps {
   setShowAddComponentModal: (vale: boolean) => void,
   activeSections:number[],
   setActiveSections: (vale: number[]) => void,
+  imagesStages: any[],
+  setImagesStages: (value:any[]) =>void
 }
 
-export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, showAddComponentModal, setShowAddComponentModal, activeSections, setActiveSections}) => {
+export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, showAddComponentModal, setShowAddComponentModal, activeSections, setActiveSections, imagesStages, setImagesStages}) => {
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
-  const [images, setImages] = useState<any[]>([]);
 
-  console.log(images)
+  console.log(imagesStages)
 
   const { addComponentHeader, addImageHeader,  inputs: { descriptionText, powerText, torqueText, _0_100Text, _100_200Text, companyText } } = translations.screens.CreateScreen.stages
 
@@ -127,9 +128,9 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
             )}
           />  
           <CustomInput borderColor={borderColor} fontSize={15} placeholder={language==='en'?companyText.en:companyText.pl} helpText='( np. s-performance )' setValue={(val)=>editStage(activeSections, val, stages, performance,  'company', setPerformance, setStages)} max={100}/>
-          {images.find((image:any)=>image.id === activeSections[0]) ===undefined?<>
+          {imagesStages.find((image:any)=>image.id === activeSections[0]) ===undefined?<>
           <View style={[style.container, { backgroundColor:theme.background==="black"?'#222':'rgba(150,150,150, .3)'}]}>
-            <TouchableOpacity  onPress={()=>chooseImg(images, setImages, activeSections[0])} style={[style.addComponentButton, {backgroundColor:"#273"}]}>
+            <TouchableOpacity  onPress={()=>chooseImg(imagesStages, setImagesStages, activeSections[0])} style={[style.addComponentButton, {backgroundColor:"#273"}]}>
               <Text style={[{color:'#aaa', fontSize:40}]}>+</Text>
             </TouchableOpacity>
 
@@ -139,8 +140,8 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
           </View>
           </>:  
             <View style={{position:'relative'}}>
-              <Image source={{ uri: (images.find((image:any)=>image.id === activeSections[0])).uri }} style={{ width: widthScreen / 1.3, height: 220, marginStart:15, borderRadius:15 }} />
-              <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.id!==activeSections[0]))} style={{position:'absolute', top:10, right:30, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
+              <Image source={{ uri: (imagesStages.find((image:any)=>image.id === activeSections[0])).uri }} style={{ width: widthScreen / 1.3, height: 220, marginStart:15, borderRadius:15 }} />
+              <TouchableOpacity onPress={()=>setImagesStages(imagesStages.filter((image)=>image.id!==activeSections[0]))} style={{position:'absolute', top:10, right:30, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
                 <Icon type='entypo' name="minus" size={20} color={theme.fontColor}/>
               </TouchableOpacity>
             </View> 
