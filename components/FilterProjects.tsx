@@ -1,14 +1,16 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import { Icon } from '@rneui/base'
+import _Icon from 'react-native-vector-icons/Entypo'
 import { FlatList } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import { style } from '../screens/Profile/style'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { CarprojectData } from '../utils/types'
+import { CarprojectData, User } from '../utils/types'
 
-export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:string}> = ({userProjects, input}) => {
+export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:string, edit?:boolean}> = ({userProjects, input, edit}) => {
   const theme = useSelector(selectTheme)
+  const [showList, setShowList] = useState<{header:string, persons:User[]}>()
 
   const searchFunction = () => {
     const updatedData = userProjects.filter((item) => {
@@ -33,14 +35,41 @@ export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:strin
                 <Text style={{letterSpacing:1, color:theme.fontColor}}>{car.CarMake}</Text>
                 <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
             </View>
-            <Text style={{fontSize:17, marginRight:5, color:theme.fontColor}}>{car.likes}</Text>
-            <Icon                 
-                name='heart'
-                type='evilicon'
-                size={28} 
-                color={theme.fontColor}
-            />
+            
+            <TouchableOpacity onPress={()=> setShowList({header: 'likes', persons: []})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
+              <Text style={{fontSize:17, marginHorizontal:5, color:theme.fontColor}}>{car.likes}</Text>
+              <Icon                 
+                  name='heart'
+                  type='evilicon'
+                  size={28} 
+                  color={theme.fontColor}
+              />
+            </TouchableOpacity>
+           
+            <TouchableOpacity style={localStyle.optionsIcon}>
+              <_Icon                            
+                  name='dots-three-vertical'
+                  size={18} 
+                  color={theme.fontColor}
+              />
+            </TouchableOpacity>
+            
         </TouchableOpacity>}
 />
   )
 }
+
+const localStyle = StyleSheet.create({
+  optionsIcon: {
+    paddingLeft:7,
+    paddingVertical:3
+  },
+  likesConteiner: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection:'row',
+    paddingHorizontal:8,
+    paddingVertical:5,
+    borderRadius:35
+  }
+})

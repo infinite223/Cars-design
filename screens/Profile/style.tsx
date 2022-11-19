@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet, Dimensions } from "react-native"
+const widthScreen = Dimensions.get('window').width
+const heightScreen = Dimensions.get('window').height
 
 export const style = StyleSheet.create({
     headerLeftContainer: {
@@ -74,5 +76,14 @@ export const style = StyleSheet.create({
     searchInput: {
         fontSize:15,
 
+    },
+    optionsMenu: {
+        width:'100%',
+        // marginHorizontal:-15,
+        height:heightScreen / 2.2,
+        position: 'absolute',
+        top: heightScreen-400,
+        borderRadius: 15,
+        zIndex:10
     }
 })

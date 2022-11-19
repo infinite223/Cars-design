@@ -117,14 +117,14 @@ const ProfileScreen = () => {
             </TouchableOpacity>
         </View>
 
-        <View style={{marginVertical:0}}>
+        <View style={{marginVertical:0, position:'relative'}}>
             <Text style={[style.titleText, {color:theme.fontColor}]}>{language==="en"?headerProjectsText.en:headerProjectsText.pl}</Text>        
             <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
                 <View style={{alignItems:'center', flexDirection:'row'}}>
                     <Icon type='evilicon' name='search' size={30} color={theme.fontColorContent}/>
                     <TextInput
                         style={{color: theme.fontColor, marginLeft:10}}
-                        placeholder='Search project'
+                        placeholder={`Search ${isMyProfile&&'my'} project`}
                         placeholderTextColor={theme.fontColorContent}
                         onChangeText={setSearch}
                     />
@@ -136,7 +136,10 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
             </View>
            
-            <FilterProjects userProjects={userProjects} input={search}/>          
+            <FilterProjects userProjects={userProjects} input={search} edit={isMyProfile}/>   
+            <View style={[style.optionsMenu, {backgroundColor: theme.backgroundContent}]}>
+                <Text>dasdsa</Text>
+            </View>       
         </View>
     </View>
   )

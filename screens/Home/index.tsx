@@ -1,5 +1,5 @@
 import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
 import { useSelector } from 'react-redux';
@@ -10,21 +10,30 @@ import { translations } from '../../utils/translations';
 import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
 import { style } from './style';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getFirestore, setDoc, collectionGroup, onSnapshot } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
+  const [projects, setProjects] = useState<any>([])
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
 
   const db = getFirestore()
 
-  const addData = async () => {
+  useEffect(() => {
+    const projectsRef = collectionGroup(db, 'projects')
+    onSnapshot(projectsRef, (snapchot)=> {
+      setProjects(snapchot.docs.map(doc=> {
+        console.log('xd')
+        return {id: '1', car:doc.data(), author:user, createdAt:'22.11.2022'}
+      }))
+    })
 
-  }
+  }, [])
+  
    
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -52,9 +61,13 @@ const HomeScreen = () => {
          ListHeaderComponent={()=> {
           return <HeaderTopProjects/>
         }}
-        data={data}
+        data={projects}
+        bounces
+        
         keyExtractor={carProject => carProject.id}
-        renderItem={(carData)=> <Carproject data={carData.item}/>}
+        renderItem={(carData)=> 
+        <Carproject data={carData.item}/>
+      }
       />
     </View>
   )

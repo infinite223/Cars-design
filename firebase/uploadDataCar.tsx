@@ -1,5 +1,7 @@
 import { Car, Error, HistoryCar, Image } from "../utils/types";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
+import { FirebaseApp } from "firebase/app";
+import { documentId } from "firebase/firestore";
 import { db } from "../hooks/useAuth";
 
 export const uploadDataCar = async (
@@ -26,7 +28,8 @@ export const uploadDataCar = async (
         imagesCar: firebaseImagesUri,
     } 
     console.log(finishCarData)
-    await setDoc(doc(db, "Projects", userUid), finishCarData)
+
+    await setDoc(doc(db, `users/${userUid}/projects`, userUid), finishCarData)
       .then(s=>console.log(s))
       .catch(e=>console.log(e))
 }

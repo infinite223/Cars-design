@@ -53,7 +53,7 @@ const ProjectScreen = () => {
           <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{car.description}</Text>
           <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={style.locationContainer}>          
               <Icon type="materialicon" name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
-              <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author.place.city}</Text>
+              <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author?.place?.city}</Text>
           </TouchableOpacity>
 
           <FlatList
