@@ -4,11 +4,15 @@ export const getColorsCircle = (value:number, type:string) => {
         great: ["#f34", "#baa", "#a33", "#811"],
         veryGood:  ["#ff7002", "#aa4002", "#855", "#715"],
         good: ["#fad006", "#e9a004", "#c9a235", "#fca048"],
-        medium: ["#87a569", "#87a569", "#258d4d", "#088538"]
+        medium: ["#87a569", "#87a569", "#258d4d", "#088538"],
+        none: ['#434343', '#555', '#777']
     }
 
     switch (type) {
         case "hp":
+            if(value===0){
+                colors = colorsTypes.none
+            }
             if(value>=600){
                 colors = colorsTypes.great
             }
@@ -23,6 +27,9 @@ export const getColorsCircle = (value:number, type:string) => {
             }
         break;
         case "nm":
+            if(value===0){
+                colors = colorsTypes.none
+            }
             if(value>=700){
                 colors = colorsTypes.great       
             }
@@ -37,8 +44,11 @@ export const getColorsCircle = (value:number, type:string) => {
             }
             
         break;
-        case "_0_100":      
-            if(value<=3.7){
+        case "_0_100":  
+            if(value===0){
+                colors = colorsTypes.none
+            }    
+            if(value<=3.7 && value>.4){
                 colors = colorsTypes.great       
             }
             else if(value>=3.7 && value<5){
@@ -51,8 +61,11 @@ export const getColorsCircle = (value:number, type:string) => {
                 colors = colorsTypes.medium
             }
         break;
-        case "_100_200":      
-            if(value<=5.7){
+        case "_100_200":     
+            if(value===0){
+                colors = colorsTypes.none
+            } 
+            if(value<=5.7 && value>2){
                 colors = colorsTypes.great       
             }
             else if(value>=5.7 && value<8){

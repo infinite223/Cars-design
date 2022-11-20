@@ -7,7 +7,7 @@ export const GradientButton: React.FC<{text:string}> = ({ text }) => {
     return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#2f3", "#5b5", "#292"]}
+        colors={["#2d3", "#3b4", "#2c2"]}
         style={styles.buttonContainer}
       >
         <Text
@@ -24,10 +24,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical:20
   },
   buttonContainer: { 
-    padding: 7, 
+    padding: 5, 
     paddingHorizontal:45,
     alignItems: "center", 
     borderRadius: 15 

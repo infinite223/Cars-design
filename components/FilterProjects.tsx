@@ -8,7 +8,15 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { CarprojectData, User } from '../utils/types'
 
-export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:string, edit?:boolean}> = ({userProjects, input, edit}) => {
+interface FilterProjectsProps {
+  userProjects:CarprojectData[], 
+  input:string, 
+  edit?:boolean, 
+  setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 
+  showOptions:boolean
+}
+
+export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, input, edit, setShowOptions, showOptions}) => {
   const theme = useSelector(selectTheme)
   const [showList, setShowList] = useState<{header:string, persons:User[]}>()
 
@@ -25,7 +33,7 @@ export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:strin
   return (
     <FlatList
         data={searchFunction()}
-        renderItem={({item: {car, author, createdAt}})=> 
+        renderItem={({item: {id, car, author, createdAt}})=> 
         <TouchableOpacity 
           style={style.renderItem} 
           // onPress={()=>navigation.navigate('Project', {car, author, createdAt})}
@@ -46,7 +54,7 @@ export const FilterProjects:React.FC<{userProjects:CarprojectData[], input:strin
               />
             </TouchableOpacity>
            
-            <TouchableOpacity style={localStyle.optionsIcon}>
+            <TouchableOpacity onPress={()=>setShowOptions({show:!showOptions, selectedProject:  {id, car, author, createdAt}})} style={localStyle.optionsIcon}>
               <_Icon                            
                   name='dots-three-vertical'
                   size={18} 

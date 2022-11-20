@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, FlatList, Dimensions } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
@@ -15,6 +15,7 @@ import { selectTheme } from './../../slices/themeSlice';
 import MapModal from './../modals/MapModal';
 import { style } from './style';
 
+const widthScreen = Dimensions.get('window').width
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
@@ -63,9 +64,9 @@ const ProjectScreen = () => {
             ItemSeparatorComponent={() => <View style={{width: 20}} />}
             snapToInterval={105}
             data={car.performance}
-            renderItem={({item})=> (
-              <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
-            )}
+            renderItem={({item})=> (<>
+            <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
+            </>)}
           />
 
         </View>

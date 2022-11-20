@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/themed";
+import _Icon from 'react-native-vector-icons/Entypo'
 import { data } from '../../utils/data';
 import EditProfileScreen from './../modals/SettingsModals/EditProfileModal';
 import { useSelector } from 'react-redux';
@@ -15,6 +16,13 @@ import { RouteProp } from '@react-navigation/native';
 
 import { style } from './style';
 import { FilterProjects } from './../../components/FilterProjects';
+import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { Dimensions } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { CarprojectData } from '../../utils/types';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 
 type ProfileScreenProps = {
@@ -30,6 +38,7 @@ const ProfileScreen = () => {
     const profileUser = route.params.state;
    
     const [userProjects, setUserProjects] = useState([...data])
+    const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
     const [search, setSearch] = useState('')
     const { user, logout }:any = useAuth()
     const isMyProfile = user.uid===profileUser.uid
@@ -86,6 +95,42 @@ const ProfileScreen = () => {
         })  
       }, [theme])
 
+      const translateY = useSharedValue(0)
+
+      const rOptionsContentSheetStyle = useAnimatedStyle(() => {
+        const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 0], Extrapolate.CLAMP )
+        const paddingTop = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [0, 25], Extrapolate.CLAMP )
+  
+        return {       
+          transform: [{translateY: translateY.value}]
+        }
+      })
+
+      useEffect(() => {
+        if(showOptions.selectedProject!==null) translateY.value = withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
+
+      }, [showOptions.show])
+      const context = useSharedValue({y: 0})
+
+
+      const gesture = Gesture.Pan()
+      .onStart(()=> {
+        context.value = { y: translateY.value }
+      })
+      
+      .onUpdate((event)=> {
+        translateY.value = event.translationY + context.value.y;
+        translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT/2.2)
+        translateY.value = Math.min(translateY.value, -SCREEN_HEIGHT/10 )
+
+      })
+      .onEnd(()=> {
+        if(translateY.value>-SCREEN_HEIGHT/2.6){
+          translateY.value =  withSpring( -SCREEN_HEIGHT/12, { damping: 50})
+        }
+      })
+      
+
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
@@ -136,10 +181,37 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
             </View>
            
-            <FilterProjects userProjects={userProjects} input={search} edit={isMyProfile}/>   
-            <View style={[style.optionsMenu, {backgroundColor: theme.backgroundContent}]}>
-                <Text>dasdsa</Text>
-            </View>       
+            <FilterProjects userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
+            <GestureDetector gesture={gesture}>
+                <Animated.View style={[style.optionsMenu, rOptionsContentSheetStyle, {backgroundColor: theme.backgroundContent}]}>
+                    {/* <Text style={{color: theme.fontColor, padding:20}}>Options</Text> */}
+                    <View style={{marginBottom:10, width:40, height:7, backgroundColor: theme.fontColorContent, borderRadius:15, alignSelf:'center'}}/>
+                    <Text style={{color:'#2b3', fontWeight:'bold', alignSelf:'center'}}>
+                        {showOptions.selectedProject?.car.CarMake+' '} 
+                        {showOptions.selectedProject?.car.model}
+                    </Text>
+                    <TouchableOpacity style={[style.optionContainer]}>
+                        <Icon type='materialicon' name='edit' size={22} color={theme.fontColorContent}/>
+                        <Text style={[style.optionText, {color: theme.fontColor}]}>
+                            Edit project
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[style.optionContainer]}>
+                        <_Icon name='trash' size={20} color={theme.fontColorContent}/>
+                        <Text style={[style.optionText, {color: theme.fontColor}]}>
+                            Delete project
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[style.optionContainer]}>
+                        <_Icon name='eye-with-line' size={20} color={theme.fontColorContent}/>
+                        {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
+
+                        <Text style={[style.optionText, {color: theme.fontColor}]}>
+                            Hide project
+                        </Text>
+                    </TouchableOpacity>
+                </Animated.View>       
+            </GestureDetector>    
         </View>
     </View>
   )

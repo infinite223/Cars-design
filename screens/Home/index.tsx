@@ -26,9 +26,9 @@ const HomeScreen = () => {
   useEffect(() => {
     const projectsRef = collectionGroup(db, 'projects')
     onSnapshot(projectsRef, (snapchot)=> {
-      setProjects(snapchot.docs.map(doc=> {
+      setProjects(snapchot.docs.map((doc, i)=> {
         console.log('xd')
-        return {id: '1', car:doc.data(), author:user, createdAt:'22.11.2022'}
+        return {id: i, car:doc.data(), author:user, createdAt:'22.11.2022'}
       }))
     })
 
