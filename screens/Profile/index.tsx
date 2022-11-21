@@ -96,18 +96,26 @@ const ProfileScreen = () => {
       }, [theme])
 
       const translateY = useSharedValue(0)
+      const translateOpacity = useSharedValue(800)
 
-      const rOptionsContentSheetStyle = useAnimatedStyle(() => {
-        const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 0], Extrapolate.CLAMP )
-        const paddingTop = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [0, 25], Extrapolate.CLAMP )
-  
+
+      const rOptionsContentSheetStyle = useAnimatedStyle(() => {  
         return {       
           transform: [{translateY: translateY.value}]
         }
       })
 
+      const rAllContentSheetStyle = useAnimatedStyle(() => {  
+        return {       
+            transform: [{translateX: translateOpacity.value}]
+        }
+      })
+
       useEffect(() => {
-        if(showOptions.selectedProject!==null) translateY.value = withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
+        if(showOptions.selectedProject!==null) {
+            translateY.value = withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
+            translateOpacity.value = withSpring(0)
+        }
 
       }, [showOptions.show])
       const context = useSharedValue({y: 0})
@@ -127,12 +135,16 @@ const ProfileScreen = () => {
       .onEnd(()=> {
         if(translateY.value>-SCREEN_HEIGHT/2.6){
           translateY.value =  withSpring( -SCREEN_HEIGHT/12, { damping: 50})
+          translateOpacity.value = withSpring(500)
         }
       })
-      
+
+            
 
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
+       <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: SCREEN_WIDTH, height:SCREEN_HEIGHT+100}]}/>
+
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
         <View style={{marginVertical:5}}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>
@@ -182,6 +194,7 @@ const ProfileScreen = () => {
             </View>
            
             <FilterProjects userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
+            
             <GestureDetector gesture={gesture}>
                 <Animated.View style={[style.optionsMenu, rOptionsContentSheetStyle, {backgroundColor: theme.backgroundContent}]}>
                     {/* <Text style={{color: theme.fontColor, padding:20}}>Options</Text> */}
@@ -190,26 +203,47 @@ const ProfileScreen = () => {
                         {showOptions.selectedProject?.car.CarMake+' '} 
                         {showOptions.selectedProject?.car.model}
                     </Text>
-                    <TouchableOpacity style={[style.optionContainer]}>
-                        <Icon type='materialicon' name='edit' size={22} color={theme.fontColorContent}/>
-                        <Text style={[style.optionText, {color: theme.fontColor}]}>
-                            Edit project
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[style.optionContainer]}>
-                        <_Icon name='trash' size={20} color={theme.fontColorContent}/>
-                        <Text style={[style.optionText, {color: theme.fontColor}]}>
-                            Delete project
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[style.optionContainer]}>
-                        <_Icon name='eye-with-line' size={20} color={theme.fontColorContent}/>
-                        {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
+                    {!isMyProfile?<>
+                        <TouchableOpacity style={[style.optionContainer]}>
+                            <Icon type='materialicon' name='edit' size={22} color={theme.fontColorContent}/>
+                            <Text style={[style.optionText, {color: theme.fontColor}]}>
+                                Edit project
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[style.optionContainer]}>
+                            <_Icon name='trash' size={20} color={theme.fontColorContent}/>
+                            <Text style={[style.optionText, {color: theme.fontColor}]}>
+                                Delete project
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[style.optionContainer]}>
+                            <_Icon name='eye-with-line' size={20} color={theme.fontColorContent}/>
+                            {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
 
-                        <Text style={[style.optionText, {color: theme.fontColor}]}>
-                            Hide project
-                        </Text>
-                    </TouchableOpacity>
+                            <Text style={[style.optionText, {color: theme.fontColor}]}>
+                                Hide project
+                            </Text>
+                        </TouchableOpacity>
+                        </>:
+                            <>
+                            <TouchableOpacity style={[style.optionContainer]}>
+                                <Icon type='materialicon' name='report' size={20} color={theme.fontColorContent}/>
+                                {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
+
+                                <Text style={[style.optionText, {color: theme.fontColor}]}>
+                                    Report project
+                                </Text>
+                             </TouchableOpacity>
+                             <TouchableOpacity style={[style.optionContainer]}>
+                                <_Icon name='share' size={20} color={theme.fontColorContent}/>
+                                {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
+
+                                <Text style={[style.optionText, {color: theme.fontColor}]}>
+                                    Share project
+                                </Text>
+                            </TouchableOpacity>
+                            </>
+                        }
                 </Animated.View>       
             </GestureDetector>    
         </View>
