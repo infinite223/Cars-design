@@ -17,7 +17,7 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
 
     return (
     <Modal
-        style={{backgroundColor:'black'}}     
+        style={{backgroundColor:'black'}}   
         animationType="slide"
         transparent={true}
         visible={modalVisible}

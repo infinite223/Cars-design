@@ -9,4 +9,4 @@ export const getResizeImage = async (uri:string) =>
     );
 
     return resizedPhoto
-  }
+}

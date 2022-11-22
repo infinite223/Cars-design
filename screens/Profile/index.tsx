@@ -16,10 +16,11 @@ import { RouteProp } from '@react-navigation/native';
 
 import { style } from './style';
 import { FilterProjects } from './../../components/FilterProjects';
-import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { Extrapolate, interpolate, timing, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { CarprojectData } from '../../utils/types';
+import { BottomOptions } from '../../components/BottomOptions';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -35,10 +36,11 @@ type ProfileScreenProps = {
 const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<RouteProp<ProfileScreenProps, 'B'>>()
+    const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
+
     const profileUser = route.params.state;
    
     const [userProjects, setUserProjects] = useState([...data])
-    const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
     const [search, setSearch] = useState('')
     const { user, logout }:any = useAuth()
     const isMyProfile = user.uid===profileUser.uid
@@ -95,47 +97,11 @@ const ProfileScreen = () => {
         })  
       }, [theme])
 
-      const translateY = useSharedValue(0)
-      const translateOpacity = useSharedValue(800)
-
-
-      const rOptionsContentSheetStyle = useAnimatedStyle(() => {  
-        return {       
-          transform: [{translateY: translateY.value}]
-        }
-      })
+      const translateX = useSharedValue(800)
 
       const rAllContentSheetStyle = useAnimatedStyle(() => {  
         return {       
-            transform: [{translateX: translateOpacity.value}]
-        }
-      })
-
-      useEffect(() => {
-        if(showOptions.selectedProject!==null) {
-            translateY.value = withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
-            translateOpacity.value = withSpring(0)
-        }
-
-      }, [showOptions.show])
-      const context = useSharedValue({y: 0})
-
-
-      const gesture = Gesture.Pan()
-      .onStart(()=> {
-        context.value = { y: translateY.value }
-      })
-      
-      .onUpdate((event)=> {
-        translateY.value = event.translationY + context.value.y;
-        translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT/2.2)
-        translateY.value = Math.min(translateY.value, -SCREEN_HEIGHT/10 )
-
-      })
-      .onEnd(()=> {
-        if(translateY.value>-SCREEN_HEIGHT/2.6){
-          translateY.value =  withSpring( -SCREEN_HEIGHT/12, { damping: 50})
-          translateOpacity.value = withSpring(500)
+            transform: [{translateX: translateX.value}]
         }
       })
 
@@ -195,57 +161,7 @@ const ProfileScreen = () => {
            
             <FilterProjects userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
             
-            <GestureDetector gesture={gesture}>
-                <Animated.View style={[style.optionsMenu, rOptionsContentSheetStyle, {backgroundColor: theme.backgroundContent}]}>
-                    {/* <Text style={{color: theme.fontColor, padding:20}}>Options</Text> */}
-                    <View style={{marginBottom:10, width:40, height:7, backgroundColor: theme.fontColorContent, borderRadius:15, alignSelf:'center'}}/>
-                    <Text style={{color:'#2b3', fontWeight:'bold', alignSelf:'center'}}>
-                        {showOptions.selectedProject?.car.CarMake+' '} 
-                        {showOptions.selectedProject?.car.model}
-                    </Text>
-                    {!isMyProfile?<>
-                        <TouchableOpacity style={[style.optionContainer]}>
-                            <Icon type='materialicon' name='edit' size={22} color={theme.fontColorContent}/>
-                            <Text style={[style.optionText, {color: theme.fontColor}]}>
-                                Edit project
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[style.optionContainer]}>
-                            <_Icon name='trash' size={20} color={theme.fontColorContent}/>
-                            <Text style={[style.optionText, {color: theme.fontColor}]}>
-                                Delete project
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[style.optionContainer]}>
-                            <_Icon name='eye-with-line' size={20} color={theme.fontColorContent}/>
-                            {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
-
-                            <Text style={[style.optionText, {color: theme.fontColor}]}>
-                                Hide project
-                            </Text>
-                        </TouchableOpacity>
-                        </>:
-                            <>
-                            <TouchableOpacity style={[style.optionContainer]}>
-                                <Icon type='materialicon' name='report' size={20} color={theme.fontColorContent}/>
-                                {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
-
-                                <Text style={[style.optionText, {color: theme.fontColor}]}>
-                                    Report project
-                                </Text>
-                             </TouchableOpacity>
-                             <TouchableOpacity style={[style.optionContainer]}>
-                                <_Icon name='share' size={20} color={theme.fontColorContent}/>
-                                {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
-
-                                <Text style={[style.optionText, {color: theme.fontColor}]}>
-                                    Share project
-                                </Text>
-                            </TouchableOpacity>
-                            </>
-                        }
-                </Animated.View>       
-            </GestureDetector>    
+            <BottomOptions isMyProfile={isMyProfile} translateX={translateX.value} showOptions={showOptions} setShowOptions={setShowOptions}/>
         </View>
     </View>
   )

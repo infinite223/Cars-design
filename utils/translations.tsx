@@ -1,4 +1,28 @@
 export const translations = {
+    components: {
+        BottomOptions: {
+            editText: {
+                en: 'Edit project',
+                pl: 'Edytuj projekt'
+            },
+            deleteText: {
+                en: 'Delete project',
+                pl: "Usuń projekt"
+            },
+            hideText: {
+                en: 'Hide project',
+                pl: 'Ukryj projekt'
+            },
+            reportText: {
+                en: 'Report project',
+                pl: 'Zgłoś projekt' 
+            },
+            shareText: {
+                en: 'Share project',
+                pl: 'Udostępnij projekt'
+            }
+        }
+    },
     screens: {
         modals: {
             settingsModals: {
