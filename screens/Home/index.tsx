@@ -12,6 +12,7 @@ import { Icon } from '@rneui/themed';
 import { style } from './style';
 import { doc, getFirestore, setDoc, collectionGroup, onSnapshot } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
+import { LoadingView } from './../../components/LoadingView';
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
@@ -24,14 +25,16 @@ const HomeScreen = () => {
   const db = getFirestore()
 
   useEffect(() => {
-    const projectsRef = collectionGroup(db, 'projects')
-    onSnapshot(projectsRef, (snapchot)=> {
-      setProjects(snapchot.docs.map((doc, i)=> {
-        console.log('xd')
-        return {id: i, car:doc.data(), author:user, createdAt:'22.11.2022'}
-      }))
-    })
-
+    const getProjects = () => {
+      const projectsRef = collectionGroup(db, 'projects')
+       onSnapshot(projectsRef, (snapchot) => {      
+        setProjects(snapchot.docs.map((doc, i)=> {
+          return {id: i, car:doc.data(), author:user, createdAt:'22.11.2022'}
+        }))      
+      })
+    }
+  
+    getProjects()
   }, [])
   
    
@@ -56,14 +59,14 @@ const HomeScreen = () => {
 
   
   return (
-    <View style={{flex:1,  backgroundColor:theme.background}}>
+    <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
+      {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
       <FlatList style={{flex:1, height:"100%"}}
          ListHeaderComponent={()=> {
           return <HeaderTopProjects/>
         }}
         data={projects}
         bounces
-        
         keyExtractor={carProject => carProject.id}
         renderItem={(carData)=> 
         <Carproject data={carData.item}/>

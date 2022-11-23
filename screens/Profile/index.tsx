@@ -99,7 +99,7 @@ const ProfileScreen = () => {
         })  
       }, [theme])
 
-      const translateX = useSharedValue(-800)
+      const translateX = useSharedValue(-1200)
 
       const rAllContentSheetStyle = useAnimatedStyle(() => {  
         return {       
