@@ -76,30 +76,5 @@ export const style = StyleSheet.create({
     searchInput: {
         fontSize:15,
 
-    },
-    optionsMenu: {
-        marginHorizontal:-15,
-        paddingHorizontal:15,
-        paddingVertical:15,
-        height: heightScreen+20,
-        width: widthScreen,
-        position: 'absolute',
-        top: heightScreen-100,
-        borderRadius: 15,
-        zIndex:10
-    },
-    optionText: {
-        fontSize:17,
-        letterSpacing:1,
-        marginLeft:10
-    },
-    optionContainer: {
-        paddingHorizontal:15,
-        paddingVertical:5,
-        borderRadius:15,
-        flexDirection:'row',
-        alignItems:'center',
-        // justifyContent:'space-between',
-        marginVertical:5
     }
 })

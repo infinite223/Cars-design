@@ -1,10 +1,10 @@
 import { Share } from 'react-native';
 
-export const onShare = async () => {
+export const onShare = async (carMake:string, model:string, link:string) => {
     try {
       const result = await Share.share({
         message:
-          'React Native | A framework for building native apps using React',
+          `Cars projects- ${carMake+ ' ' +model+' ' + link}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

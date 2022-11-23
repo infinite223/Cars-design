@@ -19,8 +19,9 @@ import { FilterProjects } from './../../components/FilterProjects';
 import Animated, { Extrapolate, interpolate, timing, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { CarprojectData } from '../../utils/types';
+import { CarprojectData, User } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
+import { UsersList } from '../../components/UsersList';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -37,12 +38,13 @@ const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<RouteProp<ProfileScreenProps, 'B'>>()
     const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
+    const [showUsersList, setShowUsersList] = useState<{show:boolean, users: User[] | null, headerText: string}>({show:false, users: null, headerText:''})
 
     const profileUser = route.params.state;
    
     const [userProjects, setUserProjects] = useState([...data])
     const [search, setSearch] = useState('')
-    const { user, logout }:any = useAuth()
+    const {user}:any = useAuth()
     const isMyProfile = user.uid===profileUser.uid
     const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
@@ -97,19 +99,17 @@ const ProfileScreen = () => {
         })  
       }, [theme])
 
-      const translateX = useSharedValue(800)
+      const translateX = useSharedValue(-800)
 
       const rAllContentSheetStyle = useAnimatedStyle(() => {  
         return {       
-            transform: [{translateX: translateX.value}]
+            transform: [{translateY: translateX.value}]
         }
-      })
-
-            
+      })          
 
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-       <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: SCREEN_WIDTH, height:SCREEN_HEIGHT+100}]}/>
+      <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: SCREEN_WIDTH, height:SCREEN_HEIGHT+100}]}/>
 
         <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
         <View style={{marginVertical:5}}>
@@ -124,19 +124,19 @@ const ProfileScreen = () => {
 
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
-            <TouchableOpacity style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{}].length} followers`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>23</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>1</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{},{},{},{},{}].length} views`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
-                <Text style={{fontSize:20,  color: theme.fontColor}}>50</Text>
+                <Text style={{fontSize:20,  color: theme.fontColor}}>5</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{},{},{}].length} followed`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>65</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>3</Text>
             </TouchableOpacity>
         </View>
 
@@ -159,9 +159,9 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
             </View>
            
-            <FilterProjects userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
-            
-            <BottomOptions isMyProfile={isMyProfile} translateX={translateX.value} showOptions={showOptions} setShowOptions={setShowOptions}/>
+            <FilterProjects setShowUsersList={setShowUsersList} userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
+            <UsersList isMyProfile showUsersList={showUsersList} translateX={translateX} setShowUsersList={setShowUsersList}/>
+            <BottomOptions isMyProfile={isMyProfile} translateX={translateX} showOptions={showOptions} setShowOptions={setShowOptions}/>
         </View>
     </View>
   )

@@ -37,6 +37,7 @@ const EditProfileScreen:React.FC<{modalVisible:boolean, setModalVisible: (value:
     return (
     <Modal
         animationType="slide"
+        
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {

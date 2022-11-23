@@ -13,10 +13,11 @@ interface FilterProjectsProps {
   input:string, 
   edit?:boolean, 
   setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 
-  showOptions:boolean
+  showOptions:boolean,
+  setShowUsersList: (value: {show:boolean, users: User[] | null, headerText: string}) =>void
 }
 
-export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, input, edit, setShowOptions, showOptions}) => {
+export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, input, edit, setShowOptions, showOptions, setShowUsersList}) => {
   const theme = useSelector(selectTheme)
   const [showList, setShowList] = useState<{header:string, persons:User[]}>()
 
@@ -44,7 +45,7 @@ export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, inpu
                 <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
             </View>
             
-            <TouchableOpacity onPress={()=> setShowList({header: 'likes', persons: []})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{},{}].length} likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
               <Text style={{fontSize:17, marginHorizontal:5, color:theme.fontColor}}>{car.likes}</Text>
               <Icon                 
                   name='heart'

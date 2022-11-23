@@ -10,6 +10,7 @@ import ImagesModal from './../../screens/modals/ImagesModal';
 import { Icon } from '@rneui/base';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
 import { hexToRGB } from './../../utils/functions/hexToRgb';
+import { selectProject } from '../../slices/selectedProject';
 
 
 const HistoryTab = () => {
@@ -19,7 +20,7 @@ const HistoryTab = () => {
   const [selectStage, setSelectStage] = useState<{images?:string[], index:number}>({images: [], index:0})
   console.log(selectStage)
   const theme = useSelector(selectTheme)
-  const selectedProject = 0
+  const selectedProject = useSelector(selectProject)
 
   const [opacity, setOpacity] = useState(.7)
   const getBackground = () => {
@@ -41,10 +42,10 @@ const HistoryTab = () => {
         <FlatList
           scrollEnabled={true}        
           contentContainerStyle={{flex:1}}
-          data={data[0].car.history}
+          data={selectedProject.car.history}
           renderItem={({item, index})=>(
             <View style={style.renderItem}>
-              {/* {item&&
+              {item&&
                 <FlatList
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -52,10 +53,10 @@ const HistoryTab = () => {
                   data={item}
                   renderItem={(photo)=> (
                       <Image style={{flex:1, width:windowWidth, height:240}} source={{uri: photo.item}}/>                  )}
-                  />} */}
-                  {/* <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:[item.photosUrl], index}))} style={style.zoomIcon}>                   
+                  />}
+                  <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:[item.photosUrl], index}))} style={style.zoomIcon}>                   
                     <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
                     <Text style={style.name}>{item.name}</Text>
                     <View style={style.performanceContainer}>

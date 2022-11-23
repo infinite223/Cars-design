@@ -64,9 +64,9 @@ const ProjectScreen = () => {
             ItemSeparatorComponent={() => <View style={{width: 20}} />}
             snapToInterval={105}
             data={car.performance}
-            renderItem={({item})=> (<>
+            renderItem={({item})=> (
             <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
-            </>)}
+            )}
           />
 
         </View>
@@ -84,7 +84,7 @@ const ProjectScreen = () => {
             <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}>
               <Icon type='feather' name='send' size={26} color={theme.fontColor}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onShare} style={{marginRight:6}}>
+            <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={{marginRight:6}}>
               <Icon type="evilicon" name='share-google' size={34} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>likeProject(id)}>         

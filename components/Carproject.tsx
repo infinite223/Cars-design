@@ -3,15 +3,27 @@ import React from 'react'
 import { CarprojectData } from '../utils/types'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { selectTheme } from './../slices/themeSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedProject } from '../slices/selectedProject';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt}}) => {
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
 
+  const dispatch = useDispatch()
+
+  const setProjectToNav = () => {
+
+    dispatch(setSelectedProject({
+      id, car, author, createdAt
+    }))
+
+    navigation.navigate('Project', {id, car, author, createdAt})
+  }
+
 
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('Project', {id, car, author, createdAt}) }>
+    <TouchableWithoutFeedback onPress={setProjectToNav}>
       <View>
         <View style={{backgroundColor:theme.background, marginVertical:5, paddingHorizontal:10 ,flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
             <View style={{ flexDirection:'row', alignItems:'center'}}>
