@@ -7,6 +7,7 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut }
 import { initializeApp } from "firebase/app";
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
+import { envGoogle } from './../utils/env';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -22,12 +23,6 @@ const firebaseConfig = {
 export let app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
 const AuthContext = createContext({})
-
-const config = {
-  androidClientId:'612500373363-gdoqv1buqbnbl568spahf84fblu7gj39.apps.googleusercontent.com',
-  scopes: ["profile", "email"],
-  permissions: ["public_profile", "email", "gender", "location"],
-}
 
 
 export const AuthProvider = ({children}) => {
@@ -55,7 +50,7 @@ export const AuthProvider = ({children}) => {
 
   const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(
     {
-       clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'
+       clientId: envGoogle.authKey
     },
   );
 

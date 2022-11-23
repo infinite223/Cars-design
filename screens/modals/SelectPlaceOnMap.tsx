@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Icon } from '@rneui/base';
 
+import { envGoogle } from './../../utils/env';
+
 interface SelectPlaceOnMapProps {
     origin: any,
     setOrigin: (value:any) => void,
@@ -50,7 +52,7 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 }}
                 fetchDetails={true}
                 query={{
-                    key: "AIzaSyBO5SVbSIFcBcUAWe6ZaXjCCIcT8cpFo7s",
+                    key: envGoogle.mapsKey,
                     language: 'en'
                 }}
                 styles={{
