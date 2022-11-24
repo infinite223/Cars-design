@@ -9,12 +9,12 @@ import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
 import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
-import { style } from './style';
+
 import { doc, getFirestore, setDoc, collectionGroup, onSnapshot } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 
-const HomeScreen = () => {
+const MeetingScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
@@ -40,40 +40,30 @@ const HomeScreen = () => {
    
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
-      headerLeft: () => <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
+      // headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
+      // headerLeft: () => <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
 
-      headerRight: () => 
-      <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity style={style.iconPadding} onPress={() => 
-          navigation.navigate('Chats')
-        }>
-          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={style.iconPadding} onPress={() => navigation.navigate('Profile', {state: user})}>
-          <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
-        </TouchableOpacity>
-      </View>
+      // headerRight: () => 
+      // <View style={{flexDirection:'row', alignItems:'center'}}>
+      //   <TouchableOpacity style={style.iconPadding} onPress={() => 
+      //     navigation.navigate('Chats')
+      //   }>
+      //     <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
+      //   </TouchableOpacity>
+      //   <TouchableOpacity style={style.iconPadding} onPress={() => navigation.navigate('Profile', {state: user})}>
+      //     <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
+      //   </TouchableOpacity>
+      // </View>
     })
   }, [theme])
 
   
   return (
-    <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
-      {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
-      <FlatList style={{flex:1, height:"100%", width: '100%'}}
-        //  ListHeaderComponent={()=> {
-        //   return <HeaderTopProjects/>
-        // }}
-        data={projects}
-        bounces
-        keyExtractor={carProject => carProject.id}
-        renderItem={(carData)=> 
-        <Carproject data={carData.item}/>
-      }
-      />
+    <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>   
+      {/* <Text style={{color: theme.fontColor}}>Meeting screen</Text> */}
+      <HeaderTopProjects/>
     </View>
   )
 }
   
-export default HomeScreen
+export default MeetingScreen

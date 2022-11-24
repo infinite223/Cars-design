@@ -14,12 +14,16 @@ import MyCamera from './screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './slices/themeSlice';
 import MeetingRoomScreen from './screens/MeetingRoom';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TabsNavigator } from './TabsNavigator'
 
 const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
 const StackNavigator = () => {
   const { user } :any = useAuth()
   const theme = useSelector(selectTheme)
+
   return (<>
     <View style={{ 
       position: 'absolute',
@@ -34,20 +38,16 @@ const StackNavigator = () => {
     },
     }}>
         {user ?
-          <>
-          <Stack.Group>
-            <Stack.Screen name='Home' component={HomeScreen} />
-            <Stack.Screen name='Profile' component={ProfileScreen}/>
+          <>    
+            <Stack.Screen name='User' component={TabsNavigator} options={{headerShown:false}}/>
+{/*               <Stack.Screen name='Profile' component={ProfileScreen}/>
             <Stack.Screen name='Project' component={ProjectScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Camera' component={MyCamera} options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>
-            <Stack.Screen name='Create' component={CreateScreen} />
+            <Stack.Screen name='Create' component={CreateScreen} /> */}
             <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
-          </Stack.Group>
-          <Stack.Group screenOptions={{presentation: 'modal',  headerShown:false}}>
-            {/* <Stack.Screen name='EditProfile' component= {EditProfileScreen}/> */}
-          </Stack.Group>   
+ 
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>
         } 

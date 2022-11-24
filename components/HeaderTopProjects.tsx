@@ -26,7 +26,7 @@ export const HeaderTopProjects = () => {
       <View style={style.roomsContainer}>
         {meetingsRooms?
             <FlatList
-                horizontal
+                ItemSeparatorComponent={()=><View style={{height:10}}/>}
                 data={meetingsRooms}
                 renderItem={({item}) => {
                     return <TouchableOpacity onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))} style={[style.meetingRoom]}>
@@ -77,8 +77,8 @@ const style = StyleSheet.create({
         borderRadius:10
     },
     imageRoom: {
-        width: 160,
-        height: 100,
+        width: 360,
+        height: 250,
         borderRadius:10,
         opacity: .9,
         backgroundColor: 'black'      

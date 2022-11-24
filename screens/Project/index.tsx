@@ -78,7 +78,7 @@ const ProjectScreen = () => {
               <Tab.Screen name="History" component={HistoryTab}/>
             </Tab.Navigator>
         </ScrollView>
-      <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
+      {/* <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
           <View style={style.iconsContainer}>
             <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}>
@@ -104,7 +104,7 @@ const ProjectScreen = () => {
             source={{uri:author.imageUri}}    
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   )
 }
