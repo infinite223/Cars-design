@@ -45,7 +45,7 @@ export const FilterUsers:React.FC<FilterUsersProps> = ({users, input, edit, show
           // onPress={()=>navigation.navigate('Project', {car, author, createdAt})}
         >
             <Image style={[style.imageIcon, {borderColor:theme.backgroundContent}]} source={{uri:item.imageUri}}/>
-            <View style={{marginHorizontal:10, flex:1}}>
+            <View style={{marginHorizontal:15, flex:1}}>
                 <Text style={{letterSpacing:1, color:theme.fontColor}}>{item.name}</Text>
             </View>
                       

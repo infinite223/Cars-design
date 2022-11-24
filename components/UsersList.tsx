@@ -40,7 +40,7 @@ export const UsersList:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile
 
     useEffect(() => {
       if(showUsersList.users && showUsersList.users.length>0) {
-          translateY.value = withSpring( -SCREEN_HEIGHT/2.2, { damping: 50})
+          translateY.value = withSpring( -SCREEN_HEIGHT/1.7, { damping: 50})
           translateX.value = withSpring(0, { damping: 100})
       }
 
@@ -80,9 +80,9 @@ export const UsersList:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={[style.listContainer, rUsersListContentSheetStyle, {backgroundColor: theme.backgroundContent}]}>
+      <Animated.View style={[style.listContainer, rUsersListContentSheetStyle,  {backgroundColor: theme.background, borderWidth:1, borderColor:theme.backgroundContent}]}>
         {/* <View style={{marginBottom:10, width:40, height:7, backgroundColor: theme.fontColorContent, borderRadius:15, alignSelf:'center'}}/> */}
-            <Text style={{color:'#2b3', fontWeight:'bold', fontSize:16, alignSelf:'center'}}>
+            <Text style={{marginVertical:8, color:'#2b3', fontWeight:'bold', fontSize:16, alignSelf:'center'}}>
               {showUsersList.headerText}
             </Text>
             <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
@@ -113,7 +113,7 @@ const style = StyleSheet.create({
     width: SCREEN_WIDTH,
     position: 'absolute',
     top: SCREEN_HEIGHT-100,
-    borderRadius: 15,
+    borderRadius: 25,
     zIndex:10
   },
   renderItem:{ 

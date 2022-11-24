@@ -32,6 +32,7 @@ export const TabsNavigator = () => {
                 backgroundColor:theme.background,
                 borderTopWidth:0,
                 height:65,
+                zIndex:7
                 
             },
             tabBarLabelStyle:{color:theme.fontColorContent, marginBottom:10}
@@ -44,10 +45,10 @@ export const TabsNavigator = () => {
             />
             {/* <Tab.Screen name='Settings' component={SettingsScreen}/> */}
             <Tab.Screen name='Create' component={CreateScreen} options={
-              {tabBarIcon: () => <_Icon name='plus' size={24} color={theme.fontColor} style={{paddingTop:5}}/>}} 
+              {tabBarIcon: () => <_Icon name='plus' size={26} color={theme.fontColor} style={{paddingTop:5}}/>}} 
             />
             <Tab.Screen name="Profile" component={ProfileScreen} options={
-              {tabBarIcon: () => <Icon type='ionicon' name='person-circle' size={24} color={theme.fontColor} style={{paddingTop:5}}/>}} 
+              {tabBarHideOnKeyboard:true, tabBarIcon: () => <Icon type='ionicon' name='person-circle' size={24} color={theme.fontColor} style={{paddingTop:5}}/>}} 
             />
           </Tab.Navigator>
     );

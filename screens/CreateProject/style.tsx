@@ -51,7 +51,7 @@ export const style = StyleSheet.create({
     nextStepButton: {
         position: 'absolute', 
         bottom: 20, 
-        right: 10,
+        right: 20,
         backgroundColor: '#273', 
         paddingHorizontal:22, 
         borderRadius:50, 

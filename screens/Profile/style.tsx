@@ -4,14 +4,11 @@ const heightScreen = Dimensions.get('window').height
 
 export const style = StyleSheet.create({
     headerLeftContainer: {
-        flexDirection:"row", 
-        alignItems:'center', 
-        width:65, 
-        justifyContent:'space-around'
+        marginLeft:20,
     },
     headerRightContainer: {
-        flexDirection:'row', 
-        alignItems:'center'
+     marginRight:10,
+     marginTop:10
     },
     mainContainer: {
         flex:1, 

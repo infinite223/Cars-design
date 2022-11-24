@@ -19,8 +19,8 @@ export const HomeStack = () => {
               },
               }}>
                 <Stack.Screen name='HomeS' component={HomeScreen}/> 
-                 <Stack.Screen name='Chats' component={ChatsScreen}/>
-        <Stack.Screen name='Project' component={ProjectScreen}/>
+                 {/* <Stack.Screen name='Chats' component={ChatsScreen}/> */}
+        {/* <Stack.Screen name='Project' component={ProjectScreen}/> */}
     </Stack.Navigator>         
   )
 }

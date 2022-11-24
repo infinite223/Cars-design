@@ -67,7 +67,7 @@ export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyPro
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={[style.optionsMenu, rOptionsContentSheetStyle, {backgroundColor: theme.backgroundContent}]}>
+      <Animated.View style={[style.optionsMenu, rOptionsContentSheetStyle, {backgroundColor: theme.background, borderWidth:1, borderColor:theme.backgroundContent}]}>
         <View style={{marginBottom:10, width:40, height:7, backgroundColor: theme.fontColorContent, borderRadius:15, alignSelf:'center'}}/>
           <Text style={{color:'#2b3', fontWeight:'bold', alignSelf:'center'}}>
             {showOptions.selectedProject?.car.CarMake+' '} 
@@ -130,7 +130,7 @@ const style = StyleSheet.create({
     width: SCREEN_WIDTH,
     position: 'absolute',
     top: SCREEN_HEIGHT-100,
-    borderRadius: 15,
+    borderRadius: 25,
     zIndex:10
 },
 optionText: {

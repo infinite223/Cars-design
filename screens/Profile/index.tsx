@@ -54,30 +54,31 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:25, fontSize:17, color:theme.fontColor}}>
+           headerStyle:{height:90, backgroundColor: theme.background, alignItems:'center'},
+           headerTitle: () => <Text style={{marginLeft:0, fontSize:20, fontWeight:'bold', color:theme.fontColor}}>
             {user.uid?profileUser.displayName:'Demo'}
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:20}}>
+               {/* <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:20, marginLeft:10}}>
                     <Icon
                         size={24}
                         name='arrow-back-ios'
                         type='MaterialIcons'
                         color={theme.fontColor}
                     />
-                </TouchableOpacity>
-                <TouchableOpacity style={{marginVertical:10, marginLeft:10}} onPress={() => setEditProfileModalVisible(true)}>
+                </TouchableOpacity> */}
+                <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
                     <Avatar
-                        size={34}
+                        size={38}
                         rounded
                         source={{uri:data[0].author.imageUri}}    
                     />
                 </TouchableOpacity>
             </View>
           ),
-          headerRight: () => <View style={style.headerRightContainer}> 
-           <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{flexDirection:'row', alignItems:'center', position:'relative'}}>  
+          headerRight: () => <View style={[style.headerRightContainer, {alignItems:'center'}]}> 
+           {/* <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{flexDirection:'row', alignItems:'center', position:'relative'}}>  
                 <Text style={{fontSize:15, zIndex:5, color: theme.fontColor, fontStyle:'italic', letterSpacing:1, fontFamily:'tahoma'}}>Spot</Text>         
                 <Icon
                     name='plus'
@@ -86,13 +87,13 @@ const ProfileScreen = () => {
                     color={'#2b3'}
                     style={{zIndex:3, right:5, top:-5}}
                 />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{paddingRight:8, paddingLeft:3}}>   
+            </TouchableOpacity> */}
+            <TouchableOpacity style={{paddingHorizontal:10}} onPress={()=>navigation.navigate('Settings')}>   
                 <Icon                 
-                    name='ios-settings-outline'
+                    name='ios-settings-sharp'
                     type='ionicon'
-                    size={23} 
-                    color={theme.fontColor}
+                    size={24} 
+                    color={theme.fontColorContent}
                 />
             </TouchableOpacity>
           </View>
