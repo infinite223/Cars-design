@@ -65,12 +65,12 @@ const SettingsScreen = () => {
             <Icon type='ionicon' name='notifications-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?NotifyText.en:NotifyText.pl}</Text>
         </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> logout()} style={[style.logOutButton, {backgroundColor:theme.backgroundContent}]}>
+        {/* <TouchableOpacity onPress={()=> logout()} style={[style.logOutButton, {backgroundColor:theme.backgroundContent}]}>
             <Text style={{fontSize:16, color:theme.fontColor}}>
                 {language==="en"?logOutText.en:logOutText.pl}
                 <Text>{user.name==="Tester"?' Demo':'  '+user.displayName}</Text>
             </Text>       
-        </TouchableOpacity> 
+        </TouchableOpacity>  */}
     </View>
   )
 }

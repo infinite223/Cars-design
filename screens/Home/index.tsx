@@ -1,8 +1,8 @@
-import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image } from 'react-native'
+import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image, Dimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import { data } from '../../utils/data';
 import { selectLanguage } from './../../slices/languageSlice';
@@ -13,10 +13,17 @@ import { style } from './style';
 import { doc, getFirestore, setDoc, collectionGroup, onSnapshot } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
+import _Icon from 'react-native-vector-icons/Ionicons'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { RightNavigation } from '../../components/RightNavigation';
+import { setNavigation } from '../../slices/navigationSlice';
+
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
   const navigation:any = useNavigation()
+  const dispatch = useDispatch()
   const theme = useSelector(selectTheme)
   const [projects, setProjects] = useState<any>([])
   const language = useSelector(selectLanguage)
@@ -45,13 +52,16 @@ const HomeScreen = () => {
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity style={style.iconPadding} onPress={() => 
+        {/* <TouchableOpacity style={style.iconPadding} onPress={() => 
           navigation.navigate('Chats')
         }>
           <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={style.iconPadding} onPress={() => navigation.navigate('Profile', {state: user})}>
-          <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={style.iconPadding} 
+          onPress={() => dispatch(setNavigation(SCREEN_WIDTH/3.5))}
+          // onPress={() => navigation.navigate('Profile', {state: user})}
+        >
+          <_Icon name={'menu-outline'} size={26 } color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
       </View>
     })

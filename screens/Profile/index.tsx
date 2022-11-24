@@ -54,20 +54,20 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerStyle:{height:90, backgroundColor: theme.background, alignItems:'center'},
-           headerTitle: () => <Text style={{marginLeft:0, fontSize:20, fontWeight:'bold', color:theme.fontColor}}>
+        //    headerStyle:{height:90, backgroundColor: theme.background, alignItems:'center'},
+           headerTitle: () => <Text style={{marginLeft:15, fontSize:20, fontWeight:'bold', color:theme.fontColor}}>
             {user.uid?profileUser.displayName:'Demo'}
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
-               {/* <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:20, marginLeft:10}}>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
                     <Icon
                         size={24}
                         name='arrow-back-ios'
                         type='MaterialIcons'
                         color={theme.fontColor}
                     />
-                </TouchableOpacity> */}
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
                     <Avatar
                         size={38}
@@ -88,14 +88,14 @@ const ProfileScreen = () => {
                     style={{zIndex:3, right:5, top:-5}}
                 />
             </TouchableOpacity> */}
-            <TouchableOpacity style={{paddingHorizontal:10}} onPress={()=>navigation.navigate('Settings')}>   
+            {/* <TouchableOpacity style={{paddingHorizontal:10}} onPress={()=>navigation.navigate('Settings')}>   
                 <Icon                 
                     name='ios-settings-sharp'
                     type='ionicon'
                     size={24} 
                     color={theme.fontColorContent}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         })  
       }, [theme])

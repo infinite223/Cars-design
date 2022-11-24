@@ -81,8 +81,8 @@ export const UsersList:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[style.listContainer, rUsersListContentSheetStyle,  {backgroundColor: theme.background, borderWidth:1, borderColor:theme.backgroundContent}]}>
-        {/* <View style={{marginBottom:10, width:40, height:7, backgroundColor: theme.fontColorContent, borderRadius:15, alignSelf:'center'}}/> */}
-            <Text style={{marginVertical:8, color:'#2b3', fontWeight:'bold', fontSize:16, alignSelf:'center'}}>
+        <View style={{marginBottom:10, width:40, height:5, backgroundColor: theme.backgroundContent, borderRadius:15, alignSelf:'center'}}/>
+            <Text style={{marginVertical:3, color:'#2b3', fontWeight:'bold', fontSize:16, alignSelf:'center'}}>
               {showUsersList.headerText}
             </Text>
             <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>

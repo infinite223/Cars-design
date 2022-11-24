@@ -8,6 +8,7 @@ import { LogBox, StatusBar } from 'react-native';
 import { store } from './store';
 import { selectTheme } from './slices/themeSlice';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { RightNavigation } from './components/RightNavigation';
 
 LogBox.ignoreAllLogs()
 
@@ -19,6 +20,7 @@ export default function App() {
         <AuthProvider>
          <GestureHandlerRootView style={{flex:1}}>
           <StackNavigator/>
+          <RightNavigation/>
           </GestureHandlerRootView>
         </AuthProvider>
       </NavigationContainer>
