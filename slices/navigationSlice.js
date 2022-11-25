@@ -4,7 +4,7 @@ import { Dimensions } from "react-native";
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 const initialState = {
-   show: SCREEN_WIDTH+100
+   show: false
 }
 
 export const navigationSlice = createSlice({

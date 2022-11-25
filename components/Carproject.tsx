@@ -35,11 +35,11 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </View>
             <Text style={{fontSize:12, margin:5, color:theme.fontColor}}>{createdAt}</Text>
         </View>
-        {loadingProjects&&<LoadingView/>}
+        {/* {loadingProjects&&<LoadingView />} */}
         <Image style={{height:250, width:"100%"}} source={{uri:car.imagesCar[0].url}}/>
       </View>
     </TouchableWithoutFeedback>
   )
 }
-
+ 
 export default Carproject

@@ -4,36 +4,50 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
-import { selectNavigation, setNavigation } from './../slices/navigationSlice';
+import { selectNavigation, setNavigation } from '../slices/navigationSlice';
 import _Icon from 'react-native-vector-icons/Ionicons'
 import { Icon } from '@rneui/base';
 import { Avatar } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
-import useAuth from './../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import _Icon_SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
-
-
-
+import { translations } from './../utils/translations';
+import { selectLanguage } from './../slices/languageSlice';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 export const RightNavigation = () => {
+    const [localTranslation, setLocalTranslation] = useState<string[]>([])
+    const {logoutText, links} = translations.navigation.rightNavigation
     const translateX = useSharedValue(0)
     const translateXBackground = useSharedValue(0)
     const theme = useSelector(selectTheme)
-    const navigation = useNavigation()
+    const language = useSelector(selectLanguage)
+    const navigation = useNavigation<any>()
     const { user, logout }:any = useAuth()
     const dispatch = useDispatch()
     const showNavigation = useSelector(selectNavigation)
     const [showNav, setShowNav] = useState(false)
-    console.log(showNavigation)
+
     const rNavigationContentSheetStyle = useAnimatedStyle(() => {  
       return {       
         transform: [{translateX: translateX.value}]
       }
     })
+useEffect(() => {
+  const obj = []
+  for (let link of translations.navigation.rightNavigation.links) {
+    let propName = Object.keys(link)[0];
+    obj.push(link[propName][language])
+    // console.log(link[propName][language])
+   
+  }
+  setLocalTranslation(obj);
+}, [language])
 
+
+    console.log(localTranslation)
     const rBackgroundSheetStyle = useAnimatedStyle(() => {  
         return {       
           transform: [{translateX: translateXBackground.value}]
@@ -41,12 +55,12 @@ export const RightNavigation = () => {
       })
 
     useEffect(() => {
-      if(showNavigation === SCREEN_WIDTH/3.5 ) {
-        translateX.value = withSpring(showNavigation, {damping:100})
+      if(showNavigation) {
+        translateX.value = withSpring(SCREEN_WIDTH/3.5, {damping:100})
         translateXBackground.value = withSpring(-200)
       }
       else{
-        translateX.value = withSpring(showNavigation)
+        translateX.value = withSpring(SCREEN_WIDTH+100)
         translateXBackground.value = withSpring(-SCREEN_WIDTH-200)
       }
 
@@ -62,11 +76,9 @@ export const RightNavigation = () => {
     
     .onUpdate((event)=> {
         translateX.value = event.translationX + context.value.x;
-        // translateX.value = Math.min(SCREEN_WIDTH/3.5+220)
-        // translateX.value = Math.max(SCREEN_WIDTH/3.5-200)
 
-      if( translateX.value<showNavigation){
-        translateX.value = withSpring(showNavigation)
+      if(translateX.value<SCREEN_WIDTH/3.5){
+        translateX.value = withSpring(SCREEN_WIDTH/3.5)
       }
     })
     .runOnJS(true)
@@ -74,7 +86,7 @@ export const RightNavigation = () => {
       if(translateX.value>SCREEN_WIDTH/3){
         translateX.value = withSpring(SCREEN_WIDTH+100)
         translateXBackground.value = withSpring(-SCREEN_WIDTH-200)
-        dispatch(setNavigation(SCREEN_WIDTH+100))
+        dispatch(setNavigation(false))
       }
     })
     
@@ -84,12 +96,12 @@ export const RightNavigation = () => {
         <View style={{width:SCREEN_WIDTH/1.45, justifyContent:'space-between', flex:1}}>
             <View>
                 <View style={style.header}>
-                    <TouchableOpacity onPress={()=>dispatch(setNavigation(SCREEN_WIDTH+100))}>
+                    <TouchableOpacity onPress={()=>dispatch(setNavigation(false))}>
                         <_Icon name={'menu-outline'} size={28} color={theme.fontColor} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(SCREEN_WIDTH+100)))} 
+                        onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} 
                         style={style.profileButton}
                     >
                         <Text style={[style.name, {color: theme.fontColorContent}]}>Dawid</Text>
@@ -98,36 +110,56 @@ export const RightNavigation = () => {
                 </View>
         
                 <View style={style.content}>
-                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(SCREEN_WIDTH+100)))} >
-                        <Text style={[style.linkText, {color: theme.fontColor}]}>My profile</Text>
+                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} >
+                        <Text style={[style.linkText, {color: theme.fontColor}]}>
+                          {/* {language==='en'?profile.en:profile.pl} */}
+                          {localTranslation[0]}
+                        </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}>
-                        <Text style={[style.linkText, {color: theme.fontColor}]}>Groups</Text>
+                        <Text style={[style.linkText, {color: theme.fontColor}]}>
+                          {/* {language==='en'?group.en:group.pl} */}
+                          {localTranslation[1]}
+                        </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Create', {state: user}), dispatch(setNavigation(SCREEN_WIDTH+100)))} >
-                        <Text style={[style.linkText, {color: theme.fontColor}]}>Add project</Text>
+                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Create', {state: user}), dispatch(setNavigation(false)))} >
+                        <Text style={[style.linkText, {color: theme.fontColor}]}>
+                          {/* {language==='en'?add.en:add.pl} */}
+                          {localTranslation[2]}
+                        </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Chats', {state: user}), dispatch(setNavigation(SCREEN_WIDTH+100)))} >
-                        <Text style={[style.linkText, {color: theme.fontColor}]}>Chats</Text>
+                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Chats', {state: user}), dispatch(setNavigation(false)))} >
+                        <Text style={[style.linkText, {color: theme.fontColor}]}>
+                          {/* {language==='en'?chats.en:chats.pl} */}
+                          {localTranslation[3]}
+                        </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>           
                 </View>
             </View>
 
                 <View style={style.bottomContent}>
-                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Settings'), dispatch(setNavigation(SCREEN_WIDTH+100)))} >
-                        <Text style={[style.linkText, {color: theme.fontColor}]}>Settings</Text>
+                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Settings'), dispatch(setNavigation(false)))} >
+                        <Text style={[style.linkText, {color: theme.fontColor}]}>
+                          {/* {language==='en'?settings.en:settings.pl} */}
+                          {localTranslation[4]}
+                        </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}>
-                        <Text style={[style.linkText, {color: '#2b3'}]}>Add reviews</Text>
+                        <Text style={[style.linkText, {color: '#2b3'}]}>
+                          {/* {language==='en'?reviews.en:reviews.pl} */}
+                          {localTranslation[5]}
+                        </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> (logout(), dispatch(setNavigation(SCREEN_WIDTH+100)))}  style={[style.logoutButton, {backgroundColor: theme.backgroundContent}]}>
-                        <Text style={[{color:theme.fontColorContent, marginRight:13}]}>Logout</Text>
+                    <TouchableOpacity onPress={()=> (logout(), dispatch(setNavigation(false)))}  style={[style.logoutButton, {backgroundColor: theme.backgroundContent}]}>
+                        <Text style={[{color:theme.fontColorContent, marginRight:13}]}>
+                          {/* {language==='en'?logoutText.en:logoutText.pl} */}
+                        </Text>
                         <_Icon_SimpleLineIcons name="logout" size={16} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                 </View>

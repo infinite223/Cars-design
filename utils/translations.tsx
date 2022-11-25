@@ -1,4 +1,38 @@
 export const translations = {
+    navigation: {
+        rightNavigation: {
+            links: [
+                {profile: {
+                    en: 'My profile',
+                    pl: 'Mój profil'
+                },},
+                {group: {
+                    en: "Groups",
+                    pl: 'Grupy'
+                },},
+                {add: {
+                    en: 'Add project',
+                    pl: 'Dodaj projekt'
+                },},
+                {chats: {
+                    en: 'Chats',
+                    pl:'Czaty'
+                },},
+                {settings: {
+                    en:'Settings',
+                    pl: 'Ustawienia'
+                },},
+                {reviews: {
+                    en: 'Add reviews',
+                    pl: 'Dodaj opinie'
+                }}
+            ],
+            logoutText: {
+                en:'Logout',
+                pl:'Wyloguj'
+            }
+        }  
+    },
     components: {
         BottomOptions: {
             editText: {

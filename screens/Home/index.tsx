@@ -15,10 +15,10 @@ import useAuth from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 import _Icon from 'react-native-vector-icons/Ionicons'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { RightNavigation } from '../../components/RightNavigation';
+import { RightNavigation } from '../../navigation/RightNavigation';
 import { setNavigation } from '../../slices/navigationSlice';
 
-const SCREEN_WIDTH = Dimensions.get('window').width
+const SCREEN_WIDTH = Dimensions.get('window').width 
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
@@ -58,7 +58,7 @@ const HomeScreen = () => {
           <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
         </TouchableOpacity> */}
         <TouchableOpacity style={style.iconPadding} 
-          onPress={() => dispatch(setNavigation(SCREEN_WIDTH/3.5))}
+          onPress={() => dispatch(setNavigation(true))}
           // onPress={() => navigation.navigate('Profile', {state: user})}
         >
           <_Icon name={'menu-outline'} size={26 } color={theme.fontColor} style={{ marginRight: 0 }}/>
