@@ -10,13 +10,14 @@ import { translations } from '../../utils/translations';
 import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
 import { style } from './style';
-import { doc, getFirestore, setDoc, collectionGroup, onSnapshot } from 'firebase/firestore';
+import { doc, getFirestore, setDoc, collectionGroup, onSnapshot, getDoc, collection } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 import _Icon from 'react-native-vector-icons/Ionicons'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { RightNavigation } from '../../navigation/RightNavigation';
 import { setNavigation } from '../../slices/navigationSlice';
+import EditProfileModal from '../modals/SettingsModals/EditProfileModal';
 
 const SCREEN_WIDTH = Dimensions.get('window').width 
 
@@ -25,6 +26,7 @@ const HomeScreen = () => {
   const navigation:any = useNavigation()
   const dispatch = useDispatch()
   const theme = useSelector(selectTheme)
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
   const [projects, setProjects] = useState<any>([])
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
@@ -32,6 +34,18 @@ const HomeScreen = () => {
   const db = getFirestore()
 
   useEffect(() => {
+    const getUserData = async () => {
+      const usersRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(usersRef);
+      if (docSnap.data()?.name) {
+        console.log('coś jest xd', docSnap.data())
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        setShowEditProfileModal(true)
+      }
+    }
+
     const getProjects = () => {
       const projectsRef = collectionGroup(db, 'projects')
        onSnapshot(projectsRef, (snapchot) => {      
@@ -40,7 +54,7 @@ const HomeScreen = () => {
         }))      
       })
     }
-  
+    getUserData()
     getProjects()
   }, [])
   
@@ -70,6 +84,7 @@ const HomeScreen = () => {
   
   return (
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
+      <EditProfileModal modalVisible={showEditProfileModal} setModalVisible={setShowEditProfileModal}/>
       {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
       <FlatList style={{flex:1, height:"100%", width: '100%'}}
         //  ListHeaderComponent={()=> {

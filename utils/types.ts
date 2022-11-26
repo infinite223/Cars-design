@@ -1,10 +1,16 @@
 export type User = {
     name:string,
+    description?:string,
     email:string
     imageUri:string,
     carProjects?:CarprojectData[],
     place?:Place,
-    uid:string
+    uid:string,
+    stats?: {
+        followers: number,
+        views: number,
+        following:number
+    }
 }
 // const engine = require('../assets/componentsIcons/engine.png')
 

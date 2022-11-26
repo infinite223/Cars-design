@@ -26,16 +26,16 @@ const AuthContext = createContext({})
 
 
 export const AuthProvider = ({children}) => {
+  const db =  getFirestore()
   const [user, setUser] = useState(null)
   const [loadingInitial, setLoadingInitial] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if(user){
-        // get user data from firebase 
-        setUser(user)
+       setUser(user)
       }
       else {
         setUser(null)

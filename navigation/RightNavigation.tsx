@@ -23,33 +23,31 @@ export const RightNavigation = () => {
     const translateX = useSharedValue(0)
     const translateXBackground = useSharedValue(0)
     const theme = useSelector(selectTheme)
-    const language = useSelector(selectLanguage)
+    const language:string = useSelector(selectLanguage)
     const navigation = useNavigation<any>()
     const { user, logout }:any = useAuth()
     const dispatch = useDispatch()
     const showNavigation = useSelector(selectNavigation)
-    const [showNav, setShowNav] = useState(false)
-
     const rNavigationContentSheetStyle = useAnimatedStyle(() => {  
       return {       
         transform: [{translateX: translateX.value}]
       }
     })
-useEffect(() => {
-  const obj = []
-  for (let link of translations.navigation.rightNavigation.links) {
-    let propName = Object.keys(link)[0];
-    obj.push(link[propName][language])
-    // console.log(link[propName][language])
-   
-  }
-  setLocalTranslation(obj);
-}, [language])
+
+    useEffect(() => {
+      const obj = []
+
+      for (let link of translations.navigation.rightNavigation.links) {
+        let propName = Object.keys(link)[0];
+        obj.push(link[propName][language])
+      }
+
+      setLocalTranslation(obj);
+    }, [language])
 
 
-    console.log(localTranslation)
     const rBackgroundSheetStyle = useAnimatedStyle(() => {  
-        return {       
+        return {        
           transform: [{translateX: translateXBackground.value}]
         }
       })
@@ -158,7 +156,7 @@ useEffect(() => {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> (logout(), dispatch(setNavigation(false)))}  style={[style.logoutButton, {backgroundColor: theme.backgroundContent}]}>
                         <Text style={[{color:theme.fontColorContent, marginRight:13}]}>
-                          {/* {language==='en'?logoutText.en:logoutText.pl} */}
+                          {logoutText[language]}
                         </Text>
                         <_Icon_SimpleLineIcons name="logout" size={16} color={theme.fontColorContent}/>
                     </TouchableOpacity>
