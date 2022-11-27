@@ -9,13 +9,14 @@ import CreateScreen from './../screens/CreateProject'
 import SettingsScreen from './../screens/Settings'
 import ChatsScreen from './../screens/Chats'
 import useAuth from './../hooks/useAuth'
-import EditProfileScreen from './../screens/modals/SettingsModals/EditProfileModal';
+// import EditProfileScreen from './../screens/modals/SettingsModals/EditProfileModal';
 import MyCamera from './../screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import MeetingRoomScreen from './../screens/MeetingRoom';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsNavigator } from './TabsNavigator'
+import EditProfileScreen from './../screens/EditProfile/index';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -45,6 +46,7 @@ const StackNavigator = () => {
             <Stack.Screen name='Profile' component={ProfileScreen}/>               
             <Stack.Screen name='Camera' component={MyCamera} options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>
+            <Stack.Screen name='EditProfile' component={EditProfileScreen}/>  
             <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>

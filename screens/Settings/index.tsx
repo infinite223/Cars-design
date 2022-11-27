@@ -43,7 +43,7 @@ const SettingsScreen = () => {
     <View style={[style.settingsContainer, {backgroundColor:theme.background}]}>
         <ThemeModal  modalVisible={themeModalVisible} setModalVisible={setThemeModalVisible}/>
         <InformationModal  modalVisible={informationModalVisible} setModalVisible={setInformationModalVisible}/>
-        <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
+        {/* <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/> */}
         <LanguageModal modalVisible={languageModalVisible} setModalVisible={setLanguageModalVisible}/>
         <TouchableOpacity style={style.option} onPress={()=>setThemeModalVisible(true)}> 
             <Icon type="ionicon" name='color-palette-outline' size={24} color={theme.fontColor}/>
@@ -53,7 +53,7 @@ const SettingsScreen = () => {
             <Icon type='octicon' name='info' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?InfoText.en:InfoText.pl}</Text>
         </TouchableOpacity>  
-        <TouchableOpacity style={style.option} onPress={()=>setEditProfileModalVisible(true)}>
+        <TouchableOpacity style={style.option} onPress={()=>navigation.navigate('EditProfile')}>
             <Icon type="ionicon" name='person-circle-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?ProfileText.en:ProfileText.pl}</Text>
         </TouchableOpacity>  

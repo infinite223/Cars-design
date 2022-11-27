@@ -54,7 +54,7 @@ export const RightNavigation = () => {
 
     useEffect(() => {
       if(showNavigation) {
-        translateX.value = withSpring(SCREEN_WIDTH/3.5, {damping:100})
+        translateX.value = withSpring(SCREEN_WIDTH/3, {damping:100})
         translateXBackground.value = withSpring(-200)
       }
       else{
@@ -75,7 +75,7 @@ export const RightNavigation = () => {
     .onUpdate((event)=> {
         translateX.value = event.translationX + context.value.x;
 
-      if(translateX.value<SCREEN_WIDTH/3.5){
+      if(translateX.value<SCREEN_WIDTH/3){
         translateX.value = withSpring(SCREEN_WIDTH/3.5)
       }
     })

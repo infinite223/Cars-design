@@ -7,39 +7,43 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../../slices/themeSlice';
 import { Icon } from '@rneui/base'
+import SelectPlaceOnMap from '../SelectPlaceOnMap'
 
 
 const EditProfileModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
     
     const [nickname, setNickname] = useState('')
     const [description, setDescription] = useState('')
+    const [selectPlaceOnMapVisible, setSelectPlaceOnMapVisible] = useState(false)
     const { user, logout }:any = useAuth()
     const navigation = useNavigation()
     const [userImage, setUserImage] = useState(null)
-    const [place, setPlace] = useState(null)
+    const [place, setPlace] = useState<any>({
+     
+    })
 
     const theme = useSelector(selectTheme)
 
-    useEffect(() => {
-        const backAction = () => {
-          Alert.alert("Hold on!", "Are you sure you want to go back?", [
-            {
-              text: "Cancel",
-              onPress: () => null,
-              style: "cancel"
-            },
-            { text: "YES", onPress: () => BackHandler.exitApp() }
-          ]);
-          return true;
-        };
+    // useEffect(() => {
+    //     const backAction = () => {
+    //       Alert.alert("Hold on!", "Are you sure you want to go back?", [
+    //         {
+    //           text: "Cancel",
+    //           onPress: () => null,
+    //           style: "cancel"
+    //         },
+    //         { text: "YES", onPress: () => BackHandler.exitApp() }
+    //       ]);
+    //       return true;
+    //     };
     
-        const backHandler = BackHandler.addEventListener(
-          "hardwareBackPress",
-          backAction
-        );
+    //     const backHandler = BackHandler.addEventListener(
+    //       "hardwareBackPress",
+    //       backAction
+    //     );
     
-        return () => backHandler.remove();
-      }, []);
+    //     return () => backHandler.remove();
+    //   }, []);
 
     const complate = (nickname && description)? true:false
 
@@ -69,6 +73,7 @@ const EditProfileModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
           setModalVisible(!modalVisible);
         }}
       >
+        <SelectPlaceOnMap origin={place} setOrigin={setPlace} modalVisible={selectPlaceOnMapVisible} setModalVisible={setSelectPlaceOnMapVisible}/>
         <View style={[style.containerModal, {backgroundColor: theme.background}]}>
             <View style={{}}>
                 <Text style={[style.headerText, {color: theme.fontColor}]}>Update profile</Text>
@@ -81,9 +86,9 @@ const EditProfileModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
                 </View>
 
                 <TextInput style={[style.descriptionInput, {color:theme.fontColor, backgroundColor: theme.backgroundContent}]} placeholder='Type profile description' placeholderTextColor={theme.fontColorContent}/>
-                <TouchableOpacity style={style.placeContainer}>
+                <TouchableOpacity onPress={()=>setSelectPlaceOnMapVisible(true)} style={style.placeContainer}>
                     <Text style={style.placeText}>{place?place:'Set place where people can find you'}</Text>
-                    <Icon type='materialicon' name='add-location-alt' size={22} color={theme.fontColorContent}/>
+                    <Icon type='materialicon' name='add-location-alt' size={20} color={'white'}/>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={style.deleteButton}>
@@ -161,9 +166,9 @@ const style = StyleSheet.create({
         backgroundColor: '#273'
     },
     placeText: {
-        fontSize:16,
+        fontSize:14,
         letterSpacing:1,
-        color:'#bbb'
+        color:'white'
     },
     deleteButton: {
         borderRadius:10,

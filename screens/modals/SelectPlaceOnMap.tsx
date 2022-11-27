@@ -39,12 +39,14 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
         >   
             <GooglePlacesAutocomplete 
                 onPress={(data, details=null) => {
+                    
                     setRegion({
                         latitude: details?.geometry.location.lat,
                         longitude: details?.geometry.location.lng,
                         latitudeDelta: 0.05,
                         longitudeDelta: 0.05,
                     })
+                    console.log(region)
                     setOrigin({
                         region: region,
                         place: data
@@ -78,7 +80,7 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 initialRegion={region}
                 region={region}
             />
-            <TouchableOpacity disabled={!origin.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>             
+           <TouchableOpacity disabled={!origin?.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>             
                 <Icon type='entypo' name={'check'} size={22} color="black"/>
             </TouchableOpacity>
         </Modal>

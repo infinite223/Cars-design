@@ -46,7 +46,6 @@ const ProfileScreen = () => {
     const [search, setSearch] = useState('')
     const {user}:any = useAuth()
     const isMyProfile = user.uid===profileUser.uid
-    const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { followersText, viewsText, followingText, headerText, headerProjectsText, addProjectButton } = translations.screens.ProfileScreen
@@ -68,7 +67,7 @@ const ProfileScreen = () => {
                         color={theme.fontColor}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setEditProfileModalVisible(true)}>
+                <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
                     <Avatar
                         size={38}
                         rounded
@@ -111,8 +110,6 @@ const ProfileScreen = () => {
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
       <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: SCREEN_WIDTH, height:SCREEN_HEIGHT+100}]}/>
-
-        <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/>
         <View style={{marginVertical:5}}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>
                 {language==="en"?headerText.en:headerText.pl}
