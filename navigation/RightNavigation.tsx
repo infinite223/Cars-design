@@ -76,7 +76,7 @@ export const RightNavigation = () => {
         translateX.value = event.translationX + context.value.x;
 
       if(translateX.value<SCREEN_WIDTH/3){
-        translateX.value = withSpring(SCREEN_WIDTH/3.5)
+        translateX.value = withSpring(SCREEN_WIDTH/3)
       }
     })
     .runOnJS(true)

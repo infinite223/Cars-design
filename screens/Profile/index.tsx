@@ -53,7 +53,6 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-        //    headerStyle:{height:90, backgroundColor: theme.background, alignItems:'center'},
            headerTitle: () => <Text style={{marginLeft:15, fontSize:20, fontWeight:'bold', color:theme.fontColor}}>
             {user.uid?profileUser.displayName:'Demo'}
             </Text>,
@@ -75,27 +74,7 @@ const ProfileScreen = () => {
                     />
                 </TouchableOpacity>
             </View>
-          ),
-          headerRight: () => <View style={[style.headerRightContainer, {alignItems:'center'}]}> 
-           {/* <TouchableOpacity onPress={() => navigation.navigate('Create')} style={{flexDirection:'row', alignItems:'center', position:'relative'}}>  
-                <Text style={{fontSize:15, zIndex:5, color: theme.fontColor, fontStyle:'italic', letterSpacing:1, fontFamily:'tahoma'}}>Spot</Text>         
-                <Icon
-                    name='plus'
-                    type='entypo'
-                    size={25} 
-                    color={'#2b3'}
-                    style={{zIndex:3, right:5, top:-5}}
-                />
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity style={{paddingHorizontal:10}} onPress={()=>navigation.navigate('Settings')}>   
-                <Icon                 
-                    name='ios-settings-sharp'
-                    type='ionicon'
-                    size={24} 
-                    color={theme.fontColorContent}
-                />
-            </TouchableOpacity> */}
-          </View>
+          )
         })  
       }, [theme])
 

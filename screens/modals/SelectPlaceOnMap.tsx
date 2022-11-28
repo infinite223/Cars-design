@@ -80,8 +80,14 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 initialRegion={region}
                 region={region}
             />
-           <TouchableOpacity disabled={!origin?.region} style={[style.setButton]} onPress={()=>setModalVisible(false)}>             
-                <Icon type='entypo' name={'check'} size={22} color="black"/>
+           <TouchableOpacity 
+                // disabled={!origin?.place?.description} 
+                style={[style.setButton,
+                    //  {  backgroundColor: origin.place.description?'#293':'rgba(100, 100, 100, .5)'}
+                    ]} 
+                onPress={()=>setModalVisible(false)}
+            >             
+                <Icon type='entypo' name={'check'} size={24} color="white"/>
             </TouchableOpacity>
         </Modal>
   )
@@ -98,10 +104,9 @@ const style = StyleSheet.create({
         position:'absolute',
         bottom: 20,
         right: 20,
-        paddingHorizontal:15,
+        paddingHorizontal:25,
         paddingLeft:20,
-        paddingVertical:5,
-        backgroundColor: 'white',
+        paddingVertical:15,
         borderRadius:50,
         flexDirection: 'row',
         alignItems:'center',

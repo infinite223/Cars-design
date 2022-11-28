@@ -26,7 +26,6 @@ const HomeScreen = () => {
   const navigation:any = useNavigation()
   const dispatch = useDispatch()
   const theme = useSelector(selectTheme)
-  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
   const [projects, setProjects] = useState<any>([])
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
@@ -42,7 +41,7 @@ const HomeScreen = () => {
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
-        setShowEditProfileModal(true)
+        navigation.navigate('EditProfile')
       }
     }
 
@@ -84,7 +83,6 @@ const HomeScreen = () => {
   
   return (
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
-      <EditProfileModal modalVisible={showEditProfileModal} setModalVisible={setShowEditProfileModal}/>
       {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
       <FlatList style={{flex:1, height:"100%", width: '100%'}}
         //  ListHeaderComponent={()=> {
