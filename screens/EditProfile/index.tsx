@@ -44,27 +44,6 @@ const EditProfileScreen = () => {
       )})
     }, [theme, language])
 
-    // useEffect(() => {
-    //     const backAction = () => {
-    //       Alert.alert("Poczekaj!", "musisz uzupełn", [
-    //         {
-    //           text: "Cancel",
-    //           onPress: () => null,
-    //           style: "cancel"
-    //         },
-    //         { text: "YES", onPress: () => BackHandler.exitApp() }
-    //       ]);
-    //       return true;
-    //     };
-    
-    //     const backHandler = BackHandler.addEventListener(
-    //       "hardwareBackPress",
-    //       backAction
-    //     );
-    
-    //     return () => backHandler.remove();
-    //   }, []);
-
     const complate = (nickname && description)? true:false
 
   return (
@@ -73,24 +52,22 @@ const EditProfileScreen = () => {
         <View style={[style.containerModal, {backgroundColor: theme.background}]}>
             <View style={{}}>
               <CustomInput placeholder={user.displayName?user.displayName:'Type profile name'} setValue={setName} />
-                <View style={[style.mainData]}>
-                    <TouchableOpacity style={{alignItems:'center'}} onPress={()=>chooseImg(
-                      image, setImage, undefined, true
-                    )}>
-                        <Image resizeMode='contain' style={style.imageProfile} source={{uri: userImage?userImage:'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png'}}/>
-                        <Text style={[style.imageProfileLabel, {color: theme.fontColorContent}]}>Set profile image</Text>
-                    </TouchableOpacity>
-                </View>
+                  <TouchableOpacity style={[style.mainData, {alignItems:'center'}]} onPress={()=>chooseImg(
+                    image, setImage, undefined, true
+                  )}>
+                      <Image resizeMode='contain' style={style.imageProfile} source={{uri: userImage?userImage:'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png'}}/>
+                      <Text style={[style.imageProfileLabel, {color: theme.fontColorContent}]}>Set profile image</Text>
+                  </TouchableOpacity>
                 <TouchableOpacity onPress={()=>setSelectPlaceOnMapVisible(true)} style={style.placeContainer}>
                     <Text style={style.placeText}>{place.place.description?place.place.description:'Set place where people can find you'}</Text>
                     <Icon type='materialicon' name='add-location-alt' size={20} color={'white'}/>
                 </TouchableOpacity>
-                <CustomInput placeholder='Type profile description' setValue={setName} />
+                <CustomInput max={100} placeholder='Type profile description' setValue={setDescription} />
             </View>
             {/* <TouchableOpacity onPress={()=>deleteProfile()} style={style.deleteButton}>
                 <Text style={[style.deleteText]}> DELATE PROFILE</Text>
             </TouchableOpacity> */}
-            <TouchableOpacity onPress={() => updateProfile()} style={style.updateButton}>
+            <TouchableOpacity onPress={() => updateProfile(user.uid, name, image, place, description)} style={style.updateButton}>
               <Icon type='entypo' name={'check'} size={26} color="white"/>
             </TouchableOpacity>
         </View>

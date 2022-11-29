@@ -81,9 +81,9 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 region={region}
             />
            <TouchableOpacity 
-                // disabled={!origin?.place?.description} 
+                disabled={!origin?.place?.description} 
                 style={[style.setButton,
-                    //  {  backgroundColor: origin.place.description?'#293':'rgba(100, 100, 100, .5)'}
+                     {  backgroundColor: origin.place.description?'#293':'rgba(100, 100, 100, .5)'}
                     ]} 
                 onPress={()=>setModalVisible(false)}
             >             

@@ -65,14 +65,8 @@ const HomeScreen = () => {
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        {/* <TouchableOpacity style={style.iconPadding} onPress={() => 
-          navigation.navigate('Chats')
-        }>
-          <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
-        </TouchableOpacity> */}
         <TouchableOpacity style={style.iconPadding} 
           onPress={() => dispatch(setNavigation(true))}
-          // onPress={() => navigation.navigate('Profile', {state: user})}
         >
           <_Icon name={'menu-outline'} size={26 } color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
@@ -85,9 +79,6 @@ const HomeScreen = () => {
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
       <FlatList style={{flex:1, height:"100%", width: '100%'}}
-        //  ListHeaderComponent={()=> {
-        //   return <HeaderTopProjects/>
-        // }}
         data={projects}
         bounces
         keyExtractor={carProject => carProject.id}
