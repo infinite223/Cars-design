@@ -27,6 +27,7 @@ const EditProfileScreen = () => {
         place: {} 
     })
     const [image, setImage] = useState<any>([])
+    const [message, setMessage] = useState<{message:string, type:string}>(null)
 
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
@@ -67,7 +68,7 @@ const EditProfileScreen = () => {
             {/* <TouchableOpacity onPress={()=>deleteProfile()} style={style.deleteButton}>
                 <Text style={[style.deleteText]}> DELATE PROFILE</Text>
             </TouchableOpacity> */}
-            <TouchableOpacity onPress={() => updateProfile(user.uid, name, image, place, description)} style={style.updateButton}>
+            <TouchableOpacity onPress={() => updateProfile(user.uid, name, image, place, description, setMessage)} style={style.updateButton}>
               <Icon type='entypo' name={'check'} size={26} color="white"/>
             </TouchableOpacity>
         </View>
