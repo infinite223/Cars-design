@@ -6,10 +6,10 @@ import React, {useState} from 'react'
 import { style } from '../screens/Profile/style'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { CarprojectData, User } from '../utils/types'
+import { CarprojectData, User, UserList } from '../utils/types'
 
 interface FilterUsersProps {
-  users:User[] | null, 
+  users:UserList[] | null, 
   input:string, 
   edit?:boolean, 
 //   setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 

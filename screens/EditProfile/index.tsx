@@ -17,7 +17,7 @@ import AlertModal from '../modals/AlertModal'
 
 const EditProfileScreen = () => {
     const [selectPlaceOnMapVisible, setSelectPlaceOnMapVisible] = useState(false)
-    const { user, logout }:any = useAuth()
+    const { user, logout, setUser }:any = useAuth()
     const navigation = useNavigation()
     const [userImage, setUserImage] = useState(user.image?user.image:user.imageUri)
     const [name, setName] = useState(user.name?user.name:'')
@@ -33,7 +33,7 @@ const EditProfileScreen = () => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
 
-    console.log(user)
+    console.log(place)
 
     useLayoutEffect(() => {
       navigation.setOptions({
@@ -70,7 +70,7 @@ const EditProfileScreen = () => {
                 <CustomInput value={description} max={100} placeholder='Type profile description' setValue={setDescription} />
             </View>
 
-            {(!showAlert?.show && user.name!=='Tester')&&<TouchableOpacity onPress={() => updateProfile(user, name, image, place, description, setShowAlert)} style={style.updateButton}>
+            {(!showAlert?.show && user.name!=='Tester')&&<TouchableOpacity onPress={() => updateProfile(user, name, image, place, description, setShowAlert, setUser)} style={style.updateButton}>
               <Icon type='entypo' name={'check'} size={26} color="white"/>
             </TouchableOpacity>}
         </View>

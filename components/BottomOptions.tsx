@@ -11,6 +11,8 @@ import useAuth from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
 import { translations } from './../utils/translations';
 import { onShare } from './../utils/functions/projectFunctions';
+import { deleteProject } from '../firebase/deleteProject';
+import AlertModal from '../screens/modals/AlertModal';
 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
@@ -21,9 +23,10 @@ interface BottomOptionsProps {
     isMyProfile: boolean,
     showOptions: {show:boolean, selectedProject: CarprojectData | null},
     setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 
+    setShowAlert:(value:{show:boolean, message:string, type?:string})=>void
   }
 
-export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile, showOptions, setShowOptions}) => {
+export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile, showOptions, setShowOptions, setShowAlert}) => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { user, logout }:any = useAuth()
@@ -73,14 +76,17 @@ export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyPro
             {showOptions.selectedProject?.car.CarMake+' '} 
             {showOptions.selectedProject?.car.model}
           </Text>
-            {!isMyProfile?<>
+            {isMyProfile?<>
           <TouchableOpacity style={[style.optionContainer]}>
             <Icon type='materialicon' name='edit' size={22} color={theme.fontColorContent}/>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
               {language==='en'?editText.en:editText.pl}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[style.optionContainer]}>
+          <TouchableOpacity 
+            onPress={()=>deleteProject(setShowAlert,showOptions.selectedProject?.id)} 
+            style={[style.optionContainer]}
+          >
             <_Icon name='trash' size={20} color={theme.fontColorContent}/>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
               {language==='en'?deleteText.en:deleteText.pl}

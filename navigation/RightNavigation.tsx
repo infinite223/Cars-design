@@ -14,8 +14,8 @@ import _Icon_SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import { translations } from './../utils/translations';
 import { selectLanguage } from './../slices/languageSlice';
 
-const SCREEN_HEIGHT = Dimensions.get('window').height
-const SCREEN_WIDTH = Dimensions.get('window').width
+const SCREEN_HEIGHT = Dimensions.get('screen').height
+const SCREEN_WIDTH = Dimensions.get('screen').width
 
 export const RightNavigation = () => {
     const [localTranslation, setLocalTranslation] = useState<string[]>([])
@@ -178,7 +178,7 @@ export const RightNavigation = () => {
 const style = StyleSheet.create({
     containerNavigation: {
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT+50, //nie wiem dlaczego 50 xD       
+        height:SCREEN_HEIGHT, //nie wiem dlaczego 50 xD       
         position:'absolute',
         top:0,
         zIndex:11

@@ -6,8 +6,6 @@ export const uploadImage = async (image:any, profileImage:boolean, make:string, 
     const resizeImage = await getResizeImage(image.uri)
     const response = await fetch(resizeImage.uri)
     const blob = await response.blob()
-    let  downloadURL:string
-
     const immageFullName = image.uri.split('/')[image.uri.split('/').length-1]
     
     const storageRef = ref(storage, `${userUid}/${profileImage?'profile':make}-${profileImage?model:''}/${immageFullName}`);

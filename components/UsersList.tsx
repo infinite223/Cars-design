@@ -6,7 +6,7 @@ import { Icon } from "@rneui/themed";
 import _Icon from 'react-native-vector-icons/Entypo'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { CarprojectData, User } from '../utils/types';
+import { CarprojectData, User, UserList } from '../utils/types';
 import useAuth from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
 import { translations } from './../utils/translations';
@@ -17,14 +17,14 @@ import { FilterUsers } from './FilterUsers';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-interface BottomOptionsProps {
+interface UsersListProps {
     translateX?:any,
     isMyProfile: boolean,
-    showUsersList: {show:boolean, users: User[] | null, headerText: string},
-    setShowUsersList: (value:{show:boolean, users: User[], headerText: string}) =>void, 
+    showUsersList: {show:boolean, users: UserList[] | null, headerText: string},
+    setShowUsersList: (value:{show:boolean, users: UserList[], headerText: string}) =>void, 
 }
 
-export const UsersList:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile, showUsersList, setShowUsersList}) => {
+export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, showUsersList, setShowUsersList}) => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { user, logout }:any = useAuth()

@@ -104,6 +104,7 @@ export const AuthProvider = ({children}) => {
   
     const memoedValue = useMemo(() => ({
       user,
+      setUser,
       loading,
       error,
       signInWithGoogle,

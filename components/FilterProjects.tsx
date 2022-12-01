@@ -6,7 +6,7 @@ import React, {useState} from 'react'
 import { style } from '../screens/Profile/style'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { CarprojectData, User } from '../utils/types'
+import { CarprojectData, User, UserList } from '../utils/types'
 
 interface FilterProjectsProps {
   userProjects:CarprojectData[], 
@@ -14,7 +14,7 @@ interface FilterProjectsProps {
   edit?:boolean, 
   setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 
   showOptions:boolean,
-  setShowUsersList: (value: {show:boolean, users: User[] | null, headerText: string}) =>void
+  setShowUsersList: (value: {show:boolean, users: UserList[] | null, headerText: string}) =>void
 }
 
 export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, input, edit, setShowOptions, showOptions, setShowUsersList}) => {
@@ -34,7 +34,7 @@ export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, inpu
   return (
     <FlatList
         data={searchFunction()}
-        renderItem={({item: {id, car, author, createdAt}})=> 
+        renderItem={({item: {id, car, authorUid, createdAt}})=> 
         <TouchableOpacity 
           style={style.renderItem} 
           // onPress={()=>navigation.navigate('Project', {car, author, createdAt})}
@@ -45,7 +45,7 @@ export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, inpu
                 <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
             </View>
             
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{},{}].length} likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{imageUri:'', name:'Dawid', uid:''}], headerText:`${[{},{}].length} likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
               <Text style={{fontSize:17, marginHorizontal:5, color:theme.fontColor}}>{car.likes}</Text>
               <Icon                 
                   name='heart'
@@ -55,7 +55,7 @@ export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, inpu
               />
             </TouchableOpacity>
            
-            <TouchableOpacity onPress={()=>setShowOptions({show:!showOptions, selectedProject:  {id, car, author, createdAt}})} style={localStyle.optionsIcon}>
+            <TouchableOpacity onPress={()=>setShowOptions({show:!showOptions, selectedProject:  {id, car, authorUid, createdAt}})} style={localStyle.optionsIcon}>
               <_Icon                            
                   name='dots-three-vertical'
                   size={18} 

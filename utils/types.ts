@@ -3,14 +3,20 @@ export type User = {
     description?:string,
     email:string
     imageUri:string,
-    carProjects?:CarprojectData[],
+    projectsId?:string[],
     place?:Place,
     uid:string,
     stats?: {
-        followers: number,
-        views: number,
-        following:number
+        followers: {uid:string, name: string, imageUrl:string},
+        views:  {uid:string, name: string, imageUrl:string},
+        following: {uid:string, name: string, imageUrl:string},
     }
+}
+
+export type UserList = {
+    name:string,
+    imageUri: string,
+    uid:string
 }
 // const engine = require('../assets/componentsIcons/engine.png')
 
@@ -55,7 +61,7 @@ export type Car = {
 
 export type CarprojectData = {
     id:string,
-    author:User,
+    authorUid:string,
     createdAt:string,
     car:Car
 }

@@ -34,13 +34,12 @@ export const addProject = async (
 
  
         images.forEach(async (image:any) => {
-            uploadImage(image, carData.make, carData.model, userUid, firebaseImagesUriUpload)           
+            uploadImage(image, false, carData.make, carData.model, userUid, firebaseImagesUriUpload)           
         })     
     
         imagesStages.forEach(async (image:any) => {
-            await uploadImage(image, carData.make, carData.model, userUid, firebaseImagesStagesUriUpload)           
+            await uploadImage(image, false, carData.make, carData.model, userUid, firebaseImagesStagesUriUpload)           
          });
-
          setTimeout(()=>{
             uploadDataCar(
                 carData,    
@@ -50,6 +49,8 @@ export const addProject = async (
                 language, 
                 setShowError
             )
+            console.log(firebaseImagesUri)
+
          }, 4000)
          
     }

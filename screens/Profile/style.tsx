@@ -16,7 +16,9 @@ export const style = StyleSheet.create({
     mainContainer: {
         flex:1, 
         paddingHorizontal:15, 
-        position:'relative'
+        position:'relative',
+        // alignItems:'center',
+        // justifyContent:'center'
     },
     headerText: {
         letterSpacing:1, 

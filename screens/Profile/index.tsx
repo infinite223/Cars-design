@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native'
 import { SearchBar } from '@rneui/base';
 import React, { useLayoutEffect, useState, useEffect } from 'react'
-import useAuth from '../../hooks/useAuth'
+import useAuth, { db } from '../../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/themed";
@@ -19,9 +19,11 @@ import { FilterProjects } from './../../components/FilterProjects';
 import Animated, { Extrapolate, interpolate, timing, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { CarprojectData, User } from '../../utils/types';
+import { CarprojectData, User, UserList } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
 import { UsersList } from '../../components/UsersList';
+import { collection, collectionGroup, getDocs, onSnapshot } from 'firebase/firestore';
+import AlertModal from '../modals/AlertModal';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -38,11 +40,12 @@ const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<RouteProp<ProfileScreenProps, 'B'>>()
     const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
-    const [showUsersList, setShowUsersList] = useState<{show:boolean, users: User[] | null, headerText: string}>({show:false, users: null, headerText:''})
+    const [showUsersList, setShowUsersList] = useState<{show:boolean, users: UserList[] | null, headerText: string}>({show:false, users: null, headerText:''})
+    const [showAlert, setShowAlert] = useState<{show:boolean, message:string, type?:string}>()
 
     const profileUser = route.params.state;
    
-    const [userProjects, setUserProjects] = useState([...data])
+    const [userProjects, setUserProjects] = useState<any>([])
     const [search, setSearch] = useState('')
     const {user}:any = useAuth()
     const isMyProfile = user.uid===profileUser.uid
@@ -86,8 +89,23 @@ const ProfileScreen = () => {
         }
       })          
 
+      useEffect(() => {
+        const getProjects = () => {
+            const projectsRef = collection(db, 'users', user.uid, 'projects')
+             onSnapshot(projectsRef, (snapchot) => { 
+                setUserProjects(snapchot.docs.map((doc, i)=> {
+                    return {id: doc.id, car:doc.data(), author:user, createdAt:'22.11.2022'}
+                }))      
+                })
+            }
+          getProjects()
+      }, [])
+      
+      console.log(userProjects)
+
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
+        {(showAlert && showAlert.type)&&<AlertModal resetError={setShowAlert} show={true} message={showAlert?.message} type={showAlert?.type}/>}
       <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: SCREEN_WIDTH, height:SCREEN_HEIGHT+100}]}/>
         <View style={{marginVertical:5}}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>
@@ -101,19 +119,19 @@ const ProfileScreen = () => {
 
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{}].length} followers`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{uid:user.uid, imageUri:'', name:'Dawid'}], headerText:`${[{}].length} followers`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>1</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>{user.stats.followers.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{},{},{},{},{}].length} views`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{uid:user.uid, imageUri:'', name:'Dawid'}], headerText:`${[{},{},{},{},{}].length} views`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
-                <Text style={{fontSize:20,  color: theme.fontColor}}>5</Text>
+                <Text style={{fontSize:20,  color: theme.fontColor}}>{user.stats.views.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{email:'',imageUri:'', name:'Dawid'}], headerText:`${[{},{},{}].length} followed`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{uid:user.uid, imageUri:'', name:'Dawid'}], headerText:`${[{},{},{}].length} followed`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>3</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>{user.stats.following.length}</Text>
             </TouchableOpacity>
         </View>
 
@@ -138,7 +156,7 @@ const ProfileScreen = () => {
            
             <FilterProjects setShowUsersList={setShowUsersList} userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
             <UsersList isMyProfile showUsersList={showUsersList} translateX={translateX} setShowUsersList={setShowUsersList}/>
-            <BottomOptions isMyProfile={isMyProfile} translateX={translateX} showOptions={showOptions} setShowOptions={setShowOptions}/>
+            <BottomOptions setShowAlert={setShowAlert} isMyProfile={isMyProfile} translateX={translateX} showOptions={showOptions} setShowOptions={setShowOptions}/>
         </View>
     </View>
   )
