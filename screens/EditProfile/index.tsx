@@ -13,24 +13,27 @@ import { chooseImg } from './../../utils/functions/chooseImg';
 import { deleteProfile, updateProfile } from '../../firebase/updateProfile';
 import CustomInput from './../../components/CustomInput';
 import { selectLanguage } from './../../slices/languageSlice';
+import AlertModal from '../modals/AlertModal'
 
 const EditProfileScreen = () => {
-    const [nickname, setNickname] = useState('')
-    const [description, setDescription] = useState('')
     const [selectPlaceOnMapVisible, setSelectPlaceOnMapVisible] = useState(false)
     const { user, logout }:any = useAuth()
     const navigation = useNavigation()
-    const [userImage, setUserImage] = useState(null)
-    const [name, setName] = useState('')
+    const [userImage, setUserImage] = useState(user.image?user.image:user.imageUri)
+    const [name, setName] = useState(user.name?user.name:'')
+    const [description, setDescription] = useState(user.description?user.description:'')
+    
     const [place, setPlace] = useState<{region:any, place:any}>({
-        region: {},
-        place: {} 
+        region: user.place?{latitude: user.place.latitude, longitude:user.place.longitude}:{},
+        place: user.place?.city?{ description: user.place.city }:{} 
     })
     const [image, setImage] = useState<any>([])
-    const [message, setMessage] = useState<{message:string, type:string}>(null)
+    const [showAlert, setShowAlert] = useState<{show:boolean, message:string, type?:string}>()
 
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
+
+    console.log(user)
 
     useLayoutEffect(() => {
       navigation.setOptions({
@@ -45,32 +48,31 @@ const EditProfileScreen = () => {
       )})
     }, [theme, language])
 
-    const complate = (nickname && description)? true:false
+    // const complate = (nickname && description)? true:false
 
   return (
-    <View style={{flex:1}}>
+    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+        {(showAlert && showAlert.type)&&<AlertModal resetError={setShowAlert} show={true} message={showAlert?.message} type={showAlert?.type}/>}
         <SelectPlaceOnMap origin={place} setOrigin={setPlace} modalVisible={selectPlaceOnMapVisible} setModalVisible={setSelectPlaceOnMapVisible}/>
         <View style={[style.containerModal, {backgroundColor: theme.background}]}>
             <View style={{}}>
-              <CustomInput placeholder={user.displayName?user.displayName:'Type profile name'} setValue={setName} />
+              <CustomInput value={name} placeholder={'Type profile name'} setValue={setName} />
                   <TouchableOpacity style={[style.mainData, {alignItems:'center'}]} onPress={()=>chooseImg(
                     image, setImage, undefined, true
                   )}>
-                      <Image resizeMode='contain' style={style.imageProfile} source={{uri: userImage?userImage:'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png'}}/>
+                      <Image resizeMode='contain' style={style.imageProfile} source={{uri: image[0]?.uri?image[0].uri:userImage?userImage:'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png'}}/>
                       <Text style={[style.imageProfileLabel, {color: theme.fontColorContent}]}>Set profile image</Text>
                   </TouchableOpacity>
                 <TouchableOpacity onPress={()=>setSelectPlaceOnMapVisible(true)} style={style.placeContainer}>
+                    <Icon type='materialicon' name='add-location-alt' size={18} color={'white'}/>
                     <Text style={style.placeText}>{place.place.description?place.place.description:'Set place where people can find you'}</Text>
-                    <Icon type='materialicon' name='add-location-alt' size={20} color={'white'}/>
                 </TouchableOpacity>
-                <CustomInput max={100} placeholder='Type profile description' setValue={setDescription} />
+                <CustomInput value={description} max={100} placeholder='Type profile description' setValue={setDescription} />
             </View>
-            {/* <TouchableOpacity onPress={()=>deleteProfile()} style={style.deleteButton}>
-                <Text style={[style.deleteText]}> DELATE PROFILE</Text>
-            </TouchableOpacity> */}
-            <TouchableOpacity onPress={() => updateProfile(user.uid, name, image, place, description, setMessage)} style={style.updateButton}>
+
+            {(!showAlert?.show && user.name!=='Tester')&&<TouchableOpacity onPress={() => updateProfile(user, name, image, place, description, setShowAlert)} style={style.updateButton}>
               <Icon type='entypo' name={'check'} size={26} color="white"/>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>
     </View>
   )

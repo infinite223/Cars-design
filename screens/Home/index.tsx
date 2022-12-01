@@ -33,17 +33,17 @@ const HomeScreen = () => {
   const db = getFirestore()
 
   useEffect(() => {
-    const getUserData = async () => {
-      const usersRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(usersRef);
-      if (docSnap.data()?.name) {
-        console.log('coś jest xd', docSnap.data())
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-        navigation.navigate('EditProfile')
-      }
-    }
+    // const getUserData = async () => {
+    //   const usersRef = doc(db, "users", user.uid);
+    //   const docSnap = await getDoc(usersRef);
+    //   if (docSnap.data()?.name) {
+    //     console.log('coś jest xd', docSnap.data())
+    //   } else {
+    //     // doc.data() will be undefined in this case
+    //     console.log("No such document!");
+    //     navigation.navigate('EditProfile')
+    //   }
+    // }
 
     const getProjects = () => {
       const projectsRef = collectionGroup(db, 'projects')
@@ -53,7 +53,7 @@ const HomeScreen = () => {
         }))      
       })
     }
-    getUserData()
+    // getUserData()
     getProjects()
   }, [])
   

@@ -8,6 +8,9 @@ import { initializeApp } from "firebase/app";
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { envGoogle } from './../utils/env';
+import { doc, setDoc, collectionGroup, onSnapshot, getDoc, collection } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -31,11 +34,29 @@ export const AuthProvider = ({children}) => {
   const [loadingInitial, setLoadingInitial] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const navigation = useNavigation()
 
   useEffect(() => 
     onAuthStateChanged(auth, async (user) => {
       if(user){
-       setUser(user)
+        const getUserData = async () => {
+          const usersRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(usersRef);
+          if (docSnap.data()?.name) {
+            setUser(docSnap.data())
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            setUser({
+              name:user.displayName,
+              email:user.email,
+              image:user.photoURL,
+              uid:user.uid
+             })
+            navigation.navigate('EditProfile')
+          }
+        }
+        getUserData()
       }
       else {
         setUser(null)
@@ -45,7 +66,7 @@ export const AuthProvider = ({children}) => {
   ), [signInWithGoogle])
 
   const signInAsTester = () => {
-    setUser({name: "Tester"})
+    setUser({name: "Tester", imageUri:'https://th.bing.com/th/id/OIP.GHGGLYe7gDfZUzF_tElxiQHaHa?pid=ImgDet&rs=1'})
   }
 
   const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(

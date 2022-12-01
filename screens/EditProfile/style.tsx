@@ -17,21 +17,23 @@ export const style = StyleSheet.create({
     mainData: {
         marginVertical:15,
         flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-around',
+        // alignItems:'center',
+        // justifyContent:'space-around',
         borderWidth:1,
-        borderColor:'rgba(50, 50, 50, 1)',
+        // borderColor:'rgba(50, 50, 50, 1)',
         borderRadius:15,
-        paddingBottom:20,
+        paddingBottom:10,
+        // paddingHorizontal:10,
         paddingTop:10
     },
     imageProfile: {
         width:100,
-        height:100,      
+        height:100,    
+        borderRadius:15  
     },
     imageProfileLabel: {
         fontSize:12,
-        marginTop:5
+        marginLeft:15
     },
     nameInput: {
         fontSize:18,
@@ -55,7 +57,7 @@ export const style = StyleSheet.create({
     placeContainer: {
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'space-between',
+        // justifyContent:'space-between',
         marginTop:10,
         borderRadius:10,
         paddingHorizontal:15,
@@ -66,6 +68,7 @@ export const style = StyleSheet.create({
     placeText: {
         fontSize:14,
         letterSpacing:1,
+        marginLeft:10,
         color:'white'
     },
     deleteButton: {

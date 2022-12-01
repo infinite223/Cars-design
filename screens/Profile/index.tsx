@@ -53,8 +53,8 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:15, fontSize:20, fontWeight:'bold', color:theme.fontColor}}>
-            {user.uid?profileUser.displayName:'Demo'}
+           headerTitle: () => <Text style={{marginLeft:15, fontSize:20, color:theme.fontColor}}>
+            {user.name}
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
@@ -70,7 +70,7 @@ const ProfileScreen = () => {
                     <Avatar
                         size={38}
                         rounded
-                        source={{uri:data[0].author.imageUri}}    
+                        source={{uri: user.imageUri}}    
                     />
                 </TouchableOpacity>
             </View>

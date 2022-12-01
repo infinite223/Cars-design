@@ -13,10 +13,11 @@ interface CustomInputProps {
     performance?:string,
     max?:number,
     fontSize?:number,
-    borderColor?:string
+    borderColor?:string,
+    value?:string
 }
 
-const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText, borderColor, performance, max, fontSize}) => {
+const CustomInput:React.FC<CustomInputProps> = ({value, placeholder, setValue, helpText, borderColor, performance, max, fontSize}) => {
     const theme = useSelector(selectTheme)
     const [value1, setValue1] = useState('')
     const language = useSelector(selectLanguage)
@@ -42,6 +43,7 @@ const CustomInput:React.FC<CustomInputProps> = ({placeholder, setValue, helpText
                 borderColor: validInpute(value1, theme, performance, focus, borderColor),
                 color: theme.fontColor
             }]} 
+            value={value?value:value1}
             placeholder={placeholder}
             placeholderTextColor={theme.fontColorContent}
             onChangeText={(text)=>(setValue1(text), setValue(text))}

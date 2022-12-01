@@ -16,7 +16,7 @@ import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { Car } from '../../utils/types'
 import { app } from '../../hooks/useAuth';
-import MessageModal from '../modals/messageModal';
+import AlertModal from '../modals/AlertModal';
 import SelectList from 'react-native-dropdown-select-list'
 import { chooseImg } from '../../utils/functions/chooseImg';
 import { HistoryCar } from '../../utils/types'
@@ -263,7 +263,7 @@ const CreateScreen = () => {
 
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-        {showError.show&&<MessageModal type='ERROR' show={showError.show} message={showError.message} resetError={setShowError}/>}
+        {showError.show&&<AlertModal type='ERROR' show={showError.show} message={showError.message} resetError={setShowError}/>}
         <FlatList
             ref={flatListRef}
             pagingEnabled

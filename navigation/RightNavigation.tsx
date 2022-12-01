@@ -102,8 +102,8 @@ export const RightNavigation = () => {
                         onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} 
                         style={style.profileButton}
                     >
-                        <Text style={[style.name, {color: theme.fontColorContent}]}>Dawid</Text>
-                        <Avatar size={32} rounded source={{uri:'https://th.bing.com/th/id/OIP.GHGGLYe7gDfZUzF_tElxiQHaHa?pid=ImgDet&rs=1'}}/>
+                        <Text style={[style.name, {color: theme.fontColorContent}]}>{user?.name}</Text>
+                        <Avatar size={32} rounded source={{uri:user?.imageUri}}/>
                     </TouchableOpacity>
                 </View>
         

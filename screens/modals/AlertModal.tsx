@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 
-interface MessageModalProps {
+interface AlertModalProps {
     show:boolean,
     message:string,
     type: string,
     resetError: (value:{show:boolean, message:string}) => void
 }
 
-const MessageModal:React.FC<MessageModalProps> = ({show, message, type, resetError}) => {
+const AlertModal:React.FC<AlertModalProps> = ({show, message, type, resetError}) => {
     useEffect(() => {
         setTimeout(() => {
             resetError({show: false, message: ''})
@@ -16,16 +16,16 @@ const MessageModal:React.FC<MessageModalProps> = ({show, message, type, resetErr
     }, [])
     
   return (
-    <View style={[style.errorContainer, {backgroundColor: type==='ERROR'?'rgba(140, 40, 40, .9)':'rgba(40, 140, 40, .9)'}]}>
+    <View style={[style.alertContainer, {backgroundColor: type==='ERROR'?'rgba(140, 40, 40, .9)':'rgba(40, 140, 40, .9)'}]}>
       <Text style={[style.message, {color: 'white'}]}>{message}</Text>
     </View>
   )
 }
 
-export default MessageModal
+export default AlertModal
 
 const style = StyleSheet.create({
-    errorContainer: {
+    alertContainer: {
         zIndex:23,
         position:'absolute',
         bottom:70,
