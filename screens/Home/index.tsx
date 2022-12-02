@@ -43,7 +43,7 @@ const HomeScreen = () => {
     //     console.log("No such document!");
     //     navigation.navigate('EditProfile')
     //   }
-    // }
+    // }  3
 
     const getProjects = () => {
       const projectsRef = collectionGroup(db, 'projects')
@@ -54,7 +54,12 @@ const HomeScreen = () => {
       })
     }
     // getUserData()
-    getProjects()
+    if(user.name==="Tester"){
+      setProjects([])
+    }
+    else{
+      getProjects()
+    }
   }, [])
   
    
@@ -78,8 +83,11 @@ const HomeScreen = () => {
   return (
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
-      <FlatList style={{flex:1, height:"100%", width: '100%'}}
+      <FlatList 
+        style={{ width: '100%'}}
+        contentContainerStyle={{flex:1, backgroundColor:'gray'}}
         data={projects}
+        pagingEnabled
         bounces
         keyExtractor={carProject => carProject.id}
         renderItem={(carData)=> 

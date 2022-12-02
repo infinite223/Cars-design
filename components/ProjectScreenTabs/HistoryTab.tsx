@@ -18,7 +18,6 @@ const HistoryTab = () => {
   const windowWidth = Dimensions.get('window').width;
   const [imagesModalVisible, setImagesModalVisible] = useState(false)
   const [selectStage, setSelectStage] = useState<{images?:string[], index:number}>({images: [], index:0})
-  console.log(selectStage)
   const theme = useSelector(selectTheme)
   const selectedProject = useSelector(selectProject)
 
@@ -29,11 +28,10 @@ const HistoryTab = () => {
     if(hpValue){
       const rgbObject = hexToRGB(getColorsCircle(hpValue, 'hp')[0])
       outputBackground = `rgba(${rgbObject.red},${rgbObject.green}, ${rgbObject.blue}, .3)`
-      console.log(rgbObject)
     }
     return outputBackground
   }
-
+  
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
       {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
@@ -41,44 +39,40 @@ const HistoryTab = () => {
       <ScrollView>
         <FlatList
           scrollEnabled={true}        
-          contentContainerStyle={{flex:1}}
+          contentContainerStyle={{height:240}}
+          style={{}}
           data={selectedProject.car.history}
           renderItem={({item, index})=>(
-            <View style={style.renderItem}>
-              {item&&
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  style={style.imagesContainer}
-                  data={item}
-                  renderItem={(photo)=> (
-                      <Image style={{flex:1, width:windowWidth, height:240}} source={{uri: photo.item}}/>                  )}
-                  />}
+            <View style={style.renderItem}>          
+                  <Image style={{width:windowWidth, height:240}} source={{uri:item.photosUrl}}/>                  
                   <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:[item.photosUrl], index}))} style={style.zoomIcon}>                   
                     <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
                   </TouchableOpacity>
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
                     <Text style={style.name}>{item.name}</Text>
                     <View style={style.performanceContainer}>
-                    {item.performance?.[0].value&&<View style={style.performance}>
-                      <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance[0].value} </Text>
-                      <Text style={style.performanceType}>{item.performance?.[0].type}</Text>
-                    </View>}
-                    {item.performance?.[1].value&&<View style={style.performance}>
-                      <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance?.[1].value} </Text>
-                      <Text style={style.performanceType}>{item.performance?.[1].type}</Text>
-                    </View>}
+                      {item.performance?.[0].value&&<View style={style.performance}>
+                        <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance[0].value} </Text>
+                        <Text style={style.performanceType}>{item.performance?.[0].type}</Text>
+                      </View>}
+                      {item.performance?.[1].value&&<View style={style.performance}>
+                        <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance?.[1].value} </Text>
+                        <Text style={style.performanceType}>{item.performance?.[1].type}</Text>
+                      </View>}
+                 
+                    </View>
+                    <View style={style.performanceContainer}>
                     {item.performance?.[2]?.type&&
-                    <View style={style.performance}>
-                      <Text style={style.performanceValue}>{item.performance?.[2]?.value} </Text>
-                      <Text style={style.performanceType}>{item.performance?.[2]?.type}</Text>
-                    </View>}
-                    {item.performance?.[3]?.type&&
-                    <View style={style.performance}>
-                      <Text style={style.performanceValue}>{item.performance?.[3]?.value} </Text>
-                      <Text style={style.performanceType}>{item.performance?.[3]?.type}</Text>
-                    </View>}
-                  </View>
+                      <View style={style.performance}>
+                        <Text style={style.performanceValue}>{item.performance?.[2]?.value} </Text>
+                        <Text style={style.performanceType}>0-100Km/h</Text>
+                      </View>}
+                      {item.performance?.[3]?.type&&
+                      <View style={style.performance}>
+                        <Text style={style.performanceValue}>{item.performance?.[3]?.value} </Text>
+                        <Text style={style.performanceType}>100-200Km/h</Text>
+                      </View>}
+                    </View>
                   {(item.components && item.performance)&&
                       <FlatList
                         style={[style.componentsContainer]}
@@ -168,7 +162,8 @@ const style = StyleSheet.create({
     fontStyle:'italic'
   },
   imagesContainer: {
-    flex:1,
+    height:300,
+    // flex:1,
     flexDirection:'row',
     marginTop:5,
   },

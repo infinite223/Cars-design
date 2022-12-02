@@ -93,6 +93,7 @@ const ProfileScreen = () => {
         const getProjects = () => {
             const projectsRef = collection(db, 'users', user.uid, 'projects')
              onSnapshot(projectsRef, (snapchot) => { 
+                console.log('read')
                 setUserProjects(snapchot.docs.map((doc, i)=> {
                     return {id: doc.id, car:doc.data(), author:user, createdAt:'22.11.2022'}
                 }))      
@@ -101,8 +102,6 @@ const ProfileScreen = () => {
           getProjects()
       }, [])
       
-      console.log(userProjects)
-
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         {(showAlert && showAlert.type)&&<AlertModal resetError={setShowAlert} show={true} message={showAlert?.message} type={showAlert?.type}/>}

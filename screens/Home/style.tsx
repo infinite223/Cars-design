@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native"
 
 export const style = StyleSheet.create({
     projectsContainer: {
-  
+      flex:1
     },
     logo: {
       width:40,

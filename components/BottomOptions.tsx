@@ -84,7 +84,7 @@ export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyPro
             </Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            onPress={()=>deleteProject(setShowAlert,showOptions.selectedProject?.id)} 
+            onPress={()=>deleteProject(user.uid, setShowAlert,showOptions.selectedProject?.id)} 
             style={[style.optionContainer]}
           >
             <_Icon name='trash' size={20} color={theme.fontColorContent}/>
