@@ -85,7 +85,7 @@ const HomeScreen = () => {
       {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
       <FlatList 
         style={{ width: '100%'}}
-        contentContainerStyle={{flex:1, backgroundColor:'gray'}}
+        contentContainerStyle={{flex:1}}
         data={projects}
         pagingEnabled
         bounces

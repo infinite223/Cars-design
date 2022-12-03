@@ -28,27 +28,42 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
 
   return (
     <TouchableWithoutFeedback onPress={setProjectToNav} style={{flex:1}}>
-      <View style={{height:'100%', backgroundColor: theme.background}}>
-      <Image style={{height:250, width:"100%", zIndex:2}} source={{uri:car.imagesCar[0].url}}/>
-
+      <View style={{backgroundColor: theme.background}}>
+      {car.performance&&
         <View style={[style.projectContainer]}>
-            <View style={{ flexDirection:'row', alignItems:'center'}}>
-                {/* <Image style={{margin:5, width:25, height:25, borderRadius:50}} source={{uri:author.imageUri}}/> */}
-                <View style={{ flexDirection:'row', alignItems:'center'}}>
-                  <Text style={{fontSize:24, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
-                  <Text style={{color:theme.fontColor}}>{car.CarMake} </Text>
-                </View>
-                {/* <Text style={{fontSize:17, fontWeight:'500',color:theme.fontColor, margin:5}}>{car.CarMake} {car.model}</Text> */}
+          <View style={{ flexDirection:'column', alignItems:'flex-start', marginBottom:10}}>
+            <Text style={{fontSize:24, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
+            <Text style={{color:theme.fontColor}}>{car.CarMake} </Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={[style.stageText, {color: theme.background,  backgroundColor:getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
+              STAGE {car.history.length}
+            </Text>
+            <View style={style.performanceContainer}>
+              <Text style={[style.performanceValue, {color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
+                {car.performance[0].value}
+              </Text>
+              <Text style={[style.performanceType, {color: theme.fontColor}]}>{car.performance[0].type}</Text>
             </View>
-            {/* <Text style={{fontSize:12, margin:5, color:theme.fontColor}}>{createdAt}</Text> */}
+            <View style={style.performanceContainer}>
+              <Text style={[style.performanceValue, {color: getColorsCircle(car.performance[1].value, car.performance[1].type)[0]}]}>
+                {car.performance[1].value}
+              </Text>
+              <Text style={[style.performanceType, {color: theme.fontColor}]}>{car.performance[1].type}</Text>
+            </View>
+          </View>   
         </View>
-        {/* {loadingProjects&&<LoadingView />} */}
+      }
+        <Image style={{height:250, width:"100%", zIndex:2}} source={{uri:car.imagesCar[0].url}}/>
+        <View style={style.footer}>
+
+        </View>
         <View style={StyleSheet.absoluteFillObject}>
           <Image 
             source={{uri: car.imagesCar[0].url}}
             style={[
               StyleSheet.absoluteFillObject,
-              {opacity: .6, zIndex:1}
+              {opacity: .7, zIndex:1}
             ]}
             blurRadius={50}
           />
@@ -70,5 +85,31 @@ const style = StyleSheet.create({
     justifyContent:'space-between', 
     alignItems:'center',
     zIndex:2
+  },
+  performanceContainer: {
+    // flexDirection:'row',
+    alignItems:'center',
+    marginHorizontal:10,
+    justifyContent:'center'
+  },
+  performanceValue: {
+    fontSize:16,
+  },
+  performanceType: {
+    fontSize:12,
+  },
+  stageText: {
+    marginRight:10,
+    alignSelf:'center',
+    fontSize:14,
+    letterSpacing:1,
+    fontWeight:'bold',
+    borderRadius:15,
+    paddingHorizontal:10,
+    paddingVertical:3
+  },
+  footer: {
+    height:50,
+    width:'100%'
   }
 }) 
