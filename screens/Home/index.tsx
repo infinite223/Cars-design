@@ -1,67 +1,27 @@
-import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image, Dimensions } from 'react-native'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { View, TextInput, TouchableOpacity, FlatList, Image, Dimensions } from 'react-native'
+import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
-import { data } from '../../utils/data';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
-import { HeaderTopProjects } from './../../components/HeaderTopProjects';
-import { Icon } from '@rneui/themed';
 import { style } from './style';
-import { doc, getFirestore, setDoc, collectionGroup, onSnapshot, getDoc, collection } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 import _Icon from 'react-native-vector-icons/Ionicons'
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { RightNavigation } from '../../navigation/RightNavigation';
-import { setNavigation } from '../../slices/navigationSlice';
-import EditProfileModal from '../modals/SettingsModals/EditProfileModal';
 
-const SCREEN_WIDTH = Dimensions.get('window').width 
+import { setNavigation } from '../../slices/navigationSlice';
+import { useProjects } from '../../hooks/useProjects';
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
   const navigation:any = useNavigation()
   const dispatch = useDispatch()
   const theme = useSelector(selectTheme)
-  const [projects, setProjects] = useState<any>([])
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
-
-  const db = getFirestore()
-
-  useEffect(() => {
-    // const getUserData = async () => {
-    //   const usersRef = doc(db, "users", user.uid);
-    //   const docSnap = await getDoc(usersRef);
-    //   if (docSnap.data()?.name) {
-    //     console.log('coś jest xd', docSnap.data())
-    //   } else {
-    //     // doc.data() will be undefined in this case
-    //     console.log("No such document!");
-    //     navigation.navigate('EditProfile')
-    //   }
-    // }  3
-
-    const getProjects = () => {
-      const projectsRef = collectionGroup(db, 'projects')
-       onSnapshot(projectsRef, (snapchot) => {      
-        setProjects(snapchot.docs.map((doc, i)=> {
-          return {id: i, car:doc.data(), author:user, createdAt:'22.11.2022'}
-        }))      
-      })
-    }
-    // getUserData()
-    if(user.name==="Tester"){
-      setProjects([])
-    }
-    else{
-      getProjects()
-    }
-  }, [])
-  
+  const { projects }  = useProjects(user)
    
   useLayoutEffect(() => {
     navigation.setOptions({

@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableWithoutFeedback, StyleSheet, Animated } from 'react-native'
+import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Animated } from 'react-native'
 import React, { useState } from 'react'
 import { CarprojectData } from '../utils/types'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedProject } from '../slices/selectedProject';
 import { LoadingView } from './LoadingView';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
+import { Icon } from '@rneui/base';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt}}) => {
   const navigation:any = useNavigation()
@@ -27,9 +28,9 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
 
 
   return (
-    <TouchableWithoutFeedback onPress={setProjectToNav} style={{flex:1}}>
       <View style={{backgroundColor: theme.background}}>
       {car.performance&&
+       <TouchableWithoutFeedback onPress={setProjectToNav}>
         <View style={[style.projectContainer]}>
           <View style={{ flexDirection:'column', alignItems:'flex-start', marginBottom:10}}>
             <Text style={{fontSize:24, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
@@ -53,24 +54,64 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </View>
           </View>   
         </View>
+       </TouchableWithoutFeedback>
       }
-        <Image style={{height:250, width:"100%", zIndex:2}} source={{uri:car.imagesCar[0].url}}/>
-        <View style={style.footer}>
+      <TouchableWithoutFeedback onPress={setProjectToNav}>
+       <Image style={{height:250, width:"100%", zIndex:2}} source={{uri:car.imagesCar[0].url}}/>
+      </TouchableWithoutFeedback>
 
+        <View style={style.footer}>
+          <View style={{alignItems:'center', flexDirection:'row'}}>
+            <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
+              <Icon                 
+                    name='heart-outlined'
+                    type='entypo'
+                    size={24} 
+                    color={theme.fontColor}
+                />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
+              <Icon                 
+                    name='share'
+                    type='entypo'
+                    size={22} 
+                    color={theme.fontColor}
+                />
+            </TouchableOpacity>
+
+            <Text style={[style.likes, {color: theme.fontColorContent}]}>{car.likes} likes</Text>
+
+            {/* <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
+              <Icon                 
+                    name='heart'
+                    type='evilicon'
+                    size={28} 
+                    color={theme.fontColor}
+              />
+            </TouchableOpacity> */}
+          </View>
+          <View>
+            <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
+              <Icon                 
+                    name='dots-three-vertical'
+                    type='entypo'
+                    size={20} 
+                    color={theme.fontColor}
+                />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={StyleSheet.absoluteFillObject}>
           <Image 
             source={{uri: car.imagesCar[0].url}}
             style={[
               StyleSheet.absoluteFillObject,
-              {opacity: .7, zIndex:1}
+              {opacity: .2, zIndex:1}
             ]}
             blurRadius={50}
           />
         </View>
       </View>
-     
-    </TouchableWithoutFeedback>
   )
 }
  
@@ -109,7 +150,21 @@ const style = StyleSheet.create({
     paddingVertical:3
   },
   footer: {
+    zIndex:4,
     height:50,
-    width:'100%'
+    width:'100%',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    paddingHorizontal:10
+  },
+  iconContainer: {
+    flexDirection:'row',
+    alignItems:'center',
+    paddingHorizontal:5,
+    paddingVertical:5
+  },
+  likes: {
+    marginHorizontal:8
   }
 }) 

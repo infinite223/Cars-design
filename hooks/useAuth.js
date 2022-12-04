@@ -75,31 +75,32 @@ export const AuthProvider = ({children}) => {
     },
   );
 
-  useEffect(async () => {
-    const signFunction = async () => {
-      setLoading(true)
-      if (response?.type === 'success') {
-        const { id_token, accessToken } = response.params;
-        console.log("response")
-        const credential = GoogleAuthProvider.credential(id_token);
-        await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
-        .finally(()=>setLoading(false))
-      }
+  const signFunction = async () => {
+    setLoading(true)
+    if (response?.type === 'success') {
+      const { id_token, accessToken } = response.params;
+      console.log("response")
+      const credential = GoogleAuthProvider.credential(id_token);
+      await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
+      .finally(()=>setLoading(false))
     }
+  }
+
+  useEffect(() => {
     signFunction()
   }, [response]);
 
     const logout = () => {
       setLoading(true)
-      // if(user.uid){
-      //   signOut(auth).catch((err)=>setError(err)).finally(()=>setLoading(false))
-      //   const { id_token, accessToken, oauthIdToken } = response.params;
-      //   AuthSession.revokeAsync({token: id_token, clientId: '612500373363-fg8u6laps96pr5qtaqa1jf0hj3hjib15.apps.googleusercontent.com'}, Google.discovery)
-      //   .then(()=>console.log("xd")).catch((e)=>console.log(e))
-      // }
-      // else {
+      if(user.uid){
+        signOut(auth).catch((err)=>setError(err)).finally(()=>setLoading(false))
+        const { id_token, accessToken, oauthIdToken } = response.params;
+        AuthSession.revokeAsync({token: id_token, clientId: envGoogle.authKey}, Google.discovery)
+        .then(()=>console.log("xd")).catch((e)=>console.log(e))
+      }
+      else {
         setUser(null)
-      // }
+      }
     }
   
     const memoedValue = useMemo(() => ({
