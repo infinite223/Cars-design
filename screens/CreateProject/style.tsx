@@ -12,13 +12,13 @@ export const style = StyleSheet.create({
         paddingHorizontal:15, 
         position:'relative',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     renderItem: {
         paddingHorizontal:20
     },
     headerText: {
-        color: '#2b3',
+        color: '#2c3',
         fontSize:18,
         letterSpacing:3,
         fontWeight:'bold',
@@ -34,7 +34,7 @@ export const style = StyleSheet.create({
         borderRadius:0,
         flexDirection:'row',
         alignItems:'center',
-        opacity:.7
+        opacity:1
     },
     backIcon: {
         paddingLeft:3,

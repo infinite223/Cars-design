@@ -55,6 +55,26 @@ export const translations = {
                 en: 'Share project',
                 pl: 'Udostępnij projekt'
             }
+        },
+        carProject: {
+            _menuOptions: {
+                report: {
+                    en: 'Report project',
+                    pl: 'Zgłoś projekt'
+                },
+                save: {
+                    en: 'Save offline',
+                    pl: 'Zapisz offline'
+                },
+                capy: {
+                    en: 'Copy link',
+                    pl: 'Kopiuj link'
+                },
+                hide: {
+                    en: 'Hide project',
+                    pl: 'Ukryj projekt'
+                }
+            }
         }
     },
     screens: {

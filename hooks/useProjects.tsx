@@ -5,6 +5,7 @@ import { db } from "./useAuth";
 
 export const useProjects = (user:User) => {
     const [projects, setProjects] = useState<any[]>([])
+    const [loading, setLoading] = useState(false)
     const projectsRef = collectionGroup(db, 'projects')
 
     const getProjects = () => {
@@ -14,9 +15,11 @@ export const useProjects = (user:User) => {
                 return {id: doc.id, car:doc.data(), author:user, createdAt:'22.11.2022'}
             }))      
         })
+        setLoading(false)
     } 
 
     useEffect(()=> {
+        setLoading(true)
         if(user.name==="Tester") {
             setProjects([])
         }
@@ -25,5 +28,5 @@ export const useProjects = (user:User) => {
         }
     }, [])
 
-    return { projects }
+    return { projects, loading }
 }

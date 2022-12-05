@@ -1,4 +1,4 @@
-import { View, TextInput, TouchableOpacity, FlatList, Image, Dimensions } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, FlatList, Image, Dimensions } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
-  const { projects }  = useProjects(user)
+  const { projects, loading }  = useProjects(user)
    
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -42,8 +42,8 @@ const HomeScreen = () => {
   
   return (
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
-      {projects.length<=0&&<LoadingView headerText={'Loading projects'}/>}
-      <FlatList 
+      {loading&&<LoadingView headerText={'Loading projects'}/>}
+      {projects.length>0?<FlatList 
         style={{ width: '100%'}}
         contentContainerStyle={{flex:1}}
         data={projects}
@@ -53,7 +53,9 @@ const HomeScreen = () => {
         renderItem={(carData)=> 
         <Carproject data={carData.item}/>
       }
-      />
+      />:<View>
+          <Text style={[{color: theme.fontColorContent}]}>No projects...</Text>
+        </View>}
     </View>
   )
 }

@@ -6,25 +6,40 @@ import { selectTheme } from './../slices/themeSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedProject } from '../slices/selectedProject';
 import { LoadingView } from './LoadingView';
+import * as Clipboard from 'expo-clipboard';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
-import { Icon } from '@rneui/base';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 
-const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt}}) => {
+import { Icon } from '@rneui/base';
+import { onShare } from '../utils/functions/projectFunctions';
+import { translations } from '../utils/translations';
+import { selectLanguage } from './../slices/languageSlice';
+
+const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, createdAt}}) => {
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
-
-  const [loadingProjects, setLoadingProjects] = useState(false)
+  const language = useSelector<string>(selectLanguage)
+  const { _menuOptions: {capy, hide, save, report}} = translations.components.carProject
 
   const dispatch = useDispatch()
 
   const setProjectToNav = () => {
 
     dispatch(setSelectedProject({
-      id, car, author, createdAt
+      id, car, authorUid, createdAt
     }))
 
-    navigation.navigate('Project', {id, car, author, createdAt})
+    navigation.navigate('Project', {id, car, authorUid, createdAt})
   }
+
+  const copyToClipboard = async (carMake:string, model:string) => {
+    await Clipboard.setStringAsync(carMake+' '+model);
+  };
 
 
   return (
@@ -70,7 +85,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
                     color={theme.fontColor}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
+            <TouchableOpacity onPress={()=> onShare(car.CarMake, car.model, 'lubie Cie')} style={style.iconContainer}>
               <Icon                 
                     name='share'
                     type='entypo'
@@ -80,26 +95,37 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </TouchableOpacity>
 
             <Text style={[style.likes, {color: theme.fontColorContent}]}>{car.likes} likes</Text>
-
-            {/* <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
-              <Icon                 
-                    name='heart'
-                    type='evilicon'
-                    size={28} 
-                    color={theme.fontColor}
-              />
-            </TouchableOpacity> */}
           </View>
-          <View>
-            <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
-              <Icon                 
-                    name='dots-three-vertical'
-                    type='entypo'
-                    size={20} 
-                    color={theme.fontColor}
+          <Menu>
+            <MenuTrigger>
+              <Text>
+                <Icon                 
+                  name='dots-three-vertical'
+                  type='entypo'
+                  size={16} 
+                  color={theme.fontColor}
                 />
-            </TouchableOpacity>
-          </View>
+              </Text>
+            </MenuTrigger>
+            <MenuOptions 
+              customStyles={{optionsContainer: 
+                {
+                  paddingHorizontal:10,
+                  paddingVertical:5,
+                  borderRadius:10,
+                  borderWidth:1, 
+                  borderColor: theme.backgroundContent,
+                  backgroundColor: theme.background
+                }, optionText: {color:theme.fontColor}
+              }}>
+              <MenuOption onSelect={() => alert(`Report`)} >
+                <Text style={{color: 'red'}}>{report[language as keyof typeof report]}</Text>
+              </MenuOption>
+              <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/>
+              <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
+              <MenuOption onSelect={() => {}} disabled={true} text={hide[language as keyof typeof report]} />
+            </MenuOptions>
+          </Menu>
         </View>
         <View style={StyleSheet.absoluteFillObject}>
           <Image 
@@ -119,7 +145,6 @@ export default Carproject
 
 const style = StyleSheet.create({
   projectContainer: {
-    // flex:1,
     marginVertical:5, 
     paddingHorizontal:10, 
     flexDirection:'row', 
@@ -128,9 +153,8 @@ const style = StyleSheet.create({
     zIndex:2
   },
   performanceContainer: {
-    // flexDirection:'row',
     alignItems:'center',
-    marginHorizontal:10,
+    marginLeft:15,
     justifyContent:'center'
   },
   performanceValue: {
@@ -156,7 +180,7 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
-    paddingHorizontal:10
+    paddingHorizontal:5
   },
   iconContainer: {
     flexDirection:'row',

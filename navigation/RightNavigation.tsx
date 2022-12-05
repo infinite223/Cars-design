@@ -71,9 +71,10 @@ export const RightNavigation = () => {
     .onStart(()=> {
       context.value = { x: translateX.value }
     })
-    
     .onUpdate((event)=> {
         translateX.value = event.translationX + context.value.x;
+        // translateX.value = Math.max(translateX.value, 1000)
+        // translateX.value = Math.min(translateX.value, 400 )
 
       if(translateX.value<SCREEN_WIDTH/3){
         translateX.value = withSpring(SCREEN_WIDTH/3)
@@ -87,7 +88,7 @@ export const RightNavigation = () => {
         dispatch(setNavigation(false))
       }
     })
-    
+    console.log(translateX.value)
   return (<>
     <GestureDetector gesture={gesture} >
         <Animated.View style={[style.containerNavigation, rNavigationContentSheetStyle, {backgroundColor: theme.background}]}>

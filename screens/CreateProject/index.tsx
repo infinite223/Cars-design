@@ -139,8 +139,8 @@ const CreateScreen = () => {
                         setSelected={(selectNumber:any)=>setCarData({...carData, make:findMakeInCategores(selectNumber, makesCategory)})} 
                         boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10, marginBottom:5}}
                         inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
-                        dropdownTextStyles={{color: theme.fontColor}}
-                        dropdownStyles={{borderWidth:1, borderColor: theme.backgroundContent}}
+                        dropdownTextStyles={{color: theme.fontColor, marginLeft:-10}}
+                        dropdownStyles={{borderBottomWidth:1, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:-5, marginBottom:5}}  
                         data={makesCategory} 
                         
                     />
