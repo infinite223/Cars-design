@@ -1,16 +1,16 @@
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../hooks/useAuth';
-import { User } from '../utils/types';
-import { uploadImage } from './uploadImages';
+import { db } from '../../hooks/useAuth';
+import { AlertProps, User } from '../../utils/types';
+import { uploadImage } from '../uploadImage';
 
-export const updateProfile = async (user:any, name:string, image:any, place:any, description:string, setShowAlert: (value: {show:boolean, message:string, type:string}) => void, setUser: (value:User) => void ) => {
+export const updateProfile = async (user:any, name:string, image:any, place:any, description:string, setShowAlert: (value:AlertProps) => void, setUser: (value:User) => void ) => {
     let urlImage = user.image?user.image:user.imageUri
     const setUrlImage = (uri:string, image:any) => {
        urlImage = uri
        console.log(uri)
     }
-    
-    image?.length>0&&uploadImage(image[0], true, '', '', user.uid, setUrlImage)
+    console.log(user.uid, 'uid')
+    image?.length>0&&uploadImage(image[0], '', true, user.uid, setUrlImage, setShowAlert)
     
     
     setTimeout( async ()=>{

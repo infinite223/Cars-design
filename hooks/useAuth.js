@@ -10,6 +10,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { envGoogle } from './../utils/env';
 import { doc, setDoc, collectionGroup, onSnapshot, getDoc, collection } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import { getStorage } from 'firebase/storage';
 
 
 WebBrowser.maybeCompleteAuthSession();
@@ -24,6 +25,7 @@ const firebaseConfig = {
 };
 
 export let app = initializeApp(firebaseConfig);
+export const storage = getStorage()
 const auth = getAuth(app)
 const AuthContext = createContext({})
 
@@ -80,7 +82,7 @@ export const AuthProvider = ({children}) => {
     if (response?.type === 'success') {
       const { id_token, accessToken } = response.params;
       console.log("response")
-      const credential = GoogleAuthProvider.credential(id_token);
+      const credential = GoogleAuthProvider.credential(id_token, accessToken);
       await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
       .finally(()=>setLoading(false))
     }

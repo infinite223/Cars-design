@@ -27,6 +27,7 @@
     "expo-application": "~5.0.1",
     "expo-auth-session": "~3.7.2",
     "expo-camera": "~13.0.0",
+    "expo-clipboard": "~4.0.1",
     "expo-google-app-auth": "~8.3.0",
     "expo-image-manipulator": "~11.0.0",
     "expo-image-picker": "~14.0.1",
@@ -72,7 +73,7 @@
     "react-redux": "^8.0.2",
     "tailwind-rn": "^4.2.0",
     "tailwindcss-react-native": "^1.7.10",
-    "expo-clipboard": "~4.0.1"
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

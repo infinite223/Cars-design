@@ -74,6 +74,10 @@ export const translations = {
                     en: 'Hide project',
                     pl: 'Ukryj projekt'
                 }
+            },
+            likesText: {
+                en:'likes',
+                pl:'polubień'
             }
         }
     },
@@ -136,7 +140,7 @@ export const translations = {
             },
             inputPlaceholders: {
                 make: { en: 'Type car make', pl: 'Podaj marke samochodu'},
-                model: { en: 'Type car make', pl: 'Podaj model samochodu'},
+                model: { en: 'Type car model', pl: 'Podaj model samochodu'},
                 description: { en: 'Short description....', pl: 'Krótki opis...'},
                 power: { en: 'Type the power of the car', pl: 'Podaj moc samochodu'},
                 torque: { en: 'Type the torque of the car', pl: 'Podaj moment obrotowy samochodu' }

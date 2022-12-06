@@ -47,7 +47,7 @@ const ProjectScreen = () => {
 
   return (
     <View style={{flex:1}}>
-      <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/>
+      {/* <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/> */}
       <MapModal modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>
       <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
         <View style={{marginHorizontal:15}}>

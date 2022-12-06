@@ -1,6 +1,7 @@
-import { Error, HistoryCar, Image } from "../utils/types"
-import { uploadImage } from "./uploadImages"
+import { Error, AlertProps, HistoryCar, Image } from "../../utils/types"
+import { uploadImage } from "../uploadImage"
 import { uploadDataCar } from './uploadDataCar';
+import { v4 as uuid } from 'uuid';
 
 export const addProject = async (
         images:any, 
@@ -9,9 +10,10 @@ export const addProject = async (
         userUid:string, 
         language:string, 
         stages:HistoryCar[],
-        setShowError: (value:Error)=>void
+        setShowAlert: (value:AlertProps)=>void
     ) => {
     if(userUid){
+        const project_id = uuid();
         let firebaseImagesUri:Image[] = []
         let firebaseImagesStagesUri:{id:number, image:string}[] = []
         const editStages = stages
@@ -32,33 +34,44 @@ export const addProject = async (
                 })
         }
 
- 
-        images.forEach(async (image:any) => {
-            uploadImage(image, false, carData.make, carData.model, userUid, firebaseImagesUriUpload)           
-        })     
+
+        images.forEach( (image:any) => {
+            uploadImage(image, project_id, false, userUid, firebaseImagesUriUpload, setShowAlert)
+            .then((promise:any)=> firebaseImagesUriUpload(promise.url, promise.image))  
+            .catch(() => setShowAlert({type:'ERROR', show:true, message: 'error xd'}))                            
+        })
     
-        imagesStages.forEach(async (image:any) => {
-            await uploadImage(image, false, carData.make, carData.model, userUid, firebaseImagesStagesUriUpload)           
-         });
-         setTimeout(()=>{
+        imagesStages.forEach((image:any) => {
+            uploadImage(image, project_id, false, userUid, firebaseImagesStagesUriUpload, setShowAlert)
+            .then((promise:any)=> {firebaseImagesUriUpload(promise.url, promise.image); console.log(promise)})  
+            .catch(() => setShowAlert({type:'ERROR', show:true, message: 'error'}))         
+        });        
+        
+
+        setTimeout(() => {
             uploadDataCar(
+                project_id,
                 carData,    
                 editStages, 
                 firebaseImagesUri,
                 userUid, 
                 language, 
-                setShowError
+                setShowAlert
             )
-            console.log(firebaseImagesUri)
-
-         }, 4000)
-         
+            .then((s:AlertProps | undefined)=> {
+                s&&setShowAlert(s)
+                console.log('jupi', firebaseImagesUri)
+                
+            })
+            .catch((e:AlertProps)=> {setShowAlert(e), console.log(e)})
+        
+        }, 3000)        
     }
     else {
         const errorMessage = language==='pl'
             ?'Musisz być zalogowany aby dodać swój projekt'
             :'You must be login to add project' 
       
-        setShowError({show:true, message: errorMessage})
+        setShowAlert({type:'ERROR', show:true, message: errorMessage})
     }
 }

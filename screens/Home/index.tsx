@@ -45,9 +45,10 @@ const HomeScreen = () => {
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects.length>0?<FlatList 
         style={{ width: '100%'}}
-        contentContainerStyle={{flex:1}}
+        contentContainerStyle={{flexGrow:1}}
         data={projects}
         pagingEnabled
+        
         bounces
         keyExtractor={carProject => carProject.id}
         renderItem={(carData)=> 

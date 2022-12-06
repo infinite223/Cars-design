@@ -21,7 +21,7 @@ import SelectList from 'react-native-dropdown-select-list'
 import { chooseImg } from '../../utils/functions/chooseImg';
 import { HistoryCar } from '../../utils/types'
 import { findMakeInCategores } from '../../utils/functions/findMakeInCaategores';
-import { addProject } from '../../firebase/addProject';
+import { addProject } from '../../firebase/project/addProject';
 import { getMakes } from '../../utils/functions/getMakes';
 import Accordion from 'react-native-collapsible/Accordion';
 import { AccordionView } from './stages';
@@ -35,7 +35,7 @@ const CreateScreen = () => {
     const [makesCategory, setMakesCategory] = useState<{key:number, value:string}[]>([])
     const [showAddComponentModal, setShowAddComponentModal] = useState(false)
     const [activeSections, setActiveSections] = useState<number[]>([])
-    const [showError, setShowError] = useState({show:false, message:''})
+    const [showError, setShowError] = useState({type:'', show:false, message:''})
     const [imagesStages, setImagesStages] = useState<any[]>([]);
 
     const { user, logout }:any = useAuth()
@@ -84,7 +84,7 @@ const CreateScreen = () => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{marginLeft:5, fontSize:20, color:theme.fontColor}}>
-                {language==="en"?navTitleText.en:navTitleText.pl}
+                {navTitleText[language as keyof typeof navTitleText]}
             </Text>,
         //    headerLeft: () => (
         //     <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
@@ -101,7 +101,7 @@ const CreateScreen = () => {
             if (Platform.OS !== 'web') {
                 const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
                 if (status !== 'granted') {
-                    alert(language==="en"?cameraError.en:cameraError.pl);
+                    alert(cameraError[language as keyof typeof cameraError]);
                 }
             }
 		})();
@@ -117,7 +117,7 @@ const CreateScreen = () => {
     useEffect(() => {
       if(stages.length>6){
         setStages(stages.slice(0, 6))
-        setShowError({show:true, message:'Max count stages is 8'})
+        setShowError({type:'ERROR', show:true, message:'Max count stages is 8'})
       }
     }, [stages])
     
@@ -128,7 +128,7 @@ const CreateScreen = () => {
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
             <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
-                <Text style={[style.headerText]}>{language==='en'?headerText.en:headerText.pl}</Text>
+                <Text style={[style.headerText]}>{headerText[language as keyof typeof headerText]}</Text>
             </View>
             <View>
                 {makesCategory&&
@@ -145,9 +145,9 @@ const CreateScreen = () => {
                         
                     />
                 }
-                <CustomInput placeholder={language==='en'?model.en:model.pl} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
+                <CustomInput placeholder={model[language as keyof typeof model]} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
                 <CustomInput 
-                 placeholder={language==='en'?description.en:description.pl} 
+                 placeholder={description[language as keyof typeof description]} 
                  setValue={(text)=>setCarData({...carData, description:text})}
                  max={100}
                  helpText={language==='pl'?"(np. Projekt został stowrzony...max 100 letters)":"(np. Project was created...max 100 letters)"}
@@ -165,8 +165,8 @@ const CreateScreen = () => {
                 <Text style={[style.headerText, { marginLeft:-25}]}>Performance</Text>
             </View>
             <View>
-                <CustomInput placeholder={language==='en'?power.en:power.pl}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
-                <CustomInput placeholder={language==='en'?torque.en:torque.pl}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
+                <CustomInput placeholder={power[language as keyof typeof power]}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
+                <CustomInput placeholder={torque[language as keyof typeof torque]}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
                 <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text.replace(',', '.'))})} helpText="(np. 5.3)" performance="_0_100"/>
                 <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text.replace(',', '.'))})} helpText="(np. 13.9)" performance="_100_200"/>
             </View>
@@ -230,7 +230,7 @@ const CreateScreen = () => {
             </View>
 
             <ScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}}>
-               <Text style={[{color: theme.fontColorContent, marginVertical:10}]}>{language==='en'?historyHeaderText.en:historyHeaderText.pl}</Text>       
+               <Text style={[{color: theme.fontColorContent, marginVertical:10}]}>{historyHeaderText[language as keyof typeof historyHeaderText]}</Text>       
                <AccordionView 
                     setStages={setStages} 
                     stages={stages} 
@@ -263,7 +263,7 @@ const CreateScreen = () => {
 
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
-        {showError.show&&<AlertModal type='ERROR' show={showError.show} message={showError.message} resetError={setShowError}/>}
+        {showError.show&&<AlertModal type={showError.type} show={showError.show} message={showError.message} resetError={setShowError}/>}
         <FlatList
             ref={flatListRef}
             pagingEnabled

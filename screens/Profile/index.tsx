@@ -56,7 +56,7 @@ const ProfileScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:15, fontSize:20, color:theme.fontColor}}>
+           headerTitle: () => <Text style={{marginLeft:15, fontSize:17, color:theme.fontColor}}>
             {user.name}
             </Text>,
            headerLeft: () => (
@@ -71,7 +71,7 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
                     <Avatar
-                        size={38}
+                        size={37}
                         rounded
                         source={{uri: user.imageUri}}    
                     />

@@ -23,7 +23,7 @@ export const RightNavigation = () => {
     const translateX = useSharedValue(0)
     const translateXBackground = useSharedValue(0)
     const theme = useSelector(selectTheme)
-    const language:string = useSelector(selectLanguage)
+    const language = useSelector<string>(selectLanguage)
     const navigation = useNavigation<any>()
     const { user, logout }:any = useAuth()
     const dispatch = useDispatch()
@@ -50,7 +50,7 @@ export const RightNavigation = () => {
         return {        
           transform: [{translateX: translateXBackground.value}]
         }
-      })
+    })
 
     useEffect(() => {
       if(showNavigation) {
@@ -73,8 +73,6 @@ export const RightNavigation = () => {
     })
     .onUpdate((event)=> {
         translateX.value = event.translationX + context.value.x;
-        // translateX.value = Math.max(translateX.value, 1000)
-        // translateX.value = Math.min(translateX.value, 400 )
 
       if(translateX.value<SCREEN_WIDTH/3){
         translateX.value = withSpring(SCREEN_WIDTH/3)
@@ -88,7 +86,7 @@ export const RightNavigation = () => {
         dispatch(setNavigation(false))
       }
     })
-    console.log(translateX.value)
+
   return (<>
     <GestureDetector gesture={gesture} >
         <Animated.View style={[style.containerNavigation, rNavigationContentSheetStyle, {backgroundColor: theme.background}]}>
@@ -157,7 +155,7 @@ export const RightNavigation = () => {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> (logout(), dispatch(setNavigation(false)))}  style={[style.logoutButton, {backgroundColor: theme.backgroundContent}]}>
                         <Text style={[{color:theme.fontColorContent, marginRight:13}]}>
-                          {logoutText[language]}
+                          {logoutText[language as keyof typeof logoutText]}
                         </Text>
                         <_Icon_SimpleLineIcons name="logout" size={16} color={theme.fontColorContent}/>
                     </TouchableOpacity>

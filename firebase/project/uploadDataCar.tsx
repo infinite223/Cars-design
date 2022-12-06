@@ -1,16 +1,18 @@
-import { Car, Error, HistoryCar, Image } from "../utils/types";
+import { AlertProps, Car, Error, HistoryCar, Image } from "../../utils/types";
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import { FirebaseApp } from "firebase/app";
 import { documentId } from "firebase/firestore";
-import { db } from "../hooks/useAuth";
+import { db } from "../../hooks/useAuth";
+
 
 export const uploadDataCar = async (
+    project_id:string,
     carData:any, 
     stages:HistoryCar[],
     firebaseImagesUri: Image[],
     userUid:string, 
     language:string,  
-    setShowError: (value:Error)=>void,
+    setShowAlert: (value:AlertProps)=>void,
 ) => {
     console.log(firebaseImagesUri, 'ddd')
         if(firebaseImagesUri.length>0){
@@ -29,9 +31,24 @@ export const uploadDataCar = async (
             imagesCar: firebaseImagesUri,
         } 
         console.log(finishCarData)
-    
-        await setDoc(doc(db, `users/${userUid}/projects`, carData.model+carData.make+userUid), finishCarData)
-            .then(s=>console.log(s))
-            .catch(e=>console.log(e))
+        const errorMessage = language==='pl'
+        ?'Coś poszło nie tak, spróbuj później'
+        :'Something went wrong, please try again later' 
+
+        const successMessage = language==='pl'
+        ?'Projekt został dodany'
+        :'Project was added' 
+        
+        const promise = new Promise<AlertProps>(async (resolve, reject) => {
+            await setDoc(doc(db, `users/${userUid}/projects`, project_id), finishCarData)
+            .then(s=> {
+                return resolve({type:'SUCCESS', show:true, message: successMessage})
+            })
+            .catch(e=> {
+                return reject({type:'ERROR', show:true, message: errorMessage})
+            })
+        });
+
+        return promise
     }
 }

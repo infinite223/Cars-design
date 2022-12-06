@@ -11,7 +11,7 @@ import useAuth from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
 import { translations } from './../utils/translations';
 import { onShare } from './../utils/functions/projectFunctions';
-import { deleteProject } from '../firebase/deleteProject';
+import { deleteProject } from '../firebase/project/deleteProject';
 import AlertModal from '../screens/modals/AlertModal';
 
 

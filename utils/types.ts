@@ -92,3 +92,9 @@ export type Error = {
     show:boolean,
     message:string
 }
+
+export type AlertProps = {
+    type:string, 
+    show:boolean, 
+    message:string
+}

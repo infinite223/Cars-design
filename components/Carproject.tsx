@@ -24,7 +24,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const language = useSelector<string>(selectLanguage)
-  const { _menuOptions: {capy, hide, save, report}} = translations.components.carProject
+  const { _menuOptions: {capy, hide, save, report}, likesText} = translations.components.carProject
 
   const dispatch = useDispatch()
 
@@ -48,8 +48,8 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
        <TouchableWithoutFeedback onPress={setProjectToNav}>
         <View style={[style.projectContainer]}>
           <View style={{ flexDirection:'column', alignItems:'flex-start', marginBottom:10}}>
-            <Text style={{fontSize:24, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
-            <Text style={{color:theme.fontColor}}>{car.CarMake} </Text>
+            <Text style={{fontSize:20, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
+            <Text style={{fontSize:12, color:theme.fontColor}}>{car.CarMake} </Text>
           </View>
           <View style={{flexDirection:'row'}}>
             <Text style={[style.stageText, {color: theme.background,  backgroundColor:getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
@@ -71,10 +71,13 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
         </View>
        </TouchableWithoutFeedback>
       }
-      <TouchableWithoutFeedback onPress={setProjectToNav}>
-       <Image style={{height:250, width:"100%", zIndex:2}} source={{uri:car.imagesCar[0].url}}/>
-      </TouchableWithoutFeedback>
 
+      <View style={style.imageContainer}>
+        <TouchableWithoutFeedback onPress={setProjectToNav}>
+        <Image style={{height:250, width:"100%", zIndex:2}} source={{uri:car.imagesCar[0].url}}/>
+        </TouchableWithoutFeedback>
+      </View>
+ 
         <View style={style.footer}>
           <View style={{alignItems:'center', flexDirection:'row'}}>
             <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
@@ -94,7 +97,9 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
                 />
             </TouchableOpacity>
 
-            <Text style={[style.likes, {color: theme.fontColorContent}]}>{car.likes} likes</Text>
+            <Text style={[style.likes, {color: theme.fontColorContent}]}>
+              {car.likes} {likesText[language as keyof typeof likesText]}
+            </Text>
           </View>
           <Menu>
             <MenuTrigger>
@@ -132,7 +137,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
             source={{uri: car.imagesCar[0].url}}
             style={[
               StyleSheet.absoluteFillObject,
-              {opacity: .2, zIndex:1}
+              {opacity: .1, zIndex:1}
             ]}
             blurRadius={50}
           />
@@ -146,7 +151,7 @@ export default Carproject
 const style = StyleSheet.create({
   projectContainer: {
     marginVertical:5, 
-    paddingHorizontal:10, 
+    paddingHorizontal:20, 
     flexDirection:'row', 
     justifyContent:'space-between', 
     alignItems:'center',
@@ -158,15 +163,21 @@ const style = StyleSheet.create({
     justifyContent:'center'
   },
   performanceValue: {
-    fontSize:16,
+    fontSize:14,
   },
   performanceType: {
     fontSize:12,
   },
+  imageContainer: {
+    width:'100%',
+    justifyContent:'center',
+    alignItems:'center',
+    paddingHorizontal:0
+  },
   stageText: {
     marginRight:10,
     alignSelf:'center',
-    fontSize:14,
+    fontSize:12,
     letterSpacing:1,
     fontWeight:'bold',
     borderRadius:15,
@@ -180,7 +191,7 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
-    paddingHorizontal:5
+    paddingHorizontal:12
   },
   iconContainer: {
     flexDirection:'row',
