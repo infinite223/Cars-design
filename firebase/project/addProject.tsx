@@ -18,7 +18,6 @@ export const addProject = async (
         let firebaseImagesStagesUri:{id:number, image:string}[] = []
         const editStages = stages
 
-
         const firebaseImagesUriUpload = (uri:string, image:any) => {
             firebaseImagesUri.push({url:uri, likes:0, place:image.place})
         }
@@ -35,37 +34,47 @@ export const addProject = async (
         }
 
 
-        images.forEach( (image:any) => {
-            uploadImage(image, project_id, false, userUid, firebaseImagesUriUpload, setShowAlert)
-            .then((promise:any)=> firebaseImagesUriUpload(promise.url, promise.image))  
-            .catch(() => setShowAlert({type:'ERROR', show:true, message: 'error xd'}))                            
-        })
-    
-        imagesStages.forEach((image:any) => {
-            uploadImage(image, project_id, false, userUid, firebaseImagesStagesUriUpload, setShowAlert)
-            .then((promise:any)=> {firebaseImagesUriUpload(promise.url, promise.image); console.log(promise)})  
-            .catch(() => setShowAlert({type:'ERROR', show:true, message: 'error'}))         
-        });        
-        
-
-        setTimeout(() => {
-            uploadDataCar(
-                project_id,
-                carData,    
-                editStages, 
-                firebaseImagesUri,
-                userUid, 
-                language, 
-                setShowAlert
-            )
-            .then((s:AlertProps | undefined)=> {
-                s&&setShowAlert(s)
-                console.log('jupi', firebaseImagesUri)
-                
+        let uploadAllImages = new Promise(function (resolve, reject){
+            images.forEach( (image:any, id:number) => {
+                uploadImage(image, project_id, false, userUid, firebaseImagesUriUpload, setShowAlert)
+                .then((promise:any)=> firebaseImagesUriUpload(promise.url, promise.image))  
+                .catch(() => setShowAlert({type:'ERROR', show:true, message: 'error xd'})) 
+                .finally(()=> {
+                    if(id===firebaseImagesUri.length-1){
+                        resolve('Promise resolved'); 
+                    }
+                })                           
             })
-            .catch((e:AlertProps)=> {setShowAlert(e), console.log(e)})
         
-        }, 3000)        
+            imagesStages.forEach((image:any) => {
+                uploadImage(image, project_id, false, userUid, firebaseImagesStagesUriUpload, setShowAlert)
+                .then((promise:any)=> {firebaseImagesUriUpload(promise.url, promise.image); console.log(promise)})  
+                .catch(() => setShowAlert({type:'ERROR', show:true, message: 'error'}))         
+            })       
+        })
+
+        async function uploadProject() {
+            let result = await uploadAllImages; 
+            if(result){
+                uploadDataCar(
+                    project_id,
+                    carData,    
+                    editStages, 
+                    firebaseImagesUri,
+                    userUid, 
+                    language
+                )
+                .then((alertSuccess:AlertProps | undefined)=> {
+                    alertSuccess&&setShowAlert(alertSuccess)
+                    console.log('jupi', firebaseImagesUri)
+                })
+                .catch((alertError:AlertProps)=> {
+                    setShowAlert(alertError), 
+                    console.log(alertError)
+                })
+            }
+        }
+        uploadProject()      
     }
     else {
         const errorMessage = language==='pl'

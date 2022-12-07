@@ -12,7 +12,6 @@ export const uploadDataCar = async (
     firebaseImagesUri: Image[],
     userUid:string, 
     language:string,  
-    setShowAlert: (value:AlertProps)=>void,
 ) => {
     console.log(firebaseImagesUri, 'ddd')
         if(firebaseImagesUri.length>0){
@@ -39,7 +38,7 @@ export const uploadDataCar = async (
         ?'Projekt został dodany'
         :'Project was added' 
         
-        const promise = new Promise<AlertProps>(async (resolve, reject) => {
+        const uploadDataCar = new Promise<AlertProps>(async (resolve, reject) => {
             await setDoc(doc(db, `users/${userUid}/projects`, project_id), finishCarData)
             .then(s=> {
                 return resolve({type:'SUCCESS', show:true, message: successMessage})
@@ -49,6 +48,6 @@ export const uploadDataCar = async (
             })
         });
 
-        return promise
+        return uploadDataCar
     }
 }

@@ -47,7 +47,7 @@ const HomeScreen = () => {
         style={{ width: '100%'}}
         contentContainerStyle={{flexGrow:1}}
         data={projects}
-        pagingEnabled
+        // pagingEnabled
         
         bounces
         keyExtractor={carProject => carProject.id}
