@@ -1,32 +1,32 @@
 export const translations = {
     navigation: {
         rightNavigation: {
-            links: [
-                {profile: {
+            links: {
+                profile: {
                     en: 'My profile',
                     pl: 'Mój profil'
-                },},
-                {group: {
+                },
+                group: {
                     en: "Groups",
                     pl: 'Grupy'
-                },},
-                {add: {
+                },
+                add: {
                     en: 'Add project',
                     pl: 'Dodaj projekt'
-                },},
-                {chats: {
+                },
+                chats: {
                     en: 'Chats',
                     pl:'Czaty'
-                },},
-                {settings: {
+                },
+                settings: {
                     en:'Settings',
                     pl: 'Ustawienia'
-                },},
-                {reviews: {
+                },
+                reviews: {
                     en: 'Add reviews',
                     pl: 'Dodaj opinie'
-                }}
-            ],
+                }
+            },
             logoutText: {
                 en:'Logout',
                 pl:'Wyloguj'

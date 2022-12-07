@@ -11,7 +11,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RightNavigation } from './navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';
 
-
 LogBox.ignoreAllLogs()
 // LogBox.ignoreLogs(['Require cycle:']);
 

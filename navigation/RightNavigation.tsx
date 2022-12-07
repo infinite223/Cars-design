@@ -18,8 +18,7 @@ const SCREEN_HEIGHT = Dimensions.get('screen').height
 const SCREEN_WIDTH = Dimensions.get('screen').width
 
 export const RightNavigation = () => {
-    const [localTranslation, setLocalTranslation] = useState<string[]>([])
-    const {logoutText, links} = translations.navigation.rightNavigation
+    const {logoutText, links: { add, chats, group, profile, reviews, settings}} = translations.navigation.rightNavigation
     const translateX = useSharedValue(0)
     const translateXBackground = useSharedValue(0)
     const theme = useSelector(selectTheme)
@@ -28,23 +27,12 @@ export const RightNavigation = () => {
     const { user, logout }:any = useAuth()
     const dispatch = useDispatch()
     const showNavigation = useSelector(selectNavigation)
+
     const rNavigationContentSheetStyle = useAnimatedStyle(() => {  
       return {       
         transform: [{translateX: translateX.value}]
       }
     })
-
-    useEffect(() => {
-      const obj = []
-
-      for (let link of translations.navigation.rightNavigation.links) {
-        let propName = Object.keys(link)[0];
-        obj.push(link[propName][language])
-      }
-
-      setLocalTranslation(obj);
-    }, [language])
-
 
     const rBackgroundSheetStyle = useAnimatedStyle(() => {  
         return {        
@@ -109,29 +97,25 @@ export const RightNavigation = () => {
                 <View style={style.content}>
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
-                          {/* {language==='en'?profile.en:profile.pl} */}
-                          {localTranslation[0]}
+                          {profile[language as keyof typeof profile]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.link}>
+                    <TouchableOpacity style={style.link} onPress={() => (navigation.navigate('Groups'), dispatch(setNavigation(false)))}>
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
-                          {/* {language==='en'?group.en:group.pl} */}
-                          {localTranslation[1]}
+                          {group[language as keyof typeof group]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Create', {state: user}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
-                          {/* {language==='en'?add.en:add.pl} */}
-                          {localTranslation[2]}
+                          {add[language as keyof typeof add]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Chats', {state: user}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
-                          {/* {language==='en'?chats.en:chats.pl} */}
-                          {localTranslation[3]}
+                          {chats[language as keyof typeof chats]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>           
@@ -141,15 +125,13 @@ export const RightNavigation = () => {
                 <View style={style.bottomContent}>
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Settings'), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
-                          {/* {language==='en'?settings.en:settings.pl} */}
-                          {localTranslation[4]}
+                          {settings[language as keyof typeof settings]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}>
                         <Text style={[style.linkText, {color: '#2b3'}]}>
-                          {/* {language==='en'?reviews.en:reviews.pl} */}
-                          {localTranslation[5]}
+                          {reviews[language as keyof typeof reviews]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
                     </TouchableOpacity>
