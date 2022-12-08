@@ -7,17 +7,12 @@ import { selectTheme } from './../slices/themeSlice';
 import { Icon } from '@rneui/base';
 
 
-const ChatFunctionsConatiner:React.FC<{author?:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({setModalVisible}) => {
+const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: string)=> void, sendMessage:() => void, author?:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({message, setMessage, sendMessage,setModalVisible}) => {
   const navigation = useNavigation<any>()
   const [nickname, setNickname] = useState('')
   const [description, setDescription] = useState('')
   const theme = useSelector(selectTheme)
-
   const complate = (nickname && description)? true:false
-
-  const sendMessage = () => {
-
-  }
 
   return (
     <View style={style.bottomNav}>
@@ -29,9 +24,11 @@ const ChatFunctionsConatiner:React.FC<{author?:User, modalVisible:boolean, setMo
       <TextInput
         placeholderTextColor={theme.fontColorContent}
         placeholder='Type message'
+        value={message}
+        onChangeText={setMessage}
         style={[style.inputMessage, {color:theme.fontColor, borderColor:theme.backgroundContent}]}
       />
-      <TouchableOpacity onPress={() => sendMessage()} style={{marginLeft:8}}>
+      <TouchableOpacity onPress={sendMessage} style={{marginLeft:8}}>
         <Icon type="ionicon" name="send-outline" size={20} color={theme.fontColor}/>
       </TouchableOpacity>
     </View>
