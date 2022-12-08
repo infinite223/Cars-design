@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsNavigator } from './TabsNavigator'
 import EditProfileScreen from './../screens/EditProfile/index';
 import GroupsScreen from '../screens/GroupsScreen'
+import ChatScreen from '../screens/ChatScreen'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -45,6 +46,7 @@ const StackNavigator = () => {
             <Stack.Screen name='Project' component={ProjectScreen}/>
             <Stack.Screen name='Groups' component={GroupsScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
+            <Stack.Screen name='Chat' component={ChatScreen}/>
             <Stack.Screen name='Profile' component={ProfileScreen}/>               
             <Stack.Screen name='Camera' component={MyCamera}  options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>

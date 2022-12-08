@@ -19,6 +19,9 @@ import { Icon } from '@rneui/base';
 import { onShare } from '../utils/functions/projectFunctions';
 import { translations } from '../utils/translations';
 import { selectLanguage } from './../slices/languageSlice';
+import { doc, setDoc } from 'firebase/firestore';
+import useAuth, { db } from '../hooks/useAuth';
+import { v4 as uuid } from 'uuid';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, createdAt}}) => {
   const navigation:any = useNavigation()
@@ -27,6 +30,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
   const { _menuOptions: {capy, hide, save, report}, likesText} = translations.components.carProject
 
   const dispatch = useDispatch()
+  const { user }:any = useAuth()
 
   const setProjectToNav = () => {
 
@@ -41,6 +45,30 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
     await Clipboard.setStringAsync(carMake+' '+model);
   };
 
+  const goToChat = () => {
+    const chatId = uuid();
+      const messageRef = doc(db, `chats/${chatId}`);
+
+      setDoc(messageRef, {
+       from:{
+        uid: user.uid,
+        imageUri: user.imageUri,
+        name:user.name
+       },
+       to: {
+        uid: 'SxS1gZ5urRWQ66jLCFWCKQRhiP43',
+        imageUri: 'https://firebasestorage.googleapis.com/v0/b/cars-projects-317ef.appspot.com/o/SxS1gZ5urRWQ66jLCFWCKQRhiP43%2Fprofile-%2F4ae2ec51-5082-4450-b12d-9d06a008b757.jpeg?alt=media&token=7d41e36e-26c3-4ae8-aed5-d46d586c1200',
+        name: 'Adam'
+       }
+      })
+
+      navigation.navigate('Chat',  {
+        uid: authorUid,
+        imageUri: 'https://firebasestorage.googleapis.com/v0/b/cars-projects-317ef.appspot.com/o/jR10GOJtyPXT9fRTKuEjHbhvsz23%2Fprofile%2F3401f3eb-14e6-488b-8872-a90fde47d044.jpeg?alt=media&token=8680beff-fce5-4f13-babf-72fddfaec0f3',
+        name: 'Dawid',
+        id:chatId
+      })
+  }
 
   return (
       <View style={{backgroundColor: theme.background}}>
@@ -129,6 +157,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
               <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/>
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => {}} disabled={true} text={hide[language as keyof typeof report]} />
+              <MenuOption onSelect={() => goToChat()} text="Messgae" />
             </MenuOptions>
           </Menu>
         </View>

@@ -8,17 +8,19 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Icon } from '@rneui/themed';
-import { chats } from './data';
 import { style } from './style'; 
+import { collection, onSnapshot } from 'firebase/firestore';
+import useAuth, { db } from '../../hooks/useAuth';
 
 const ChatsScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<any>()
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
+    const { user }:any = useAuth()
     const authorUid = route.params;
-    const [chatModalVisible, setChatModalVisible] = useState(false)
     const [selectCHat, setSelectChat] = useState<User>()
+    const [chats, setChats] = useState<any>([])
 
     useLayoutEffect(() => {
       navigation.setOptions({
@@ -33,14 +35,28 @@ const ChatsScreen = () => {
       )})
     }, [theme, language])
 
+    useLayoutEffect(()=> {
+      const chatsRef = collection(db, "chats/")
+
+      const unsubscribe = onSnapshot(chatsRef, (snapchot) => {      
+            setChats(snapchot.docs.map((doc, i)=> {
+              console.log(doc.data())
+                return {id: doc.id, data:doc.data()}
+            }))      
+        })
+      
+      return unsubscribe
+
+    }, [])
+
+
    
   return (
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
-      {selectCHat&&<ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={selectCHat}/>}
       <FlatList 
         data={chats}
         renderItem={({item})=>{ 
-          return <TouchableOpacity onPress={()=>(setChatModalVisible(true), setSelectChat(item.author))} style={style.renderItem}>
+          return <TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={style.renderItem}>
             <Avatar size={34} rounded source={{uri:item.author?.imageUri}}/>
             <View style={style.textContainer}>
               <Text style={[{color: theme.fontColor}]}>{item.author?.name}</Text>

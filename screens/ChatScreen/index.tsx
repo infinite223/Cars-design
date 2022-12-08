@@ -1,8 +1,8 @@
-import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback, Image } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { Avatar } from '@rneui/themed';
 import { User } from '../../utils/types';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
@@ -10,8 +10,9 @@ import useAuth, { db } from '../../hooks/useAuth';
 import { collection, collectionGroup, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
 import { data } from '../../utils/data';
 import { v4 as uuid } from 'uuid';
+import { Icon } from '@rneui/base';
 
-const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({author, modalVisible, setModalVisible}) => {
+const ChatScreen = () => {
     const navigation = useNavigation<any>()
     const [nickname, setNickname] = useState('')
     const [description, setDescription] = useState('')
@@ -20,6 +21,29 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
     const [input, setInput] = useState('')
     const [messages, setMessages] = useState<any>([])
     const [message, setMessage] = useState('')
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const route = useRoute<any>()
+    const to = route.params;
+
+    console.log(to, 'xd')
+    useLayoutEffect(() => {
+        navigation.setOptions({
+           headerBackVisible:false,
+           headerTitle: () => <View style={{flexDirection:'row', alignItems:'center'}}>
+            <Avatar size={30} source={{uri:to.data.to.imageUri}}/>
+            <Text style={{color: theme.fontColor, fontSize:19, marginLeft:15}}> {to.data.to.name}</Text>
+           </View>,
+           headerLeft: () => (
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
+                </TouchableOpacity> 
+          ),
+          headerRight: () => 
+              <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
+
+        })  
+      }, [theme])
 
 
     const complate = (nickname && description)? true:false
@@ -27,7 +51,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
     const sendMessage = () => {
       Keyboard.dismiss()
       const messageId = uuid();
-      const messageRef = doc(db, `chats/jR10GOJtyPXT9fRTKuEjHbhvsz23/messages/${messageId}`);
+      const messageRef = doc(db, `chats/${to.id}/messages/${messageId}`);
 
       setDoc(messageRef, {
         timestamp: serverTimestamp(),
@@ -42,7 +66,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 
     
     useLayoutEffect(()=> {
-      const messagesRef = collection(db, "chats/" + 'jR10GOJtyPXT9fRTKuEjHbhvsz23' + "/messages")
+      const messagesRef = collection(db, "chats/" + `${to.id}` + "/messages")
 
       // const messagesRef = collectionGroup(db, `messages`)
        const messagesQuery = query(messagesRef, orderBy("timestamp"));
@@ -60,59 +84,41 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 
     // console.log(messages)
     return (
-    <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      > 
-        <View style={[style.mainContainer, {backgroundColor: theme.background}]}>          
-           <View style={style.headerContainer}>
-                <TouchableOpacity onPress={() => (navigation.navigate('Profile'), setModalVisible(false))}>
-                    <Avatar
-                        size={34}
-                        rounded
-                        source={{uri:user.imageUri}}    
+    <View style={[style.mainContainer, {backgroundColor: theme.background}]}>          
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <>
+            <ScrollView style={{flex:1}} contentContainerStyle={{paddingTop:15}}>
+            {messages.map(({id, data})=> 
+                data.email===user.email? (
+                <View key={id} style={[style.reciever, {backgroundColor: theme.backgroundContent}]}>
+                    <Avatar                     
+                    size={28}
+                    rounded
+                    source={{uri:data.imageUri}}    
                     />
-                </TouchableOpacity>
-                <Text style={{marginLeft:15, fontSize:18, color:theme.fontColor}}>{author.name}</Text>
-           </View>
-           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <>
-              <ScrollView style={{flex:1}} contentContainerStyle={{paddingTop:15}}>
-                {messages.map(({id, data})=> 
-                  data.email===user.email? (
-                    <View key={id} style={[style.reciever, {backgroundColor: theme.backgroundContent}]}>
-                      <Avatar                     
-                        size={28}
-                        rounded
-                        source={{uri:data.imageUri}}    
-                      />
-                      <Text style={[style.recieverText, {color: theme.fontColor}]}>{data.message}</Text>
-                    </View>
-                  ) : (
-                    <View key={id} style={[style.sender,  {backgroundColor: '#253'}]}>
-                       <Avatar                     
-                        size={28}
-                        rounded
-                        source={{uri:data.imageUri}}    
-                      />
-                      <Text style={[style.senderText, {color: theme.fontColor}]}>{data.message}</Text>
-                    </View>
-                  ))
-                }
-              </ScrollView>
-              <ChatFunctionsConatiner message={message} setMessage={setMessage} sendMessage={sendMessage} author={author} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-            </>
-           </TouchableWithoutFeedback>
-        </View>
-      </Modal>
+                    <Text style={[style.recieverText, {color: theme.fontColor}]}>{data.message}</Text>
+                </View>
+                ) : (
+                <View key={id} style={[style.sender,  {backgroundColor: '#253'}]}>
+                    <Avatar                     
+                    size={28}
+                    rounded
+                    source={{uri:data.imageUri}}    
+                    />
+                    <Text style={[style.senderText, {color: theme.fontColor}]}>{data.message}</Text>
+                </View>
+                ))
+            }
+            </ScrollView>
+            <ChatFunctionsConatiner message={message} setMessage={setMessage} sendMessage={sendMessage} author={user.uid} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        </>
+        </TouchableWithoutFeedback>
+    </View>
+
   )
 }
 
-export default ChatModal
+export default ChatScreen
 
 const style = StyleSheet.create({
   mainContainer: {
