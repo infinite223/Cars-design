@@ -247,6 +247,22 @@ export const translations = {
                 en: 'ADD PROJECT',
                 pl: 'DODAJ PROJEKT'
             }
+        },
+        Chats: {
+            menu: {
+                blockText: {
+                    en: 'Block',
+                    pl: 'Zablokuj'
+                },
+                reportText: {
+                    en: "Report",
+                    pl: 'Zgłoś'
+                },
+                deleteText: {
+                    en:'Delete chat',
+                    pl:"Usuń chat"
+                },
+            }
         }
     }
 }

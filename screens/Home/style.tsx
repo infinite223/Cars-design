@@ -12,6 +12,6 @@ export const style = StyleSheet.create({
       marginRight:10
     },
     iconPadding: {
-      paddingHorizontal:5
+      paddingLeft:10
     }
   })

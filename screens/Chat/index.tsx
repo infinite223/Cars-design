@@ -4,7 +4,7 @@ import { Avatar } from '@rneui/themed';
 import { User } from '../../utils/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../../slices/themeSlice';
+import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
 import { collection, collectionGroup, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -39,8 +39,8 @@ const ChatScreen = () => {
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
-          headerRight: () => 
-              <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
+          // headerRight: () => 
+          //     <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
 
         })  
       }, [theme])

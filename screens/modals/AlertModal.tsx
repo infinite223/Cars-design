@@ -5,13 +5,13 @@ interface AlertModalProps {
     show:boolean,
     message:string,
     type: string,
-    resetError: (value:{show:boolean, message:string}) => void
+    resetError: (value:{ type: string, show:boolean, message:string}) => void
 }
 const widthScreen = Dimensions.get('screen').width
 const AlertModal:React.FC<AlertModalProps> = ({show, message, type, resetError}) => {
     useEffect(() => {
         setTimeout(() => {
-            resetError({show: false, message: ''})
+            resetError({show: false, message: '', type:''})
         }, 4000);
     }, [])
     

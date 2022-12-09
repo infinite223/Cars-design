@@ -81,7 +81,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
           </View>
           <View style={{flexDirection:'row'}}>
             <Text style={[style.stageText, {color: theme.background,  backgroundColor:getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
-              STAGE {car.history.length}
+            {car.history.length===0?'STOCK':'STAGE '+car.history.length}
             </Text>
             <View style={style.performanceContainer}>
               <Text style={[style.performanceValue, {color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
@@ -161,16 +161,19 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
             </MenuOptions>
           </Menu>
         </View>
-        <View style={StyleSheet.absoluteFillObject}>
+        <Text style={[style.dateCreate, {color: theme.fontColorContent}]}>1 day ago</Text>
+        <View style={{borderBottomWidth:1, borderBottomColor:theme.backgroundContent, paddingVertical:5, opacity:.6}}></View>
+        {/* <View style={StyleSheet.absoluteFillObject}>
           <Image 
+          
             source={{uri: car.imagesCar[0].url}}
             style={[
               StyleSheet.absoluteFillObject,
-              {opacity: .1, zIndex:1}
+              {opacity: 0, zIndex:1}
             ]}
             blurRadius={50}
           />
-        </View>
+        </View> */}
       </View>
   )
 }
@@ -215,20 +218,25 @@ const style = StyleSheet.create({
   },
   footer: {
     zIndex:4,
-    height:50,
+    // height:50,
     width:'100%',
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
-    paddingHorizontal:12
+    paddingHorizontal:12,
+    paddingTop:10,
+    paddingBottom:5
   },
   iconContainer: {
     flexDirection:'row',
     alignItems:'center',
     paddingHorizontal:5,
-    paddingVertical:5
   },
   likes: {
     marginHorizontal:8
+  },
+  dateCreate: {
+    marginLeft:15,
+    fontSize:10
   }
 }) 

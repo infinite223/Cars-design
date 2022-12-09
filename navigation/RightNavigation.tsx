@@ -82,7 +82,7 @@ export const RightNavigation = () => {
             <View>
                 <View style={style.header}>
                     <TouchableOpacity onPress={()=>dispatch(setNavigation(false))}>
-                        <_Icon name={'menu-outline'} size={28} color={theme.fontColor} style={{ marginRight: 0 }}/>
+                        <_Icon name={'menu-outline'} size={30} color={theme.fontColor} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 

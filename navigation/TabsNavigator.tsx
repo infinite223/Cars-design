@@ -29,7 +29,8 @@ export const TabsNavigator = () => {
             tabBarStyle: {
                 backgroundColor:theme.background,
                 borderTopWidth:0,
-                height:75,
+                height:55,
+                // paddingVertical:5,
                 zIndex:7,      
             },
             tabBarHideOnKeyboard:true,
@@ -39,7 +40,7 @@ export const TabsNavigator = () => {
               {headerShown:false,tabBarIcon: ({focused})  => <_Icon name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Create' component={CreateScreen} options={
-              {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:5}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus' size={35} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:5}}/>}} 
+              {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus' size={30} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
             />
             <Tab.Screen name="Meeting" component={MeetingScreen} options={
               {tabBarIcon: ({focused}) => <Icon type='ionicon' name='people' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:5}}/>}} 

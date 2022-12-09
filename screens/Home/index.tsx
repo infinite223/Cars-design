@@ -15,6 +15,8 @@ import { setNavigation } from '../../slices/navigationSlice';
 import { useProjects } from '../../hooks/useProjects';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
+import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
+import { Icon } from '@rneui/base';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,15 +37,20 @@ const HomeScreen = () => {
    
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
-      headerLeft: () => <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
+       headerTitle: () => <View></View>,
+        // <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
+      headerLeft: () => <Text style={{color: theme.fontColorContent, fontSize:20, letterSpacing:2}}>Cars projects</Text>,
+      // <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
 
       headerRight: () => 
       <View style={{flexDirection:'row', alignItems:'center'}}>
+        <TouchableOpacity onPress={()=> navigation.navigate('Search')} style={{paddingHorizontal:10}}>
+          <_Icon_antDesign name='search1' size={21} color={theme.fontColor}/>
+        </TouchableOpacity>
         <TouchableOpacity style={style.iconPadding} 
           onPress={() => dispatch(setNavigation(true))}
         >
-          <_Icon name={'menu-outline'} size={26 } color={theme.fontColor} style={{ marginRight: 0 }}/>
+          <_Icon name={'menu-outline'} size={30} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
       </View>
     })
@@ -91,11 +98,11 @@ const HomeScreen = () => {
           <Text style={[{color: theme.fontColorContent}]}>No projects...</Text>
         </View>}
 
-        <TouchableOpacity  onPress={async () => {
+        {/* <TouchableOpacity  onPress={async () => {
           await schedulePushNotification();
         }}>
           <Text style={{color:theme.fontColor}}>click</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
     </View>
   )
 }
