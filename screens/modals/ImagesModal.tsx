@@ -1,4 +1,4 @@
-import { View, Modal, Dimensions, Animated, StyleSheet, Image } from 'react-native'
+import { View, Modal, Dimensions, Animated, StyleSheet, Image, StatusBar } from 'react-native'
 import React, { useRef} from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
@@ -19,6 +19,7 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
           setModalVisible(!modalVisible);
         }}
       >
+        <StatusBar backgroundColor={'black'} barStyle={'dark-content'}/>
         <View style={[style.mainContainer, {backgroundColor: theme.background}]}>   
           <View style={StyleSheet.absoluteFillObject}>
             {photos.map((photoUri, index)=> {

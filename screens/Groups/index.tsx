@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react'
 import { style } from './style'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectTheme } from './../../slices/themeSlice';
+import { selectTheme } from '../../slices/themeSlice';
 import { Avatar, Icon } from '@rneui/base';
 import useAuth from '../../hooks/useAuth';
 import { GroupItem } from './GroupItem';

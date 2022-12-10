@@ -89,8 +89,8 @@ export const RightNavigation = () => {
                         onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} 
                         style={style.profileButton}
                     >
-                        <Text style={[style.name, {color: theme.fontColorContent}]}>{user?.name}</Text>
-                        <Avatar size={32} rounded source={{uri:user?.imageUri}}/>
+                        <Text style={[style.name, {color: theme.fontColor}]}>{user?.name}</Text>
+                        <Avatar size={38} rounded source={{uri:user?.imageUri}}/>
                     </TouchableOpacity>
                 </View>
         
@@ -159,7 +159,7 @@ export const RightNavigation = () => {
 const style = StyleSheet.create({
     containerNavigation: {
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT, //nie wiem dlaczego 50 xD       
+        height:SCREEN_HEIGHT-50, //nie wiem dlaczego 50 xD       
         position:'absolute',
         top:0,
         zIndex:11
@@ -177,7 +177,7 @@ const style = StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:20,
         paddingVertical:20,
-        marginTop:30,
+        marginTop:0,
         justifyContent:'space-between'
     },
     profileButton:{
@@ -185,7 +185,7 @@ const style = StyleSheet.create({
         alignItems:'center'
     },
     name: {
-        marginRight:15,
+        marginRight:10,
         fontSize:18,
         color:'#293',
         fontWeight:'bold'

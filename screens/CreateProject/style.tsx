@@ -21,8 +21,6 @@ export const style = StyleSheet.create({
         color: 'white',
         fontSize:18,
         letterSpacing:1,
-        fontWeight:'400',
-        
     },
     headerContainer: {
         position:'relative',
@@ -30,12 +28,12 @@ export const style = StyleSheet.create({
         width:'100%',
         backgroundColor: '#273',
         alignSelf:'center',
-        paddingVertical:7,
+        paddingVertical:5,
         paddingHorizontal:15,
         marginVertical:4,
         marginBottom:10,
         marginHorizontal:0,
-        borderRadius:15,
+        borderRadius:10,
         flexDirection:'row',
         alignItems:'center',
         opacity:1

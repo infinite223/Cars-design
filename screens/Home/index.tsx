@@ -18,6 +18,8 @@ import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { Icon } from '@rneui/base';
 
+
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -39,7 +41,7 @@ const HomeScreen = () => {
     navigation.setOptions({
        headerTitle: () => <View></View>,
         // <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
-      headerLeft: () => <Text style={{color: theme.fontColorContent, fontSize:20, letterSpacing:2}}>Cars projects</Text>,
+      headerLeft: () => <Text style={{color: theme.fontColor, fontStyle:'italic', fontWeight:'bold', fontSize:20, letterSpacing:1}}>Cars projects</Text>,
       // <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
 
       headerRight: () => 

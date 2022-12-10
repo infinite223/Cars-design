@@ -102,7 +102,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
             {language==='en'?addComponentHeader.en:addComponentHeader.pl}
           </Text>
           <TouchableOpacity onPress={()=>setShowAddComponentModal(true)} style={[style.addComponentButton, {backgroundColor:"#273"}]}>
-            <Text style={[{color:'#aaa', fontSize:40}]}>+</Text>
+            <Text style={[{color:'white', fontSize:40}]}>+</Text>
           </TouchableOpacity>
         </View>
         
@@ -134,7 +134,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
               {language==='en'?addImageHeader.en:addImageHeader.pl}
             </Text>
             <TouchableOpacity  onPress={()=>chooseImg(imagesStages, setImagesStages, activeSections[0])} style={[style.addComponentButton, {backgroundColor:"#273"}]}>
-              <Text style={[{color:'#aaa', fontSize:40}]}>+</Text>
+              <Text style={[{color:'white', fontSize:40}]}>+</Text>
             </TouchableOpacity>
           </View>
           </>:  

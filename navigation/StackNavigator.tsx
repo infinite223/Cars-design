@@ -17,7 +17,7 @@ import MeetingRoomScreen from './../screens/MeetingRoom';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsNavigator } from './TabsNavigator'
 import EditProfileScreen from './../screens/EditProfile/index';
-import GroupsScreen from '../screens/GroupsScreen'
+import GroupsScreen from '../screens/Groups'
 import ChatScreen from '../screens/Chat'
 import SearchScreen from './../screens/Search/index';
 

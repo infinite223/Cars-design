@@ -83,7 +83,7 @@ const CreateScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{marginLeft:5, fontSize:20, color:theme.fontColor}}>
+           headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
                 {navTitleText[language as keyof typeof navTitleText]}
             </Text>,
         //    headerLeft: () => (
@@ -91,7 +91,7 @@ const CreateScreen = () => {
         //         <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
         //     </TouchableOpacity> 
         //     ),
-            headerRight: () => <Image style={style.logo} source={require('./../../assets/cars_projects_IconV2.png')}/>
+            // headerRight: () => <Image style={style.logo} source={require('./../../assets/cars_projects_IconV2.png')}/>
             
     })
       }, [theme, language])
@@ -111,7 +111,7 @@ const CreateScreen = () => {
         getMakes(setMakesCategory)
     }, [])
 
-    let validateBasicInfo = carData.make && carData.model && carData.description?true:false;
+    let validateBasicInfo = ( carData.make && carData.model )?true:false;
     let validatePerformance = (validInpute(carData.power.toString(), theme, 'hp', true)!=='rgba(200, 10, 10, .5)') && (validInpute(carData.torque.toString(), theme, 'nm', true)!=='rgba(200, 10, 10, .5)')
 
     useEffect(() => {
@@ -193,6 +193,9 @@ const CreateScreen = () => {
                         <Text style={[{color: theme.fontColor}]}>
                             Choose images to your gallery
                         </Text>
+                        <Text style={[{color: '#a32', maxWidth:200}]}>
+                            Minimum one image 
+                        </Text>
                         <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
                             On long press photo u can set place
                         </Text>
@@ -215,9 +218,9 @@ const CreateScreen = () => {
                     )}
                 />
             </View>
-            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+            {images.length>0&&<TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>,
         <View style={{flex:1}}>
             <View style={[style.headerContainer]}>
