@@ -18,34 +18,38 @@ export const style = StyleSheet.create({
         paddingHorizontal:20
     },
     headerText: {
-        color: '#2c3',
+        color: 'white',
         fontSize:18,
-        letterSpacing:3,
-        fontWeight:'bold',
-        textAlign:'center',
-        flex:1,
+        letterSpacing:1,
+        fontWeight:'400',
+        
     },
     headerContainer: {
         position:'relative',
-        paddingHorizontal:15,
+        // paddingHorizontal:15,
+        width:'100%',
+        backgroundColor: '#273',
+        alignSelf:'center',
         paddingVertical:7,
+        paddingHorizontal:15,
         marginVertical:4,
-        marginHorizontal:-15,
-        borderRadius:0,
+        marginBottom:10,
+        marginHorizontal:0,
+        borderRadius:15,
         flexDirection:'row',
         alignItems:'center',
         opacity:1
     },
     backIcon: {
-        paddingLeft:3,
-        paddingRight:15,
+        // paddingLeft:15,
+        paddingRight:5,
         paddingVertical:'10%'
     },
     logo: {
         width:40,
         height:40,
         borderRadius:10,
-        marginRight:10,
+        marginRight:20,
         marginVertical:10
     },
     nextStepButton: {
@@ -58,7 +62,7 @@ export const style = StyleSheet.create({
         paddingVertical:20,
         alignItems:'center',
         justifyContent:'center',
-        marginRight:-10
+        marginRight:-20
     },
     headerImages: {
         flexDirection:'row'

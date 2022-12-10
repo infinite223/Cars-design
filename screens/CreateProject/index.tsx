@@ -126,7 +126,7 @@ const CreateScreen = () => {
     const steps = [
         <View style={{flex:1}}> 
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
-            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.headerContainer]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
                 <Text style={[style.headerText]}>{headerText[language as keyof typeof headerText]}</Text>
             </View>
@@ -158,11 +158,11 @@ const CreateScreen = () => {
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.headerContainer]}>
                 <TouchableOpacity onPress={goToPrevStep}>
-                    <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-25}]}>Performance</Text>
+                <Text style={[style.headerText]}>Performance</Text>
             </View>
             <View>
                 <CustomInput placeholder={power[language as keyof typeof power]}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
@@ -175,11 +175,11 @@ const CreateScreen = () => {
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.headerContainer]}>
                 <TouchableOpacity onPress={goToPrevStep}>
-                    <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-25 }]}>
+                <Text style={[style.headerText]}>
                     {language==="en"?'Images':'Zdjęcia'}
                 </Text>
             </View>
@@ -220,11 +220,11 @@ const CreateScreen = () => {
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
-            <View style={[style.headerContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.headerContainer]}>
                 <TouchableOpacity onPress={goToPrevStep}>
-                    <Icon type="materialicon" name='arrow-back-ios' size={20} color='gray' style={style.backIcon}/>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
-                <Text style={[style.headerText, { marginLeft:-25 }]}>               
+                <Text style={[style.headerText]}>               
                     History
                 </Text>
             </View>

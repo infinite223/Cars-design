@@ -88,7 +88,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
     // 151515
     const borderColor = '#666'
     return (
-      <View style={[style.stageContent, theme.background==='black'?{backgroundColor: theme.backgroundContent}:{backgroundColor:'#cdc'}]}>
+      <View style={[style.stageContent, theme.background==='black'?{backgroundColor: theme.background}:{backgroundColor:'#cdc'}]}>
         {showAddComponentModal&&<AddComponentModal setComponent={(param)=>editStage(activeSections, param, stages, performance,  'component', setPerformance, setStages)} modalVisible={showAddComponentModal} setModalVisible={setShowAddComponentModal}/>}
         <View style={{height:1}}></View>
         <CustomInput borderColor={borderColor} fontSize={15} placeholder={language==='en'?descriptionText.en:descriptionText.pl} setValue={(val)=>editStage(activeSections, val, stages, performance,  'description', setPerformance, setStages)} max={100}/> 

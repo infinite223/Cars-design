@@ -7,7 +7,7 @@ import SettingsScreen from '../screens/Settings/index';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
 import _Icon  from 'react-native-vector-icons/Entypo'
-import _Icon_MaterialIcons  from 'react-native-vector-icons/FontAwesome'
+import _Icon_MaterialIcons  from 'react-native-vector-icons/Fontisto'
 import { Icon } from '@rneui/themed';
 import MeetingScreen from '../screens/Meeting';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -40,7 +40,7 @@ export const TabsNavigator = () => {
               {headerShown:false,tabBarIcon: ({focused})  => <_Icon name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Create' component={CreateScreen} options={
-              {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus' size={30} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
+              {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus-a' size={25} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
             />
             <Tab.Screen name="Meeting" component={MeetingScreen} options={
               {tabBarIcon: ({focused}) => <Icon type='ionicon' name='people' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:5}}/>}} 

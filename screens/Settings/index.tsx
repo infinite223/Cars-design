@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import useAuth from '../../hooks/useAuth';
 import { useNavigation } from '@react-navigation/native';
-import EditProfileScreen from './../modals/SettingsModals/EditProfileModal';
 import ThemeModal from './../modals/SettingsModals/ThemeModal';
 import InformationModal from './../modals/SettingsModals/InformationModeal';
 import LanguageModal from './../modals/SettingsModals/LanguageModal';
@@ -21,7 +20,6 @@ const SettingsScreen = () => {
   const { user, logout }:any = useAuth()
   console.log(user.displayName)
 
-  const [editProfileModalVisible, setEditProfileModalVisible] = useState(false)
   const [themeModalVisible, setThemeModalVisible] = useState(false)
   const [informationModalVisible, setInformationModalVisible] = useState(false)
   const [languageModalVisible, setLanguageModalVisible] = useState(false)
