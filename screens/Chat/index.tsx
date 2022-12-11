@@ -1,13 +1,12 @@
 import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback, Image } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { Avatar } from '@rneui/themed';
-import { User } from '../../utils/types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
-import { collection, collectionGroup, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
 import { data } from '../../utils/data';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';

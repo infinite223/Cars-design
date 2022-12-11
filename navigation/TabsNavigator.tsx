@@ -1,9 +1,6 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/Home/index';
 import CreateScreen from '../screens/CreateProject/index';
-import SettingsScreen from '../screens/Settings/index';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
 import _Icon  from 'react-native-vector-icons/Entypo'

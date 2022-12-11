@@ -1,15 +1,12 @@
-import { View, Text, StatusBar } from 'react-native'
+import { View} from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from './../screens/Home'
 import LoginScreen from './../screens/Login'
 import ProfileScreen from './../screens/Profile'
 import ProjectScreen from './../screens/Project'
-import CreateScreen from './../screens/CreateProject'
 import SettingsScreen from './../screens/Settings'
 import ChatsScreen from './../screens/Chats'
 import useAuth from './../hooks/useAuth'
-// import EditProfileScreen from './../screens/modals/SettingsModals/EditProfileModal';
 import MyCamera from './../screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
