@@ -7,17 +7,15 @@ import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
 import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
-import { data } from '../../utils/data';
+import { style } from './style';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
-    const [nickname, setNickname] = useState('')
-    const [description, setDescription] = useState('')
+
     const theme = useSelector(selectTheme)
     const { user }:any = useAuth()
-    const [input, setInput] = useState('')
     const [messages, setMessages] = useState<any>([])
     const [message, setMessage] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
@@ -44,9 +42,6 @@ const ChatScreen = () => {
         })  
       }, [theme])
 
-
-    const complate = (nickname && description)? true:false
-
     const sendMessage = () => {
       Keyboard.dismiss()
       const messageId = uuid();
@@ -66,9 +61,7 @@ const ChatScreen = () => {
     
     useLayoutEffect(()=> {
       const messagesRef = collection(db, "chats/" + `${to.id}` + "/messages")
-
-      // const messagesRef = collectionGroup(db, `messages`)
-       const messagesQuery = query(messagesRef, orderBy("timestamp"));
+      const messagesQuery = query(messagesRef, orderBy("timestamp"));
 
       const unsubscribe = onSnapshot(messagesQuery, (snapchot) => {      
             setMessages(snapchot.docs.map((doc, i)=> {
@@ -81,13 +74,12 @@ const ChatScreen = () => {
 
     }, [])
 
-    // console.log(messages)
     return (
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>          
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <>
             <ScrollView style={{flex:1}} contentContainerStyle={{paddingTop:15}}>
-            {messages.map(({id, data})=> 
+            {messages.map(({id, data}:{id:number, data:any})=> 
                 data.email===user.email? (
                 <View key={id} style={[style.reciever, {backgroundColor: theme.backgroundContent}]}>
                     <Avatar                     
@@ -118,64 +110,3 @@ const ChatScreen = () => {
 }
 
 export default ChatScreen
-
-const style = StyleSheet.create({
-  mainContainer: {
-    width:"100%", 
-    height:130,  
-    flex: 1,
-    paddingHorizontal:15,
-    paddingTop:15
-  },
-  headerContainer: {
-    flexDirection:'row', 
-    alignItems:'center',
-    marginHorizontal:5
-  },
-  bottomNav: {
-    flexDirection:'row', 
-    alignItems:'center', 
-    marginVertical:15
-  },
-  cameraIcon: {
-    borderColor:'gray', 
-    borderRadius:20, 
-    paddingVertical:7, 
-    paddingHorizontal:10
-  },
-  inputMessage: {
-    marginHorizontal:10,
-    flex:1, 
-    borderColor:'gray', 
-    fontSize:18, 
-    borderRadius:20, 
-    paddingVertical:5, 
-    paddingHorizontal:15
-  },
-  reciever: {
-    flexDirection:'row',
-    alignItems:'center',
-    padding:10,
-    alignSelf:'flex-end',
-    borderRadius:15,
-    marginBottom:20,
-    maxWidth: '80%',
-    position:'relative' 
-  },
-  sender: {
-    flexDirection:'row',
-    alignItems:'center',
-    padding:10,
-    alignSelf:'flex-start',
-    borderRadius:15,
-    marginBottom:20,
-    maxWidth: '80%',
-    position:'relative' 
-  },
-  recieverText: {
-    marginLeft:10
-  },
-  senderText:{
-
-  }
-})

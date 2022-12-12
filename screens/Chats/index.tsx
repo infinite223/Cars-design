@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native';
-import ChatModal from './../modals/ChatModal';
 import { AlertProps, User } from '../../utils/types';
 import { Avatar } from '@rneui/base';
 import { useSelector } from 'react-redux';
