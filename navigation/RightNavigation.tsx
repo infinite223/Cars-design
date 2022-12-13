@@ -78,11 +78,11 @@ export const RightNavigation = () => {
   return (<>
     <GestureDetector gesture={gesture} >
         <Animated.View style={[style.containerNavigation, rNavigationContentSheetStyle, {backgroundColor: theme.background}]}>
-        <View style={{width:SCREEN_WIDTH/1.45, justifyContent:'space-between', flex:1}}>
+        <View style={{width:SCREEN_WIDTH/1.5 , justifyContent:'space-between', flex:1}}>
             <View>
                 <View style={style.header}>
                     <TouchableOpacity onPress={()=>dispatch(setNavigation(false))}>
-                        <_Icon name={'menu-outline'} size={30} color={theme.fontColor} style={{ marginRight: 0 }}/>
+                        <_Icon name={'close'} size={30} color={theme.fontColorContent} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
@@ -90,7 +90,7 @@ export const RightNavigation = () => {
                         style={style.profileButton}
                     >
                         <Text style={[style.name, {color: theme.fontColor}]}>{user?.name}</Text>
-                        <Avatar size={38} rounded source={{uri:user?.imageUri}}/>
+                        <Avatar size={32} rounded source={{uri:user?.imageUri}}/>
                     </TouchableOpacity>
                 </View>
         
@@ -159,7 +159,7 @@ export const RightNavigation = () => {
 const style = StyleSheet.create({
     containerNavigation: {
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT-50, //nie wiem dlaczego 50 xD       
+        height:SCREEN_HEIGHT, //nie wiem dlaczego 50 xD       
         position:'absolute',
         top:0,
         zIndex:11
@@ -177,7 +177,7 @@ const style = StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:20,
         paddingVertical:20,
-        marginTop:0,
+        marginTop:30,
         justifyContent:'space-between'
     },
     profileButton:{
@@ -185,7 +185,7 @@ const style = StyleSheet.create({
         alignItems:'center'
     },
     name: {
-        marginRight:10,
+        marginRight:7,
         fontSize:18,
         color:'#293',
         fontWeight:'bold'
@@ -194,7 +194,7 @@ const style = StyleSheet.create({
         alignSelf:'flex-start',
         paddingHorizontal:20,
         // alignItems:'center',
-        width:SCREEN_WIDTH-125,
+        width:SCREEN_WIDTH-130,
     },
     link: {
         flexDirection:'row',
@@ -211,13 +211,13 @@ const style = StyleSheet.create({
         marginBottom:30,
         paddingHorizontal:20,
         // alignItems:'center',
-        width:SCREEN_WIDTH-125,
+        width:SCREEN_WIDTH-130,
     },
     logoutButton: {
         flexDirection:'row',
         alignContent:'center',
         alignSelf:'flex-end',
-        paddingHorizontal:20,
+        paddingHorizontal:30,
         paddingVertical:10,
         marginTop:15,
         borderRadius:35

@@ -10,7 +10,6 @@ import useAuth from './../hooks/useAuth'
 import MyCamera from './../screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import MeetingRoomScreen from './../screens/MeetingRoom';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsNavigator } from './TabsNavigator'
 import EditProfileScreen from './../screens/EditProfile/index';
@@ -50,7 +49,6 @@ const StackNavigator = () => {
             <Stack.Screen name='Settings' component={SettingsScreen}/>
             <Stack.Screen name='Search' component={SearchScreen}/>
             <Stack.Screen name='EditProfile' component={EditProfileScreen}/>  
-            <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>
         } 

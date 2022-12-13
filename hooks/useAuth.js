@@ -22,7 +22,7 @@ const firebaseConfig = {
   storageBucket: "cars-projects-317ef.appspot.com",
   messagingSenderId: "612500373363",
   appId: "1:612500373363:web:661b979a1e555b4b854f06"
-};
+}; 
 
 export let app = initializeApp(firebaseConfig);
 export const storage = getStorage()
@@ -40,6 +40,7 @@ export const AuthProvider = ({children}) => {
 
   useEffect(() => 
     onAuthStateChanged(auth, async (user) => {
+      console.log(user)
       if(user){
         const getUserData = async () => {
           const usersRef = doc(db, "users", user.uid);
@@ -83,8 +84,10 @@ export const AuthProvider = ({children}) => {
       const { id_token, accessToken } = response.params;
       console.log("response")
       const credential = GoogleAuthProvider.credential(id_token, accessToken);
-      await signInWithCredential(auth, credential).then((e)=>console.log(e)).catch((a)=> console.log(a))
-      .finally(()=>setLoading(false))
+      await signInWithCredential(auth, credential)
+        .then((e)=>console.log(e), setUser(tester))
+        .catch((a)=> console.log(a))
+        .finally(()=>setLoading(false))
     }
   }
 

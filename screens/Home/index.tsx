@@ -40,32 +40,33 @@ const HomeScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerTitle: () => <View></View>,
-        // <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
-      headerLeft: () => <Text style={{color: theme.fontColor, fontStyle:'italic', fontWeight:'bold', fontSize:20, letterSpacing:1}}>Cars projects</Text>,
+       headerLeft: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>Cars projects</Text>
+       
+      //  <Text style={{color: theme.fontColor, fontStyle:'italic', fontWeight:'bold', fontSize:20, letterSpacing:1}}>Cars projects</Text>,
       // <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
 
-      headerRight: () => 
-      <View style={{flexDirection:'row', alignItems:'center'}}>
-        <TouchableOpacity onPress={()=> navigation.navigate('Search')} style={{paddingHorizontal:10}}>
-          <_Icon_antDesign name='search1' size={21} color={theme.fontColor}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={style.iconPadding} 
-          onPress={() => dispatch(setNavigation(true))}
-        >
-          <_Icon name={'menu-outline'} size={30} color={theme.fontColor} style={{ marginRight: 0 }}/>
-        </TouchableOpacity>
-      </View>
+      // headerRight: () => 
+      // <View style={{flexDirection:'row', alignItems:'center'}}>
+      //   <TouchableOpacity onPress={()=> navigation.navigate('Search')} style={{paddingHorizontal:10}}>
+      //     <_Icon_antDesign name='search1' size={21} color={theme.fontColor}/>
+      //   </TouchableOpacity>
+      //   <TouchableOpacity style={style.iconPadding} 
+      //     onPress={() => dispatch(setNavigation(true))}
+      //   >
+      //     <_Icon name={'menu-outline'} size={30} color={theme.fontColor} style={{ marginRight: 0 }}/>
+      //   </TouchableOpacity>
+      // </View>
     })
   }, [theme])
 
 
   const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
+  const [notification, setNotification] = useState<any>(false);
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token => token&&setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);

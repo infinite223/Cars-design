@@ -28,17 +28,9 @@ const SearchScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ fontSize:21, color:theme.fontColor}}>
-           <Text style={{color: theme.fontColor}}>Search project</Text>
+           headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
+              Search project
            </Text>,
-           headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
-                </TouchableOpacity> 
-          ),
-          headerRight: () => 
-              <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
-
         })  
       }, [theme])
 

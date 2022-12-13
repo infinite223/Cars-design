@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -25,6 +25,16 @@ const MeetingRoomScreen = () => {
     const context = useSharedValue({y: 0})
     const focuseOnSearch = useSelector(selectFocuseOnSearch)
     const {people, name, place, date} = route.params;
+
+    useLayoutEffect(() => {
+      navigation.setOptions({
+         headerBackVisible:false,
+         headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
+            Search project
+         </Text>,
+      })  
+    }, [theme])
+
     const gesture = Gesture.Pan()
     .onStart(()=> {
       context.value = { y: translateY.value }

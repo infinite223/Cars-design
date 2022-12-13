@@ -68,7 +68,7 @@ export const getColorsCircle = (value:number, type:string) => {
             if(value<=5.7 && value>2){
                 colors = colorsTypes.great       
             }
-            else if(value>=5.7 && value<8){
+            else if(value>=5.7 && value<8.5){
                 colors = colorsTypes.veryGood
             }
             else if(value>=8 && value<11.5){

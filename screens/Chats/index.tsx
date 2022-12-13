@@ -66,7 +66,7 @@ const ChatsScreen = () => {
 
 
    
-  return (
+  return ( 
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
       {alertModal.show&&<AlertModal resetError={setAlertModal} message={alertModal.message} type={alertModal.type} show={alertModal.show}/>}
       <FlatList 
