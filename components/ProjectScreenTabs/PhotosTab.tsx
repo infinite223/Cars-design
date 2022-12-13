@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
-import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import { Dimensions } from 'react-native';
 import ImagesModal from '../../screens/modals/ImagesModal';
 import { useSelector } from 'react-redux';
@@ -22,10 +21,9 @@ const PhotosTab = () => {
   return (
     <View style={{flex:1, backgroundColor:'white'}}>
       <ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={selectedProject.car.imagesCar} index={selectImage}/>
-      <NavigationHeaderTabs navigationTab={navigationTab} tabName="Photos"/>
+      {/* <NavigationHeaderTabs navigationTab={navigationTab} tabName="Photos"/> */}
       <FlatList
         style={{flex:1, backgroundColor: theme.background}}
-        // contentContainerStyle={{backgroundColor: theme.background}}
         scrollEnabled={true}
         data={selectedProject.car.imagesCar}
         numColumns={2}

@@ -9,11 +9,16 @@ import PhotosTab from '../../components/ProjectScreenTabs/PhotosTab';
 import HistoryTab from '../../components/ProjectScreenTabs/HistoryTab';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
 import { onShare, likeProject } from '../../utils/functions/projectFunctions';
+import _Icon_Feather from 'react-native-vector-icons/Feather'
+import _Icon_Fontisto from 'react-native-vector-icons/Fontisto'
+import _Icon_MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import ChatModal from './../modals/ChatModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import MapModal from './../modals/MapModal';
 import { style } from './style';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 
 const widthScreen = Dimensions.get('window').width
 
@@ -25,22 +30,24 @@ const ProjectScreen = () => {
     const theme = useSelector(selectTheme)
     const route = useRoute<any>()
     const {id, car, author, createdAt } = route.params;
+    const baseColor = getColorsCircle(car.performance[0].value, car.performance[0].type)[0]
+    
+    const Tab = createMaterialTopTabNavigator();
 
-    const Tab = createNativeStackNavigator();
 
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{ fontSize:21, color:theme.fontColor}}>{car.CarMake} 
-           <Text style={{color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}> {car.model}</Text>
+           <Text style={{color: baseColor}}> {car.model}</Text>
            </Text>,
            headerLeft: () => (
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
-          headerRight: () => 
-              <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
+          // headerRight: () => 
+              // <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
 
         })  
       }, [theme])
@@ -48,36 +55,25 @@ const ProjectScreen = () => {
   return (
     <View style={{flex:1}}>
       {/* <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/> */}
-      <MapModal modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>
-      <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
-        <View style={{marginHorizontal:15}}>
-          <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{car.description}</Text>
-          <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={style.locationContainer}>          
-              <Icon type="materialicon" name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
-              <Text style={[style.locationPlace, {color:theme.fontColor}]}>{author?.place?.city}</Text>
-          </TouchableOpacity>
-
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingRight:8}}
-            ItemSeparatorComponent={() => <View style={{width: 20}} />}
-            snapToInterval={105}
-            data={car.performance}
-            renderItem={({item})=> (
-            <CircleData type={item.type} number={item.value} colors={getColorsCircle(item.value, item.type)}/>
-            )}
-          />
-
-        </View>
             <Tab.Navigator  
               screenOptions={{
-                headerShown:false 
+                // headerShown:false 
+                tabBarStyle: {backgroundColor: theme.background},
+                tabBarShowLabel:false,      
+                tabBarIndicatorStyle: {
+                    backgroundColor: baseColor?baseColor:'#273',
+                },
               }}>
-              <Tab.Screen name="Photos" component={PhotosTab}/>
-              <Tab.Screen name="History" component={HistoryTab}/>
+              <Tab.Screen name="Info" component={InfoTab} 
+                options={{tabBarIcon: ({focused}) => <_Icon_Feather name='info' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
+              />
+              <Tab.Screen name="Photos" component={PhotosTab}
+                options={{tabBarIcon: ({focused}) => <_Icon_Fontisto name='photograph' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
+              />
+              <Tab.Screen name="History" component={HistoryTab}
+                options={{tabBarIcon: ({focused}) => <_Icon_MaterialIcons name='timeline' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
+              />
             </Tab.Navigator>
-        </ScrollView>
       {/* <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
           <View style={style.iconsContainer}>

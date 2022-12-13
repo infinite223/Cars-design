@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
-import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ImagesModal from './../../screens/modals/ImagesModal';
@@ -35,7 +34,7 @@ const HistoryTab = () => {
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
       {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
-      <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/>
+      {/* <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/> */}
       <ScrollView>
         <FlatList
           scrollEnabled={true}        
