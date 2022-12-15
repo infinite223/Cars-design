@@ -18,7 +18,6 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/icon.png",
           "icon": "./local/assets/notification-icon.png",
           "color": "#ffffff",
           "sounds": [
@@ -26,13 +25,22 @@
             "./local/assets/notification-sound-other.wav"
           ]
         }
+      ],
+      [
+        "expo-document-picker",
+        {
+          "iCloudContainerEnvironment": "Production"
+        }
       ]
     ],
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppleMusicUsageDescription": "The app accesses your music to play it"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -43,6 +51,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2a847d1f-94f6-4a27-aeca-1ec7ab5d5ba1"
+      }
     }
   }
 }

@@ -50,6 +50,19 @@ export const style = StyleSheet.create({
         marginRight:20,
         marginVertical:10
     },
+    soundContainer: {
+        flexDirection:'row', 
+        alignItems:'center',
+        marginTop:10,
+        borderRadius:15,
+        borderWidth:1,
+        paddingHorizontal:15,
+        paddingVertical:5
+    },
+    soundText: {
+        fontSize:15,
+        marginLeft:10,
+    },
     nextStepButton: {
         position: 'absolute', 
         bottom: 20, 

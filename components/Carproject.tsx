@@ -171,17 +171,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
         </View>
         <Text style={[style.dateCreate, {color: theme.fontColorContent}]}>1 day ago</Text>
         <View style={{borderBottomWidth:1, borderBottomColor:theme.backgroundContent, paddingVertical:5, opacity:.6}}></View>
-        {/* <View style={StyleSheet.absoluteFillObject}>
-          <Image 
-          
-            source={{uri: car.imagesCar[0].url}}
-            style={[
-              StyleSheet.absoluteFillObject,
-              {opacity: 0, zIndex:1}
-            ]}
-            blurRadius={50}
-          />
-        </View> */}
       </View>
   )
 }
@@ -229,7 +218,6 @@ const style = StyleSheet.create({
   },
   footer: {
     zIndex:4,
-    // height:50,
     width:'100%',
     flexDirection:'row',
     justifyContent:'space-between',

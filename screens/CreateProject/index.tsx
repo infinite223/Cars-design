@@ -12,10 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Icon } from '@rneui/themed';
 import { FlatList } from 'react-native-gesture-handler';
 import { style } from './style'
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
-import { Car } from '../../utils/types'
-import { app } from '../../hooks/useAuth';
+import { Audio } from 'expo-av';
 import AlertModal from '../modals/AlertModal';
 import SelectList from 'react-native-dropdown-select-list'
 import { chooseImg } from '../../utils/functions/chooseImg';
@@ -26,6 +23,10 @@ import { getMakes } from '../../utils/functions/getMakes';
 import Accordion from 'react-native-collapsible/Accordion';
 import { AccordionView } from './stages';
 import { validInpute } from '../../utils/functions/validateInput';
+import * as DocumentPicker from 'expo-document-picker';
+import { playSound } from '../../utils/functions/playSound';
+
+
 
 const CreateScreen = () => {
     const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
@@ -37,6 +38,7 @@ const CreateScreen = () => {
     const [activeSections, setActiveSections] = useState<number[]>([])
     const [showError, setShowError] = useState({type:'', show:false, message:''})
     const [imagesStages, setImagesStages] = useState<any[]>([]);
+    const [soundCheck, setSoundCheck] = useState('')
 
     const { user, logout }:any = useAuth()
     const [originImage, setOriginImage] = useState<any>({})
@@ -56,6 +58,7 @@ const CreateScreen = () => {
     const [stages, setStages] = useState<HistoryCar[]>([])
 
     const [showwSelectPlaceVisible, setShowwSelectPlaceVisible] = useState(false)
+
 
     const widthScreen = Dimensions.get('window').width
     const heightScreen = Dimensions.get('window').height
@@ -120,6 +123,27 @@ const CreateScreen = () => {
         setShowError({type:'ERROR', show:true, message:'Max count stages is 8'})
       }
     }, [stages])
+
+    const pickMediaAsync = async () => {
+        let result = await DocumentPicker.getDocumentAsync({
+            type: 'audio/*',
+            copyToCacheDirectory:true
+        });
+
+        console.log(result)
+        if(result.type === 'success'){
+            if(result.size && result.size < 4047453){
+                setSoundCheck(result.uri)
+                console.log(result.uri)
+            }
+            else {
+                //error
+            }
+        }
+        else {
+             //error
+        }
+      };
     
 
 
@@ -222,6 +246,40 @@ const CreateScreen = () => {
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>}
         </View>,
+         <View style={{flex:1}}>
+            <View style={[style.headerContainer]}>
+                <TouchableOpacity onPress={goToPrevStep}>
+                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
+                </TouchableOpacity>
+                <Text style={[style.headerText]}>               
+                    Sound check and links
+                </Text>
+            </View>
+
+            <View style={[style.headerImages, {marginTop:20}]}>
+                    <TouchableOpacity onPress={()=>pickMediaAsync()} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
+                        <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
+                    </TouchableOpacity>
+                    <View style={[style.helpTextConteiner]}>             
+                        <Text style={[{color: theme.fontColor}]}>
+                            Choose sound from your phone
+                        </Text>
+                        <Text style={[{color: '#a32', maxWidth:200}]}>
+                            maximum 0:30s
+                        </Text>
+                        {soundCheck.length>1&&<TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[style.soundContainer, {borderColor:theme.fontColorContent}]}>
+                            <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
+                            <Text style={[style.soundText, {color:soundCheck.length>1?theme.fontColor:theme.fontColorContent}]}>Sound check</Text>
+                        </TouchableOpacity>}
+                    </View>
+            </View>
+
+            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+            </TouchableOpacity>
+         </View>,
+
+
         <View style={{flex:1}}>
             <View style={[style.headerContainer]}>
                 <TouchableOpacity onPress={goToPrevStep}>

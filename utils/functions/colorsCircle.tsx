@@ -1,10 +1,10 @@
 export const getColorsCircle = (value:number, type:string) => {
     let colors:string[] = ["gray", "lightgray"]
     const colorsTypes = {
-        great: ["#f34", "#baa", "#a33", "#811"],
+        great: ["#f34", "#c11", "#a33", "#b77"],
         veryGood:  ["#ff7002", "#aa4002", "#855", "#715"],
         good: ["#fad006", "#e9a004", "#c9a235", "#fca048"],
-        medium: ["#87a569", "#87a569", "#258d4d", "#088538"],
+        medium: ["#87a569", "#27a569", "#258d4d", "#088538"],
         none: ['#434343', '#555', '#777']
     }
 

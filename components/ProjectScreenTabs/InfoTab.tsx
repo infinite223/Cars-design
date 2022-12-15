@@ -21,6 +21,7 @@ import useAuth from '../../hooks/useAuth';
 import MapView from 'react-native-maps';
 import * as Linking from 'expo-linking';
 import { LinearGradient } from 'expo-linear-gradient';
+import { playSound } from '../../utils/functions/playSound';
 
 const InfoTab = () => {
   const navigationTab:any = useNavigation()
@@ -34,15 +35,6 @@ const InfoTab = () => {
   const [sound, setSound] = React.useState<any>(null);
 
   const { soundCheck } =  selectedProject.car
-  async function playSound() {
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync({uri: soundCheck})
-
-    setSound(sound);
-
-    console.log('Playing Sound');
-    await sound.playAsync();
-  }
 
   const getBaseColor = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type)[0]:['#273']
   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
@@ -72,7 +64,7 @@ const InfoTab = () => {
             />
 
             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-                <TouchableOpacity disabled={soundCheck.length<1} onPress={playSound} style={[localStyle.soundContainer, {borderColor:theme.fontColorContent}]}>
+                <TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[localStyle.soundContainer, {borderColor:theme.fontColorContent}]}>
                     <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
                     <Text style={[localStyle.soundText, {color:soundCheck.length>1?theme.fontColor:theme.fontColorContent}]}>Sound check</Text>
                 </TouchableOpacity>
