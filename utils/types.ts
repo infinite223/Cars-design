@@ -56,7 +56,8 @@ export type Car = {
     performance?:Performance,
     imagesCar:Image[],
     likes:number,
-    history:HistoryCar[]
+    history:HistoryCar[],
+    soundCheck:string
 }
 
 export type CarprojectData = {
@@ -66,6 +67,12 @@ export type CarprojectData = {
     car:Car
 }
 
+export type MicroCarprojectData = {
+    id:string,
+    authorUid:string,
+    car: {carMake:string, model:string, imageUri:string}
+}
+
 export type MeetingRoom = {
     name: string,
     createdBy: User,
@@ -73,7 +80,7 @@ export type MeetingRoom = {
     people: Array<{
         name:string,
         place?:Place,
-        carProjects:CarprojectData,
+        carProjects:MicroCarprojectData,
         imageUri:string,
         uid:string
     }>,

@@ -1,4 +1,4 @@
-import { View, Image, TouchableWithoutFeedback, Text } from 'react-native'
+import { View, Image, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
@@ -12,29 +12,46 @@ import { selectTheme } from './../../slices/themeSlice';
 import { CircleData } from '../CircleData';
 import { getColorsCircle } from '../../utils/functions/colorsCircle';
 import MapModal from '../../screens/modals/MapModal';
-import { Icon } from '@rneui/base';
-
+import { Avatar, Icon } from '@rneui/base';
+import { Audio } from 'expo-av';
 import { style } from '../../screens/Project/style';
 import { TouchableOpacity } from 'react-native';
+import { likeProject, onShare } from '../../utils/functions/projectFunctions';
+import useAuth from '../../hooks/useAuth';
+import MapView from 'react-native-maps';
+import * as Linking from 'expo-linking';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const InfoTab = () => {
   const navigationTab:any = useNavigation()
   const [imagesModalVisible, setImagesModalVisible] = useState(false)
+  const [chatModalVisible, setChatModalVisible] = useState(false)
   const theme = useSelector(selectTheme) 
+  const navigation:any = useNavigation()
   const screenWidth = Dimensions.get('window').width
   const selectedProject:CarprojectData = useSelector(selectProject)
   const [mapModalVisible, setMapModalVisible] = useState(false)
+  const [sound, setSound] = React.useState<any>(null);
 
+  const { soundCheck } =  selectedProject.car
+  async function playSound() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync({uri: soundCheck})
+
+    setSound(sound);
+
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
+
+  const getBaseColor = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type)[0]:['#273']
+  const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
 
   return (
     <View style={{flex:1, backgroundColor: theme.background, padding:15}}>
         <MapModal modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>
         <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
-            <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>{selectedProject.car.description}</Text>
-            <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={style.locationContainer}>          
-                <Icon type="materialicon" name='place' color={theme.fontColor} size={20} style={{marginRight:5}}/>
-                <Text style={[style.locationPlace, {color:theme.fontColor}]}>Opole</Text>
-            </TouchableOpacity>
+  
             <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -53,8 +70,63 @@ const InfoTab = () => {
                     </>
                 )}
             />
+
+            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+                <TouchableOpacity disabled={soundCheck.length<1} onPress={playSound} style={[localStyle.soundContainer, {borderColor:theme.fontColorContent}]}>
+                    <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
+                    <Text style={[localStyle.soundText, {color:soundCheck.length>1?theme.fontColor:theme.fontColorContent}]}>Sound check</Text>
+                </TouchableOpacity>
+
+                    <LinearGradient
+                        colors={getBaseColors}
+                        style={localStyle.gradient}
+                        start={{x:0, y:0}}
+                        end={{x:1, y:2}}
+                    >
+                        <Text style={[localStyle.stageNumber, {color: theme.fontColor}]}>
+                            Stock
+                        </Text>
+                    </LinearGradient>
+            </View>
+
             <View style={{flex:1}}>
-                <Text style={{color:theme.fontColor}}>Info</Text>
+                <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>
+                        {selectedProject.car.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur culpa sequi ad, ea accusamus quibusdam nesciunt, perspiciatis earum, dolor nulla illo deserunt consequuntur possimus? Non eligendi deleniti enim molestiae tenetur.
+                    </Text>
+                </View>
+
+            <View style={localStyle.footerLinks}>
+                <TouchableOpacity onPress={()=>Linking.openURL('https://expo.dev')} style={localStyle.linkContainer}>
+                    <Icon type='entypo' name='youtube' size={22} color={theme.fontColor}/>
+                    <Text style={[localStyle.linkText, {color: theme.fontColorContent}]}>Youtube</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={localStyle.linkContainer}>
+                    <Icon type='entypo' name='instagram' size={22} color={theme.fontColor}/>
+                    <Text style={[localStyle.linkText, {color: theme.fontColorContent}]}>Instagram</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={localStyle.linkContainer}>
+                    <Icon type='entypo' name='facebook' size={22} color={theme.fontColor}/>
+                    <Text style={[localStyle.linkText, {color: theme.fontColorContent}]}>Facebook</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={{marginTop:15}}>
+                <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={localStyle.mapContainer}>          
+                    <MapView          
+                        scrollEnabled={false}          
+                        style={localStyle.miniMap}
+                        initialRegion={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                        }}
+                    />
+                    <View style={localStyle.mapData}>
+                        <Icon type="materialicon" name='place' color={theme.fontColor} size={22} style={{marginRight:5}}/>
+                        <Text style={[style.locationPlace, {color:theme.fontColor}]}>Opole</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     </View>
@@ -62,3 +134,65 @@ const InfoTab = () => {
 }
 
 export default InfoTab
+
+const localStyle = StyleSheet.create({
+    footerLinks: {
+        flexDirection:'row',
+        justifyContent:'space-between',
+        marginHorizontal:-5,
+    },
+    linkContainer: {
+        flexDirection:'row',
+        paddingHorizontal:10
+    },
+    linkText: { 
+        marginLeft:10
+    },
+    soundContainer: {
+        flexDirection:'row', 
+        alignItems:'center',
+        marginTop:10,
+        borderRadius:15,
+        borderWidth:1,
+        paddingHorizontal:15,
+        paddingVertical:5
+    },
+    soundText: {
+        fontSize:15,
+        marginLeft:10,
+    },
+    gradient: {
+        borderRadius:15,
+        paddingHorizontal:15,
+        paddingVertical:5,
+        marginRight:10,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    stageNumber: {
+        fontSize:15,
+        letterSpacing:1,
+        fontWeight:'bold',
+        width:'100%'
+    },
+    mapContainer: {
+        marginVertical:0,
+        borderRadius: 30,
+        overflow: 'hidden',
+        justifyContent:'center'
+    },
+    miniMap: {
+        position:'relative',
+        width:'100%',
+        height:37,
+        opacity:.7,
+        borderRadius:0,
+    },
+    mapData: {
+        position:'absolute',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        marginLeft:20
+    }
+})

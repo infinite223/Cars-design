@@ -16,6 +16,7 @@ import EditProfileScreen from './../screens/EditProfile/index';
 import GroupsScreen from '../screens/Groups'
 import ChatScreen from '../screens/Chat'
 import SearchScreen from './../screens/Search/index';
+import MeetingRoomScreen from '../screens/MeetingRoom'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -49,6 +50,7 @@ const StackNavigator = () => {
             <Stack.Screen name='Settings' component={SettingsScreen}/>
             <Stack.Screen name='Search' component={SearchScreen}/>
             <Stack.Screen name='EditProfile' component={EditProfileScreen}/>  
+            <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>
         } 

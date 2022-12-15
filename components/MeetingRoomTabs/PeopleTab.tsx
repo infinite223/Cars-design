@@ -52,12 +52,12 @@ const PeopleTab = () => {
                   {item.name}
               </Text>
               <Text style={[style.carText, {color: theme.fontColorContent}]}>
-                {item.carProjects.car.CarMake} {item.carProjects.car.model}
+                {item.carProjects.car.carMake} {item.carProjects.car.model}
               </Text>
              </View>
               <Image
                 style={style.imageCar}
-                source={{uri: item.carProjects.car.imagesCar[0].url}}
+                source={{uri: item.carProjects.car.imageUri}}
               />
             </View>          
           </TouchableOpacity>

@@ -22,6 +22,15 @@ const MeetingScreen = () => {
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+       headerBackVisible:false,
+       headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
+          Meetings 
+       </Text>,
+    })  
+  }, [theme])
+
   const db = getFirestore()
 
   useEffect(() => {

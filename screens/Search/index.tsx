@@ -32,7 +32,7 @@ const SearchScreen = () => {
               Search project
            </Text>,
         })  
-      }, [theme])
+    }, [theme])
 
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>

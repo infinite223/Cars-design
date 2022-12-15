@@ -2,17 +2,20 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { data, urlImageCar1 } from './../utils/data';
+import { urlImageCar1 } from './../utils/data';
 import { MeetingRoom } from '../utils/types';
 import { useNavigation } from '@react-navigation/native';
 import { setSelectedRoom } from '../slices/selectedRoomSlice';
 import { Icon } from '@rneui/base';
+import useAuth from '../hooks/useAuth';
 
 export const HeaderTopProjects = () => {
     const navigation = useNavigation<any>()
+    const { user } = useAuth()
     const meetingsRooms:MeetingRoom[] = [
-        {name: "Kraakow spot", date:"12.12.2022", createdBy:data[0].author, place: {city: "Krakow", latitude:123, longitude:132}, 
-        people: [{name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}, {name:"Adam", uid:'dsad', place:data[0].author.place, carProjects: data[0], imageUri: data[0].author.imageUri}], image: urlImageCar1},
+        {name: "Kraakow spot", date:"12.12.2022", createdBy:user, place: {city: "Krakow", latitude:123, longitude:132}, 
+        people: [{name:"Adam", uid:'dsad', place:{city: "Opole", latitude:123, longitude:112}, carProjects: {id:'2', authorUid:'c', car:{carMake:'Bmw', model:'M4', imageUri:urlImageCar1}}, imageUri: user.imageUri}], 
+        image: urlImageCar1},
     ]
 
     const theme = useSelector(selectTheme)

@@ -19,6 +19,7 @@ import MapModal from './../modals/MapModal';
 import { style } from './style';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
+import useAuth from '../../hooks/useAuth';
 
 const widthScreen = Dimensions.get('window').width
 
@@ -33,6 +34,8 @@ const ProjectScreen = () => {
     const baseColor = getColorsCircle(car.performance[0].value, car.performance[0].type)[0]
     
     const Tab = createMaterialTopTabNavigator();
+    const { user }:any = useAuth()
+
 
 
     useLayoutEffect(() => {
@@ -74,17 +77,17 @@ const ProjectScreen = () => {
                 options={{tabBarIcon: ({focused}) => <_Icon_MaterialIcons name='timeline' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
               />
             </Tab.Navigator>
-      {/* <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
+      <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
           <View style={style.iconsContainer}>
-            <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={{marginRight:6}}>
-              <Icon type='feather' name='send' size={26} color={theme.fontColor}/>
+            <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={style.iconPadding}>
+              <Icon type='feather' name='send' size={22} color={theme.fontColor}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={{marginRight:6}}>
-              <Icon type="evilicon" name='share-google' size={34} color={theme.fontColor}/>
+            <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={style.iconPadding}>
+              <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>likeProject(id)}>         
-              <Icon type="evilicon" name='heart' size={36} color={theme.fontColor}/>
+            <TouchableOpacity onPress={()=>likeProject(id)} style={style.iconPadding}>         
+              <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
             </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>23</Text>
           </View>
@@ -93,14 +96,14 @@ const ProjectScreen = () => {
           </View> 
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={style.iconsContainer}>
-          <Text style={{marginRight:14,  color:theme.fontColor}}>{author.name}</Text>
+          <Text style={{marginRight:8,  color:theme.fontColor}}>{user.name}</Text>
           <Avatar
-            size={39}
+            size={32}
             rounded
-            source={{uri:author.imageUri}}    
+            source={{uri:user.imageUri}}    
           />
         </TouchableOpacity>
-      </View> */}
+      </View>
     </View>
   )
 }

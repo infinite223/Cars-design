@@ -22,6 +22,7 @@ import { selectLanguage } from './../slices/languageSlice';
 import { doc, setDoc } from 'firebase/firestore';
 import useAuth, { db } from '../hooks/useAuth';
 import { v4 as uuid } from 'uuid';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, createdAt}}) => {
   const navigation:any = useNavigation()
@@ -80,9 +81,16 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
             <Text style={{fontSize:12, color:theme.fontColor}}>{car.CarMake} </Text>
           </View>
           <View style={{flexDirection:'row'}}>
-            <Text style={[style.stageText, {color: theme.background,  backgroundColor:getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
-            {car.history.length===0?'STOCK':'STAGE '+car.history.length}
-            </Text>
+            <LinearGradient
+                        colors={getColorsCircle(car.performance[0].value, car.performance[0].type)}
+                        style={style.stageContainer}
+                        start={{x:0, y:0}}
+                        end={{x:1, y:2}}
+                    >
+              <Text style={[style.stageText, {color: theme.fontColor}]}>
+                {car.history.length===0?'STOCK':'STAGE '+car.history.length}
+              </Text>
+            </LinearGradient>
             <View style={style.performanceContainer}>
               <Text style={[style.performanceValue, {color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
                 {car.performance[0].value}
@@ -206,15 +214,18 @@ const style = StyleSheet.create({
     alignItems:'center',
     paddingHorizontal:0
   },
-  stageText: {
-    marginRight:10,
+  stageContainer: {
+    borderRadius:15,
+    paddingHorizontal:10,
+    paddingVertical:5,
+    alignItems:'center',
     alignSelf:'center',
+    justifyContent:'center',
+  },
+  stageText: {
     fontSize:12,
     letterSpacing:1,
     fontWeight:'bold',
-    borderRadius:15,
-    paddingHorizontal:10,
-    paddingVertical:3
   },
   footer: {
     zIndex:4,

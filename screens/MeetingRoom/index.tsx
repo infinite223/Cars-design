@@ -24,17 +24,8 @@ const MeetingRoomScreen = () => {
     const route = useRoute<any>()
     const context = useSharedValue({y: 0})
     const focuseOnSearch = useSelector(selectFocuseOnSearch)
-    const {people, name, place, date} = route.params;
-
-    useLayoutEffect(() => {
-      navigation.setOptions({
-         headerBackVisible:false,
-         headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
-            Search project
-         </Text>,
-      })  
-    }, [theme])
-
+    const { name, place, date} = route.params;
+console.log(route.params)
     const gesture = Gesture.Pan()
     .onStart(()=> {
       context.value = { y: translateY.value }
@@ -99,7 +90,7 @@ const MeetingRoomScreen = () => {
           longitudeDelta: 0.0421,
         }}
       >
-        <Marker
+        {/* <Marker
           coordinate={{
             latitude: 37.78825,
             longitude: -122.4324,
@@ -107,17 +98,17 @@ const MeetingRoomScreen = () => {
           title={name}
           identifier='Origin'
           description={place.city}
-        />
+        /> */}
       </MapView>
       <GestureDetector gesture={gesture}>
         <Animated.View style={[style.mainContent, rRoomContentSheetStyle, {backgroundColor: theme.background}]}>
           <View style={[style.textContainer]}>
             <Text style={[style.date, {color: theme.fontColorContent}]}>{date}</Text>
             <Animated.Text style={[style.name, rNameSpotSheetStyle]}>{name}</Animated.Text>
-            <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text>
+            {/* <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text> */}
           </View>
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            behavior={Platform.OS == "ios" ? "pa  dding" : "height"}
             style={{flex:1}}
           >
             <Tab.Navigator 
