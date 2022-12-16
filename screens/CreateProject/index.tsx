@@ -136,6 +136,7 @@ const CreateScreen = () => {
             if(result.size && result.size < 400000){
                 setSoundCheck(result.uri)
                 console.log(result.uri)
+          
             }
             else {
                 setShowError({message:'Za duży plik', show:true, type:'ERROR'})
