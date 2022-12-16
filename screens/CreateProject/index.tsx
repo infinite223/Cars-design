@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity,  Dimensions, Platform, ScrollView  } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity,  Dimensions, Platform, ScrollView, TextInput  } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
@@ -39,6 +39,7 @@ const CreateScreen = () => {
     const [showError, setShowError] = useState({type:'', show:false, message:''})
     const [imagesStages, setImagesStages] = useState<any[]>([]);
     const [soundCheck, setSoundCheck] = useState('')
+    const [links, setLinks] = useState({yt:'', fb:'', ig:''})
 
     const { user, logout }:any = useAuth()
     const [originImage, setOriginImage] = useState<any>({})
@@ -132,16 +133,16 @@ const CreateScreen = () => {
 
         console.log(result)
         if(result.type === 'success'){
-            if(result.size && result.size < 4047453){
+            if(result.size && result.size < 400000){
                 setSoundCheck(result.uri)
                 console.log(result.uri)
             }
             else {
-                //error
+                setShowError({message:'Za duży plik', show:true, type:'ERROR'})
             }
         }
         else {
-             //error
+            setShowError({message:'Error', show:true, type:'ERROR'})
         }
       };
     
@@ -274,6 +275,18 @@ const CreateScreen = () => {
                     </View>
             </View>
 
+            <View style={style.linksContainer}>
+                <Text style={[{color:theme.fontColor, textAlign:'center', marginBottom:10}]}>Paste your social links</Text>
+                <Text style={[style.linkText, {color: theme.fontColorContent}]}>Youtube</Text>
+                <TextInput onChangeText={(text=> setLinks({...links, yt: text}))} style={[style.linkInput, {borderBottomColor: theme.backgroundContent}]}/>
+
+                <Text style={[style.linkText, {color: theme.fontColorContent}]}>Instagram</Text>
+                <TextInput onChangeText={(text=> setLinks({...links, ig: text}))} style={[style.linkInput, {borderBottomColor: theme.backgroundContent}]}/>
+
+                <Text style={[style.linkText, {color: theme.fontColorContent}]}>Facebook</Text>
+                <TextInput onChangeText={(text=> setLinks({...links, fb: text}))} style={[style.linkInput, {borderBottomColor: theme.backgroundContent}]}/>
+            </View>
+
             <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
@@ -313,7 +326,7 @@ const CreateScreen = () => {
             </ScrollView>
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
-                onPress={()=>addProject(images, imagesStages, carData, user.uid, language, stages, setShowError)} 
+                onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user.uid, language, stages, setShowError)} 
                 style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Finish</Text>

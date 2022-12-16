@@ -2,10 +2,13 @@ import { Error, AlertProps, HistoryCar, Image } from "../../utils/types"
 import { uploadImage } from "../uploadImage"
 import { uploadDataCar } from './uploadDataCar';
 import { v4 as uuid } from 'uuid';
+import { uploadSoundChcek } from './uploadSoundCheck';
 
 export const addProject = async (
         images:any, 
+        soundCheckUri:string,
         imagesStages:any[],
+        links:{ig:string, yt:string, fb:string},
         carData:any, 
         userUid:string, 
         language:string, 
@@ -14,6 +17,11 @@ export const addProject = async (
     ) => {
     if(userUid){
         const project_id = uuid();
+        let soundCheckFirebaseUri = ''
+        if(soundCheckUri.length>1){
+            soundCheckFirebaseUri = await uploadSoundChcek(soundCheckUri, project_id, userUid)
+        }
+
         let firebaseImagesUri:Image[] = []
         let firebaseImagesStagesUri:{id:number, image:string}[] = []
         const editStages = stages
@@ -60,7 +68,9 @@ export const addProject = async (
                     project_id,
                     carData,    
                     editStages, 
+                    links,
                     firebaseImagesUri,
+                    soundCheckFirebaseUri,
                     userUid, 
                     language
                 )

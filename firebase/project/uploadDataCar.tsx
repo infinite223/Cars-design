@@ -9,7 +9,9 @@ export const uploadDataCar = async (
     project_id:string,
     carData:any, 
     stages:HistoryCar[],
+    links:{ig:string, yt:string, fb:string},
     firebaseImagesUri: Image[],
+    soundCheckFirebaseUri:string,
     userUid:string, 
     language:string,  
 ) => {
@@ -18,6 +20,8 @@ export const uploadDataCar = async (
             const finishCarData:Car = {
             CarMake:carData.make,
             model:carData.model,
+            soundCheck:soundCheckFirebaseUri,
+            links,
             likes:0,
             description:carData.description,
             performance: [

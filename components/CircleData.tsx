@@ -58,7 +58,10 @@ export const CircleData:React.FC<{type:string, number:number, colors:string[]}> 
           </Animated.View>
           <View style={[styles.buttonContainer, {backgroundColor:theme.background}]}>
             <Text style={{color:theme.fontColor, fontSize:12, textAlign:'center'}}>{getType()}</Text>
-            <Text style={{color:colors[0], fontWeight:'bold', fontSize:18}}>{number===0?'?':number}</Text>  
+            <Text style={{color:colors[0], fontWeight:'bold', fontSize:18}}>
+              {number===0?'?':number}
+              {(type==='_0_100' || type==='_100_200')&&'s'}
+            </Text>  
           </View>
     </View>
   )

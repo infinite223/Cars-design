@@ -64,9 +64,9 @@ const InfoTab = () => {
             />
 
             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-                <TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[localStyle.soundContainer, {borderColor:theme.fontColorContent}]}>
-                    <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
-                    <Text style={[localStyle.soundText, {color:soundCheck.length>1?theme.fontColor:theme.fontColorContent}]}>Sound check</Text>
+                <TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[localStyle.soundContainer, {borderColor:soundCheck.length>1?theme.fontColorContent:theme.backgroundContent}]}>
+                    <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.backgroundContent}/>
+                    <Text style={[localStyle.soundText, {color:soundCheck.length>1?theme.fontColor:theme.backgroundContent}]}>Sound check</Text>
                 </TouchableOpacity>
 
                     <LinearGradient
@@ -88,17 +88,29 @@ const InfoTab = () => {
                 </View>
 
             <View style={localStyle.footerLinks}>
-                <TouchableOpacity onPress={()=>Linking.openURL('https://expo.dev')} style={localStyle.linkContainer}>
-                    <Icon type='entypo' name='youtube' size={22} color={theme.fontColor}/>
-                    <Text style={[localStyle.linkText, {color: theme.fontColorContent}]}>Youtube</Text>
+                <TouchableOpacity 
+                    onPress={()=>Linking.openURL(selectedProject.car.links?.yt)} 
+                    style={localStyle.linkContainer}
+                    disabled={selectedProject.car.links?.yt.length<1}
+                >
+                     <Icon type='entypo' name='youtube' size={22} color={selectedProject.car.links?.yt.length>1?theme.fontColor:theme.backgroundContent}/>
+                    <Text style={[localStyle.linkText, {color: selectedProject.car.links?.yt.length>1?theme.fontColorContent:theme.backgroundContent}]}>Youtube</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={localStyle.linkContainer}>
-                    <Icon type='entypo' name='instagram' size={22} color={theme.fontColor}/>
-                    <Text style={[localStyle.linkText, {color: theme.fontColorContent}]}>Instagram</Text>
+                <TouchableOpacity 
+                    onPress={()=>Linking.openURL(selectedProject.car.links?.ig)}  
+                    style={localStyle.linkContainer}
+                    disabled={selectedProject.car.links?.ig.length<1}
+                >
+                    <Icon type='entypo' name='instagram' size={22} color={selectedProject.car.links?.ig.length>1?theme.fontColor:theme.backgroundContent}/>
+                    <Text style={[localStyle.linkText, {color: selectedProject.car.links?.ig.length>1?theme.fontColorContent:theme.backgroundContent}]}>Instagram</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={localStyle.linkContainer}>
-                    <Icon type='entypo' name='facebook' size={22} color={theme.fontColor}/>
-                    <Text style={[localStyle.linkText, {color: theme.fontColorContent}]}>Facebook</Text>
+                <TouchableOpacity 
+                    onPress={()=>Linking.openURL(selectedProject.car.links?.fb)}  
+                    style={localStyle.linkContainer}
+                    disabled={selectedProject.car.links?.fb.length<1}
+                >
+                     <Icon type='entypo' name='facebook' size={22} color={selectedProject.car.links?.fb.length>1?theme.fontColor:theme.backgroundContent}/>
+                    <Text style={[localStyle.linkText, {color: selectedProject.car.links?.fb.length>1?theme.fontColorContent:theme.backgroundContent}]}>Facebook</Text>
                 </TouchableOpacity>
             </View>
 
@@ -146,12 +158,12 @@ const localStyle = StyleSheet.create({
         marginTop:10,
         borderRadius:15,
         borderWidth:1,
-        paddingHorizontal:15,
+        paddingHorizontal:10,
         paddingVertical:5
     },
     soundText: {
         fontSize:15,
-        marginLeft:10,
+        marginLeft:8,
     },
     gradient: {
         borderRadius:15,

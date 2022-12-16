@@ -35,7 +35,7 @@ const HistoryTab = () => {
     <View style={{ flex:1, backgroundColor:theme.background}}>
       {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
       {/* <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/> */}
-      <ScrollView>
+      {/* <ScrollView> */}
         <FlatList
           scrollEnabled={true}        
           contentContainerStyle={{height:240}}
@@ -100,7 +100,7 @@ const HistoryTab = () => {
             </View>
           )}  
         />
-      </ScrollView>
+      {/* </ScrollView> */}
     </View> 
   )
 }

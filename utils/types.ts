@@ -57,7 +57,8 @@ export type Car = {
     imagesCar:Image[],
     likes:number,
     history:HistoryCar[],
-    soundCheck:string
+    soundCheck:string,
+    links: {ig:string, yt:string, fb:string}
 }
 
 export type CarprojectData = {

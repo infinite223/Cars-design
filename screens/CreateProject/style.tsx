@@ -63,6 +63,16 @@ export const style = StyleSheet.create({
         fontSize:15,
         marginLeft:10,
     },
+    linksContainer: {
+        marginVertical:20
+    },
+    linkInput: {
+        borderWidth:1
+    },
+    linkText: {
+        marginTop:5,
+        letterSpacing:1
+    },
     nextStepButton: {
         position: 'absolute', 
         bottom: 20, 
