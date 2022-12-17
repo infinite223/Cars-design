@@ -3,11 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CreateScreen from '../screens/CreateProject/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
-import _Icon  from 'react-native-vector-icons/Entypo'
+import _Icon_Entypo  from 'react-native-vector-icons/Entypo'
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 import _Icon_MaterialIcons  from 'react-native-vector-icons/Fontisto'
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
-
 import { Icon } from '@rneui/themed';
 import MeetingScreen from '../screens/Meeting';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -35,14 +34,13 @@ export const TabsNavigator = () => {
                 backgroundColor:theme.background,
                 borderTopWidth:0,
                 height:55,
-                // paddingVertical:5,
                 zIndex:7,      
             },
             tabBarHideOnKeyboard:true,
             tabBarLabelStyle:{color:theme.fontColorContent, marginBottom:10}
           }}>
             <Tab.Screen name="Home" component={HomeStack} options={
-              {headerShown:false,tabBarIcon: ({focused})  => <_Icon name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
+              {headerShown:false,tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Search' component={SearchScreen} options={
               {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => 

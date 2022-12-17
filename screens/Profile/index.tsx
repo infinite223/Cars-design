@@ -1,28 +1,23 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native'
-import { SearchBar } from '@rneui/base';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import useAuth, { db } from '../../hooks/useAuth'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/themed";
 import _Icon from 'react-native-vector-icons/Entypo'
-import { data } from '../../utils/data';
-import EditProfileScreen from './../modals/SettingsModals/EditProfileModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from './../../utils/translations';
 import { RouteProp } from '@react-navigation/native';
-
 import { style } from './style';
 import { FilterProjects } from './../../components/FilterProjects';
-import Animated, { Extrapolate, interpolate, timing, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { CarprojectData, User, UserList } from '../../utils/types';
+import { CarprojectData, UserList } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
 import { UsersList } from '../../components/UsersList';
-import { collection, collectionGroup, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height

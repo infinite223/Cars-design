@@ -60,7 +60,6 @@ const ProjectScreen = () => {
       {/* <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/> */}
             <Tab.Navigator  
               screenOptions={{
-                // headerShown:false 
                 tabBarStyle: {backgroundColor: theme.background},
                 tabBarShowLabel:false,      
                 tabBarIndicatorStyle: {

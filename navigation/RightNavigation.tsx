@@ -5,7 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
 import { selectNavigation, setNavigation } from '../slices/navigationSlice';
-import _Icon from 'react-native-vector-icons/Ionicons'
+import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 import { Icon } from '@rneui/base';
 import { Avatar } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
@@ -82,7 +82,7 @@ export const RightNavigation = () => {
             <View>
                 <View style={style.header}>
                     <TouchableOpacity onPress={()=>dispatch(setNavigation(false))}>
-                        <_Icon name={'close'} size={30} color={theme.fontColorContent} style={{ marginRight: 0 }}/>
+                        <_Icon_Ionicons name={'close'} size={30} color={theme.fontColorContent} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 

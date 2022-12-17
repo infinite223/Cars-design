@@ -18,13 +18,8 @@ const widthScreen = Dimensions.get('window').width
 
 const SearchScreen = () => {
     const navigation:any = useNavigation()
-    const navigationTabs: any = useNavigation()
-    const [chatModalVisible, setChatModalVisible] = useState(false)
-    const [mapModalVisible, setMapModalVisible] = useState(false)
     const theme = useSelector(selectTheme)
-
-    const Tab = createNativeStackNavigator();
-
+    
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,

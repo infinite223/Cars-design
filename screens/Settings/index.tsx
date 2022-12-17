@@ -41,7 +41,6 @@ const SettingsScreen = () => {
     <View style={[style.settingsContainer, {backgroundColor:theme.background}]}>
         <ThemeModal  modalVisible={themeModalVisible} setModalVisible={setThemeModalVisible}/>
         <InformationModal  modalVisible={informationModalVisible} setModalVisible={setInformationModalVisible}/>
-        {/* <EditProfileScreen modalVisible={editProfileModalVisible} setModalVisible={setEditProfileModalVisible}/> */}
         <LanguageModal modalVisible={languageModalVisible} setModalVisible={setLanguageModalVisible}/>
         <TouchableOpacity style={style.option} onPress={()=>setThemeModalVisible(true)}> 
             <Icon type="ionicon" name='color-palette-outline' size={24} color={theme.fontColor}/>
@@ -63,12 +62,6 @@ const SettingsScreen = () => {
             <Icon type='ionicon' name='notifications-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?NotifyText.en:NotifyText.pl}</Text>
         </TouchableOpacity> 
-        {/* <TouchableOpacity onPress={()=> logout()} style={[style.logOutButton, {backgroundColor:theme.backgroundContent}]}>
-            <Text style={{fontSize:16, color:theme.fontColor}}>
-                {language==="en"?logOutText.en:logOutText.pl}
-                <Text>{user.name==="Tester"?' Demo':'  '+user.displayName}</Text>
-            </Text>       
-        </TouchableOpacity>  */}
     </View>
   )
 }
