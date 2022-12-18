@@ -9,6 +9,7 @@ import { Icon } from '@rneui/themed';
 import { style } from './style';
 import { TextInput } from 'react-native-gesture-handler';
 import { useState } from 'react';
+import { translations } from '../../utils/translations';
 
 const ReportScreen = () => {
     const navigation = useNavigation()
@@ -16,12 +17,13 @@ const ReportScreen = () => {
     const language = useSelector(selectLanguage)
     const [reportText, setReportText] = useState('')
 
+    const {titleScreen, headerText, buttonText, option_1, option_2, option_3, option_4, placeholderOption } = translations.screens.ReportScreen
+
     useLayoutEffect(()=> {
         navigation.setOptions({
             headerBackVisible:false,
             headerTitle: () => <Text style={{marginLeft:0, fontSize:20, color:theme.fontColor}}>
-                 {/* {language==="en"?"Chats":"Czaty"} */}
-                 Report project
+                {titleScreen[language as keyof typeof titleScreen]}
              </Text>,
             headerLeft: () => (
              <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
@@ -30,42 +32,47 @@ const ReportScreen = () => {
          )})
     },[theme])
 
+    const sendReport = () => {
+        //
+    }
 
   return (
     <View style={[style.optionsContainer, {backgroundColor: theme.background}]}>
         <Text style={[style.headerText, {color: theme.fontColor}]}>
-            Why you want to report this project?
+            {headerText[language as keyof typeof headerText]}
         </Text>
         <TouchableOpacity style={[style.option, {backgroundColor: theme.backgroundContent}]}>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
-                The data provided to the car is incorrect
+                {option_1[language as keyof typeof option_1]}
             </Text>
         </TouchableOpacity>
         <TouchableOpacity style={[style.option, {backgroundColor: theme.backgroundContent}]}>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
-                The pictures do not show anything related to the automotive industry
+            {option_2[language as keyof typeof option_2]}
             </Text>
         </TouchableOpacity>
         <TouchableOpacity style={[style.option, {backgroundColor: theme.backgroundContent}]}>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
-                The project breaks the rules
+            {option_3[language as keyof typeof option_3]}
             </Text>
         </TouchableOpacity>
         <View style={style.option}>
             <Text style={[style.optionText, {color: theme.fontColor, fontSize:17}]}>
-                If it is something else, write
+            {option_4[language as keyof typeof option_4]}
             </Text>
             <TextInput 
-                placeholder='Type, why you reporting this project'
+                placeholder={placeholderOption[language as keyof typeof placeholderOption]}
                 placeholderTextColor={theme.fontColorContent}
                 style={[style.reportInput, {color:theme.fontColor, borderBottomColor:theme.backgroundContent}]} 
                 onChangeText={(text=> setReportText(text))}
-                multiline={true}
+                multiline={true}               
             />
         </View>
 
-        <TouchableOpacity style={style.reportButtonn}>
-            <Text style={style.reportText}>Send report</Text>
+        <TouchableOpacity onPress={sendReport} style={style.reportButtonn}>
+            <Text style={style.reportText}>
+                {buttonText[language as keyof typeof buttonText]}
+            </Text>
         </TouchableOpacity>
     </View>
   )

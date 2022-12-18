@@ -1,5 +1,5 @@
 import { View, Image, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
@@ -32,12 +32,42 @@ const InfoTab = () => {
   const screenWidth = Dimensions.get('window').width
   const selectedProject:CarprojectData = useSelector(selectProject)
   const [mapModalVisible, setMapModalVisible] = useState(false)
-  const [sound, setSound] = React.useState<any>(null);
+  const [play, setPlay] = React.useState<boolean>(false);
+  const [sound, setSound] = useState<any>(null)
 
   const { soundCheck } =  selectedProject.car
 
+  useLayoutEffect(() => {
+    setSound(null)
+    const createSoundCheck = async () => {
+        if(!sound){
+            const { sound } = await Audio.Sound.createAsync({uri: soundCheck})
+            setSound(sound)
+        }
+    }
+    createSoundCheck()
+
+    // return createSoundCheck
+  }, [selectedProject])
+  
+
   const getBaseColor = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type)[0]:['#273']
   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
+
+  const soundControl = async (playSound:boolean) => {
+        if(sound){
+            console.log('xd')
+            setPlay(!play)
+            if(playSound){
+                await sound.playAsync();
+                console.log('Playing Sound');
+              }
+            else {
+                await sound.stopAsync()
+                console.log('stop playing Sound');
+            }
+        }
+    }
 
   return (
     <View style={{flex:1, backgroundColor: theme.background, padding:15}}>
@@ -63,9 +93,10 @@ const InfoTab = () => {
                 )}
             />
 
-            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-                <TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[localStyle.soundContainer, {borderColor:soundCheck.length>1?theme.fontColorContent:theme.backgroundContent}]}>
-                    <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.backgroundContent}/>
+            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginTop:10}}>
+                <TouchableOpacity disabled={soundCheck.length<1} onPress={()=>{soundControl(!play)}} style={[localStyle.soundContainer, {borderColor:soundCheck.length>1?theme.fontColorContent:theme.backgroundContent}]}>
+                    {!play?<Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.backgroundContent}/>
+                    :<Icon type='feather' name='pause' size={20} color={soundCheck.length>1?theme.fontColor:theme.backgroundContent}/>}
                     <Text style={[localStyle.soundText, {color:soundCheck.length>1?theme.fontColor:theme.backgroundContent}]}>Sound check</Text>
                 </TouchableOpacity>
 

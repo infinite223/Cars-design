@@ -56,18 +56,19 @@ export const style = StyleSheet.create({
         marginTop:10,
         borderRadius:15,
         borderWidth:1,
-        paddingHorizontal:15,
-        paddingVertical:5
+        paddingHorizontal:13,
+        paddingVertical:5,
+        alignSelf:'flex-start'
     },
     soundText: {
         fontSize:15,
-        marginLeft:10,
+        marginLeft:7,
     },
     linksContainer: {
         marginVertical:20
     },
     linkInput: {
-        borderWidth:1
+        borderWidth:1,
     },
     linkText: {
         marginTop:5,

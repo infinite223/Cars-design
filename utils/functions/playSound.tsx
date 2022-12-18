@@ -1,9 +1,15 @@
 import { Audio } from "expo-av";
 
-export async function playSound(soundCheck:string) {
+export async function playSound(soundCheck:string, play:boolean) {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync({uri: soundCheck})
 
-    console.log('Playing Sound');
-    await sound.playAsync();
+    if(play){
+      await sound.playAsync();
+      console.log('Playing Sound');
+    }
+    else {
+      await sound.stopAsync()
+      console.log('stop playing Sound');
+    }
   }

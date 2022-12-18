@@ -29,7 +29,7 @@ import { playSound } from '../../utils/functions/playSound';
 
 
 const CreateScreen = () => {
-    const { inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
+    const { errorMessage, inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
 
     const navigation:any = useNavigation()
     const [images, setImages] = useState<any[]>([]);
@@ -128,18 +128,16 @@ const CreateScreen = () => {
     const pickMediaAsync = async () => {
         let result = await DocumentPicker.getDocumentAsync({
             type: 'audio/*',
-            copyToCacheDirectory:true
+            copyToCacheDirectory:true,
         });
 
-        console.log(result)
+
         if(result.type === 'success'){
-            if(result.size && result.size < 400000){
-                setSoundCheck(result.uri)
-                console.log(result.uri)
-          
+            if(result.size && result.size < 200000){
+                setSoundCheck(result.uri) 
             }
             else {
-                setShowError({message:'Za duży plik', show:true, type:'ERROR'})
+                setShowError({message:errorMessage[language as keyof typeof errorMessage], show:true, type:'ERROR'})
             }
         }
         else {
@@ -269,9 +267,12 @@ const CreateScreen = () => {
                         <Text style={[{color: '#a32', maxWidth:200}]}>
                             maximum 0:30s
                         </Text>
+                        <Text style={[{color: '#a32', maxWidth:200}]}>
+                            maximum 200kb file
+                        </Text>
                         {soundCheck.length>1&&<TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[style.soundContainer, {borderColor:theme.fontColorContent}]}>
                             <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
-                            <Text style={[style.soundText, {color:soundCheck.length>1?theme.fontColor:theme.fontColorContent}]}>Sound check</Text>
+                            <Text style={[style.soundText, {color:theme.fontColorContent}]}>Sound check</Text>
                         </TouchableOpacity>}
                     </View>
             </View>
@@ -279,13 +280,13 @@ const CreateScreen = () => {
             <View style={style.linksContainer}>
                 <Text style={[{color:theme.fontColor, textAlign:'center', marginBottom:10}]}>Paste your social links</Text>
                 <Text style={[style.linkText, {color: theme.fontColorContent}]}>Youtube</Text>
-                <TextInput onChangeText={(text=> setLinks({...links, yt: text}))} style={[style.linkInput, {borderBottomColor: theme.backgroundContent}]}/>
+                <TextInput onChangeText={(text=> setLinks({...links, yt: text}))} style={[style.linkInput, {color:theme.fontColor, borderBottomColor: theme.backgroundContent}]}/>
 
                 <Text style={[style.linkText, {color: theme.fontColorContent}]}>Instagram</Text>
-                <TextInput onChangeText={(text=> setLinks({...links, ig: text}))} style={[style.linkInput, {borderBottomColor: theme.backgroundContent}]}/>
+                <TextInput onChangeText={(text=> setLinks({...links, ig: text}))} style={[style.linkInput, {color:theme.fontColor, borderBottomColor: theme.backgroundContent}]}/>
 
                 <Text style={[style.linkText, {color: theme.fontColorContent}]}>Facebook</Text>
-                <TextInput onChangeText={(text=> setLinks({...links, fb: text}))} style={[style.linkInput, {borderBottomColor: theme.backgroundContent}]}/>
+                <TextInput onChangeText={(text=> setLinks({...links, fb: text}))} style={[style.linkInput, {color:theme.fontColor, borderBottomColor: theme.backgroundContent}]}/>
             </View>
 
             <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>

@@ -126,6 +126,10 @@ export const translations = {
             },
         },
         CreateScreen: {
+            errorMessage: {
+                pl: 'Za duży plik',
+                en: "File is too large"
+            },
             navTitleText: {
                 en: "Add project",
                 pl:"Dodaj projekt"
@@ -262,6 +266,40 @@ export const translations = {
                     en:'Delete chat',
                     pl:"Usuń chat"
                 },
+            }
+        },
+        ReportScreen: {
+            titleScreen: {
+                en: "Report project",
+                pl: "Zgłoś projekt"
+            },
+            headerText: {
+                en: "Why you want to report this project?",
+                pl: "Dlaczego chcesz zgłosić ten projekt? "
+            },
+            option_1: {
+                en: "The data provided to the car is incorrect",
+                pl: "Dane samochodu nie są prawidłowe"
+            },
+            option_2: {
+                en: "  The pictures do not show anything related to the automotive industry",
+                pl: "Zdjęcia nie przedstawiają niczego związanego z motoryzacją"
+            },
+            option_3: {
+                en: "The project breaks the rules",
+                pl: "Projekt łamie regulamin"
+            },
+            option_4: {
+                en: "If it is something else, write",
+                pl: "Jeżeli jest to coś innego, napisz tutaj"
+            },
+            placeholderOption: {
+                en: "Type, why you reporting this project...",
+                pl: "Wpisz, dlaczego chcesz zgłosić ten projekt..."
+            },
+            buttonText: {
+                en: "Send report",
+                pl: "Wyślij zgłoszenie"
             }
         }
     }
