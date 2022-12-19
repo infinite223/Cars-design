@@ -1,10 +1,8 @@
-import { View, Image, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { data } from '../../utils/data'
+import { View, Text, StyleSheet } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { Dimensions, ScrollView } from 'react-native';
-import ImagesModal from '../../screens/modals/ImagesModal';
 import { useSelector } from 'react-redux';
 import { selectProject } from './../../slices/selectedProject';
 import { CarprojectData } from '../../utils/types';
@@ -12,16 +10,13 @@ import { selectTheme } from './../../slices/themeSlice';
 import { CircleData } from '../CircleData';
 import { getColorsCircle } from '../../utils/functions/colorsCircle';
 import MapModal from '../../screens/modals/MapModal';
-import { Avatar, Icon } from '@rneui/base';
+import { Icon } from '@rneui/base';
 import { Audio } from 'expo-av';
 import { style } from '../../screens/Project/style';
 import { TouchableOpacity } from 'react-native';
-import { likeProject, onShare } from '../../utils/functions/projectFunctions';
-import useAuth from '../../hooks/useAuth';
 import MapView from 'react-native-maps';
 import * as Linking from 'expo-linking';
 import { LinearGradient } from 'expo-linear-gradient';
-import { playSound } from '../../utils/functions/playSound';
 
 const InfoTab = () => {
   const navigationTab:any = useNavigation()
@@ -46,12 +41,9 @@ const InfoTab = () => {
         }
     }
     createSoundCheck()
-
-    // return createSoundCheck
+    
   }, [selectedProject])
   
-
-  const getBaseColor = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type)[0]:['#273']
   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
 
   const soundControl = async (playSound:boolean) => {

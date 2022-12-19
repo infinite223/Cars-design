@@ -188,6 +188,41 @@ export const translations = {
                     en: "Add images, e.g. dyno graph",
                     pl: "Dodaj zdjęcia, np. wykres z hamowni"
                 }
+            },
+            selectListPlaceholder: {
+                en: "Select car make",
+                pl: "Wybierz markę samochodu"    
+            },
+            imageHelpText_1: {
+                en: "Choose images to your gallery",
+                pl: "Wybierz zdjędzia ze swojej galerii"
+            },
+            imageHelpText_2: {
+                en: "Minimum one image",
+                pl: "Musisz wybrać minimum jedno zdjęcie"
+            },
+            imageHelpText_3: {
+                en: "On long press photo u can set place",
+                pl: "Po dłuższym przytrzymaniu zdjęcia możesz wybrać lokalizacje"
+            },
+            soundHeaderText: {
+                en: "Sound check and links",
+                pl: "Sound check i linki"
+            },
+            soundHelpText_1: {
+                en: "Choose sound from your phone",
+                pl: "Wybierz nagranie z telefonu"
+            },
+            soundHelpText_2: {
+                en:"maximum 200kb file"
+            },
+            historyHeadeText: {
+                en: "Modification process",
+                pl: "Przebieg modyfikacji"
+            },
+            linksHeader: {
+                en: "Paste your social links",
+                pl: "Wklej linki do innych społecznościówek"
             }
         },
         SettingsScreen: {

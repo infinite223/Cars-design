@@ -20,7 +20,6 @@ import { HistoryCar } from '../../utils/types'
 import { findMakeInCategores } from '../../utils/functions/findMakeInCaategores';
 import { addProject } from '../../firebase/project/addProject';
 import { getMakes } from '../../utils/functions/getMakes';
-import Accordion from 'react-native-collapsible/Accordion';
 import { AccordionView } from './stages';
 import { validInpute } from '../../utils/functions/validateInput';
 import * as DocumentPicker from 'expo-document-picker';
@@ -29,7 +28,11 @@ import { playSound } from '../../utils/functions/playSound';
 
 
 const CreateScreen = () => {
-    const { errorMessage, inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText } = translations.screens.CreateScreen
+    const { errorMessage, 
+        historyHeadeText, imageHelpText_1, imageHelpText_2, imageHelpText_3, 
+        selectListPlaceholder, soundHeaderText, soundHelpText_1, soundHelpText_2, linksHeader,
+        inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText 
+    } = translations.screens.CreateScreen
 
     const navigation:any = useNavigation()
     const [images, setImages] = useState<any[]>([]);
@@ -157,9 +160,9 @@ const CreateScreen = () => {
             <View>
                 {makesCategory&&
                     <SelectList    
-                        searchPlaceholder='Search car make'
+                        searchPlaceholder={selectListPlaceholder[language as keyof typeof selectListPlaceholder]}
                         searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
-                        placeholder="Select car make"    
+                        placeholder={selectListPlaceholder[language as keyof typeof selectListPlaceholder]} 
                         setSelected={(selectNumber:any)=>setCarData({...carData, make:findMakeInCategores(selectNumber, makesCategory)})} 
                         boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10, marginBottom:5}}
                         inputStyles={{color: carData.make.length>1?theme.fontColor:theme.fontColorContent, fontSize:18, marginLeft:-9}}
@@ -215,13 +218,13 @@ const CreateScreen = () => {
                     </TouchableOpacity>
                     <View style={[style.helpTextConteiner]}>             
                         <Text style={[{color: theme.fontColor}]}>
-                            Choose images to your gallery
+                            {imageHelpText_1[language as keyof typeof imageHelpText_1]}
                         </Text>
                         <Text style={[{color: '#a32', maxWidth:200}]}>
-                            Minimum one image 
+                            {imageHelpText_2[language as keyof typeof imageHelpText_2]}
                         </Text>
                         <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
-                            On long press photo u can set place
+                            {imageHelpText_3[language as keyof typeof imageHelpText_3]}
                         </Text>
                     </View>
                 </View>
@@ -252,7 +255,7 @@ const CreateScreen = () => {
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
                 <Text style={[style.headerText]}>               
-                    Sound check and links
+                    {soundHeaderText[language as keyof typeof soundHeaderText]}
                 </Text>
             </View>
 
@@ -262,13 +265,11 @@ const CreateScreen = () => {
                     </TouchableOpacity>
                     <View style={[style.helpTextConteiner]}>             
                         <Text style={[{color: theme.fontColor}]}>
-                            Choose sound from your phone
+                            {soundHelpText_1[language as keyof typeof soundHelpText_1]}
                         </Text>
+                        
                         <Text style={[{color: '#a32', maxWidth:200}]}>
-                            maximum 0:30s
-                        </Text>
-                        <Text style={[{color: '#a32', maxWidth:200}]}>
-                            maximum 200kb file
+                            {soundHelpText_2[language as keyof typeof soundHelpText_2]}
                         </Text>
                         {soundCheck.length>1&&<TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[style.soundContainer, {borderColor:theme.fontColorContent}]}>
                             <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
@@ -278,7 +279,7 @@ const CreateScreen = () => {
             </View>
 
             <View style={style.linksContainer}>
-                <Text style={[{color:theme.fontColor, textAlign:'center', marginBottom:10}]}>Paste your social links</Text>
+                <Text style={[{color:theme.fontColor, textAlign:'center', marginBottom:10}]}>{linksHeader[language as keyof typeof linksHeader]}</Text>
                 <Text style={[style.linkText, {color: theme.fontColorContent}]}>Youtube</Text>
                 <TextInput onChangeText={(text=> setLinks({...links, yt: text}))} style={[style.linkInput, {color:theme.fontColor, borderBottomColor: theme.backgroundContent}]}/>
 
@@ -301,7 +302,7 @@ const CreateScreen = () => {
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
                 <Text style={[style.headerText]}>               
-                    History
+                    {historyHeadeText[language as keyof typeof historyHeadeText]}
                 </Text>
             </View>
 
