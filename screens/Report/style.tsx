@@ -14,7 +14,7 @@ export const style = StyleSheet.create({
         paddingVertical:7,
         paddingHorizontal:10,
         marginTop:10,
-        borderRadius:15
+        borderRadius:10
     },
     optionText: {
 
@@ -29,13 +29,15 @@ export const style = StyleSheet.create({
         bottom:20,
         right:20,
         backgroundColor:'#711',
-        paddingHorizontal:15,
-        paddingVertical:5,
+        paddingHorizontal:17,
+        paddingVertical:7,
         borderRadius:20,
     },
     reportText: {
         color:'white',
-        fontSize:20,
+        fontSize:17,
         letterSpacing:1,
+        fontWeight:'bold',
+        textTransform:'uppercase'
     }
 })

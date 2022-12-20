@@ -31,7 +31,7 @@ const CreateScreen = () => {
     const { errorMessage, 
         historyHeadeText, imageHelpText_1, imageHelpText_2, imageHelpText_3, 
         selectListPlaceholder, soundHeaderText, soundHelpText_1, soundHelpText_2, linksHeader,
-        inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, headerText, historyHeaderText 
+        inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, baseHeaderText, historyHeaderText 
     } = translations.screens.CreateScreen
 
     const navigation:any = useNavigation()
@@ -155,7 +155,7 @@ const CreateScreen = () => {
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
             <View style={[style.headerContainer]}>
                 {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
-                <Text style={[style.headerText]}>{headerText[language as keyof typeof headerText]}</Text>
+                <Text style={[style.headerText]}>{baseHeaderText[language as keyof typeof baseHeaderText]}</Text>
             </View>
             <View>
                 {makesCategory&&

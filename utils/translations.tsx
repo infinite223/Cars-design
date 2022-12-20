@@ -138,7 +138,7 @@ export const translations = {
                 en: "Sorry, Camera roll permissions are required to make this work!",
                 pl: ""
             },
-            headerText: {
+            baseHeaderText: {
                 en: 'Basic information',
                 pl: "Podstawowe informacje"
             },
@@ -255,7 +255,7 @@ export const translations = {
                 pl: 'Wyloguj'
             }
         },
-        HomeScreen: {
+        HomeScreen: {   
             textInput: {
                 en: "Search project",
                 pl: "Wyszukaj projekt"
@@ -305,24 +305,42 @@ export const translations = {
         },
         ReportScreen: {
             titleScreen: {
-                en: "Report project",
-                pl: "Zgłoś projekt"
+                project: {
+                    en: "Report project",
+                    pl: "Zgłoś projekt"
+                },
+                user: {
+                    en: "Report user",
+                    pl: "Zgłoś użytkownika"
+                }
             },
             headerText: {
-                en: "Why you want to report this project?",
-                pl: "Dlaczego chcesz zgłosić ten projekt? "
+                project: {
+                    en: "Why you want to report this project?",
+                    pl: "Dlaczego chcesz zgłosić ten projekt? "
+                },
+                user: {
+                    en: "Why you want to report this person?",
+                    pl: "Dlaczego chcesz zgłosić tą osobe? "
+                }
             },
             option_1: {
                 en: "The data provided to the car is incorrect",
                 pl: "Dane samochodu nie są prawidłowe"
             },
             option_2: {
-                en: "  The pictures do not show anything related to the automotive industry",
+                en: "The pictures do not show anything related to the automotive industry",
                 pl: "Zdjęcia nie przedstawiają niczego związanego z motoryzacją"
             },
             option_3: {
-                en: "The project breaks the rules",
-                pl: "Projekt łamie regulamin"
+                project: {
+                    en: "The project breaks the rules",
+                    pl: "Projekt łamie regulamin"
+                },
+                user: {
+                    en: "User breaks the rules",
+                    pl: "Użytkownik łamie regulamin"
+                }
             },
             option_4: {
                 en: "If it is something else, write",

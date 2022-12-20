@@ -71,6 +71,10 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
       })
   }
 
+  const hideProject = (projectId:string) => {
+
+  }
+
   return (
       <View style={{backgroundColor: theme.background}}>
       {car.performance&&
@@ -159,12 +163,12 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
                   backgroundColor: theme.background
                 }, optionText: {color:theme.fontColor}
               }}>
-              <MenuOption onSelect={() => navigation.navigate('Report', id)} >
+              <MenuOption onSelect={() => navigation.navigate('Report', {id, type:'project'})} >
                 <Text style={{color: 'red'}}>{report[language as keyof typeof report]}</Text>
               </MenuOption>
               <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/>
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
-              <MenuOption onSelect={() => navigation.navigate('Report', id)} disabled={true} text={hide[language as keyof typeof report]} />
+              <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
               <MenuOption onSelect={() => goToChat()} text="Messgae" />
             </MenuOptions>
           </Menu>
