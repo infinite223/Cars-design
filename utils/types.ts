@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase/firestore"
+
 export type User = {
     name:string,
     description?:string,
@@ -6,12 +8,12 @@ export type User = {
     projectsId?:string[],
     place?:Place,
     uid:string,
-    stats?: {
-        followers: {uid:string, name: string, imageUrl:string},
-        views:  {uid:string, name: string, imageUrl:string},
-        following: {uid:string, name: string, imageUrl:string},
+    stats: {
+        followers: {uid:string, name: string, imageUri:string}[],
+        views:  {uid:string, name: string, imageUri:string}[],
+        following: {uid:string, name: string, imageUri:string}[],
     }
-}
+}   
 
 export type UserList = {
     name:string,
@@ -63,9 +65,10 @@ export type Car = {
 
 export type CarprojectData = {
     id:string,
-    authorUid:string,
-    createdAt:string,
-    car:Car
+    author:UserList,
+    createdAt:FieldValue,
+    car:Car,
+    place?:Place
 }
 
 export type MicroCarprojectData = {

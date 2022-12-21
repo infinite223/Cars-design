@@ -33,7 +33,6 @@ const PhotosTab = () => {
           </TouchableWithoutFeedback>
         )}
       />
-
    </View>
   )
 }

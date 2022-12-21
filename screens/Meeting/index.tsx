@@ -25,7 +25,7 @@ const MeetingScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
+       headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'300', color:theme.fontColor}}>
           Meetings 
        </Text>,
     })  

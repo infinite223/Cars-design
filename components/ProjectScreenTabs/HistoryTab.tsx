@@ -34,8 +34,6 @@ const HistoryTab = () => {
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
       {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
-      {/* <NavigationHeaderTabs navigationTab={navigationTab} tabName="History"/> */}
-      {/* <ScrollView> */}
         <FlatList
           scrollEnabled={true}        
           contentContainerStyle={{height:240}}
@@ -91,7 +89,6 @@ const HistoryTab = () => {
                           </TouchableOpacity>
                         )}
                       />}
-
                <View style={style.footer}>
                   {item.company&&<Text  style={style.company}>{item.company}</Text>}
                   {item.date&&<Text style={style.date}>{item.date}</Text>}
@@ -100,7 +97,6 @@ const HistoryTab = () => {
             </View>
           )}  
         />
-      {/* </ScrollView> */}
     </View> 
   )
 }

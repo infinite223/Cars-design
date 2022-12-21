@@ -80,9 +80,9 @@ export const RightNavigation = () => {
         <Animated.View style={[style.containerNavigation, rNavigationContentSheetStyle, {backgroundColor: theme.background}]}>
         <View style={{width:SCREEN_WIDTH/1.5 , justifyContent:'space-between', flex:1}}>
             <View>
-                <View style={style.header}>
+                <View style={[style.header, {backgroundColor: '#273'}]}>
                     <TouchableOpacity onPress={()=>dispatch(setNavigation(false))}>
-                        <_Icon_Ionicons name={'close'} size={30} color={theme.fontColorContent} style={{ marginRight: 0 }}/>
+                        <_Icon_Ionicons name={'close'} size={25} color={theme.fontColor} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
@@ -99,25 +99,25 @@ export const RightNavigation = () => {
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {profile[language as keyof typeof profile]}
                         </Text>
-                        <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
+                        <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link} onPress={() => (navigation.navigate('Groups'), dispatch(setNavigation(false)))}>
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {group[language as keyof typeof group]}
                         </Text>
-                        <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
+                        <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Create', {state: user}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {add[language as keyof typeof add]}
                         </Text>
-                        <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
+                        <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Chats', {state: user}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {chats[language as keyof typeof chats]}
                         </Text>
-                        <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
+                        <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>           
                 </View>
             </View>
@@ -127,13 +127,13 @@ export const RightNavigation = () => {
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {settings[language as keyof typeof settings]}
                         </Text>
-                        <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
+                        <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.link}>
                         <Text style={[style.linkText, {color: '#2b3'}]}>
                           {reviews[language as keyof typeof reviews]}
                         </Text>
-                        <Icon type='materialicon' name="arrow-forward-ios" size={20} color={theme.fontColorContent}/>
+                        <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> (logout(), dispatch(setNavigation(false)))}  style={[style.logoutButton, {backgroundColor: theme.backgroundContent}]}>
                         <Text style={[{color:theme.fontColorContent, marginRight:13}]}>
@@ -173,11 +173,12 @@ const style = StyleSheet.create({
         zIndex:10
     },
     header: {
+        borderRadius:10,
         flexDirection:'row',
         alignItems:'center',
-        paddingHorizontal:20,
-        paddingVertical:20,
-        marginTop:30,
+        paddingHorizontal:15,
+        paddingVertical:10,
+        marginTop:40,
         justifyContent:'space-between'
     },
     profileButton:{
@@ -186,11 +187,12 @@ const style = StyleSheet.create({
     },
     name: {
         marginRight:7,
-        fontSize:18,
+        fontSize:16,
         color:'#293',
         fontWeight:'bold'
     },
     content: {
+      marginTop:10,
         alignSelf:'flex-start',
         paddingHorizontal:20,
         // alignItems:'center',
@@ -199,7 +201,7 @@ const style = StyleSheet.create({
     link: {
         flexDirection:'row',
         alignItems:'center',
-        marginVertical:10,
+        marginVertical:7,
         justifyContent:'space-between'
     },
     linkText: {
@@ -217,8 +219,8 @@ const style = StyleSheet.create({
         flexDirection:'row',
         alignContent:'center',
         alignSelf:'flex-end',
-        paddingHorizontal:30,
-        paddingVertical:10,
+        paddingHorizontal:20,
+        paddingVertical:7,
         marginTop:15,
         borderRadius:35
     }

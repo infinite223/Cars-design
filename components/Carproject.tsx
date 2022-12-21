@@ -24,7 +24,7 @@ import useAuth, { db } from '../hooks/useAuth';
 import { v4 as uuid } from 'uuid';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, createdAt}}) => {
+const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt}}) => {
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const language = useSelector<string>(selectLanguage)
@@ -36,10 +36,10 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
   const setProjectToNav = () => {
 
     dispatch(setSelectedProject({
-      id, car, authorUid, createdAt
+      id, car, author, createdAt
     }))
 
-    navigation.navigate('Project', {id, car, authorUid, createdAt})
+    navigation.navigate('Project', {id, car, author, createdAt})
   }
 
   const copyToClipboard = async (carMake:string, model:string) => {
@@ -64,7 +64,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, authorUid, 
       })
 
       navigation.navigate('Chat',  {
-        uid: authorUid,
+        uid: author,
         imageUri: 'https://firebasestorage.googleapis.com/v0/b/cars-projects-317ef.appspot.com/o/jR10GOJtyPXT9fRTKuEjHbhvsz23%2Fprofile%2F3401f3eb-14e6-488b-8872-a90fde47d044.jpeg?alt=media&token=8680beff-fce5-4f13-babf-72fddfaec0f3',
         name: 'Dawid',
         id:chatId

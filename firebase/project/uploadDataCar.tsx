@@ -1,39 +1,43 @@
-import { AlertProps, Car, Error, HistoryCar, Image } from "../../utils/types";
-import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
+import { AlertProps, Car, CarprojectData, Error, HistoryCar, Image, User } from "../../utils/types";
+import { doc, setDoc, collection, addDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { FirebaseApp } from "firebase/app";
 import { documentId } from "firebase/firestore";
 import { db } from "../../hooks/useAuth";
 
 
 export const uploadDataCar = async (
+    user:User,
     project_id:string,
     carData:any, 
     stages:HistoryCar[],
     links:{ig:string, yt:string, fb:string},
     firebaseImagesUri: Image[],
     soundCheckFirebaseUri:string,
-    userUid:string, 
     language:string,  
 ) => {
-    console.log(firebaseImagesUri, 'ddd')
         if(firebaseImagesUri.length>0){
-            const finishCarData:Car = {
-            CarMake:carData.make,
-            model:carData.model,
-            soundCheck:soundCheckFirebaseUri,
-            links,
-            likes:0,
-            description:carData.description,
-            performance: [
-                {type:'hp', value:carData.power},
-                {type:'nm', value: carData.torque},
-                {type: '_0_100', value:carData._0_100},
-                {type: '_100_200', value:carData._100_200}
-            ],
-            history:stages,
-            imagesCar: firebaseImagesUri,
+            const finishCarData:CarprojectData = {
+                author:{uid:user.uid, imageUri:user.imageUri, name:user.name},
+                id:project_id,
+                createdAt:serverTimestamp(),
+                place: user.place,
+                car: {
+                    CarMake:carData.make,
+                    model:carData.model,
+                    soundCheck:soundCheckFirebaseUri,
+                    links,
+                    likes:0,
+                    description:carData.description,
+                    performance: [
+                        {type:'hp', value:carData.power},
+                        {type:'nm', value: carData.torque},
+                        {type: '_0_100', value:carData._0_100},
+                        {type: '_100_200', value:carData._100_200}
+                    ],
+                    history:stages,
+                    imagesCar: firebaseImagesUri,
+                }
         } 
-        console.log(finishCarData)
         const errorMessage = language==='pl'
         ?'Coś poszło nie tak, spróbuj później'
         :'Something went wrong, please try again later' 
@@ -43,7 +47,7 @@ export const uploadDataCar = async (
         :'Project was added' 
         
         const uploadDataCar = new Promise<AlertProps>(async (resolve, reject) => {
-            await setDoc(doc(db, `users/${userUid}/projects`, project_id), finishCarData)
+            await setDoc(doc(db, `users/${user.uid}/projects`, project_id), finishCarData)
             .then(s=> {
                 return resolve({type:'SUCCESS', show:true, message: successMessage})
             })

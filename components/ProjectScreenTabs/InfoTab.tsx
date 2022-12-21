@@ -106,7 +106,7 @@ const InfoTab = () => {
 
             <View style={{flex:1}}>
                 <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>
-                        {selectedProject.car.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur culpa sequi ad, ea accusamus quibusdam nesciunt, perspiciatis earum, dolor nulla illo deserunt consequuntur possimus? Non eligendi deleniti enim molestiae tenetur.
+                        {selectedProject.car.description}
                     </Text>
                 </View>
 

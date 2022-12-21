@@ -90,7 +90,7 @@ const CreateScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>
+           headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'300', color:theme.fontColor}}>
                 {navTitleText[language as keyof typeof navTitleText]}
             </Text>,
         //    headerLeft: () => (
@@ -329,7 +329,7 @@ const CreateScreen = () => {
             </ScrollView>
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
-                onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user.uid, language, stages, setShowError)} 
+                onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError)} 
                 style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Finish</Text>

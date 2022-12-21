@@ -36,8 +36,6 @@ const ProjectScreen = () => {
     const Tab = createMaterialTopTabNavigator();
     const { user }:any = useAuth()
 
-
-
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -79,9 +77,10 @@ const ProjectScreen = () => {
       <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
           <View style={style.iconsContainer}>
+            {user.uid!==author.uid&&
             <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={style.iconPadding}>
               <Icon type='feather' name='send' size={22} color={theme.fontColor}/>
-            </TouchableOpacity>
+            </TouchableOpacity>}
             <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={style.iconPadding}>
               <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
             </TouchableOpacity>
@@ -94,12 +93,12 @@ const ProjectScreen = () => {
             
           </View> 
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={style.iconsContainer}>
-          <Text style={{marginRight:8,  color:theme.fontColor}}>{user.name}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile', {uid: author.uid, displayName:author.name})} style={style.iconsContainer}>
+          <Text style={{marginRight:8,  color:theme.fontColor}}>{author.name}</Text>
           <Avatar
             size={32}
             rounded
-            source={{uri:user.imageUri}}    
+            source={{uri:author.imageUri}}    
           />
         </TouchableOpacity>
       </View>

@@ -40,7 +40,7 @@ const HomeScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerTitle: () => <View></View>,
-       headerLeft: () => <Text style={{ marginLeft:5, fontSize:23, letterSpacing:1, fontWeight:'bold', color:theme.fontColor}}>Cars projects</Text>
+       headerLeft: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'300', color:theme.fontColor}}>Cars projects</Text>
        
       //  <Text style={{color: theme.fontColor, fontStyle:'italic', fontWeight:'bold', fontSize:20, letterSpacing:1}}>Cars projects</Text>,
       // <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,

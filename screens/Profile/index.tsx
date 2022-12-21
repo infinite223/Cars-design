@@ -14,11 +14,12 @@ import { style } from './style';
 import { FilterProjects } from './../../components/FilterProjects';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
-import { CarprojectData, UserList } from '../../utils/types';
+import { CarprojectData, User, UserList } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
 import { UsersList } from '../../components/UsersList';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, getDoc, onSnapshot } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
+import { doc } from 'firebase/firestore';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -37,12 +38,11 @@ const ProfileScreen = () => {
     const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
     const [showUsersList, setShowUsersList] = useState<{show:boolean, users: UserList[] | null, headerText: string}>({show:false, users: null, headerText:''})
     const [showAlert, setShowAlert] = useState<{show:boolean, message:string, type?:string}>()
-
-    const profileUser = route.params.state;
-   
+    const profileUser:any = route.params;
     const [userProjects, setUserProjects] = useState<any>([])
     const [search, setSearch] = useState('')
-    const {user}:any = useAuth()
+    const { user }:any = useAuth()
+    const [displayUser, setDisplayUser] = useState<User>(user)
     const isMyProfile = user.uid===profileUser.uid
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
@@ -52,7 +52,7 @@ const ProfileScreen = () => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{marginLeft:15, fontSize:17, color:theme.fontColor}}>
-            {user.name}
+            {displayUser?.name}
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
@@ -68,7 +68,7 @@ const ProfileScreen = () => {
                     <Avatar
                         size={37}
                         rounded
-                        source={{uri: user.imageUri}}    
+                        source={{uri: displayUser?.imageUri}}    
                     />
                 </TouchableOpacity>
             </View>
@@ -85,15 +85,26 @@ const ProfileScreen = () => {
       })          
 
       useEffect(() => {
+        const getUserData = async () => {
+            const userRef = doc(db, 'users', profileUser.uid)
+            const userSnap = await getDoc(userRef);
+            console.log(userSnap.data());
+        }
+        
         const getProjects = () => {
             const projectsRef = collection(db, 'users', user.uid, 'projects')
              onSnapshot(projectsRef, (snapchot) => { 
                 console.log('read')
                 setUserProjects(snapchot.docs.map((doc, i)=> {
-                    return {id: doc.id, car:doc.data(), author:user, createdAt:'22.11.2022'}
+                    return doc.data()
                 }))      
-                })
-            }
+            })
+        }
+
+         if(!isMyProfile){
+            getUserData()
+         }
+
           getProjects()
       }, [])
       
@@ -106,26 +117,25 @@ const ProfileScreen = () => {
                 {language==="en"?headerText.en:headerText.pl}
             </Text>
             <Text style={{color:theme.fontColorContent}}>
-                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.a
-                 Blanditiis, nostrum...
-            </Text>
+                {displayUser.description}
+            </Text> 
         </View>
 
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{uid:user.uid, imageUri:'', name:'Dawid'}], headerText:`${[{}].length} followers`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.followers, headerText:`${[{}].length} followers`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>{user.stats.followers.length}</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.followers.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{uid:user.uid, imageUri:'', name:'Dawid'}], headerText:`${[{},{},{},{},{}].length} views`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.views, headerText:`${[{},{},{},{},{}].length} views`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
-                <Text style={{fontSize:20,  color: theme.fontColor}}>{user.stats.views.length}</Text>
+                <Text style={{fontSize:20,  color: theme.fontColor}}>{displayUser.stats.views.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{uid:user.uid, imageUri:'', name:'Dawid'}], headerText:`${[{},{},{}].length} followed`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.following, headerText:`${[{},{},{}].length} followed`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>{user.stats.following.length}</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.following.length}</Text>
             </TouchableOpacity>
         </View>
 

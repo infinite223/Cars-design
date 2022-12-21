@@ -12,7 +12,7 @@ export const useProjects = (user:User) => {
         console.log('read, projects')
         onSnapshot(projectsRef, (snapchot) => {      
             setProjects(snapchot.docs.map((doc, i)=> {
-                return {id: doc.id, car:doc.data(), author:user, createdAt:'22.11.2022'}
+                return doc.data()
             }))      
         })
         setLoading(false)

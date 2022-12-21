@@ -1,4 +1,4 @@
-import { Error, AlertProps, HistoryCar, Image } from "../../utils/types"
+import { Error, AlertProps, HistoryCar, Image, User } from "../../utils/types"
 import { uploadImage } from "../uploadImage"
 import { uploadDataCar } from './uploadDataCar';
 import { v4 as uuid } from 'uuid';
@@ -10,11 +10,15 @@ export const addProject = async (
         imagesStages:any[],
         links:{ig:string, yt:string, fb:string},
         carData:any, 
-        userUid:string, 
+        user:User, 
         language:string, 
         stages:HistoryCar[],
         setShowAlert: (value:AlertProps)=>void
     ) => {
+
+        const { uid } = user
+        const userUid = uid
+        
     if(userUid){
         const project_id = uuid();
         let soundCheckFirebaseUri = ''
@@ -65,13 +69,13 @@ export const addProject = async (
             let result = await uploadAllImages; 
             if(result){
                 uploadDataCar(
+                    user,
                     project_id,
                     carData,    
                     editStages, 
                     links,
                     firebaseImagesUri,
                     soundCheckFirebaseUri,
-                    userUid, 
                     language
                 )
                 .then((alertSuccess:AlertProps | undefined)=> {
