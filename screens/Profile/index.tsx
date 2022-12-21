@@ -52,7 +52,7 @@ const ProfileScreen = () => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{marginLeft:15, fontSize:17, color:theme.fontColor}}>
-            {displayUser?.name}
+            {displayUser.name}
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
@@ -74,7 +74,7 @@ const ProfileScreen = () => {
             </View>
           )
         })  
-      }, [theme])
+      }, [theme, displayUser])
 
       const translateX = useSharedValue(-1200)
 
@@ -87,14 +87,17 @@ const ProfileScreen = () => {
       useEffect(() => {
         const getUserData = async () => {
             const userRef = doc(db, 'users', profileUser.uid)
-            const userSnap = await getDoc(userRef);
-            console.log(userSnap.data());
+            const userSnap:any = await getDoc(userRef);
+            // console.log(userSnap.data());\
+            if(userSnap.data()){
+                setDisplayUser(userSnap.data())
+            }
         }
         
         const getProjects = () => {
-            const projectsRef = collection(db, 'users', user.uid, 'projects')
+            const projectsRef = collection(db, 'users', profileUser.uid, 'projects')
+            console.log(profileUser.uid, 'xd')
              onSnapshot(projectsRef, (snapchot) => { 
-                console.log('read')
                 setUserProjects(snapchot.docs.map((doc, i)=> {
                     return doc.data()
                 }))      
@@ -151,16 +154,17 @@ const ProfileScreen = () => {
                         onChangeText={setSearch}
                     />
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: '#272'}]}>
-                    <Text style={[{color:'white', fontSize:12}]}>
+                {isMyProfile&&<TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: '#263'}]}>
+                    {/* <Text style={[{color:'white', fontSize:12}]}>
                         {language==='en'?addProjectButton.en:addProjectButton.pl}
-                    </Text>
-                </TouchableOpacity>
+                    </Text> */}
+                    <_Icon name="plus" size={22} color={'white'}/>
+                </TouchableOpacity>}
             </View>
            
-            <FilterProjects setShowUsersList={setShowUsersList} userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>   
+            <FilterProjects setShowUsersList={setShowUsersList} userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>  
             <UsersList isMyProfile showUsersList={showUsersList} translateX={translateX} setShowUsersList={setShowUsersList}/>
-            <BottomOptions setShowAlert={setShowAlert} isMyProfile={isMyProfile} translateX={translateX} showOptions={showOptions} setShowOptions={setShowOptions}/>
+            <BottomOptions setShowAlert={setShowAlert} isMyProfile={isMyProfile} translateX={translateX} showOptions={showOptions} setShowOptions={setShowOptions}/> 
         </View>
     </View>
   )

@@ -23,17 +23,23 @@ const EditProfileScreen = () => {
     const [name, setName] = useState(user.name?user.name:'')
     const [description, setDescription] = useState(user.description?user.description:'')
     
-    const [place, setPlace] = useState<{region:any, place:any}>({
-        region: user.place?{latitude: user.place.latitude, longitude:user.place.longitude}:{},
-        place: user.place?.city?{ description: user.place.city }:{} 
-    })
+    // const [place, setPlace] = useState<any>({
+    //     region: user.place?{latitude: user.place.latitude, longitude:user.place.longitude}:{},
+    //     place: user.place?.city?{ description: user.place.city }:{} 
+    // })
+
+      const [place, setPlace] = useState<any>({
+        city:user.place.city,
+        latitude: user.place.latitude,
+        longitude: user.place.longitude,
+      })
+
+console.log(place, 'xd')
     const [image, setImage] = useState<any>([])
     const [showAlert, setShowAlert] = useState<{show:boolean, message:string, type?:string}>()
 
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-
-    console.log(place)
 
     useLayoutEffect(() => {
       navigation.setOptions({
@@ -65,7 +71,7 @@ const EditProfileScreen = () => {
                   </TouchableOpacity>
                 <TouchableOpacity onPress={()=>setSelectPlaceOnMapVisible(true)} style={style.placeContainer}>
                     <Icon type='materialicon' name='add-location-alt' size={18} color={'white'}/>
-                    <Text style={style.placeText}>{place.place.description?place.place.description:'Set place where people can find you'}</Text>
+                    <Text style={style.placeText}>{place.city?place.city:'Set place where people can find you'}</Text>
                 </TouchableOpacity>
                 <CustomInput value={description} max={100} placeholder='Type profile description' setValue={setDescription} />
             </View>

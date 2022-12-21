@@ -26,7 +26,7 @@ export const uploadDataCar = async (
                     model:carData.model,
                     soundCheck:soundCheckFirebaseUri,
                     links,
-                    likes:0,
+                    likes:[],
                     description:carData.description,
                     performance: [
                         {type:'hp', value:carData.power},

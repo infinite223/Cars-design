@@ -43,7 +43,7 @@ const InfoTab = () => {
     createSoundCheck()
     
   }, [selectedProject])
-  
+
   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
 
   const soundControl = async (playSound:boolean) => {
@@ -63,7 +63,7 @@ const InfoTab = () => {
 
   return (
     <View style={{flex:1, backgroundColor: theme.background, padding:15}}>
-        <MapModal modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>
+        {selectedProject.place&&<MapModal place={selectedProject.place} modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>}
         <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
   
             <FlatList
@@ -137,24 +137,26 @@ const InfoTab = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{marginTop:15}}>
+            {selectedProject.place&&<View style={{marginTop:15}}>
                 <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={localStyle.mapContainer}>          
                     <MapView          
                         scrollEnabled={false}          
                         style={localStyle.miniMap}
                         initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                            latitude: selectedProject.place?.latitude,
+                            longitude: selectedProject.place?.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
                         }}
                     />
                     <View style={localStyle.mapData}>
                         <Icon type="materialicon" name='place' color={theme.fontColor} size={22} style={{marginRight:5}}/>
-                        <Text style={[style.locationPlace, {color:theme.fontColor}]}>Opole</Text>
+                        <Text style={[style.locationPlace, {color:theme.fontColor}]}>
+                            {selectedProject.place.city}
+                        </Text>
                     </View>
                 </TouchableOpacity>
-            </View>
+            </View>}
         </ScrollView>
     </View>
   )
@@ -189,6 +191,7 @@ const localStyle = StyleSheet.create({
         marginLeft:8,
     },
     gradient: {
+        opacity:.9,
         borderRadius:15,
         paddingHorizontal:15,
         paddingVertical:5,

@@ -14,7 +14,7 @@ import { onShare } from './../utils/functions/projectFunctions';
 import { FilterUsers } from './FilterUsers';
 
 
-const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_HEIGHT = Dimensions.get('screen').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 interface UsersListProps {
@@ -40,7 +40,7 @@ export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, sh
 
     useEffect(() => {
       if(showUsersList.users && showUsersList.users.length>0) {
-          translateY.value = withSpring( -SCREEN_HEIGHT/1.7, { damping: 50})
+          translateY.value = withSpring(-SCREEN_HEIGHT/1.7, { damping: 50})
           translateX.value = withSpring(0, { damping: 100})
       }
 
@@ -64,7 +64,7 @@ export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, sh
     })
     .onEnd(()=> {
       if(translateY.value>-SCREEN_HEIGHT/2.6){
-        translateY.value =  withSpring( -SCREEN_HEIGHT/12, { damping: 50})
+        translateY.value =  withSpring( -SCREEN_HEIGHT/12+200, { damping: 50})
         translateX.value = withSpring(-1200, { damping: 100})
       }
     })
@@ -106,6 +106,7 @@ export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, sh
 
 const style = StyleSheet.create({
   listContainer: {
+    alignSelf:'center',
     marginHorizontal:-15,
     paddingHorizontal:15,
     paddingVertical:15,

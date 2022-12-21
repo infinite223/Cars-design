@@ -24,7 +24,7 @@ import useAuth, { db } from '../hooks/useAuth';
 import { v4 as uuid } from 'uuid';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt}}) => {
+const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const language = useSelector<string>(selectLanguage)
@@ -36,7 +36,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   const setProjectToNav = () => {
 
     dispatch(setSelectedProject({
-      id, car, author, createdAt
+      id, car, author, createdAt, place
     }))
 
     navigation.navigate('Project', {id, car, author, createdAt})
@@ -138,7 +138,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </TouchableOpacity>
 
             <Text style={[style.likes, {color: theme.fontColorContent}]}>
-              {car.likes} {likesText[language as keyof typeof likesText]}
+              {car.likes.length} {likesText[language as keyof typeof likesText]}
             </Text>
           </View>
           <Menu>

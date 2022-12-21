@@ -19,16 +19,16 @@ export const updateProfile = async (user:any, name:string, image:any, place:any,
             description:description,
             email:user.email,
             imageUri:urlImage, 
-            place: place.region.latitude?{
-                latitude: place.region.latitude,
-                longitude: place.region.longitude,
-                city:place.place.description
-            }:user.place,
+            place: {
+                latitude: place.latitude,
+                longitude: place.longitude,
+                city:place.city
+            },
             uid:user.uid,
             stats: {
-                followers:user.stats?user.stats.followers:0,
-                views:user.stats?user.stats.views:0,    
-                following:user.stats?user.stats.following:0 
+                followers:user.stats?user.stats.followers:[],
+                views:user.stats?user.stats.views:[],    
+                following:user.stats?user.stats.following:[] 
             }
         }
         console.log(profileData)

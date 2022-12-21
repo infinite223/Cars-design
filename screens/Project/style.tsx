@@ -14,9 +14,8 @@ export const style = StyleSheet.create({
       alignSelf:'flex-start'
     },
     locationPlace: {
-      fontSize:21, 
-      fontWeight:'400', 
-      letterSpacing:2,
+      fontSize:17, 
+      fontWeight:'400'
     },
     bottomNav: {
       width:'100%', 

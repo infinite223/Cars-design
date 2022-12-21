@@ -90,7 +90,7 @@ console.log(route.params)
           longitudeDelta: 0.0421,
         }}
       >
-        {/* <Marker
+        <Marker
           coordinate={{
             latitude: 37.78825,
             longitude: -122.4324,
@@ -98,7 +98,7 @@ console.log(route.params)
           title={name}
           identifier='Origin'
           description={place.city}
-        /> */}
+        />
       </MapView>
       <GestureDetector gesture={gesture}>
         <Animated.View style={[style.mainContent, rRoomContentSheetStyle, {backgroundColor: theme.background}]}>

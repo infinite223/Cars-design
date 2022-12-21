@@ -22,9 +22,10 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
     const widthScreen = Dimensions.get("screen").width
     const language = useSelector(selectLanguage)
     const [region, setRegion] = useState<any>({
+            city:'',
             latitude: 37.78825,
             longitude: -122.4324,
-            latitudeDelta: 0.015,
+            latitudeDelta: 0.015,       
             longitudeDelta: 0.0121,
     })
 
@@ -38,19 +39,14 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
             }}
         >   
             <GooglePlacesAutocomplete 
-                onPress={(data, details=null) => {
-                    
+                onPress={(data, details=null) => {    
                     setRegion({
+                        city:data.description,
                         latitude: details?.geometry.location.lat,
                         longitude: details?.geometry.location.lng,
                         latitudeDelta: 0.05,
                         longitudeDelta: 0.05,
-                    })
-                    console.log(region)
-                    setOrigin({
-                        region: region,
-                        place: data
-                    })
+                    })       
                 }}
                 fetchDetails={true}
                 query={{
@@ -81,11 +77,15 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 region={region}
             />
            <TouchableOpacity 
-                disabled={!origin?.place?.description} 
+                disabled={!region?.city} 
                 style={[style.setButton,
-                     {  backgroundColor: origin.place.description?'#293':'rgba(100, 100, 100, .5)'}
+                     {  backgroundColor: region.city?'#293':'rgba(100, 100, 100, .5)'}
                     ]} 
-                onPress={()=>setModalVisible(false)}
+                onPress={()=>(setModalVisible(false), setOrigin({
+                    city: region.city,
+                    latitude: region.latitude,
+                    longitude: region.longitude,
+                }))}
             >             
                 <Icon type='entypo' name={'check'} size={24} color="white"/>
             </TouchableOpacity>
@@ -104,7 +104,7 @@ const style = StyleSheet.create({
         position:'absolute',
         bottom: 20,
         right: 20,
-        paddingHorizontal:25,
+        paddingHorizontal:20,
         paddingLeft:20,
         paddingVertical:15,
         borderRadius:50,

@@ -36,7 +36,7 @@ const HomeScreen = () => {
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
   const { projects, loading }  = useProjects(user)
-   
+   console.log(projects)
   useLayoutEffect(() => {
     navigation.setOptions({
        headerTitle: () => <View></View>,

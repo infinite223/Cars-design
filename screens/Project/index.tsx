@@ -3,8 +3,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
 import { Icon } from '@rneui/base';
-import { CircleData } from '../../components/CircleData';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import PhotosTab from '../../components/ProjectScreenTabs/PhotosTab';
 import HistoryTab from '../../components/ProjectScreenTabs/HistoryTab';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
@@ -20,14 +19,22 @@ import { style } from './style';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 import useAuth from '../../hooks/useAuth';
+import { UsersList } from '../../components/UsersList';
+import { UserList } from '../../utils/types';
 
 const widthScreen = Dimensions.get('window').width
+const heightScreen = Dimensions.get('window').height
 
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
     const navigationTabs: any = useNavigation()
     const [chatModalVisible, setChatModalVisible] = useState(false)
     const [mapModalVisible, setMapModalVisible] = useState(false)
+    const [showUsersList, setShowUsersList] = useState<{
+      show: boolean;
+      users: UserList[] | null;
+      headerText: string;
+  }>({show:false, users: [], headerText:''})
     const theme = useSelector(selectTheme)
     const route = useRoute<any>()
     const {id, car, author, createdAt } = route.params;
@@ -35,6 +42,14 @@ const ProjectScreen = () => {
     
     const Tab = createMaterialTopTabNavigator();
     const { user }:any = useAuth()
+
+    const translateX = useSharedValue(-1200)
+
+    const rAllContentSheetStyle = useAnimatedStyle(() => {  
+      return {       
+          transform: [{translateY: translateX.value}]
+      }
+    }) 
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -55,7 +70,7 @@ const ProjectScreen = () => {
 
   return (
     <View style={{flex:1}}>
-      {/* <ChatModal modalVisible={chatModalVisible} setModalVisible={setChatModalVisible} author={author}/> */}
+            <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: widthScreen, height:heightScreen+100}]}/>
             <Tab.Navigator  
               screenOptions={{
                 tabBarStyle: {backgroundColor: theme.background},
@@ -84,10 +99,16 @@ const ProjectScreen = () => {
             <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={style.iconPadding}>
               <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>likeProject(id)} style={style.iconPadding}>         
+            <TouchableOpacity 
+              onLongPress={()=>setShowUsersList({show:true, users:car.likes, headerText:"Users"})} 
+              onPress={()=>likeProject(id, author.uid, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
+              style={style.iconPadding}
+            >         
               <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
             </TouchableOpacity>
-            <Text style={{marginLeft:6, color:theme.fontColor}}>23</Text>
+            <Text style={{marginLeft:6, color:theme.fontColor}}>
+              {car.likes.length}
+            </Text>
           </View>
           <View>
             
@@ -102,6 +123,7 @@ const ProjectScreen = () => {
           />
         </TouchableOpacity>
       </View>
+      <UsersList translateX={translateX} isMyProfile={user.uid===author.uid} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
     </View>
   )
 }

@@ -86,7 +86,7 @@ export const RightNavigation = () => {
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} 
+                        onPress={() => (navigation.navigate('Profile', {uid: user.uid, displayName:user.name}), dispatch(setNavigation(false)))} 
                         style={style.profileButton}
                     >
                         <Text style={[style.name, {color: theme.fontColor}]}>{user?.name}</Text>
@@ -95,7 +95,7 @@ export const RightNavigation = () => {
                 </View>
         
                 <View style={style.content}>
-                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Profile', {state: user}), dispatch(setNavigation(false)))} >
+                    <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Profile', {uid: user.uid, displayName:user.name}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {profile[language as keyof typeof profile]}
                         </Text>

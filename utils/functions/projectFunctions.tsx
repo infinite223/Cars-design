@@ -1,4 +1,7 @@
+import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { Share } from 'react-native';
+import { db } from '../../hooks/useAuth';
+import { UserList } from '../types';
 
 export const onShare = async (carMake:string, model:string, link:string) => {
     try {
@@ -20,7 +23,13 @@ export const onShare = async (carMake:string, model:string, link:string) => {
     }
 };
 
-export const likeProject = (id:string) => {
-    //..... like project
-    console.log(id)
+export const likeProject = async (id:string, authorUid:string, user:UserList) => {
+  console.log(user)
+  if(authorUid!==user.uid){
+    await updateDoc(doc(db, `users/${authorUid}/projects`, id), {
+      'car.likes':arrayUnion({name:user.name, uid:user.uid, imageUri: user.imageUri})
+    })
+    .then(()=> console.log('xd'))
+    .catch(e=>console.log(e))
+  }
 }
