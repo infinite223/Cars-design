@@ -21,6 +21,11 @@ import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 import useAuth from '../../hooks/useAuth';
 import { UsersList } from '../../components/UsersList';
 import { UserList } from '../../utils/types';
+import { collection, collectionGroup, doc, onSnapshot } from 'firebase/firestore';
+import { db } from './../../hooks/useAuth';
+import { useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
+import { selectChats } from './../../slices/chatsSlice';
 
 const widthScreen = Dimensions.get('window').width
 const heightScreen = Dimensions.get('window').height
@@ -36,8 +41,11 @@ const ProjectScreen = () => {
       headerText: string;
   }>({show:false, users: [], headerText:''})
     const theme = useSelector(selectTheme)
+    const chats:any = useSelector(selectChats)
     const route = useRoute<any>()
     const {id, car, author, createdAt } = route.params;
+    const [likes, setLikes] = useState<UserList[]>(car.likes)
+
     const baseColor = getColorsCircle(car.performance[0].value, car.performance[0].type)[0]
     
     const Tab = createMaterialTopTabNavigator();
@@ -50,6 +58,19 @@ const ProjectScreen = () => {
           transform: [{translateY: translateX.value}]
       }
     }) 
+
+    useEffect(()=>{
+      const projectsRef = doc(db, `users/${author.uid}/projects`, id)
+      const getLikes = () => {
+          console.log('read, projects')
+          onSnapshot(projectsRef, (snapchot) => { 
+            if(snapchot.data()){
+              setLikes(snapchot.data()?.car.likes)     
+            }
+          })
+      } 
+      getLikes()
+    }, [likeProject])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -68,32 +89,44 @@ const ProjectScreen = () => {
         })  
       }, [theme])
 
+      const goToChat = () => {
+        const findChat = chats.find((item:any)=>item.data.from.uid === user.uid || item.data.to.uid ===user.uid)
+        if(findChat){
+          console.log('xddd')
+          navigation.navigate('Chat', {id:findChat.id, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
+        }
+        else {
+          const newChatId = uuid();
+          navigation.navigate('Chat', {id:newChatId, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
+        }
+      }
+
   return (
     <View style={{flex:1}}>
-            <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: widthScreen, height:heightScreen+100}]}/>
-            <Tab.Navigator  
-              screenOptions={{
-                tabBarStyle: {backgroundColor: theme.background},
-                tabBarShowLabel:false,      
-                tabBarIndicatorStyle: {
-                    backgroundColor: baseColor?baseColor:'#273',
-                },
-              }}>
-              <Tab.Screen name="Info" component={InfoTab} 
-                options={{tabBarIcon: ({focused}) => <_Icon_Feather name='info' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
-              />
-              <Tab.Screen name="Photos" component={PhotosTab}
-                options={{tabBarIcon: ({focused}) => <_Icon_Fontisto name='photograph' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
-              />
-              <Tab.Screen name="History" component={HistoryTab}
-                options={{tabBarIcon: ({focused}) => <_Icon_MaterialIcons name='timeline' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
-              />
-            </Tab.Navigator>
+      <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: widthScreen, height:heightScreen+100}]}/>
+      <Tab.Navigator  
+        screenOptions={{
+          tabBarStyle: {backgroundColor: theme.background},
+          tabBarShowLabel:false,      
+          tabBarIndicatorStyle: {
+              backgroundColor: baseColor?baseColor:'#273',
+          },
+        }}>
+        <Tab.Screen name="Info" component={InfoTab} 
+          options={{tabBarIcon: ({focused}) => <_Icon_Feather name='info' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
+        />
+        <Tab.Screen name="Photos" component={PhotosTab}
+          options={{tabBarIcon: ({focused}) => <_Icon_Fontisto name='photograph' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
+        />
+        <Tab.Screen name="History" component={HistoryTab}
+          options={{tabBarIcon: ({focused}) => <_Icon_MaterialIcons name='timeline' size={22} color={focused?theme.fontColor:theme.fontColorContent} />}}
+        />
+      </Tab.Navigator>
       <View style={[style.bottomNav, {backgroundColor:theme.background}]}>
         <View>
           <View style={style.iconsContainer}>
             {user.uid!==author.uid&&
-            <TouchableOpacity onPress={()=> setChatModalVisible(true)} style={style.iconPadding}>
+            <TouchableOpacity onPress={()=> goToChat()} style={style.iconPadding}>
               <Icon type='feather' name='send' size={22} color={theme.fontColor}/>
             </TouchableOpacity>}
             <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={style.iconPadding}>
@@ -101,13 +134,13 @@ const ProjectScreen = () => {
             </TouchableOpacity>
             <TouchableOpacity 
               onLongPress={()=>setShowUsersList({show:true, users:car.likes, headerText:"Users"})} 
-              onPress={()=>likeProject(id, author.uid, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
+              onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like.uid===user.uid), {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
               style={style.iconPadding}
             >         
               <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
             </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>
-              {car.likes.length}
+              {likes.length}
             </Text>
           </View>
           <View>

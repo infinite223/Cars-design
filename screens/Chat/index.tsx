@@ -23,7 +23,6 @@ const ChatScreen = () => {
     const route = useRoute<any>()
     const to = route.params;
 
-    console.log(to, 'xd')
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -49,7 +48,7 @@ const ChatScreen = () => {
 
       setDoc(messageRef, {
         timestamp: serverTimestamp(),
-        message: message,
+        message: message, 
         name: user.name,
         imageUri: user.imageUri,
         email:user.email

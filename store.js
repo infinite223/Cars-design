@@ -4,6 +4,7 @@ import languageReducer from './slices/languageSlice'
 import selectedRoomReducer from './slices/selectedRoomSlice'
 import selectedProjectSlice  from './slices/selectedProject';
 import navigationSlice from './slices/navigationSlice';
+import chatsSlice from './slices/chatsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         language:languageReducer,
         room:selectedRoomReducer,
         project:selectedProjectSlice,
-        showNavigation:navigationSlice
+        showNavigation:navigationSlice,
+        chats:chatsSlice
     }
 })

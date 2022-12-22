@@ -46,30 +46,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
     await Clipboard.setStringAsync(carMake+' '+model);
   };
 
-  const goToChat = () => {
-    const chatId = uuid();
-      const messageRef = doc(db, `chats/${chatId}`);
-
-      setDoc(messageRef, {
-       from:{
-        uid: user.uid,
-        imageUri: user.imageUri,
-        name:user.name
-       },
-       to: {
-        uid: 'SxS1gZ5urRWQ66jLCFWCKQRhiP43',
-        imageUri: 'https://firebasestorage.googleapis.com/v0/b/cars-projects-317ef.appspot.com/o/SxS1gZ5urRWQ66jLCFWCKQRhiP43%2Fprofile-%2F4ae2ec51-5082-4450-b12d-9d06a008b757.jpeg?alt=media&token=7d41e36e-26c3-4ae8-aed5-d46d586c1200',
-        name: 'Adam'
-       }
-      })
-
-      navigation.navigate('Chat',  {
-        uid: author,
-        imageUri: 'https://firebasestorage.googleapis.com/v0/b/cars-projects-317ef.appspot.com/o/jR10GOJtyPXT9fRTKuEjHbhvsz23%2Fprofile%2F3401f3eb-14e6-488b-8872-a90fde47d044.jpeg?alt=media&token=8680beff-fce5-4f13-babf-72fddfaec0f3',
-        name: 'Dawid',
-        id:chatId
-      })
-  }
 
   const hideProject = (projectId:string) => {
 
@@ -169,7 +145,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
               <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/>
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
-              <MenuOption onSelect={() => goToChat()} text="Messgae" />
             </MenuOptions>
           </Menu>
         </View>

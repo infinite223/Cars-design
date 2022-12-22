@@ -62,14 +62,13 @@ const InfoTab = () => {
     }
 
   return (
-    <View style={{flex:1, backgroundColor: theme.background, padding:15}}>
+    <View style={{flex:1, backgroundColor: theme.background, paddingVertical:5, paddingHorizontal:15}}>
         {selectedProject.place&&<MapModal place={selectedProject.place} modalVisible={mapModalVisible} setModalVisible={setMapModalVisible}/>}
         <ScrollView style={{backgroundColor:theme.background}} contentContainerStyle={{flex:1}}>
-  
             <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{paddingRight:8}}
+                contentContainerStyle={{paddingRight:8, paddingTop:10}}
                 style={{flexGrow:0}}
                 ItemSeparatorComponent={() => <View style={{width: 20}} />}
                 snapToInterval={105}

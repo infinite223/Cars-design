@@ -7,7 +7,7 @@ import { selectTheme } from '../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
 import { style } from './style';
-import useAuth from './../../hooks/useAuth';
+import useAuth, { db } from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 import _Icon from 'react-native-vector-icons/Ionicons'
 
@@ -17,6 +17,8 @@ import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { Icon } from '@rneui/base';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { setChats } from '../../slices/chatsSlice';
 
 
 
@@ -36,7 +38,21 @@ const HomeScreen = () => {
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
   const { projects, loading }  = useProjects(user)
-   console.log(projects)
+
+  useLayoutEffect(()=> {
+    const chatsRef = collection(db, "chats/")
+
+    const unsubscribe = onSnapshot(chatsRef, (snapchot) => {      
+        dispatch(setChats(snapchot.docs.map((doc, i)=> {
+              return {id: doc.id, data:doc.data()}
+          })))  
+      })
+    
+    return unsubscribe
+
+  }, [])
+
+
   useLayoutEffect(() => {
     navigation.setOptions({
        headerTitle: () => <View></View>,

@@ -18,17 +18,20 @@ import {
 } from 'react-native-popup-menu';
 import AlertModal from '../modals/AlertModal';
 import { translations } from './../../utils/translations';
+import { selectChats } from './../../slices/chatsSlice';
 
 const ChatsScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<any>()
     const theme = useSelector(selectTheme)
+    const chats = useSelector(selectChats)
     const language = useSelector(selectLanguage)
     const { menu: { blockText, reportText, deleteText }} = translations.screens.Chats 
     const { user }:any = useAuth()
+    console.log(chats)
     const authorUid = route.params;
     const [selectChat, setSelectChat] = useState<User>()
-    const [chats, setChats] = useState<any>([])
+    // const [chats, setChats] = useState<any>()
     const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     useLayoutEffect(() => {
@@ -44,27 +47,11 @@ const ChatsScreen = () => {
       )})
     }, [theme, language])
 
-    useLayoutEffect(()=> {
-      const chatsRef = collection(db, "chats/")
-
-      const unsubscribe = onSnapshot(chatsRef, (snapchot) => {      
-            setChats(snapchot.docs.map((doc, i)=> {
-              console.log(doc.data())
-                return {id: doc.id, data:doc.data()}
-            }))      
-        })
-      
-      return unsubscribe
-
-    }, [])
-
     const deleteChat = async (chatId:string) => {
       await deleteDoc(doc(db, "chats", chatId)).catch(()=> {
         setAlertModal({show:true, type:'ERROR', message:'Somthing want wrong!'})
       })
     }
-
-
    
   return ( 
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
@@ -108,7 +95,7 @@ const ChatsScreen = () => {
                   <Text style={{color: 'red'}}>{deleteText[language as keyof typeof deleteText]}</Text>
                 </MenuOption>
                 <MenuOption onSelect={() => alert(`...`)}  text={blockText[language as keyof typeof blockText]+ item.data.to.name}/>
-                <MenuOption onSelect={() => alert(`...`)}  text={reportText[language as keyof typeof reportText]+ item.data.to.name}/>
+                <MenuOption onSelect={() => navigation.navigate('Report')} text={reportText[language as keyof typeof reportText]+ item.data.to.name}/>
               </MenuOptions>
             </Menu>
             </View>
