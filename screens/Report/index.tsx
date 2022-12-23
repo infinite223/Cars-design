@@ -9,6 +9,10 @@ import { Icon } from '@rneui/themed';
 import { style } from './style';
 import { TextInput } from 'react-native-gesture-handler';
 import { translations } from '../../utils/translations';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../hooks/useAuth';
+import AlertModal from '../modals/AlertModal';
+import { AlertProps } from '../../utils/types';
 
 const ReportScreen = () => {
     const navigation = useNavigation()
@@ -17,9 +21,10 @@ const ReportScreen = () => {
     const [reportText, setReportText] = useState('')
     const route = useRoute<any>()
     const { id, type }:any = route.params;
+    const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
     const [selectedOption, setSelectedOption] = useState({1:false, 2:false, 3:false})
-   
-    const { buttonText, titleScreen, headerText, option_1, option_2, option_3, option_4, placeholderOption } = translations.screens.ReportScreen
+    const validOptions = selectedOption[1] || selectedOption[2] || selectedOption[3] || reportText.length > 0
+    const { errorText, successText, buttonText, titleScreen, headerText, option_1, option_2, option_3, option_4, placeholderOption } = translations.screens.ReportScreen
 
     useLayoutEffect(()=> {
         navigation.setOptions({
@@ -35,11 +40,21 @@ const ReportScreen = () => {
     },[theme])
 
     const sendReport = () => {
-        //
+        const reportRef = doc(db, `Reports/${id}`)
+
+        setDoc(reportRef, {
+            type,
+            id,
+            selectedOption,
+            reportText
+        })
+        .then(()=> setAlertModal({message: successText[language as keyof typeof successText], show:true, type:'SUCCESS'}))
+        .catch(()=>setAlertModal({message: errorText[language as keyof typeof errorText], show:true, type:'ERROR'}))
     }
 
   return (
     <View style={[style.optionsContainer, {backgroundColor: theme.background}]}>
+        {alertModal.show&&<AlertModal {...alertModal} resetError={setAlertModal}/>}
         <Text style={[style.headerText, {color: theme.fontColor}]}>
             {headerText[type as keyof typeof headerText][language as keyof typeof headerText.project]}
         </Text>
@@ -71,10 +86,14 @@ const ReportScreen = () => {
             />
         </View>
 
-        <TouchableOpacity onPress={sendReport} style={style.reportButtonn}>
+        <TouchableOpacity 
+            disabled={!validOptions} 
+            onPress={sendReport} 
+            style={[style.reportButtonn, {opacity:validOptions?1:.4}]}>
             <Text style={style.reportText}>
                 {buttonText[language as keyof typeof buttonText]}
             </Text>
+            <Icon type="ionicon" name="send-outline" size={15} color={theme.fontColor}/>
         </TouchableOpacity>
     </View>
   )

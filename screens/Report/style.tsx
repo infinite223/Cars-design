@@ -32,12 +32,15 @@ export const style = StyleSheet.create({
         paddingHorizontal:17,
         paddingVertical:7,
         borderRadius:20,
+        alignItems:'center',
+        flexDirection:'row'
     },
     reportText: {
         color:'white',
         fontSize:17,
         letterSpacing:1,
-        fontWeight:'bold',
-        textTransform:'uppercase'
+        marginRight:10
+        // fontWeight:'bold',
+        // textTransform:'uppercase'
     }
 })

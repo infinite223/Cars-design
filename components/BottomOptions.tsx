@@ -13,6 +13,7 @@ import { translations } from './../utils/translations';
 import { onShare } from './../utils/functions/projectFunctions';
 import { deleteProject } from '../firebase/project/deleteProject';
 import AlertModal from '../screens/modals/AlertModal';
+import { useNavigation } from '@react-navigation/native';
 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
@@ -28,6 +29,7 @@ interface BottomOptionsProps {
 
 export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyProfile, showOptions, setShowOptions, setShowAlert}) => {
     const theme = useSelector(selectTheme)
+    const navigation:any = useNavigation()
     const language = useSelector(selectLanguage)
     const { user, logout }:any = useAuth()
 
@@ -94,15 +96,13 @@ export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyPro
           </TouchableOpacity>
           <TouchableOpacity style={[style.optionContainer]}>
             <_Icon name='eye-with-line' size={20} color={theme.fontColorContent}/>
-          {/* <_Icon name='eye' size={20} color={theme.fontColorContent}/> */}
-
             <Text style={[style.optionText, {color: theme.fontColor}]}>
               {language==='en'?hideText.en:hideText.pl}
             </Text>
           </TouchableOpacity>
          </>:
           <>
-          <TouchableOpacity style={[style.optionContainer]}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Report', {id:showOptions.selectedProject?.id, type:'project'})} style={[style.optionContainer]}>
             <Icon type='materialicon' name='report' size={20} color={theme.fontColorContent}/>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
               {language==='en'?reportText.en:reportText.pl}

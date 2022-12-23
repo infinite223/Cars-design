@@ -10,11 +10,13 @@ import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } 
 import { style } from './style';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';
+import { selectChats } from './../../slices/chatsSlice';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
 
     const theme = useSelector(selectTheme)
+    const chats =  useSelector(selectChats)
     const { user }:any = useAuth()
     const [messages, setMessages] = useState<any>([])
     const [message, setMessage] = useState('')
@@ -22,6 +24,8 @@ const ChatScreen = () => {
 
     const route = useRoute<any>()
     const to = route.params;
+    const [newChat, setNewChat] = useState(to.new)
+
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -42,6 +46,27 @@ const ChatScreen = () => {
       }, [theme])
 
     const sendMessage = () => {
+      if(newChat){
+        const chatRef = doc(db, `chats/${to.id}`);
+        console.log(to)
+        setDoc(chatRef, {
+          persons: [user.uid, to.data.to.id],
+          data: {
+            from: {
+              id:user.uid,
+              name:user.name,
+              imageUri:user.imageUri
+            },
+            to: {
+              id:to.data.to.id,
+              name:to.data.to.name,
+              imageUri:to.data.to.imageUri
+            }
+          },
+          id:to.id
+        })
+      }
+
       Keyboard.dismiss()
       const messageId = uuid();
       const messageRef = doc(db, `chats/${to.id}/messages/${messageId}`);
@@ -55,16 +80,15 @@ const ChatScreen = () => {
       })
 
       setMessage('')
+      setNewChat(false)
     }
 
-    
     useLayoutEffect(()=> {
       const messagesRef = collection(db, "chats/" + `${to.id}` + "/messages")
       const messagesQuery = query(messagesRef, orderBy("timestamp"));
 
-      const unsubscribe = onSnapshot(messagesQuery, (snapchot) => {      
+      const unsubscribe = onSnapshot(messagesQuery, (snapchot) => {  
             setMessages(snapchot.docs.map((doc, i)=> {
-              console.log(doc.data())
                 return {id: doc.id, data:doc.data()}
             }))      
         })

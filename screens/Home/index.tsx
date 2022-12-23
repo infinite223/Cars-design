@@ -17,7 +17,7 @@ import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { Icon } from '@rneui/base';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { setChats } from '../../slices/chatsSlice';
 
 
@@ -40,16 +40,18 @@ const HomeScreen = () => {
   const { projects, loading }  = useProjects(user)
 
   useLayoutEffect(()=> {
-    const chatsRef = collection(db, "chats/")
-
-    const unsubscribe = onSnapshot(chatsRef, (snapchot) => {      
-        dispatch(setChats(snapchot.docs.map((doc, i)=> {
-              return {id: doc.id, data:doc.data()}
-          })))  
-      })
-    
-    return unsubscribe
-
+    if(user.name!=='Tester'){
+      const chatsRef = collection(db, "chats")
+      //add query
+      const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid))
+      const unsubscribe = onSnapshot(chatsQuery, (snapchot) => {      
+          dispatch(setChats(snapchot.docs.map((doc, i)=> {
+                return doc.data()
+            })))  
+        })
+      
+      return unsubscribe
+    }
   }, [])
 
 

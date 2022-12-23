@@ -16,11 +16,11 @@ const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: strin
 
   return (
     <View style={style.bottomNav}>
-      <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
+      {/* <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
         style={[style.cameraIcon, { borderColor:theme.backgroundContent}]}
       >       
         <Icon type="ionicon" name="camera-outline" size={20} color={theme.fontColor}/>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TextInput
         placeholderTextColor={theme.fontColorContent}
         placeholder='Type message'

@@ -28,7 +28,6 @@ const ChatsScreen = () => {
     const language = useSelector(selectLanguage)
     const { menu: { blockText, reportText, deleteText }} = translations.screens.Chats 
     const { user }:any = useAuth()
-    console.log(chats)
     const authorUid = route.params;
     const [selectChat, setSelectChat] = useState<User>()
     // const [chats, setChats] = useState<any>()
@@ -94,8 +93,8 @@ const ChatsScreen = () => {
                 <MenuOption onSelect={() => deleteChat(item.id)} >
                   <Text style={{color: 'red'}}>{deleteText[language as keyof typeof deleteText]}</Text>
                 </MenuOption>
-                <MenuOption onSelect={() => alert(`...`)}  text={blockText[language as keyof typeof blockText]+ item.data.to.name}/>
-                <MenuOption onSelect={() => navigation.navigate('Report')} text={reportText[language as keyof typeof reportText]+ item.data.to.name}/>
+                <MenuOption onSelect={() => alert(`...`)}  text={blockText[language as keyof typeof blockText]+" " + item.data.to.name}/>
+                <MenuOption onSelect={() => navigation.navigate('Report', {id:item.data.to.id, type:'user'})} text={reportText[language as keyof typeof reportText] +" " + item.data.to.name}/>
               </MenuOptions>
             </Menu>
             </View>

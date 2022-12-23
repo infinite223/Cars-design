@@ -52,6 +52,8 @@ const ProjectScreen = () => {
     const { user }:any = useAuth()
 
     const translateX = useSharedValue(-1200)
+    const projectsRef = doc(db, `users/${author.uid}/projects`, id)
+
 
     const rAllContentSheetStyle = useAnimatedStyle(() => {  
       return {       
@@ -60,16 +62,14 @@ const ProjectScreen = () => {
     }) 
 
     useEffect(()=>{
-      const projectsRef = doc(db, `users/${author.uid}/projects`, id)
-      const getLikes = () => {
-          console.log('read, projects')
-          onSnapshot(projectsRef, (snapchot) => { 
-            if(snapchot.data()){
-              setLikes(snapchot.data()?.car.likes)     
-            }
-          })
-      } 
-      getLikes()
+      console.log('tuuuu')
+      const unsubscribe = onSnapshot(projectsRef, (snapchot) => { 
+        if(snapchot.data()){
+          setLikes(snapchot.data()?.car.likes)     
+        }
+      })
+
+       return unsubscribe
     }, [likeProject])
 
     useLayoutEffect(() => {
@@ -90,14 +90,14 @@ const ProjectScreen = () => {
       }, [theme])
 
       const goToChat = () => {
-        const findChat = chats.find((item:any)=>item.data.from.uid === user.uid || item.data.to.uid ===user.uid)
+        const findChat = chats.find((item:any)=>item.data.from.id === user.uid || item.data.to.id === user.uid)
         if(findChat){
           console.log('xddd')
-          navigation.navigate('Chat', {id:findChat.id, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
+          navigation.navigate('Chat', {id:findChat.id, new:false, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
         }
         else {
           const newChatId = uuid();
-          navigation.navigate('Chat', {id:newChatId, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
+          navigation.navigate('Chat', {id:newChatId, new:true, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
         }
       }
 

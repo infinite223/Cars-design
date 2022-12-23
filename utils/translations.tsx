@@ -353,6 +353,14 @@ export const translations = {
             buttonText: {
                 en: "Send report",
                 pl: "Wyślij zgłoszenie"
+            },
+            errorText: {
+                en: "Something was wrong, try again later",
+                pl: "Coś poszło nie tak, spróbuj ponownie później"
+            },
+            successText: {
+                en: "Report has been sent correctly",
+                pl: "Zgłoszenie zostało wysłane"
             }
         }
     }

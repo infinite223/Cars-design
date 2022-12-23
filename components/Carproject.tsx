@@ -16,7 +16,7 @@ import {
 } from 'react-native-popup-menu';
 
 import { Icon } from '@rneui/base';
-import { onShare } from '../utils/functions/projectFunctions';
+import { likeProject, onShare } from '../utils/functions/projectFunctions';
 import { translations } from '../utils/translations';
 import { selectLanguage } from './../slices/languageSlice';
 import { doc, setDoc } from 'firebase/firestore';
@@ -62,11 +62,11 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
           </View>
           <View style={{flexDirection:'row'}}>
             <LinearGradient
-                        colors={getColorsCircle(car.performance[0].value, car.performance[0].type)}
-                        style={style.stageContainer}
-                        start={{x:0, y:0}}
-                        end={{x:1, y:2}}
-                    >
+              colors={getColorsCircle(car.performance[0].value, car.performance[0].type)}
+              style={style.stageContainer}
+              start={{x:0, y:0}}
+              end={{x:1, y:2}}
+            >
               <Text style={[style.stageText, {color: theme.fontColor}]}>
                 {car.history.length===0?'STOCK':'STAGE '+car.history.length}
               </Text>
@@ -96,7 +96,9 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
  
         <View style={style.footer}>
           <View style={{alignItems:'center', flexDirection:'row'}}>
-            <TouchableOpacity onPress={()=> console.log('xddd')} style={style.iconContainer}>
+            <TouchableOpacity
+              onPress={()=>likeProject(id, author.uid, car.likes.find((like:any)=>like.uid===user.uid), {imageUri:user.imageUri, name:user.name, uid:user.uid})}
+              style={style.iconContainer}>
               <Icon                 
                     name='heart-outlined'
                     type='entypo'
