@@ -1,0 +1,10 @@
+- create better view mettings list
+- connect meetings to firebase 
+- choose better location functions in folders, files
+- add some tests, to firebase functions
+- login and register update, add feedback
+- remove demo mode
+- test notyfications
+- create reg, rules
+- create better logo
+- fixed bugs with logout

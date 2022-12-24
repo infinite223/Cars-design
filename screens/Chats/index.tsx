@@ -19,6 +19,7 @@ import {
 import AlertModal from '../modals/AlertModal';
 import { translations } from './../../utils/translations';
 import { selectChats } from './../../slices/chatsSlice';
+import { ChatItem } from './ChatItem';
 
 const ChatsScreen = () => {
     const navigation:any = useNavigation()
@@ -51,6 +52,8 @@ const ChatsScreen = () => {
         setAlertModal({show:true, type:'ERROR', message:'Somthing want wrong!'})
       })
     }
+
+    
    
   return ( 
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
@@ -58,47 +61,7 @@ const ChatsScreen = () => {
       <FlatList 
         data={chats}
         renderItem={({item})=>{ 
-          return <View style={style.renderItem}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={{alignItems:'center', flexDirection:'row', flex:1}}>
-              <Avatar size={34} rounded source={{uri:item.data.to.imageUri}}/>
-              <View style={style.textContainer}>
-                <Text style={[{color: theme.fontColor}]}>{item.data.to.name}</Text>
-                <Text style={[{color: theme.fontColorContent}]}>{item.lastMessage?.time}</Text>
-              </View>
-            </TouchableOpacity>
-
-          <View>
-            <Menu>
-              <MenuTrigger style={{paddingLeft:20, paddingVertical:5, marginTop:10}}>
-                <Text>
-                  <Icon                 
-                    name='dots-three-vertical'
-                    type='entypo'
-                    size={16} 
-                    color={theme.fontColor}
-                  />
-                </Text>
-              </MenuTrigger>
-              <MenuOptions 
-                customStyles={{optionsContainer: 
-                  {
-                    paddingHorizontal:10,
-                    paddingVertical:5,
-                    borderRadius:10,
-                    borderWidth:1, 
-                    borderColor: theme.backgroundContent,
-                    backgroundColor: theme.background
-                  }, optionText: {color:theme.fontColor}
-                }}>
-                <MenuOption onSelect={() => deleteChat(item.id)} >
-                  <Text style={{color: 'red'}}>{deleteText[language as keyof typeof deleteText]}</Text>
-                </MenuOption>
-                <MenuOption onSelect={() => alert(`...`)}  text={blockText[language as keyof typeof blockText]+" " + item.data.to.name}/>
-                <MenuOption onSelect={() => navigation.navigate('Report', {id:item.data.to.id, type:'user'})} text={reportText[language as keyof typeof reportText] +" " + item.data.to.name}/>
-              </MenuOptions>
-            </Menu>
-            </View>
-          </View>
+          return <ChatItem item={item} deleteChat={deleteChat}/>
         }}
       />
     </View>
