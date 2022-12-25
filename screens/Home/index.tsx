@@ -43,7 +43,7 @@ const HomeScreen = () => {
     if(user.name!=='Tester'){
       const chatsRef = collection(db, "chats")
       //add query
-      const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid))
+      const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid), where('block', "==", false))
       const unsubscribe = onSnapshot(chatsQuery, (snapchot) => {      
           dispatch(setChats(snapchot.docs.map((doc, i)=> {
                 return doc.data()

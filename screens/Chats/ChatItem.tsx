@@ -3,7 +3,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { style } from './style';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import { Avatar, Icon } from '@rneui/base';
 import {
@@ -18,6 +18,7 @@ import { useEffect } from 'react';
 import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
 import { useState } from 'react';
 import { db } from './../../hooks/useAuth';
+import { selectPrompt, setPrompt } from './../../slices/promptSlice';
 
 
 export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> = ({item, deleteChat}:any) => {
@@ -25,6 +26,8 @@ export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> =
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const [messages, setMessages] = useState<any>([])
+    const dispatch = useDispatch()
+    const [showPromptModal, setShowPromptModal] = useState(false)
 
     const { menu: { blockText, reportText, deleteText }} = translations.screens.Chats 
 
@@ -41,15 +44,19 @@ export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> =
         return unsubscribe
     }, [])
 
+    const blockPerson = (personId:string) => {
+        console.log(personId)
+    }
+console.log(messages)
   return (
     <View style={style.renderItem}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={{alignItems:'center', flexDirection:'row', flex:1}}>
-        <Avatar size={40} rounded source={{uri:messages?.[0].imageUri}}/>
-        <View style={style.textContainer}>
-            <Text style={[{color: theme.fontColor}]}>{item.data.to.name}</Text>
-            <Text style={[{color: theme.fontColorContent}]}>{messages?.[0].message}</Text>
-        </View>
-        </TouchableOpacity>
+        {messages?.[0]&&<TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={{alignItems:'center', flexDirection:'row', flex:1}}>
+            <Avatar size={40} rounded source={{uri:messages?.[0].imageUri?messages?.[0].imageUri:'https://www.springvalelearning.com/wp-content/uploads/2020/04/erson-outline-icon-png-person-icon-png-white-11562864385wyirbbsupu.png'}}/>
+            <View style={style.textContainer}>
+                <Text style={[{color: theme.fontColor}]}>{item.data.to.name}</Text>
+                <Text style={[{color: theme.fontColorContent}]}>{messages?.[0].message}</Text>
+            </View>
+        </TouchableOpacity>}
     <View>
         <Menu>
         <MenuTrigger style={{paddingLeft:20, paddingVertical:5, marginTop:10}}>
@@ -76,7 +83,7 @@ export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> =
             <MenuOption onSelect={() => deleteChat(item.id)} >
             <Text style={{color: 'red'}}>{deleteText[language as keyof typeof deleteText]}</Text>
             </MenuOption>
-            <MenuOption onSelect={() => alert(`...`)}  text={blockText[language as keyof typeof blockText]+" " + item.data.to.name}/>
+            <MenuOption onSelect={() => dispatch(setPrompt({show:true, message:'Czy na pewno chcesz zablokować tego użytkownika?', type: 'block', data: item.data.to}))}  text={blockText[language as keyof typeof blockText]+ " " + item.data.to.name}/>
             <MenuOption onSelect={() => navigation.navigate('Report', {id:item.data.to.id, type:'user'})} text={reportText[language as keyof typeof reportText] +" " + item.data.to.name}/>
         </MenuOptions>
         </Menu>

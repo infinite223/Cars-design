@@ -31,7 +31,6 @@ const ChatsScreen = () => {
     const { user }:any = useAuth()
     const authorUid = route.params;
     const [selectChat, setSelectChat] = useState<User>()
-    // const [chats, setChats] = useState<any>()
     const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     useLayoutEffect(() => {

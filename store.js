@@ -5,6 +5,7 @@ import selectedRoomReducer from './slices/selectedRoomSlice'
 import selectedProjectSlice  from './slices/selectedProject';
 import navigationSlice from './slices/navigationSlice';
 import chatsSlice from './slices/chatsSlice';
+import promptSlice from './slices/promptSlice';
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         room:selectedRoomReducer,
         project:selectedProjectSlice,
         showNavigation:navigationSlice,
-        chats:chatsSlice
+        chats:chatsSlice,
+        prompt:promptSlice,
     }
 })

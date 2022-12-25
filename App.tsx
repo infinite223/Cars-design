@@ -10,19 +10,19 @@ import { selectTheme } from './slices/themeSlice';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RightNavigation } from './navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';
+import PrompttModal from './screens/modals/ProptModal';
 
 LogBox.ignoreAllLogs()
-// LogBox.ignoreLogs(['Require cycle:']);
 
 export default function App() {
-  // const theme = useSelector(selectTheme)
   return (   
     <Provider store={store}>
       <MenuProvider>
         <NavigationContainer>
           <AuthProvider>
           <GestureHandlerRootView style={{flex:1}}>
-            <StackNavigator/>
+              <PrompttModal/>
+              <StackNavigator/>
               <RightNavigation/>
             </GestureHandlerRootView>
           </AuthProvider>
