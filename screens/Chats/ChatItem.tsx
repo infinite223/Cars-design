@@ -15,10 +15,11 @@ import {
 import { selectLanguage } from '../../slices/languageSlice';
 import { translations } from '../../utils/translations';
 import { useEffect } from 'react';
-import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, query, where, orderBy, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { db } from './../../hooks/useAuth';
-import { selectPrompt, setPrompt } from './../../slices/promptSlice';
+import { setPrompt } from './../../slices/promptSlice';
+import { unBlockPerson } from '../../firebase/chats/block';
 
 
 export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> = ({item, deleteChat}:any) => {
@@ -27,9 +28,8 @@ export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> =
     const language = useSelector(selectLanguage)
     const [messages, setMessages] = useState<any>([])
     const dispatch = useDispatch()
-    const [showPromptModal, setShowPromptModal] = useState(false)
-
-    const { menu: { blockText, reportText, deleteText }} = translations.screens.Chats 
+    
+    const { menu: { blockText, unBlockText, reportText, deleteText }} = translations.screens.Chats 
 
     useEffect(()=> {
         const messagesRef = collection(db, `chats/${item.id}/messages`)
@@ -44,13 +44,10 @@ export const ChatItem:React.FC<{item:any, deleteChat: (value:string) => void}> =
         return unsubscribe
     }, [])
 
-    const blockPerson = (personId:string) => {
-        console.log(personId)
-    }
-console.log(messages)
   return (
     <View style={style.renderItem}>
-        {messages?.[0]&&<TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={{alignItems:'center', flexDirection:'row', flex:1}}>
+        {messages?.[0]&&
+        <TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={{alignItems:'center', flexDirection:'row', flex:1, opacity:item.block?.4:1}}>
             <Avatar size={40} rounded source={{uri:messages?.[0].imageUri?messages?.[0].imageUri:'https://www.springvalelearning.com/wp-content/uploads/2020/04/erson-outline-icon-png-person-icon-png-white-11562864385wyirbbsupu.png'}}/>
             <View style={style.textContainer}>
                 <Text style={[{color: theme.fontColor}]}>{item.data.to.name}</Text>
@@ -83,7 +80,9 @@ console.log(messages)
             <MenuOption onSelect={() => deleteChat(item.id)} >
             <Text style={{color: 'red'}}>{deleteText[language as keyof typeof deleteText]}</Text>
             </MenuOption>
-            <MenuOption onSelect={() => dispatch(setPrompt({show:true, message:'Czy na pewno chcesz zablokować tego użytkownika?', type: 'block', data: item.data.to}))}  text={blockText[language as keyof typeof blockText]+ " " + item.data.to.name}/>
+            <MenuOption 
+                onSelect={() => !item.block?dispatch(setPrompt({show:true, message:'Czy na pewno chcesz zablokować tego użytkownika?', type: 'block', id: item.id})):unBlockPerson(item.id)} 
+                 text={!item.block?blockText[language as keyof typeof blockText]:unBlockText[language as keyof typeof unBlockText]+ " " + item.data.to.name}/>
             <MenuOption onSelect={() => navigation.navigate('Report', {id:item.data.to.id, type:'user'})} text={reportText[language as keyof typeof reportText] +" " + item.data.to.name}/>
         </MenuOptions>
         </Menu>

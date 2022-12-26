@@ -293,6 +293,10 @@ export const translations = {
                     en: 'Block',
                     pl: 'Zablokuj'
                 },
+                unBlockText: {
+                    en: 'Unblock',
+                    pl:'Odblokuj'
+                },
                 reportText: {
                     en: "Report",
                     pl: 'Zgłoś'

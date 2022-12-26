@@ -62,7 +62,6 @@ const ProjectScreen = () => {
     }) 
 
     useEffect(()=>{
-      console.log('tuuuu')
       const unsubscribe = onSnapshot(projectsRef, (snapchot) => { 
         if(snapchot.data()){
           setLikes(snapchot.data()?.car.likes)     
@@ -93,7 +92,7 @@ const ProjectScreen = () => {
         const findChat = chats.find((item:any)=>item.data.from.id === user.uid || item.data.to.id === user.uid)
         if(findChat){
           console.log('xddd')
-          navigation.navigate('Chat', {id:findChat.id, new:false, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
+          navigation.navigate('Chat', {id:findChat.id, block:findChat.block, new:false, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})
         }
         else {
           const newChatId = uuid();

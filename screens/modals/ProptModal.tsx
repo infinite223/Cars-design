@@ -5,6 +5,9 @@ import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { TouchableOpacity } from 'react-native';
 import { selectPrompt, setPrompt } from '../../slices/promptSlice';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from './../../hooks/useAuth';
+import { blockPerson } from './../../firebase/chats/block';
 
 interface AlertModalProps {
     show:boolean,
@@ -24,7 +27,10 @@ const PrompttModal:React.FC<{}> = () => {
    const chooseOption = () => {
     switch (prompt.type) {
         case 'block':
-            
+            if(prompt.id){
+                blockPerson(prompt.id)
+                .then(() => dispatch(setPrompt({show:false})))
+            }
             break;
     
         default:
@@ -55,7 +61,6 @@ const PrompttModal:React.FC<{}> = () => {
         borderRadius:15,
     }}>
         <Text style={{color: theme.fontColor, fontSize:17, marginTop:10, marginBottom:30}}>
-            {/* {language==="en"?_translations.en:_translations.pl} */}
             {prompt.message}
         </Text>
         <View style={{flexDirection:'row', width:'100%', alignItems:'center', justifyContent:'space-around'}}>

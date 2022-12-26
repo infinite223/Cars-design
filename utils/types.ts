@@ -12,7 +12,8 @@ export type User = {
         followers: {uid:string, name: string, imageUri:string}[],
         views:  {uid:string, name: string, imageUri:string}[],
         following: {uid:string, name: string, imageUri:string}[],
-    }
+    },
+    hideProjects: []
 }   
 
 export type UserList = {

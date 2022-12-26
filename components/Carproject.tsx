@@ -144,7 +144,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
               <MenuOption onSelect={() => navigation.navigate('Report', {id, type:'project'})} >
                 <Text style={{color: 'red'}}>{report[language as keyof typeof report]}</Text>
               </MenuOption>
-              <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/>
+              {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/> */}
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
             </MenuOptions>

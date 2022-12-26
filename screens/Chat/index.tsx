@@ -11,6 +11,7 @@ import { style } from './style';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';
 import { selectChats } from './../../slices/chatsSlice';
+import { selectLanguage } from './../../slices/languageSlice';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
@@ -25,8 +26,8 @@ const ChatScreen = () => {
     const route = useRoute<any>()
     const to = route.params;
     const [newChat, setNewChat] = useState(to.new)
-
-
+    const language = useSelector(selectLanguage)
+  console.log(to)
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -48,8 +49,8 @@ const ChatScreen = () => {
     const sendMessage = () => {
       if(newChat){
         const chatRef = doc(db, `chats/${to.id}`);
-        console.log(to)
         setDoc(chatRef, {
+          blcok:false,
           persons: [user.uid, to.data.to.id],
           data: {
             from: {
@@ -101,7 +102,7 @@ const ChatScreen = () => {
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>          
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <>
-            <ScrollView style={{flex:1}} contentContainerStyle={{paddingTop:15}}>
+            <ScrollView style={{flex:1}} contentContainerStyle={[{paddingTop:15, opacity:to.block?0.4:1}]}>
             {messages.map(({id, data}:{id:number, data:any})=> 
                 data.email===user.email? (
                 <View key={id} style={[style.reciever, {backgroundColor: theme.backgroundContent}]}>
@@ -124,8 +125,12 @@ const ChatScreen = () => {
                 ))
             }
             </ScrollView>
+            {to.block?<Text style={{color:'red', alignSelf:'center', paddingVertical:20, letterSpacing:2}}>
+              {language==='en'?'This preson is blocked!':"Ta osoba jest zablokowana!"}
+            </Text>:
             <ChatFunctionsConatiner message={message} setMessage={setMessage} sendMessage={sendMessage} author={user.uid} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-        </>
+            }
+            </>
         </TouchableWithoutFeedback>
     </View>
 
