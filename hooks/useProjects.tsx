@@ -4,7 +4,7 @@ import { User } from "../utils/types";
 import { db } from "./useAuth";
 
 export const useProjects = (user:User) => {
-    const [projects, setProjects] = useState<any[]>([])
+    const [unHideProjects, setUnHideProjects] = useState<any[]>([])
     const [_projects, _setProjects] = useState<any[]>([])
 
     const [loading, setLoading] = useState(false)
@@ -13,7 +13,7 @@ export const useProjects = (user:User) => {
         console.log('read, projects')
         onSnapshot(projectsRef, (snapchot) => {      
             _setProjects(snapchot.docs.map((doc, i)=> {
-                if(!user.hideProjects.find((id) => id === doc.data().id)){
+                if(user.hideProjects && !user.hideProjects.find((id) => id === doc.data().id)){
                     return doc.data()
                 }
             }))      
@@ -24,14 +24,13 @@ export const useProjects = (user:User) => {
     useEffect(()=> {
         setLoading(true)
         if(user.name==="Tester") {
-            setProjects([])
+            setUnHideProjects([])
         }
         else {
             getProjects()
-            setProjects(_projects)
-            console.log(projects, 'halo')
+            setUnHideProjects(_projects)
         }
     }, [])
 
-    return { projects, loading }
+    return { unHideProjects, loading }
 }

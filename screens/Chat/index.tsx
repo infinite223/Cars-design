@@ -1,4 +1,4 @@
-import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback, Image } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback, Image, StatusBar } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { Avatar } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -132,6 +132,7 @@ const ChatScreen = () => {
             }
             </>
         </TouchableWithoutFeedback>
+        <StatusBar backgroundColor={theme.background}/>
     </View>
 
   )

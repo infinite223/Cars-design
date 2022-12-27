@@ -19,10 +19,13 @@ import { Icon } from '@rneui/base';
 import { likeProject, onShare } from '../utils/functions/projectFunctions';
 import { translations } from '../utils/translations';
 import { selectLanguage } from './../slices/languageSlice';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
 import useAuth, { db } from '../hooks/useAuth';
 import { v4 as uuid } from 'uuid';
 import { LinearGradient } from 'expo-linear-gradient';
+import { updateDoc } from 'firebase/firestore';
+import { setHideProjects } from '../slices/hideProjects';
+import { selectHideProjects } from './../slices/hideProjects';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {
   const navigation:any = useNavigation()
@@ -31,6 +34,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   const { _menuOptions: {capy, hide, save, report}, likesText} = translations.components.carProject
 
   const dispatch = useDispatch()
+  const hideProjects = useSelector(selectHideProjects)
   const { user }:any = useAuth()
 
   const setProjectToNav = () => {
@@ -48,7 +52,13 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
 
 
   const hideProject = (projectId:string) => {
+    const projectRef = doc(db, `users/${user.uid}`)
 
+    updateDoc(projectRef, {
+      'hideProjects':arrayUnion(projectId)
+    }).then(()=> {
+      dispatch(setHideProjects([...hideProjects, projectId]))
+    })
   }
 
   return (

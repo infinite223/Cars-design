@@ -37,7 +37,7 @@ const HomeScreen = () => {
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
   const {user}:any = useAuth()
-  const { projects, loading }  = useProjects(user)
+  const { unHideProjects, loading }  = useProjects(user)
 
   useLayoutEffect(()=> {
     if(user.name!=='Tester'){
@@ -104,14 +104,14 @@ const HomeScreen = () => {
   return (
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
-      {projects.length>0?<FlatList 
+      {unHideProjects.length>0?<FlatList 
         style={{ width: '100%'}}
         contentContainerStyle={{flexGrow:1}}
-        data={projects}
+        data={unHideProjects}
         // pagingEnabled
         
         bounces
-        keyExtractor={carProject => carProject.id}
+        // keyExtractor={(item) => item.id}
         renderItem={(carData)=> 
         <Carproject data={carData.item}/>
       }

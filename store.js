@@ -6,6 +6,7 @@ import selectedProjectSlice  from './slices/selectedProject';
 import navigationSlice from './slices/navigationSlice';
 import chatsSlice from './slices/chatsSlice';
 import promptSlice from './slices/promptSlice';
+import hideProjectsSlice from './slices/hideProjects';
 
 export const store = configureStore({
     reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
         showNavigation:navigationSlice,
         chats:chatsSlice,
         prompt:promptSlice,
+        hideProjects:hideProjectsSlice
     }
 })
