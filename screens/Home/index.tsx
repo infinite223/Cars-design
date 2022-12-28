@@ -19,7 +19,7 @@ import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { Icon } from '@rneui/base';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { setChats } from '../../slices/chatsSlice';
-
+import { selectHideProjects } from '../../slices/hideProjects';
 
 
 Notifications.setNotificationHandler({
@@ -36,8 +36,10 @@ const HomeScreen = () => {
   const dispatch = useDispatch()
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
+  const hideProjects = useSelector(selectHideProjects)
+  console.log(hideProjects, 'tu')
   const {user}:any = useAuth()
-  const { unHideProjects, loading }  = useProjects(user)
+  const { projects, loading }  = useProjects(user)
 
   useLayoutEffect(()=> {
     if(user.name!=='Tester'){
@@ -104,10 +106,14 @@ const HomeScreen = () => {
   return (
     <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
-      {unHideProjects.length>0?<FlatList 
+      {projects?<FlatList 
         style={{ width: '100%'}}
         contentContainerStyle={{flexGrow:1}}
-        data={unHideProjects}
+        data={projects.filter((project)=> {
+          if(hideProjects && !hideProjects.find((id:string) => id===project.id )){
+            return project
+          }
+        })}
         // pagingEnabled
         
         bounces
@@ -149,7 +155,7 @@ async function registerForPushNotificationsAsync() {
     await Notifications.setNotificationChannelAsync('default', {
       name: 'default',
       importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
+vibrationPattern: [0, 250, 250, 250],
       lightColor: '#FF231F7C',
     });
   }

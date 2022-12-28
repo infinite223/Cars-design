@@ -8,10 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 import { setSelectedRoom } from '../slices/selectedRoomSlice';
 import { Icon } from '@rneui/base';
 import useAuth from '../hooks/useAuth';
+import { Dimensions } from 'react-native';
+
+const widthScreen = Dimensions.get('screen').width
 
 export const HeaderTopProjects = () => {
     const navigation = useNavigation<any>()
-    const { user } = useAuth()
+    const { user }:any = useAuth()
     const meetingsRooms:MeetingRoom[] = [
         {name: "Kraakow spot", date:"12.12.2022", createdBy:user, place: {city: "Krakow", latitude:123, longitude:132}, 
         people: [{name:"Adam", uid:'dsad', place:{city: "Opole", latitude:123, longitude:112}, carProjects: {id:'2', authorUid:'c', car:{carMake:'Bmw', model:'M4', imageUri:urlImageCar1}}, imageUri: user.imageUri}], 
@@ -22,23 +25,26 @@ export const HeaderTopProjects = () => {
     const dispatch = useDispatch()
 
   return (
-    <View style={style.mainContainer}>
       <View style={style.roomsContainer}>
         {meetingsRooms?
             <FlatList
                 ItemSeparatorComponent={()=><View style={{height:10}}/>}
+                contentContainerStyle={{ width:widthScreen}}
                 data={meetingsRooms}
                 renderItem={({item}) => {
-                    return <TouchableOpacity onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))} style={[style.meetingRoom]}>
+                    return <TouchableOpacity onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))} style={[style.meetingRoom, {backgroundColor: theme.backgroundContent}]}>
                         <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/>
-                        <View style={style.textContainer}>
-                            <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
-                            <Text style={[style.placeText, {color: '#5b9'}]}>{item.place.city}</Text>
-                        </View>  
-                        <View style={style.countPeople}>
-                            <Text style={[{color: theme.fontColor, marginRight:5, fontSize:12}]}>{item.people.length}</Text>
-                            <Icon type='ionicon' name="md-people-outline" size={14} color={theme.fontColor}/>
-                        </View>                                          
+                        <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
+                            <View style={style.textContainer}>
+                                <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
+                                <Text style={[style.placeText, {color: '#5f9'}]}>{item.place.city}</Text>
+                            </View>  
+                            <View style={style.countPeople}>
+                                <Text style={[{color: theme.fontColor, marginRight:5, fontSize:12}]}>{item.people.length}</Text>
+                                <Icon type='ionicon' name="md-people-outline" size={14} color={theme.fontColor}/>
+                            </View>        
+                        </View>                                 
+                        <Icon style={{alignSelf:'center', marginRight:10}} type='materialicon' name="arrow-forward-ios" size={14} color={theme.fontColor}/> 
                     </TouchableOpacity>
                 }}
             />:
@@ -47,63 +53,63 @@ export const HeaderTopProjects = () => {
             </Text>
         }
       </View>
-    </View>
   )
 }
 
 const style = StyleSheet.create({
-    mainContainer : {
-         justifyContent:'center'
-    },
-    logo: {
-        width:50,
-        height:50,
-        borderRadius:10
-    },
     roomsContainer: {
-        flexDirection: 'row',
-        alignItems:'center',
+        alignSelf:'flex-start',
+        alignItems:'flex-start',
+        justifyContent:'flex-start',
         marginTop:3,
-        paddingHorizontal:5
+        // paddingHorizontal:5,
+        width:'100%'
     },
     warningText: {
         marginLeft:12,
         maxWidth:250
     },
     meetingRoom: {
-        marginHorizontal:5,
-        position:'relative',
+        marginHorizontal:15,
         flexDirection:'row',
-        borderRadius:10
+        // backgroundColor:'#333',
+        borderRadius:10,
+        alignItems:'center'
     },
     imageRoom: {
-        width: 360,
-        height: 250,
-        borderRadius:10,
+        width: 110,
+        height: 60,
+        borderBottomLeftRadius:10,
+        borderTopLeftRadius:10,
         opacity: .9,
         backgroundColor: 'black'      
     },
     textContainer: {
-        position: 'absolute',
-        backgroundColor: 'rgba(0,0,0, .5)',
-        borderRadius:10,
-        justifyContent:'center',
-        paddingHorizontal:10,
+        // position: 'absolute',
+        // backgroundColor: 'rgba(0,0,0, .3)',
+        // justifyContent:'center',
+        // paddingHorizontal:10,
         paddingVertical:2,
-        margin:5,
+        marginHorizontal:5,
+        marginVertical:5
     },
     nameText: {
         fontSize:12
     },
     placeText: {
-        fontSize:10
+        fontSize:14,
+        letterSpacing:1
     },
     countPeople: {
-        position: 'absolute',
-        bottom:2,
-        right:2,
+        // position: 'absolute',
+        // bottom:2,
+        // right:2,
         flexDirection:'row',
         alignItems:'center',
-        paddingHorizontal:5
+        paddingHorizontal:10,
+        borderRadius:10,
+        backgroundColor:'gray',
+        height:35,
+        alignSelf:'center',
     }
 })

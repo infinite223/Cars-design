@@ -68,7 +68,7 @@ const MeetingScreen = () => {
 
   
   return (
-    <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>   
+    <View style={{flex:1, justifyContent:'flex-start', backgroundColor:theme.background}}>   
       {/* <Text style={{color: theme.fontColor}}>Meeting screen</Text> */}
       <HeaderTopProjects/>
     </View>

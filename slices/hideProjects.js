@@ -13,6 +13,6 @@ export const hideProjectsSlice = createSlice({
 })
 
 export const { setHideProjects } = hideProjectsSlice.actions
-export const selectHideProjects = (state) => state
+export const selectHideProjects = (state) => state.hideProjects
 
 export default hideProjectsSlice.reducer;
