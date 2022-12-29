@@ -9,6 +9,7 @@ import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
 import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
+import _Icon_MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { doc, getFirestore, setDoc, collectionGroup, onSnapshot } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
@@ -52,17 +53,10 @@ const MeetingScreen = () => {
       // headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
       // headerLeft: () => <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
 
-      // headerRight: () => 
-      // <View style={{flexDirection:'row', alignItems:'center'}}>
-      //   <TouchableOpacity style={style.iconPadding} onPress={() => 
-      //     navigation.navigate('Chats')
-      //   }>
-      //     <Icon type='materialicon' name={'messenger-outline'} size={24} color={theme.fontColor} style={{ marginRight: 10, opacity: .9 }}/>
-      //   </TouchableOpacity>
-      //   <TouchableOpacity style={style.iconPadding} onPress={() => navigation.navigate('Profile', {state: user})}>
-      //     <Icon type='ionicon' name={'md-person-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
-      //   </TouchableOpacity>
-      // </View>
+      headerRight: () => 
+        <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5, marginRight:5}} onPress={() => navigation.navigate('CreateMeeting')}>
+          <_Icon_MaterialCommunityIcons name={'account-multiple-plus-outline'} size={27} color={theme.fontColor} style={{ marginRight: 0 }}/>
+        </TouchableOpacity>
     })
   }, [theme])
 

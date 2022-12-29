@@ -18,6 +18,7 @@ import ChatScreen from '../screens/Chat'
 import SearchScreen from './../screens/Search/index';
 import MeetingRoomScreen from '../screens/MeetingRoom'
 import ReportScreen from '../screens/Report'
+import CreateMeeting from '../screens/CreateMeeting'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -53,6 +54,12 @@ const StackNavigator = () => {
             <Stack.Screen name='EditProfile' component={EditProfileScreen}/> 
             <Stack.Screen name='Report' component={ReportScreen}/>   
             <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>
+            <Stack.Screen 
+              name='CreateMeeting' 
+              component={CreateMeeting} 
+              // options={{headerShown:false}}
+            />
+
           </>:
           <Stack.Screen name='Login' component={LoginScreen}/>
         } 

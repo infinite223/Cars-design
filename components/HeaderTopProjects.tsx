@@ -32,20 +32,28 @@ export const HeaderTopProjects = () => {
                 contentContainerStyle={{ width:widthScreen}}
                 data={meetingsRooms}
                 renderItem={({item}) => {
-                    return <TouchableOpacity onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))} style={[style.meetingRoom, {backgroundColor: theme.backgroundContent}]}>
-                        <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/>
-                        <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
-                            <View style={style.textContainer}>
-                                <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
-                                <Text style={[style.placeText, {color: '#5f9'}]}>{item.place.city}</Text>
-                            </View>  
-                            <View style={style.countPeople}>
-                                <Text style={[{color: theme.fontColor, marginRight:5, fontSize:12}]}>{item.people.length}</Text>
-                                <Icon type='ionicon' name="md-people-outline" size={14} color={theme.fontColor}/>
-                            </View>        
-                        </View>                                 
-                        <Icon style={{alignSelf:'center', marginRight:10}} type='materialicon' name="arrow-forward-ios" size={14} color={theme.fontColor}/> 
+                    return (                        
+                    <TouchableOpacity activeOpacity={.5} onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))}>
+                        <View style={style.dateContainer}>
+                            <Icon type='entypo' name="clock" size={14} color={theme.fontColor}/>
+                            <Text style={{color:theme.fontColor, marginLeft:7}}>za 2 dni...</Text>
+                        </View>
+                        <View style={[style.meetingRoom, {backgroundColor: theme.backgroundContent}]}>
+                            <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/>
+                            <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
+                                <View style={style.textContainer}>
+                                    <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
+                                    <Text style={[style.placeText, {color: '#5f9'}]}>{item.place.city}</Text>
+                                </View>  
+                                <View style={style.countPeople}>
+                                    <Text style={[{color: theme.fontColor, marginRight:8, fontSize:15, fontWeight:'bold'}]}>{item.people.length}</Text>
+                                    <Icon type='ionicon' name="people-outline" size={18} color={theme.fontColor}/>
+                                </View>        
+                            </View>                                 
+                            <Icon style={{alignSelf:'center', marginRight:10}} type='materialicon' name="arrow-forward-ios" size={14} color={theme.fontColor}/> 
+                        </View>
                     </TouchableOpacity>
+                    )
                 }}
             />:
             <Text style={[style.warningText]}>
@@ -63,7 +71,7 @@ const style = StyleSheet.create({
         justifyContent:'flex-start',
         marginTop:3,
         // paddingHorizontal:5,
-        width:'100%'
+        width:'100%',
     },
     warningText: {
         marginLeft:12,
@@ -74,7 +82,8 @@ const style = StyleSheet.create({
         flexDirection:'row',
         // backgroundColor:'#333',
         borderRadius:10,
-        alignItems:'center'
+        alignItems:'center',
+        position:'relative',
     },
     imageRoom: {
         width: 110,
@@ -84,11 +93,21 @@ const style = StyleSheet.create({
         opacity: .9,
         backgroundColor: 'black'      
     },
+    dateContainer: {
+        position:'relative',
+        zIndex:10,
+        backgroundColor:'#273',
+        marginHorizontal:30,
+        // borderTopRadius:20,
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
+        flexDirection:'row',
+        alignItems:'center',
+        paddingHorizontal:10,
+        paddingVertical:5,
+        maxWidth:120
+    },
     textContainer: {
-        // position: 'absolute',
-        // backgroundColor: 'rgba(0,0,0, .3)',
-        // justifyContent:'center',
-        // paddingHorizontal:10,
         paddingVertical:2,
         marginHorizontal:5,
         marginVertical:5

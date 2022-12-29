@@ -61,6 +61,10 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
     })
   }
 
+  const saveProject = (projectId:string) => {
+    //....
+  }
+
   return (
       <View style={{backgroundColor: theme.background}}>
       {car.performance&&
@@ -157,6 +161,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
               {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/> */}
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
+              <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} />
             </MenuOptions>
           </Menu>
         </View>
