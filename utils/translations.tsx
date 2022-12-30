@@ -366,6 +366,16 @@ export const translations = {
                 en: "Report has been sent correctly",
                 pl: "Zgłoszenie zostało wysłane"
             }
+        },
+        CreateMeeting: {
+            nameMeeting: {
+                en:"Name meeting",
+                pl:"Nazwa spotkania/spotu"
+            },
+            dateText: {
+                en: "Set date meeting",
+                pl: "Ustaw date spotkania/spotu"
+            }
         }
     }
 }

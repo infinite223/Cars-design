@@ -80,7 +80,8 @@
     "tailwindcss-react-native": "^1.7.10",
     "uuidv4": "^6.2.13",
     "expo-dev-client": "~2.0.1",
-    "expo-document-picker": "~11.0.1"
+    "expo-document-picker": "~11.0.1",
+    "@react-native-community/datetimepicker": "6.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

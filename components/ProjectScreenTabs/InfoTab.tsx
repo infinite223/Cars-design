@@ -27,7 +27,7 @@ const InfoTab = () => {
   const screenWidth = Dimensions.get('window').width
   const selectedProject:CarprojectData = useSelector(selectProject)
   const [mapModalVisible, setMapModalVisible] = useState(false)
-  const [play, setPlay] = React.useState<boolean>(false);
+  const [play, setPlay] = useState<boolean>(false);
   const [sound, setSound] = useState<any>(null)
 
   const { soundCheck } =  selectedProject.car

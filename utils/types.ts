@@ -80,7 +80,7 @@ export type MicroCarprojectData = {
 
 export type MeetingRoom = {
     name: string,
-    createdBy: User,
+    createdBy: UserList,
     place: Place,
     people: Array<{
         name:string,
@@ -89,8 +89,8 @@ export type MeetingRoom = {
         imageUri:string,
         uid:string
     }>,
-    image: string,
-    date: string
+    date: Date
+    id:string
 }
 
 export type Performance = [

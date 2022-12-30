@@ -9,6 +9,7 @@ import { setSelectedRoom } from '../slices/selectedRoomSlice';
 import { Icon } from '@rneui/base';
 import useAuth from '../hooks/useAuth';
 import { Dimensions } from 'react-native';
+import MapView from 'react-native-maps';
 
 const widthScreen = Dimensions.get('screen').width
 
@@ -16,8 +17,8 @@ export const HeaderTopProjects = () => {
     const navigation = useNavigation<any>()
     const { user }:any = useAuth()
     const meetingsRooms:MeetingRoom[] = [
-        {name: "Kraakow spot", date:"12.12.2022", createdBy:user, place: {city: "Krakow", latitude:123, longitude:132}, 
-        people: [{name:"Adam", uid:'dsad', place:{city: "Opole", latitude:123, longitude:112}, carProjects: {id:'2', authorUid:'c', car:{carMake:'Bmw', model:'M4', imageUri:urlImageCar1}}, imageUri: user.imageUri}], 
+        {name: "Kraakow spot", date:"12.12.2022", createdBy:user, place: {city: "Krakow", latitude:37.7, longitude:-122.4}, 
+        people: [{name:"Adam", uid:'dsad', place:{city: "Opole", latitude:51, longitude:18}, carProjects: {id:'2', authorUid:'c', car:{carMake:'Bmw', model:'M4', imageUri:urlImageCar1}}, imageUri: user.imageUri}], 
         image: urlImageCar1},
     ]
 
@@ -39,7 +40,18 @@ export const HeaderTopProjects = () => {
                             <Text style={{color:theme.fontColor, marginLeft:7}}>za 2 dni...</Text>
                         </View>
                         <View style={[style.meetingRoom, {backgroundColor: theme.backgroundContent}]}>
-                            <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/>
+                            <MapView          
+                                scrollEnabled={false}          
+                                style={style.miniMap}
+                                initialRegion={{
+                                    latitude: item.place.latitude,
+                                    longitude: item.place.longitude,
+                                    latitudeDelta: 0.0922,
+                                    longitudeDelta: 0.0421,
+                                }}
+                                
+                            />
+                            {/* <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/> */}
                             <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
                                 <View style={style.textContainer}>
                                     <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
@@ -84,14 +96,15 @@ const style = StyleSheet.create({
         borderRadius:10,
         alignItems:'center',
         position:'relative',
+        overflow: 'hidden',  
     },
     imageRoom: {
         width: 110,
         height: 60,
-        borderBottomLeftRadius:10,
-        borderTopLeftRadius:10,
+        borderBottomLeftRadius:5,
+        borderTopLeftRadius:5,
         opacity: .9,
-        backgroundColor: 'black'      
+        backgroundColor: 'black',
     },
     dateContainer: {
         position:'relative',
@@ -130,5 +143,12 @@ const style = StyleSheet.create({
         backgroundColor:'gray',
         height:35,
         alignSelf:'center',
+    },
+    miniMap: {
+        width: 110,
+        height: 60,
+        opacity:.7,
+        borderRadius:0,
+        position:'relative',
     }
 })
