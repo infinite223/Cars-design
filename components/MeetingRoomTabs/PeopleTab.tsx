@@ -21,7 +21,7 @@ const PeopleTab = () => {
   const language = useSelector(selectLanguage)
   const room:MeetingRoom = useSelector(selectRoom)
 
-  console.log(room.people[0].carProjects)
+  // console.log(room.people[0].carProjects)
 
   return (
     <View style={{flex:1, backgroundColor: theme.background, paddingBottom:30}}>
@@ -52,13 +52,13 @@ const PeopleTab = () => {
                   {item.name}
               </Text>
               <Text style={[style.carText, {color: theme.fontColorContent}]}>
-                {item.carProjects.car.carMake} {item.carProjects.car.model}
+                {/* {item.carProjects.car.carMake} {item.carProjects.car.model} */}
               </Text>
              </View>
-              <Image
+              {/* <Image
                 style={style.imageCar}
                 source={{uri: item.carProjects.car.imageUri}}
-              />
+              /> */}
             </View>          
           </TouchableOpacity>
         )}

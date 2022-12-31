@@ -85,12 +85,12 @@ export type MeetingRoom = {
     people: Array<{
         name:string,
         place?:Place,
-        carProjects:MicroCarprojectData,
+        carProjects?:MicroCarprojectData,
         imageUri:string,
         uid:string
     }>,
     date: Date
-    id:string
+    id:string,
 }
 
 export type Performance = [

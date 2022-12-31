@@ -21,7 +21,7 @@ const ChatTab = () => {
           
         </ScrollView>
         <KeyboardAvoidingView style={style.chatFunctions}>
-          <ChatFunctionsConatiner modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+          {/* <ChatFunctionsConatiner   modalVisible={modalVisible} setModalVisible={setModalVisible}/> */}
         </KeyboardAvoidingView>
     </SafeAreaView> 
   )

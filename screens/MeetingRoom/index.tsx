@@ -25,8 +25,11 @@ const MeetingRoomScreen = () => {
     const context = useSharedValue({y: 0})
     const focuseOnSearch = useSelector(selectFocuseOnSearch)
     const { name, place, date} = route.params;
-console.log(route.params)
+
+    toDateTime(date.seconds)
     const gesture = Gesture.Pan()
+
+
     .onStart(()=> {
       context.value = { y: translateY.value }
     })
@@ -78,11 +81,23 @@ console.log(route.params)
     }, [tabInRoom, focuseOnSearch])
     
 
+    function toDateTime(secs:number) {
+      var t = new Date(1970, 0, 1);
+      t.setSeconds(secs);
+      return t
+    }
+
   return (
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
     <ScrollView contentContainerStyle={{flex:1}}>
       <MapView
         style={{flex:.6, zIndex:9}}
+        region={{
+          latitude: place.latitude,
+          longitude: place.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -103,12 +118,12 @@ console.log(route.params)
       <GestureDetector gesture={gesture}>
         <Animated.View style={[style.mainContent, rRoomContentSheetStyle, {backgroundColor: theme.background}]}>
           <View style={[style.textContainer]}>
-            <Text style={[style.date, {color: theme.fontColorContent}]}>{date}</Text>
+            <Text style={[style.date, {color: theme.fontColorContent}]}>{toDateTime(date.seconds).toDateString()}</Text>
             <Animated.Text style={[style.name, rNameSpotSheetStyle]}>{name}</Animated.Text>
             {/* <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text> */}
           </View>
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "pa  dding" : "height"}
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
             style={{flex:1}}
           >
             <Tab.Navigator 

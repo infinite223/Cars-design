@@ -15,7 +15,7 @@ import useAuth, { db } from '../../hooks/useAuth';
 import { MeetingRoom } from '../../utils/types';
 import MapView from 'react-native-maps';
 import { v4 as uuid } from 'uuid';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 
 
@@ -26,7 +26,7 @@ const CreateMeeting = () => {
     const language = useSelector(selectLanguage)
     const { user }:any = useAuth()
 
-    const { nameMeeting, dateText } = translations.screens.CreateMeeting
+    const { nameMeeting, dateText, locationText, createText } = translations.screens.CreateMeeting
     const [name, setName] = useState('')
     const [date, setDate] = useState(new Date());
     const [image, setImage] = useState<any>(null)
@@ -38,13 +38,13 @@ const CreateMeeting = () => {
       latitude: user.place.latitude,
       longitude: user.place.longitude,
     })
-    console.log(place)
-    const onChange = (event:any, selectedDate) => {
+
+    const onChange = (event:any, selectedDate:any) => {
       const currentDate = selectedDate;
       setDate(currentDate);
     };
   
-    const showMode = (currentMode) => {
+    const showMode = (currentMode:any) => {
       DateTimePickerAndroid.open({
         value: date,
         onChange,
@@ -87,12 +87,14 @@ const CreateMeeting = () => {
           date:date,
           people:[],
           place:place,
-          id:meetingId
+          id:meetingId,
         }
 
         const meetingRef = doc(db, 'meetings', meetingId)
 
-        setDoc(meetingRef, meetingData).then(()=> setShowAlert({message:'Meeting was created!', show:true, type:'SUCCRESS'}))
+        setDoc(meetingRef, meetingData)
+          .then(()=> setShowAlert({message:'Meeting was created!', show:true, type:'SUCCRESS'}))
+          .catch(()=> setShowAlert({message:'Samething was wrong!', show:true, type:'ERROR'}))
       }
 
       const validMeeting = name.length>2  
@@ -135,10 +137,14 @@ const CreateMeeting = () => {
           <Icon type='ionicon' name='location-outline' size={24} color={theme.fontColorContent}/>
         </View>
       </TouchableOpacity>
-      <Text style={[style.locationText, {color: theme.fontColorContent}]}>Set location meeting</Text>
+      <Text style={[style.locationText, {color: theme.fontColorContent}]}>
+        {locationText[language as keyof typeof locationText]}
+      </Text>
            
       <TouchableOpacity disabled={!validMeeting} onPress={createMeeting} style={[style.createButton, {opacity:!validMeeting?.5:1}]}>
-        <Text style={{color: theme.fontColor, fontSize:17, letterSpacing:2, marginRight:10}}>Create</Text>
+        <Text style={{color: theme.fontColor, fontSize:17, letterSpacing:2, marginRight:10}}>
+          {createText[language as keyof typeof createText]}
+        </Text>
         <Icon type='materialicon' name='arrow-forward-ios' size={20} color={theme.fontColor}/>
       </TouchableOpacity>
     </View>

@@ -1,4 +1,4 @@
-import { View, TextInput, TouchableOpacity, FlatList, StyleSheet, Text, Image } from 'react-native'
+import { View, TextInput, TouchableOpacity, FlatList, Text } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
@@ -7,23 +7,21 @@ import { selectTheme } from '../../slices/themeSlice';
 import { data } from '../../utils/data';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
-import { HeaderTopProjects } from './../../components/HeaderTopProjects';
 import { Icon } from '@rneui/themed';
 import _Icon_MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-
-import { doc, getFirestore, setDoc, collectionGroup, onSnapshot, collection } from 'firebase/firestore';
+import { doc, getFirestore, onSnapshot, collection, orderBy } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
-import { LoadingView } from './../../components/LoadingView';
 import { style } from './style'
 import MapView from 'react-native-maps';
 import { Dimensions } from 'react-native';
 import { setSelectedRoom } from '../../slices/selectedRoomSlice';
+import { query } from 'firebase/firestore';
 
 const widthScreen = Dimensions.get('screen').width
 
 
 const MeetingScreen = () => {
-  const _translations = translations.screens.HomeScreen.textInput
+  const { warningText } = translations.screens.MeetingScreen
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const [meetings, setMeetings] = useState<any>([])
@@ -45,14 +43,17 @@ const MeetingScreen = () => {
   useEffect(() => {
     const getMeetings = () => {
       const meetingsRef = collection(db, 'meetings')
-       onSnapshot(meetingsRef, (snapchot) => {      
+      const meetingsQuery = query(meetingsRef, orderBy("date"));
+
+       onSnapshot(meetingsQuery, (snapchot) => {      
         setMeetings(snapchot.docs.map((doc, i)=> {
           return doc.data()
         }))      
       })
     }
-  
-    getMeetings()
+    if(user.name!=='Tester'){
+      getMeetings()
+    }
   }, [])
   
    
@@ -71,7 +72,6 @@ const MeetingScreen = () => {
   
   return (
     <View style={{flex:1, justifyContent:'flex-start', backgroundColor:theme.background}}>   
-      {/* <Text style={{color: theme.fontColor}}>Meeting screen</Text> */}
       <View style={style.roomsContainer}>
         {meetings?
             <FlatList
@@ -97,7 +97,6 @@ const MeetingScreen = () => {
                                 }}
                                 
                             />
-                            {/* <Image style={[style.imageRoom, {borderColor: theme.fontColorContent}]} blurRadius={0} source={{uri: item.image}}/> */}
                             <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
                                 <View style={style.textContainer}>
                                     <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
@@ -115,7 +114,7 @@ const MeetingScreen = () => {
                 }}
             />:
             <Text style={[style.warningText]}>
-                Now there are no meetings rooms created
+                {warningText[language as keyof typeof warningText]}
             </Text>
         }
       </View>

@@ -375,6 +375,20 @@ export const translations = {
             dateText: {
                 en: "Set date meeting",
                 pl: "Ustaw date spotkania/spotu"
+            },
+            locationText: {
+                en:"Set location meeting",
+                pl:"Ustaw lokalizacje spotu/spotkania"
+            },
+            createText: {
+                en:"Create",
+                pl:"Stwórz"
+            }
+        },
+        MeetingScreen: {
+            warningText: {
+                en: "Now there are no meetings rooms created",
+                pl: "Aktualnie nie ma żadnych spotów, spotkań"
             }
         }
     }
