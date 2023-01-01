@@ -5,12 +5,14 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@fir
 import { getAuth, connectAuthEmulator  } from '@firebase/auth'
 import { GradientButton } from './GradientButton'
 import { Icon } from '@rneui/base'
+import { AlertProps } from '../utils/types'
+
 
 const widthScreen = Dimensions.get('window').width
 
 // connectAuthEmulator(getAuth(), "http://localhost:9099");
 
-export const RegisterForm = () => {
+export const RegisterForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({setShowAlert}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [repeatPassword, setRepeatPassword] = useState('')
@@ -21,35 +23,35 @@ export const RegisterForm = () => {
     const register = () => {
         if(repeatPassword===password){
             createUserWithEmailAndPassword(auth, email, password)
-            .then((s)=>console.log(s))
-            .catch((e)=>console.log(e))
+            .then((s)=> signInWithEmailAndPassword(auth, email, password))
+            .catch((e)=> {
+                setShowAlert({message:`Coś poszło nie tak ${e.code}`, show:true, type:"ERROR"})
+                console.log(e.code)
+            })
         }
         else {
-            setError('Passwords are not the same')
+            setShowAlert({message:`Hasła są różne`, show:true, type:"ERROR"})
         }
     }
 
   return (
     <View style={{alignItems:'center'}}>
         <View style={{alignItems:'center'}}>
-            <Text style={style.labelText}>Your email</Text>
             <View style={style.inputConteiner}>
-                <Icon type="fontisto" name='email' color={'#bbb'}/>
-                <TextInput textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
+                <Icon type="materialcon" name='email' color={'#bbb'}/>
+                <TextInput placeholder='Your email' textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
             </View>        
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
-            <Text style={style.labelText}>your password ...</Text>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput textContentType='password' style={style.input} onChangeText={setPassword}/>
+                <TextInput placeholder='Your password ...' textContentType='password' style={style.input} onChangeText={setPassword}/>
             </View>
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
-            <Text style={style.labelText}>Repeat password ...</Text>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput textContentType='password' style={style.input} onChangeText={setRepeatPassword}/>
+                <TextInput placeholder='Repeat password ...' textContentType='password' style={style.input} onChangeText={setRepeatPassword}/>
             </View>
         </View>
 
@@ -65,11 +67,12 @@ const style = StyleSheet.create({
         fontSize:12, 
         color:'gray'
     },
-    input: {
+    input: {    
         marginLeft:10,
         borderBottomWidth:0, 
         width:widthScreen/1.5,
         borderColor:'#ddd', 
+        fontSize:16
     },
     submitButton: {
         marginVertical:25, 
@@ -88,10 +91,12 @@ const style = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        borderBottomWidth:1, 
-        borderColor:'#ddd', 
-
+        backgroundColor:'rgb(251, 251, 251)',
+        borderWidth:1,
+        borderColor: "rgba(100, 180, 100, .2)",
+        borderRadius:15,
+        paddingHorizontal:15,
         marginVertical:2,
-        paddingVertical:3
+        paddingVertical:8
     }
 })

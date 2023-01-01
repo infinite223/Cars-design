@@ -3,19 +3,15 @@ import { useState, useEffect } from "react";
 import { User } from "../utils/types";
 import { db } from "./useAuth";
 
-export const useProjects = (user:User) => {
-    // const [unHideProjects, setUnHideProjects] = useState<any[]>([])
+export const useProjects = (user:User, limit:number) => {
     const [projects, setProjects] = useState<any[] | null>(null)
 
     const [loading, setLoading] = useState(false)
     const projectsRef = collectionGroup(db, 'projects')
     const getProjects = () => {
-        console.log('read, projects')
         onSnapshot(projectsRef, (snapchot) => {      
             setProjects(snapchot.docs.map((doc, i)=> {
-                // if(user.hideProjects && !user.hideProjects.find((id) => id === doc.data().id)){
-                    return doc.data()
-                // }
+                return doc.data()
             }))      
         })
         setLoading(false)
@@ -28,7 +24,6 @@ export const useProjects = (user:User) => {
         }
         else {
             getProjects()
-            // setUnHideProjects(_projects)
         }
     }, [])
 

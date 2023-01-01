@@ -1,21 +1,32 @@
-import { StyleSheet } from "react-native"
-
+import { Dimensions, StyleSheet } from "react-native"
+const widthScreen = Dimensions.get('screen').width
 export const style = StyleSheet.create({
     headerContainer: {
       flex:1,
-      justifyContent:'space-evenly', 
+      justifyContent:'space-around', 
       alignItems:'center',
       backgroundColor:'white'
     },
     logoText: {
       fontFamily:'monospace', 
-      fontSize:35, 
-      fontWeight:'bold'
+      fontSize:30, 
+      fontWeight:'bold',
+      color:'white', 
     },
     aboutText: {
-      fontSize:15, 
-      color:'gray', 
+      fontSize:13, 
+      color:'white', 
       marginHorizontal:"17%", 
       textAlign:'center'
+    },
+    main: {
+      flex:1,
+      alignItems:'center', 
+      justifyContent:'space-around',
+      backgroundColor: 'white',
+      width:widthScreen,
+      paddingVertical:30,
+      borderTopLeftRadius:40,
+      borderTopRightRadius:40
     }
   })

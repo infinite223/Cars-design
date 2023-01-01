@@ -5,12 +5,13 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@fir
 import { getAuth, connectAuthEmulator  } from '@firebase/auth'
 import { GradientButton } from './GradientButton'
 import { Icon } from '@rneui/themed';
+import { AlertProps } from '../utils/types'
 
 // connectAuthEmulator(getAuth(), "http://localhost:9099");
 
 const widthScreen = Dimensions.get('window').width
 
-export const LoginForm = () => {
+export const LoginForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({setShowAlert}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
  
@@ -19,23 +20,24 @@ export const LoginForm = () => {
     const login = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((s)=>console.log(s))
-        .catch((e)=>console.log(e))
+        .catch((e)=> {
+            setShowAlert({message:`Coś poszło nie tak ${e.code}`, show:true, type:"ERROR"})
+            console.log(e.code)
+        })
     }
 
   return (
     <View style={{alignItems:'center'}}>
         <View style={{alignItems:'center'}}>
-            <Text style={style.labelText}>Your email</Text>
             <View style={style.inputConteiner}>
-                <Icon type="fontisto" name='email' color={'#bbb'}/>
-                <TextInput textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
+                <Icon type="materialcon" name='email' color={'#bbb'}/>
+                <TextInput placeholder='Your email' textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
             </View>
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
-            <Text style={style.labelText}>your password</Text>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput textContentType='password' style={style.input} onChangeText={setPassword}/>
+                <TextInput placeholder='Your password' secureTextEntry={true} textContentType='password' style={style.input} onChangeText={setPassword}/>
             </View>
         </View>
 
@@ -56,6 +58,7 @@ const style = StyleSheet.create({
         borderBottomWidth:0, 
         width:widthScreen/1.5,
         borderColor:'#ddd', 
+        fontSize:16
     },
     submitButton: {
         marginVertical:25, 
@@ -74,10 +77,12 @@ const style = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        borderBottomWidth:1, 
-        borderColor:'#ddd', 
-
+        backgroundColor:'rgb(248, 248, 248)',
+        borderColor: "rgba(100, 180, 100, .2)",
+        borderWidth:1,
+        borderRadius:15,
         marginVertical:2,
-        paddingVertical:3
+        paddingHorizontal:15,
+        paddingVertical:8
     }
 })
