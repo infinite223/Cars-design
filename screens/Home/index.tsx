@@ -37,9 +37,11 @@ const HomeScreen = () => {
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
   const hideProjects = useSelector(selectHideProjects)
-  console.log(hideProjects, 'tu')
   const {user}:any = useAuth()
-  const { projects, loading }  = useProjects(user)
+  const [limit, setLimit] = useState(2) 
+  const { projects, loading, nextProjects}  = useProjects(user, limit)
+  console.log(projects, projects?.length)
+
 
   useLayoutEffect(()=> {
     if(user.name!=='Tester'){
@@ -104,7 +106,7 @@ const HomeScreen = () => {
   }, []);
   
   return (
-    <View style={{flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
+    <View style={{paddingTop:40, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects?<FlatList 
         style={{ width: '100%'}}
@@ -113,9 +115,11 @@ const HomeScreen = () => {
           if(hideProjects && !hideProjects.find((id:string) => id===project.id )){
             return project
           }
-        })}
-        // pagingEnabled
-        
+        })} 
+        onEndReached={() => 
+          // setLimit(prev => prev + 1)
+          nextProjects()
+        }        
         bounces
         // keyExtractor={(item) => item.id}
         renderItem={(carData)=> 

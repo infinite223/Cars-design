@@ -40,7 +40,7 @@ export const TabsNavigator = () => {
             tabBarLabelStyle:{color:theme.fontColorContent, marginBottom:10}
           }}>
             <Tab.Screen name="Home" component={HomeStack} options={
-              {headerShown:false,tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
+              {headerShown:false, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Search' component={SearchScreen} options={
               {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => 

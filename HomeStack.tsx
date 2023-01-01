@@ -18,7 +18,7 @@ export const HomeStack = () => {
                 backgroundColor:theme.background
               },
               }}>
-                <Stack.Screen name='HomeS' component={HomeScreen}/> 
+                <Stack.Screen name='HomeS' component={HomeScreen} options={{headerShown:false}}/> 
                  {/* <Stack.Screen name='Chats' component={ChatsScreen}/> */}
         {/* <Stack.Screen name='Project' component={ProjectScreen}/> */}
     </Stack.Navigator>         
