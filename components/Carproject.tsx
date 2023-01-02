@@ -25,7 +25,6 @@ import { v4 as uuid } from 'uuid';
 import { LinearGradient } from 'expo-linear-gradient';
 import { updateDoc } from 'firebase/firestore';
 import { setHideProjects } from '../slices/hideProjects';
-import { selectHideProjects } from './../slices/hideProjects';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {
   const navigation:any = useNavigation()
@@ -34,7 +33,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   const { _menuOptions: {capy, hide, save, report}, likesText} = translations.components.carProject
 
   const dispatch = useDispatch()
-  const hideProjects = useSelector(selectHideProjects)
   const { user }:any = useAuth()
 
   const setProjectToNav = () => {
@@ -52,13 +50,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
 
 
   const hideProject = (projectId:string) => {
-    const projectRef = doc(db, `users/${user.uid}`)
-
-    updateDoc(projectRef, {
-      'hideProjects':arrayUnion(projectId)
-    }).then(()=> {
-      dispatch(setHideProjects([...hideProjects, projectId]))
-    })
+      dispatch(setHideProjects(projectId))
   }
 
   const saveProject = (projectId:string) => {
@@ -71,7 +63,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
        <TouchableWithoutFeedback onPress={setProjectToNav}>
         <View style={[style.projectContainer]}>
           <View style={{ flexDirection:'column', alignItems:'flex-start', marginBottom:10}}>
-            <Text style={{fontSize:20, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
+            <Text style={{fontSize:17, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
             <Text style={{fontSize:12, color:theme.fontColor}}>{car.CarMake} </Text>
           </View>
           <View style={{flexDirection:'row'}}>
@@ -112,7 +104,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
           <View style={{alignItems:'center', flexDirection:'row'}}>
             <TouchableOpacity
               onPress={()=>likeProject(id, author.uid, car.likes.find((like:any)=>like.uid===user.uid), {imageUri:user.imageUri, name:user.name, uid:user.uid})}
-              style={style.iconContainer}>
+              style={[style.iconContainer]}>
               <Icon                 
                     name='heart-outlined'
                     type='entypo'
@@ -176,7 +168,7 @@ export default Carproject
 const style = StyleSheet.create({
   projectContainer: {
     marginVertical:5, 
-    paddingHorizontal:20, 
+    paddingHorizontal:10, 
     flexDirection:'row', 
     justifyContent:'space-between', 
     alignItems:'center',
@@ -201,14 +193,14 @@ const style = StyleSheet.create({
   },
   stageContainer: {
     borderRadius:15,
-    paddingHorizontal:10,
-    paddingVertical:5,
+    paddingHorizontal:8,
+    paddingVertical:4,
     alignItems:'center',
     alignSelf:'center',
     justifyContent:'center',
   },
   stageText: {
-    fontSize:12,
+    fontSize:11,
     letterSpacing:1,
     fontWeight:'bold',
   },
@@ -218,7 +210,7 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
-    paddingHorizontal:12,
+    paddingHorizontal:8,
     paddingTop:10,
     paddingBottom:5
   },

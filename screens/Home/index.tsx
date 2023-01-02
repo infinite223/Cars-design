@@ -40,7 +40,7 @@ const HomeScreen = () => {
   const {user}:any = useAuth()
   const [limit, setLimit] = useState(2) 
   const { projects, loading, nextProjects}  = useProjects(user, limit)
-  console.log(projects, projects?.length)
+  console.log(hideProjects, 'ass')
 
 
   useLayoutEffect(()=> {
@@ -114,6 +114,9 @@ const HomeScreen = () => {
         data={projects.filter((project)=> {
           if(hideProjects && !hideProjects.find((id:string) => id===project.id )){
             return project
+          }
+          else{
+            null
           }
         })} 
         onEndReached={() => 

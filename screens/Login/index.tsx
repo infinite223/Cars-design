@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
@@ -9,16 +9,34 @@ import { RegisterForm } from '../../components/RegisterForm';
 import { GradientButton } from './../../components/GradientButton';
 import AlertModal from '../modals/AlertModal';
 import { AlertProps } from '../../utils/types';
+import { useEffect } from 'react';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
   const { signInWithGoogle, signInAsTester }:any = useAuth()
   const [showRegisterForm, setShowRegisterForm] = useState(false)
+  const [keyboardShow, setKeyboardShow] = useState(false);
+
   const [showAlert, setShowAlert] = useState<AlertProps>({message:"", show:false, type:''})
 
   useLayoutEffect(() => {
     navigation.setOptions({headerShown:false})
   }, [])
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardShow(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardShow(false);
+      }
+    );
+    }, [])
 
   return (
       <View style={style.headerContainer}>
@@ -36,7 +54,9 @@ const LoginScreen = () => {
             </Text>
           </View>
 
+
           <View style={style.main}>
+          <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}}>
             <View style={{marginBottom:0, alignItems:'center'}}>
                 {!showRegisterForm?<LoginForm setShowAlert={setShowAlert}/>:<RegisterForm setShowAlert={setShowAlert}/>}
                 <View style={{flexDirection:'row', alignItems:'center'}}>
@@ -50,14 +70,15 @@ const LoginScreen = () => {
                   </TouchableOpacity>
                 </View>
             </View> 
+            </KeyboardAvoidingView>
           
-          <TouchableOpacity 
+          {!keyboardShow&&<TouchableOpacity 
             style={{elevation:5, flexDirection:'row', alignItems:'center', marginTop:30}}
             onPress={()=>signInWithGoogle()}
           >
             <Text style={{fontSize:13, color:"gray", letterSpacing:2}}>Sign up with google</Text>
             <Icon type='antdesign' name='google' size={19} style={{marginLeft:8}} color="gray"/>
-          </TouchableOpacity> 
+          </TouchableOpacity> }
         </View>
         </ImageBackground>
       </View>

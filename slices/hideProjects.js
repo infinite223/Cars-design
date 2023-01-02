@@ -6,8 +6,8 @@ export const hideProjectsSlice = createSlice({
     name: 'hideProjects',
     initialState,
     reducers: {
-        setChats: (state, action) => {
-            state = action.payload
+        setHideProjects: (state, action) => {
+            return [...state, action.payload]
         }
     }
 })
