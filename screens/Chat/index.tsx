@@ -105,20 +105,20 @@ const ChatScreen = () => {
             <ScrollView style={{flex:1}} contentContainerStyle={[{paddingTop:15, opacity:to.block?0.4:1}]}>
             {messages.map(({id, data}:{id:number, data:any})=> 
                 data.email===user.email? (
-                <View key={id} style={[style.reciever, {backgroundColor: theme.backgroundContent}]}>
-                    <Avatar                     
-                    size={28}
-                    rounded
-                    source={{uri:data.imageUri}}    
-                    />
+                <View key={id} style={[style.reciever,{backgroundColor: '#253'}]}>
+                    {/* <Avatar                     
+                      size={28}
+                      rounded
+                      source={{uri:data.imageUri}}    
+                    /> */}
                     <Text style={[style.recieverText, {color: theme.fontColor}]}>{data.message}</Text>
                 </View>
                 ) : (
-                <View key={id} style={[style.sender,  {backgroundColor: '#253'}]}>
+                <View key={id} style={[style.sender, {backgroundColor: theme.backgroundContent}]}>
                     <Avatar                     
-                    size={28}
-                    rounded
-                    source={{uri:data.imageUri}}    
+                      size={20}
+                      rounded
+                      source={{uri:data.imageUri}}    
                     />
                     <Text style={[style.senderText, {color: theme.fontColor}]}>{data.message}</Text>
                 </View>

@@ -441,7 +441,13 @@ export const translations = {
             placeText: {
                 en: "Set place where people can find you",
                 pl: "Ustaw miejsce gdzie ludzie mogą Cię spotkać"
-            } 
+            },
+        },
+        Search: {
+            headerText: {
+                en: "Search project",
+                pl: "Szukaj projektu"
+            }
         }
     }
 }

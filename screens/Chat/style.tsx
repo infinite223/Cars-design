@@ -6,7 +6,7 @@ export const style = StyleSheet.create({
       height:130,  
       flex: 1,
       paddingHorizontal:15,
-      paddingTop:15
+     // paddingTop:15
     },
     headerContainer: {
       flexDirection:'row', 
@@ -36,7 +36,8 @@ export const style = StyleSheet.create({
     reciever: {
       flexDirection:'row',
       alignItems:'center',
-      padding:10,
+      paddingHorizontal:10,
+      paddingVertical:6,
       alignSelf:'flex-end',
       borderRadius:15,
       marginBottom:20,
@@ -46,7 +47,8 @@ export const style = StyleSheet.create({
     sender: {
       flexDirection:'row',
       alignItems:'center',
-      padding:10,
+      paddingHorizontal:10,
+      paddingVertical:6,
       alignSelf:'flex-start',
       borderRadius:15,
       marginBottom:20,
@@ -54,9 +56,9 @@ export const style = StyleSheet.create({
       position:'relative' 
     },
     recieverText: {
-      marginLeft:10
+      // marginLeft:10
     },
     senderText:{
-  
+      marginLeft:10
     }
   })

@@ -54,7 +54,7 @@ const MeetingScreen = () => {
     }
   }, [])
   
-   
+   console.log(meetings, 'xd')
   useLayoutEffect(() => {
     navigation.setOptions({
       // headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,

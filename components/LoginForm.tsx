@@ -27,7 +27,7 @@ export const LoginForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({set
         signInWithEmailAndPassword(auth, email, password)
         .then((s)=>console.log(s))
         .catch((e)=> {
-            setShowAlert({message:errorText + " " +e.code, show:true, type:"ERROR"})
+            setShowAlert({message:errorText[language as keyof typeof errorText] + " " +e.code, show:true, type:"ERROR"})
             console.log(e.code)
         })
     }
