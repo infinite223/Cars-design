@@ -1,7 +1,5 @@
-import { AlertProps, Car, CarprojectData, Error, HistoryCar, Image, User } from "../../utils/types";
-import { doc, setDoc, collection, addDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
-import { FirebaseApp } from "firebase/app";
-import { documentId } from "firebase/firestore";
+import { AlertProps, CarprojectData, HistoryCar, Image, User } from "../../utils/types";
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from "../../hooks/useAuth";
 
 

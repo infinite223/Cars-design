@@ -15,7 +15,7 @@ import {
 import { selectLanguage } from '../../slices/languageSlice';
 import { translations } from '../../utils/translations';
 import { useEffect } from 'react';
-import { collection, onSnapshot, query, where, orderBy, doc, updateDoc } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { useState } from 'react';
 import { db } from './../../hooks/useAuth';
 import { setPrompt } from './../../slices/promptSlice';

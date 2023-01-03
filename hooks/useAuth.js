@@ -1,6 +1,5 @@
-import { View, Text } from 'react-native'
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react'
-import { getAuth, connectAuthEmulator } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore';
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth'
@@ -8,7 +7,7 @@ import { initializeApp } from "firebase/app";
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { envGoogle } from './../utils/env';
-import { doc, setDoc, collectionGroup, onSnapshot, getDoc, collection } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { getStorage } from 'firebase/storage';
 
@@ -40,9 +39,10 @@ export const AuthProvider = ({children}) => {
 
   useEffect(() => 
     onAuthStateChanged(auth, async (user) => {
-      console.log(user)
+
       if(user){
         const getUserData = async () => {
+          console.log(user, 'uuu')
           const usersRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(usersRef);
           if (docSnap.data()?.name) {

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ import useAuth, { db } from '../../hooks/useAuth';
 import { MeetingRoom } from '../../utils/types';
 import MapView from 'react-native-maps';
 import { v4 as uuid } from 'uuid';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 
 

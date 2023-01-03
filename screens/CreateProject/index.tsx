@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity,  Dimensions, Platform, ScrollView, TextInput  } from 'react-native'
+import { View, Text, Image, TouchableOpacity,  Dimensions, Platform, ScrollView, TextInput  } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
@@ -12,7 +12,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { Icon } from '@rneui/themed';
 import { FlatList } from 'react-native-gesture-handler';
 import { style } from './style'
-import { Audio } from 'expo-av';
 import AlertModal from '../modals/AlertModal';
 import SelectList from 'react-native-dropdown-select-list'
 import { chooseImg } from '../../utils/functions/chooseImg';

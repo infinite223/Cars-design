@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, FlatList, Image, TextInput } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -6,11 +6,9 @@ import { Icon } from "@rneui/themed";
 import _Icon from 'react-native-vector-icons/Entypo'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { CarprojectData, User, UserList } from '../utils/types';
+import { UserList } from '../utils/types';
 import useAuth from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
-import { translations } from './../utils/translations';
-import { onShare } from './../utils/functions/projectFunctions';
 import { FilterUsers } from './FilterUsers';
 
 

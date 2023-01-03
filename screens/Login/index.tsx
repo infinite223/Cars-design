@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
@@ -6,7 +6,6 @@ import { LoginForm } from '../../components/LoginForm';
 import { Icon } from '@rneui/base';
 import { style } from './style';
 import { RegisterForm } from '../../components/RegisterForm';
-import { GradientButton } from './../../components/GradientButton';
 import AlertModal from '../modals/AlertModal';
 import { AlertProps } from '../../utils/types';
 import { useEffect } from 'react';

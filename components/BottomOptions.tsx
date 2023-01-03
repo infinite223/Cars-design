@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { Icon } from "@rneui/themed";
@@ -12,7 +12,6 @@ import { selectLanguage } from './../slices/languageSlice';
 import { translations } from './../utils/translations';
 import { onShare } from './../utils/functions/projectFunctions';
 import { deleteProject } from '../firebase/project/deleteProject';
-import AlertModal from '../screens/modals/AlertModal';
 import { useNavigation } from '@react-navigation/native';
 
 

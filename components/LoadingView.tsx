@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import * as Animatable from "react-native-animatable";
-
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
@@ -13,7 +12,7 @@ export const LoadingView:React.FC<{headerText: string}> = ({headerText}) => {
         iterationCount={"infinite"}
         duration={2500}
         direction="normal" 
-        style={[style.loadingContainer, {backgroundColor:"#273"}]}
+        style={[style.loadingContainer, {backgroundColor:"#233"}]}
         
     >
         <Animatable.Text        
@@ -29,13 +28,13 @@ const style = StyleSheet.create({
     loadingContainer: {
         position:'absolute',
         zIndex:10,
-        borderRadius:35,
-        paddingHorizontal:30,
+        borderRadius:10,
+        paddingHorizontal:20,
         paddingVertical:10
     },
     loadingText: {
-        fontSize:15,
-        letterSpacing:3,
-        fontWeight:'bold'
+        fontSize:13,
+        letterSpacing:1,
+        fontWeight:'300'
     }
 })

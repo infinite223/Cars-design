@@ -9,6 +9,9 @@ export const style = StyleSheet.create({
         paddingVertical:7,
         borderRadius:15
     },
+    createGroupText: {
+
+    },
     groupContainer: {
         flexDirection: 'row'
     },

@@ -1,5 +1,5 @@
 import { Icon } from '@rneui/base';
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import { useSelector } from 'react-redux';

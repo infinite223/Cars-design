@@ -1,4 +1,4 @@
-import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { AlertProps } from "../utils/types";
 import { getResizeImage } from "./getResizeImage";
 

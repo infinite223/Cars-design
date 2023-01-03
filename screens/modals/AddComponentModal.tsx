@@ -1,11 +1,9 @@
 import { FlatList, Modal, StyleSheet, Text, View, TouchableOpacity, Image, KeyboardAvoidingView} from 'react-native'
 import React, { useState } from 'react'
-import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { Component } from '../../utils/types';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
-import { TextInput } from 'react-native-gesture-handler';
 import CustomInput from '../../components/CustomInput';
 import { Icon } from '@rneui/base';
 

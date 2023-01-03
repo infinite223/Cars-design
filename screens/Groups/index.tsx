@@ -4,7 +4,7 @@ import { style } from './style'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
-import { Avatar, Icon } from '@rneui/base';
+import { Icon } from '@rneui/base';
 import useAuth from '../../hooks/useAuth';
 import { GroupItem } from './GroupItem';
 import { createGroup } from '../../firebase/group/createGroup';
@@ -43,7 +43,7 @@ const GroupsScreen = () => {
       }, [theme])
 
   return (
-    <View>
+    <View style={{flex:1, backgroundColor: theme.background}}>
         <TouchableOpacity onPress={() => createGroup()} style={style.createGroupButton}>
             <Text style={[style.createGroupText, {color: theme.fontColor}]}>CREATE GROUP</Text>
         </TouchableOpacity>

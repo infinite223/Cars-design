@@ -1,12 +1,10 @@
 import { View, Text, StyleSheet, Dimensions, Modal } from 'react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { TouchableOpacity } from 'react-native';
 import { selectPrompt, setPrompt } from '../../slices/promptSlice';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from './../../hooks/useAuth';
 import { blockPerson } from './../../firebase/chats/block';
 
 interface AlertModalProps {

@@ -15,7 +15,7 @@ export const style = StyleSheet.create({
         alignSelf:'center'
     },
     mainData: {
-        marginVertical:15,
+        marginTop:15,
         flexDirection:'row',
         // alignItems:'center',
         // justifyContent:'space-around',
@@ -29,7 +29,12 @@ export const style = StyleSheet.create({
     imageProfile: {
         width:100,
         height:100,    
-        borderRadius:15  
+        borderRadius:50  
+    },
+    resetPhoto: {
+        paddingHorizontal:15, 
+        paddingVertical:7,
+        borderRadius:10,
     },
     imageProfileLabel: {
         fontSize:12,
@@ -37,7 +42,7 @@ export const style = StyleSheet.create({
     },
     nameInput: {
         fontSize:18,
-        borderRadius:10,
+        borderRadius:50,
         paddingHorizontal:15,
         borderWidth:1,
         borderColor:'rgba(50, 50, 50, 1)',

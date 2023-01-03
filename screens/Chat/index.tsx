@@ -1,4 +1,4 @@
-import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback, Image, StatusBar } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback, StatusBar } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { Avatar } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -32,8 +32,8 @@ const ChatScreen = () => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Avatar size={30} source={{uri:to.data.to.imageUri}}/>
-            <Text style={{color: theme.fontColor, fontSize:19, marginLeft:15}}> {to.data.to.name}</Text>
+            <Avatar rounded size={35} source={{uri:to.data.to.imageUri}}/>
+            <Text style={{color: theme.fontColor, fontSize:19, marginLeft:10}}> {to.data.to.name}</Text>
            </View>,
            headerLeft: () => (
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>

@@ -1,12 +1,11 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import { Icon } from '@rneui/base'
 import _Icon from 'react-native-vector-icons/Entypo'
 import { FlatList } from 'react-native'
 import React, {useState} from 'react'
 import { style } from '../screens/Profile/style'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { CarprojectData, User, UserList } from '../utils/types'
+import { User, UserList } from '../utils/types'
 
 interface FilterUsersProps {
   users:UserList[] | null, 

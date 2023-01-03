@@ -1,18 +1,14 @@
-import { View, StyleSheet, ScrollView, Dimensions, SafeAreaView, KeyboardAvoidingView } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, ScrollView, Dimensions, SafeAreaView, KeyboardAvoidingView } from 'react-native'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
-import ChatFunctionsConatiner from '../ChatFunctionsConatiner';
-import { KeyboardAvoidingViewComponent } from 'react-native';
-
 
 const ChatTab = () => {
   const navigationTab:any = useNavigation()
   const windowWidth = Dimensions.get('window').width;
   const theme = useSelector(selectTheme)
-  const [modalVisible, setModalVisible] = useState(false)
 
   return (
     <SafeAreaView style={[style.mainContainer, { backgroundColor:theme.background}]}>

@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
+import React from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeaderTabs } from './NavigationHeaderTabs';
@@ -12,9 +12,6 @@ import { selectLanguage } from '../../slices/languageSlice';
 
 const PeopleTab = () => {
   const navigationTab:any = useNavigation()
-  const [imagesModalVisible, setImagesModalVisible] = useState(false)
-  const [selectImage, setSelectImage] = useState(0)
-  const selectedProject = 0
   const dispatch = useDispatch()
 
   const theme = useSelector(selectTheme)

@@ -1,4 +1,4 @@
-import { Error, AlertProps, HistoryCar, Image, User } from "../../utils/types"
+import { AlertProps, HistoryCar, Image, User } from "../../utils/types"
 import { uploadImage } from "../uploadImage"
 import { uploadDataCar } from './uploadDataCar';
 import { v4 as uuid } from 'uuid';

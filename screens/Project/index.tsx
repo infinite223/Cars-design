@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, FlatList, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
@@ -11,17 +11,15 @@ import { onShare, likeProject } from '../../utils/functions/projectFunctions';
 import _Icon_Feather from 'react-native-vector-icons/Feather'
 import _Icon_Fontisto from 'react-native-vector-icons/Fontisto'
 import _Icon_MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import ChatModal from './../modals/ChatModal';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
-import MapModal from './../modals/MapModal';
 import { style } from './style';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 import useAuth from '../../hooks/useAuth';
 import { UsersList } from '../../components/UsersList';
 import { UserList } from '../../utils/types';
-import { collection, collectionGroup, doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from './../../hooks/useAuth';
 import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';

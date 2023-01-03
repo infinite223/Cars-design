@@ -1,6 +1,5 @@
 import { View, Image, TouchableWithoutFeedback } from 'react-native'
 import React, { useState } from 'react'
-import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native';

@@ -1,36 +1,35 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
-import React, { useRef, useState} from 'react'
-import useAuth from '../hooks/useAuth'
+import { View, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import React, { useState} from 'react'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@firebase/auth'
-import { getAuth, connectAuthEmulator  } from '@firebase/auth'
+import { getAuth } from '@firebase/auth'
 import { GradientButton } from './GradientButton'
 import { Icon } from '@rneui/base'
 import { AlertProps } from '../utils/types'
-
+import { translations } from './../utils/translations';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from './../slices/languageSlice';
 
 const widthScreen = Dimensions.get('window').width
-
-// connectAuthEmulator(getAuth(), "http://localhost:9099");
 
 export const RegisterForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({setShowAlert}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [repeatPassword, setRepeatPassword] = useState('')
-    const [error, setError] = useState('')
+    const { errorText, errorPassText, placeholder: { emailText, passText, repeatPassText }} = translations.components.Form
  
     const auth = getAuth()
+    const language = useSelector(selectLanguage)
 
     const register = () => {
         if(repeatPassword===password){
             createUserWithEmailAndPassword(auth, email, password)
             .then((s)=> signInWithEmailAndPassword(auth, email, password))
             .catch((e)=> {
-                setShowAlert({message:`Coś poszło nie tak ${e.code}`, show:true, type:"ERROR"})
-                console.log(e.code)
+                setShowAlert({message:errorText[language as keyof typeof errorText]+" "+ e.code, show:true, type:"ERROR"})
             })
         }
         else {
-            setShowAlert({message:`Hasła są różne`, show:true, type:"ERROR"})
+            setShowAlert({message:errorPassText[language as keyof typeof errorText], show:true, type:"ERROR"})
         }
     }
 
@@ -39,19 +38,19 @@ export const RegisterForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({
         <View style={{alignItems:'center'}}>
             <View style={style.inputConteiner}>
                 <Icon type="materialcon" name='email' color={'#bbb'}/>
-                <TextInput placeholder='Your email' textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
+                <TextInput placeholder={emailText[language as keyof typeof emailText]} textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
             </View>        
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput placeholder='Your password ...' textContentType='password' style={style.input} onChangeText={setPassword}/>
+                <TextInput secureTextEntry placeholder={passText[language as keyof typeof passText]} textContentType='password' style={style.input} onChangeText={setPassword}/>
             </View>
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput placeholder='Repeat password ...' textContentType='password' style={style.input} onChangeText={setRepeatPassword}/>
+                <TextInput secureTextEntry placeholder={repeatPassText[language as keyof typeof repeatPassText]} textContentType='password' style={style.input} onChangeText={setRepeatPassword}/>
             </View>
         </View>
 

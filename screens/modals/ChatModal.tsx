@@ -7,8 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
-import { collection, collectionGroup, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
-import { data } from '../../utils/data';
+import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 
 const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({author, modalVisible, setModalVisible}) => {

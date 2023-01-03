@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-// import { GOOGLE_MAPS_APIKEY } from '@env'
 import { useSelector } from 'react-redux';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Icon } from '@rneui/base';

@@ -79,6 +79,30 @@ export const translations = {
                 en:'likes',
                 pl:'polubień'
             }
+        },
+        Form: {
+            errorText: {
+                en:"Something was wrong",
+                pl:"Coś poszło nie tak"
+            },
+            errorPassText: {
+                en: "Passwords are different",
+                pl: "Hasła są różne"
+            },
+            placeholder: {
+                emailText: {
+                    en: "Your email",
+                    pl: "Twój email"
+                },
+                passText: {
+                    en: "Twoje hasło",
+                    pl: "Your password"
+                },
+                repeatPassText: {
+                    en: "Repeat password",
+                    pl: "Powtórz hasło"
+                }
+            } 
         }
     },
     screens: {
@@ -390,6 +414,34 @@ export const translations = {
                 en: "Now there are no meetings rooms created",
                 pl: "Aktualnie nie ma żadnych spotów, spotkań"
             }
+        },
+        EditProfile: {
+            headerText: {
+                en: "Update profile",
+                pl: "Edytuj profil"
+            },
+            placeholders: {
+                nameText: {
+                    en: "Type profile name",
+                    pl: "Wpisz nazwę swojego profilu"
+                },
+                nameHelpText: {
+                    en: "Minimum 3 letters",
+                    pl: "Minimalnie 3 litery"
+                },
+                descriptionText: {
+                    en: "Type profile description",
+                    pl: "Wpisz opis profilu"
+                }
+            },
+            profileImage:{ 
+                en: "Set profile image",
+                pl: "Ustaw zdjęcie profilowe"
+            },
+            placeText: {
+                en: "Set place where people can find you",
+                pl: "Ustaw miejsce gdzie ludzie mogą Cię spotkać"
+            } 
         }
     }
 }

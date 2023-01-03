@@ -10,10 +10,10 @@ import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { Icon } from '@rneui/themed';
 import MeetingScreen from '../screens/Meeting';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeStack } from '../HomeStack';
 import SearchScreen from './../screens/Search/index';
 import { TouchableOpacity, View } from 'react-native';
 import { setNavigation } from '../slices/navigationSlice';
+import HomeScreen from './../screens/Home/index';
 
 export const TabsNavigator = () => {
 
@@ -39,7 +39,7 @@ export const TabsNavigator = () => {
             tabBarHideOnKeyboard:true,
             tabBarLabelStyle:{color:theme.fontColorContent, marginBottom:10}
           }}>
-            <Tab.Screen name="Home" component={HomeStack} options={
+            <Tab.Screen name="Home" component={HomeScreen} options={
               {headerShown:false, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Search' component={SearchScreen} options={

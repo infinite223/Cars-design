@@ -4,7 +4,7 @@ export type User = {
     name:string,
     description?:string,
     email:string
-    imageUri:string,
+    imageUri:string | null,
     projectsId?:string[],
     place?:Place,
     uid:string,
@@ -21,7 +21,6 @@ export type UserList = {
     imageUri: string,
     uid:string
 }
-// const engine = require('../assets/componentsIcons/engine.png')
 
 export type Component = {
     type: string,

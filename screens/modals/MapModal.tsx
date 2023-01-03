@@ -31,13 +31,13 @@ const MapModal:React.FC<{ place:Place, modalVisible:boolean, setModalVisible: (v
              <MapMarker
               coordinate={{
                 latitude: place.latitude,
-                longitude: place.longitude,
+                longitude: place.longitude, 
               }}
               title={selectedProject.car.CarMake+" "+selectedProject.car.model}
               identifier='Origin'
               description={place.city}
             />
-          </MapView>
+          </MapView> 
       </Modal>
   )
 }

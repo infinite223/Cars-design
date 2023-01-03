@@ -1,11 +1,10 @@
-import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Animated } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, StyleSheet } from 'react-native'
+import React from 'react'
 import { CarprojectData } from '../utils/types'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { selectTheme } from './../slices/themeSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedProject } from '../slices/selectedProject';
-import { LoadingView } from './LoadingView';
 import * as Clipboard from 'expo-clipboard';
 import { getColorsCircle } from './../utils/functions/colorsCircle';
 import {
@@ -19,11 +18,8 @@ import { Icon } from '@rneui/base';
 import { likeProject, onShare } from '../utils/functions/projectFunctions';
 import { translations } from '../utils/translations';
 import { selectLanguage } from './../slices/languageSlice';
-import { doc, setDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
-import useAuth, { db } from '../hooks/useAuth';
-import { v4 as uuid } from 'uuid';
+import useAuth from '../hooks/useAuth';
 import { LinearGradient } from 'expo-linear-gradient';
-import { updateDoc } from 'firebase/firestore';
 import { setHideProjects } from '../slices/hideProjects';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {

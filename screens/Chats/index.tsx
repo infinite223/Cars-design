@@ -2,20 +2,13 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { AlertProps, User } from '../../utils/types';
-import { Avatar } from '@rneui/base';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Icon } from '@rneui/themed';
 import { style } from './style'; 
-import { collection, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import useAuth, { db } from '../../hooks/useAuth';
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
 import AlertModal from '../modals/AlertModal';
 import { translations } from './../../utils/translations';
 import { selectChats } from './../../slices/chatsSlice';

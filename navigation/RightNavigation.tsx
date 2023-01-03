@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -76,7 +76,8 @@ export const RightNavigation = () => {
     })
 
   return (<>
-    <GestureDetector gesture={gesture} >
+    <SafeAreaView style={{flex:1, position:'absolute', marginTop: StatusBar.currentHeight}}>
+    <GestureDetector gesture={gesture}>
         <Animated.View style={[style.containerNavigation, rNavigationContentSheetStyle, {backgroundColor: theme.background}]}>
         <View style={{width:SCREEN_WIDTH/1.5 , justifyContent:'space-between', flex:1}}>
             <View>
@@ -144,7 +145,8 @@ export const RightNavigation = () => {
                 </View>
             </View>
         </Animated.View>
-    </GestureDetector>
+    </GestureDetector>    
+
 
     <Animated.View style={[style.backgroundNavigation, rBackgroundSheetStyle]}>
       {/* <Text>RightNavigation</Text>
@@ -152,6 +154,7 @@ export const RightNavigation = () => {
         <_Icon name={'menu-outline'} size={26 } color={theme.fontColor} style={{ marginRight: 0 }}/>
       </TouchableOpacity> */}
     </Animated.View>
+    </SafeAreaView>
   </>
   )
 }
@@ -159,7 +162,7 @@ export const RightNavigation = () => {
 const style = StyleSheet.create({
     containerNavigation: {
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT, //nie wiem dlaczego 50 xD       
+        height:SCREEN_HEIGHT-40, //nie wiem dlaczego 50 xD       
         position:'absolute',
         top:0,
         zIndex:11
@@ -178,7 +181,6 @@ const style = StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:15,
         paddingVertical:10,
-        marginTop:40,
         justifyContent:'space-between'
     },
     profileButton:{

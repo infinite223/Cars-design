@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
+import React, { useState } from 'react'
 import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';

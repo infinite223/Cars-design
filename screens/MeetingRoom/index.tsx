@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useEffect, useLayoutEffect } from 'react'
+import React, { useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PeopleTab from './../../components/MeetingRoomTabs/PeopleTab';
 import ChatTab from './../../components/MeetingRoomTabs/ChatTab';      
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { selectedTabInRoom, selectRoom, selectFocuseOnSearch, setFocuseOnSearch } from './../../slices/selectedRoomSlice';
+import { selectedTabInRoom, selectRoom, selectFocuseOnSearch } from './../../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { style } from './style';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')

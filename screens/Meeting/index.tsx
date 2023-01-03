@@ -1,15 +1,13 @@
-import { View, TextInput, TouchableOpacity, FlatList, Text } from 'react-native'
+import { View, TouchableOpacity, FlatList, Text } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import Carproject from '../../components/Carproject';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
-import { data } from '../../utils/data';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
 import { Icon } from '@rneui/themed';
 import _Icon_MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { doc, getFirestore, onSnapshot, collection, orderBy } from 'firebase/firestore';
+import { getFirestore, onSnapshot, collection, orderBy } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 import { style } from './style'
 import MapView from 'react-native-maps';

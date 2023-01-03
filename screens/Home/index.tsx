@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, FlatList, Image, Dimensions, Platform } from 'react-native'
+import { View, Text, FlatList, Platform, SafeAreaView, StatusBar } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
@@ -6,17 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
-import { style } from './style';
 import useAuth, { db } from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 import _Icon from 'react-native-vector-icons/Ionicons'
-
-import { setNavigation } from '../../slices/navigationSlice';
 import { useProjects } from '../../hooks/useProjects';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
-import { Icon } from '@rneui/base';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { setChats } from '../../slices/chatsSlice';
 import { selectHideProjects } from '../../slices/hideProjects';
@@ -40,8 +36,6 @@ const HomeScreen = () => {
   const {user}:any = useAuth()
   const [limit, setLimit] = useState(2) 
   const { projects, loading, nextProjects}  = useProjects(user, limit)
-  console.log(hideProjects, 'ass')
-
 
   useLayoutEffect(()=> {
     if(user.name!=='Tester'){
@@ -61,8 +55,8 @@ const HomeScreen = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-       headerTitle: () => <View></View>,
-       headerLeft: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>Cars projects</Text>
+      //  headerTitle: () => <View></View>,
+      //  headerLeft: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>Cars projects</Text>
        
       //  <Text style={{color: theme.fontColor, fontStyle:'italic', fontWeight:'bold', fontSize:20, letterSpacing:1}}>Cars projects</Text>,
       // <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
@@ -106,7 +100,7 @@ const HomeScreen = () => {
   }, []);
   
   return (
-    <View style={{paddingTop:40, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
+    <SafeAreaView style={{paddingTop:StatusBar.currentHeight, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects?<FlatList 
         style={{ width: '100%'}}
@@ -137,7 +131,7 @@ const HomeScreen = () => {
         }}>
           <Text style={{color:theme.fontColor}}>click</Text>
         </TouchableOpacity> */}
-    </View>
+    </SafeAreaView>
   )
 }
   

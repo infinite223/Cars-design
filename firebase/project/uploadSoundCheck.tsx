@@ -1,6 +1,4 @@
-import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
-import { AlertProps } from "../../utils/types";
-import { getResizeImage } from "./../getResizeImage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 
 export const uploadSoundChcek = async (
         soundCheckUri:string, 

@@ -34,7 +34,7 @@ const InfoTab = () => {
 
   useLayoutEffect(() => {
     setSound(null)
-    const createSoundCheck = async () => {
+    const createSoundCheck = async () => {  
         if(!sound){
             const { sound } = await Audio.Sound.createAsync({uri: soundCheck})
             setSound(sound)
