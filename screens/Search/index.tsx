@@ -20,6 +20,8 @@ import _Icon_FontAwesome from 'react-native-vector-icons/FontAwesome'
 import CustomInput from './../../components/CustomInput';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from './../../utils/translations';
+import { collectionGroup, limit, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from '../../hooks/useAuth';
 const widthScreen = Dimensions.get('window').width
 
 const SearchScreen = () => {
@@ -28,7 +30,7 @@ const SearchScreen = () => {
     const [makesCategory, setMakesCategory] = useState<{key:number, value:string}[]>([])
     const [carMake, setCarMake] = useState('')
     const [model, setModel] = useState('')
-    const [searchingProjects, setSearchingProjects] = useState([])
+    const [searchingProjects, setSearchingProjects] = useState<any>([])
     const language = useSelector(selectLanguage)
     const { headerText } = translations.screens.Search
     useLayoutEffect(() => {
@@ -44,7 +46,25 @@ const SearchScreen = () => {
       getMakes(setMakesCategory)
   }, [])
 
-
+  useEffect(()=> {
+    const projectsRef = collectionGroup(db, 'projects')
+    const projectsQuery = query(
+      projectsRef, 
+      limit(5), 
+      carMake.length>1?where("car.CarMake", "==", carMake):limit(5),
+      model.length>1?where("car.model", "==", model):limit(5)
+    )
+     const unsubscribe = onSnapshot(projectsQuery, (snapchot) => {
+        setSearchingProjects(snapchot.docs.map((doc, i)=> {
+          return doc.data()
+        }))    
+        if(snapchot.empty){
+          setSearchingProjects([])
+        }
+     })
+     return unsubscribe
+  }, [carMake, model])
+  
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>
       <View style={[style.searchContainer, {backgroundColor: theme.backgroundContent}]}>
@@ -66,11 +86,43 @@ const SearchScreen = () => {
 
         <View style={{marginHorizontal:5, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
           <CustomInput placeholder='Type model' setValue={setModel} fontSize={15}/>
-          <TouchableOpacity style={[style.searchButton, {backgroundColor: "#273"}]}>
+          {/* <TouchableOpacity style={[style.searchButton, {backgroundColor: "#273"}]}>
             <Text style={[{color: theme.fontColor}]}>Search</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
+
+      <FlatList
+        style={{flex:1}}
+        data={searchingProjects}
+        renderItem={({item})=> {
+          return (
+            <TouchableOpacity style={[style.searchItem]}>
+              <View style={{alignItems:'center', flexDirection:'row'}}>
+                <Image style={style.imageCar} source={{uri: item.car.imagesCar[0].url}}/>
+                <View style={{marginHorizontal:10}}>
+                  <Text style={[style.model, {color: theme.fontColor}]}>{item.car.model}</Text>
+                  <Text style={[style.carMake, {color: theme.fontColorContent}]}>{item.car.CarMake}</Text>
+                </View>
+              </View>
+              <View>
+                <View style={style.performanceContainer}>
+                <Text style={[style.performanceValue, {color: getColorsCircle(item.car.performance[0].value, item.car.performance[0].type)[0]}]}>
+                  {item.car.performance[0].value+ " "}
+                </Text>
+                <Text style={[style.performanceType, {color: theme.fontColor}]}>{item.car.performance[0].type}</Text>
+              </View>
+              <View style={style.performanceContainer}>
+                <Text style={[style.performanceValue, {color: getColorsCircle(item.car.performance[1].value, item.car.performance[1].type)[0]}]}>
+                  {item.car.performance[1].value + " "}
+                </Text>
+                <Text style={[style.performanceType, {color: theme.fontColor}]}>{item.car.performance[1].type}</Text>
+              </View>
+                </View>
+            </TouchableOpacity>
+          )
+        }}
+      />
     </View>
   )
 }

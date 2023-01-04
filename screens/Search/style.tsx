@@ -10,5 +10,38 @@ export const style = StyleSheet.create({
         borderRadius:10, 
         paddingHorizontal:10,
         paddingVertical:4
-    }
+    },
+    searchItem: {
+        marginHorizontal:15,
+        paddingHorizontal:10,
+        paddingVertical:7,
+        borderRadius:10,
+        marginTop:10,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between'
+    },
+    imageCar: {
+        width:90,
+        height:50,
+        borderRadius:5
+    },
+    carMake: {
+
+    },
+    model:{
+
+    },
+    performanceContainer: {
+        alignItems:'center',
+        marginLeft:15,
+        justifyContent:'center',
+        flexDirection:'row'
+      },
+      performanceValue: {
+        fontSize:14,
+      },
+      performanceType: {
+        fontSize:12,
+      }, 
 })

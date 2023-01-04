@@ -7,7 +7,7 @@ import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
 import { Icon } from '@rneui/themed';
 import _Icon_MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { getFirestore, onSnapshot, collection, orderBy } from 'firebase/firestore';
+import { getFirestore, onSnapshot, collection, orderBy, limit } from 'firebase/firestore';
 import useAuth from './../../hooks/useAuth';
 import { style } from './style'
 import MapView from 'react-native-maps';
@@ -33,6 +33,10 @@ const MeetingScreen = () => {
        headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
           Meetings 
        </Text>,
+      headerRight: () => 
+      <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5, marginRight:5}} onPress={() => navigation.navigate('CreateMeeting')}>
+        <_Icon_MaterialCommunityIcons name={'account-multiple-plus-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
+      </TouchableOpacity>
     })  
   }, [theme])
 
@@ -41,7 +45,7 @@ const MeetingScreen = () => {
   useEffect(() => {
     const getMeetings = () => {
       const meetingsRef = collection(db, 'meetings')
-      const meetingsQuery = query(meetingsRef, orderBy("date"));
+      const meetingsQuery = query(meetingsRef, orderBy("date"), limit(10));
 
        onSnapshot(meetingsQuery, (snapchot) => {      
         setMeetings(snapchot.docs.map((doc, i)=> {
@@ -54,18 +58,6 @@ const MeetingScreen = () => {
     }
   }, [])
   
-   console.log(meetings, 'xd')
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      // headerTitle: () => <TextInput placeholder={language==="en"?_translations.en:_translations.pl} placeholderTextColor="#444" style={{fontSize: 17, color:theme.fontColor}} />,
-      // headerLeft: () => <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
-
-      headerRight: () => 
-        <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5, marginRight:5}} onPress={() => navigation.navigate('CreateMeeting')}>
-          <_Icon_MaterialCommunityIcons name={'account-multiple-plus-outline'} size={27} color={theme.fontColor} style={{ marginRight: 0 }}/>
-        </TouchableOpacity>
-    })
-  }, [theme])
 
   
   return (
@@ -100,7 +92,7 @@ const MeetingScreen = () => {
                                     <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
                                     <Text style={[style.placeText, {color: '#5f9'}]}>{item.place.city}</Text>
                                 </View>  
-                                <View style={style.countPeople}>
+                                <View style={[style.countPeople, {borderColor: theme.fontColorContent}]}>
                                     <Text style={[{color: theme.fontColor, marginRight:8, fontSize:15, fontWeight:'bold'}]}>{item.people.length}</Text>
                                     <Icon type='ionicon' name="people-outline" size={18} color={theme.fontColor}/>
                                 </View>        

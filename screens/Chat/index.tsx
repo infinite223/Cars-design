@@ -17,7 +17,6 @@ const ChatScreen = () => {
     const navigation = useNavigation<any>()
 
     const theme = useSelector(selectTheme)
-    const chats =  useSelector(selectChats)
     const { user }:any = useAuth()
     const [messages, setMessages] = useState<any>([])
     const [message, setMessage] = useState('')
@@ -27,7 +26,6 @@ const ChatScreen = () => {
     const to = route.params;
     const [newChat, setNewChat] = useState(to.new)
     const language = useSelector(selectLanguage)
-  console.log(to)
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,

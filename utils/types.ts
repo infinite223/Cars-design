@@ -72,19 +72,18 @@ export type CarprojectData = {
 }
 
 export type MicroCarprojectData = {
-    id:string,
-    authorUid:string,
-    car: {carMake:string, model:string, imageUri:string}
+  carMake:string, model:string, imageUri:string
 }
 
 export type MeetingRoom = {
     name: string,
     createdBy: UserList,
+    authorProject?:MicroCarprojectData,
     place: Place,
     people: Array<{
         name:string,
         place?:Place,
-        carProjects?:MicroCarprojectData,
+        carProject?:MicroCarprojectData,
         imageUri:string,
         uid:string
     }>,

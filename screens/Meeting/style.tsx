@@ -64,7 +64,7 @@ export const style = StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:10,
         borderRadius:10,
-        backgroundColor:'gray',
+        borderWidth:1,
         height:35,
         alignSelf:'center',
     },

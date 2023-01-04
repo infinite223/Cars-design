@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native"
 
 export const style = StyleSheet.create({
     mainContainer: {
-      width:"100%", 
-      height:130,  
+      // width:"100%", 
+      // height:130,  
       flex: 1,
       paddingHorizontal:15,
      // paddingTop:15
@@ -15,7 +15,7 @@ export const style = StyleSheet.create({
     },
     bottomNav: {
       flexDirection:'row', 
-      alignItems:'center', 
+      alignItems:'center',  
       marginVertical:15
     },
     cameraIcon: {

@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { selectedTabInRoom, selectRoom, selectFocuseOnSearch } from './../../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { style } from './style';
+import SelectProjectModal from './../modals/SelectProjectModal';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 
 
@@ -18,6 +19,7 @@ const MeetingRoomScreen = () => {
     const navigation = useNavigation<any>()
     const theme = useSelector(selectTheme)
     const tabInRoom  = useSelector(selectedTabInRoom)
+    const [showSelectModal, setShowSelectModal] = useState(false)
     const translateY = useSharedValue(0)
 
     const Tab = createNativeStackNavigator();
@@ -89,6 +91,7 @@ const MeetingRoomScreen = () => {
 
   return (
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
+    <SelectProjectModal modalVisible={showSelectModal} setModalVisible={setShowSelectModal}/>
     <ScrollView contentContainerStyle={{flex:1}}>
       <MapView
         style={{flex:.6, zIndex:9}}
@@ -107,8 +110,8 @@ const MeetingRoomScreen = () => {
       >
         <Marker
           coordinate={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: place.latitude,
+            longitude: place.longitude,
           }}
           title={name}
           identifier='Origin'
