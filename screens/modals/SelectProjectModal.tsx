@@ -11,12 +11,14 @@ import { useEffect, useState } from 'react';
 import { arrayUnion, collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import useAuth, { db } from './../../hooks/useAuth';
 import { Icon } from '@rneui/base';
+import { selectLanguage } from './../../slices/languageSlice';
 
 const SelectProjectModal:React.FC<{roomId:string, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({roomId, modalVisible, setModalVisible}) => {
     const navigation = useNavigation<any>()
     const theme = useSelector(selectTheme)
     const [userProjects, setUserProjects] = useState<any>([])
     const { user }:any = useAuth()
+    const language = useSelector(selectLanguage)
 
     useEffect(()=> {
         const getProjects = () => {
@@ -31,7 +33,7 @@ const SelectProjectModal:React.FC<{roomId:string, modalVisible:boolean, setModal
         getProjects()
     }, [])
 
-    const joinMe = (carMake:string, model:string, imageUri:string) => {
+    const joinMe = (carMake:string | null, model:string | null, imageUri:string | null) => {
         const meetingRef = doc(db, 'meetings', roomId)
     
         updateDoc(meetingRef, {
@@ -52,10 +54,11 @@ const SelectProjectModal:React.FC<{roomId:string, modalVisible:boolean, setModal
         <View style={[style.mainContainer, {backgroundColor: theme.background, borderColor: theme.backgroundContent}]}>
             <View>
                 <Text style={[style.header, {color: theme.fontColor}]}>
-                    Choose your car and join
+                    {language==='en'?'Choose your car and join':'Wybierz swój samochód i dołącz'}
                 </Text>
                 <FlatList
                     data={userProjects}
+                    contentContainerStyle={{maxHeight:500}}
                     renderItem={({item: {car}})=> <TouchableOpacity onPress={()=>joinMe(car.CarMake, car.model, car.imagesCar[0].url)} style={[style.carItem, {backgroundColor: theme.backgroundContent}]}>
                         <View style={{flexDirection:'row'}}>
                             <Image style={style.imageCar} source={{uri: car.imagesCar[0].url}}/>
@@ -64,14 +67,18 @@ const SelectProjectModal:React.FC<{roomId:string, modalVisible:boolean, setModal
                        
                         <Icon style={{}} type="feather" name='chevron-right' color={theme.fontColor}/>
                     </TouchableOpacity>}
+                    ListFooterComponent={()=> 
+                        <TouchableOpacity onPress={()=>joinMe(null, null, null)} style={[style.carItem, {backgroundColor: theme.backgroundContent}]}>
+                        <View style={{flexDirection:'row'}}>
+                            <Text style={[style.nameCar,{color: theme.fontColor}]}>
+                                {language==='en'?'Without car':'bez samochodu'}
+                            </Text>
+                        </View>
+                       
+                        <Icon style={{}} type="feather" name='chevron-right' color={theme.fontColor}/>
+                    </TouchableOpacity>}
                 />
             </View>
-
-            {/* <TouchableOpacity onPress={()=>setModalVisible(false)} style={[style.joimButton, {}]}>
-                <Text style={[{color: theme.fontColor}]}>
-                    Join
-                </Text>
-            </TouchableOpacity> */}
         </View>
        </View>
        <StatusBar barStyle={"dark-content"}/>

@@ -28,7 +28,6 @@ const ChatScreen = () => {
     const language = useSelector(selectLanguage)
     useLayoutEffect(() => {
         navigation.setOptions({
-           headerBackVisible:false,
            headerTitle: () => <View style={{flexDirection:'row', alignItems:'center'}}>
             <Avatar rounded size={35} source={{uri:to.data.to.imageUri}}/>
             <Text style={{color: theme.fontColor, fontSize:19, marginLeft:10}}> {to.data.to.name}</Text>

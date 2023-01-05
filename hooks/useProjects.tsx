@@ -1,10 +1,11 @@
-import { collectionGroup, onSnapshot, query, limit, startAfter, getDocs } from "firebase/firestore";
+import { collectionGroup, onSnapshot, query, limit, startAfter, getDocs, orderBy } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { User } from "../utils/types";
 import { db } from "./useAuth";
 
 export const useProjects = (user:User, _limit:number) => {
     const [projects, setProjects] = useState<any[] | null>(null)
+    const [_projects, _setProjects] = useState<any[]>([])
 
     const [loading, setLoading] = useState(false)
     const projectsRef = collectionGroup(db, 'projects')
@@ -15,7 +16,8 @@ export const useProjects = (user:User, _limit:number) => {
         onSnapshot(projectsQuery, (snapchot) => {      
             setProjects(snapchot.docs.map((doc, i)=> {
                 return doc.data()
-            }))      
+            }))   
+            // setProjects(_projects?.sort((a, b)=>a.createdAt - b.createdAt))
         })
 
         const documentSnapshots = await getDocs(projectsQuery);

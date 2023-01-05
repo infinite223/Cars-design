@@ -11,7 +11,14 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { selectedTabInRoom, selectRoom, selectFocuseOnSearch } from './../../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { style } from './style';
-import SelectProjectModal from './../modals/SelectProjectModal';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
+import { toDateTime } from '../../utils/toDateTime';
+import { Icon } from '@rneui/themed';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 
 
@@ -19,14 +26,13 @@ const MeetingRoomScreen = () => {
     const navigation = useNavigation<any>()
     const theme = useSelector(selectTheme)
     const tabInRoom  = useSelector(selectedTabInRoom)
-    const [showSelectModal, setShowSelectModal] = useState(false)
     const translateY = useSharedValue(0)
 
     const Tab = createNativeStackNavigator();
     const route = useRoute<any>()
     const context = useSharedValue({y: 0})
     const focuseOnSearch = useSelector(selectFocuseOnSearch)
-    const { name, place, date} = route.params;
+    const { name, place, date, id} = route.params;
 
     toDateTime(date.seconds)
     const gesture = Gesture.Pan()
@@ -81,17 +87,9 @@ const MeetingRoomScreen = () => {
       }
 
     }, [tabInRoom, focuseOnSearch])
-    
-
-    function toDateTime(secs:number) {
-      var t = new Date(1970, 0, 1);
-      t.setSeconds(secs);
-      return t
-    }
 
   return (
-    <View style={[style.mainContainer, {backgroundColor: theme.background}]}>
-    <SelectProjectModal modalVisible={showSelectModal} setModalVisible={setShowSelectModal}/>
+    <View style={[style.mainContainer, {backgroundColor: theme.background, position:'relative'}]}>
     <ScrollView contentContainerStyle={{flex:1}}>
       <MapView
         style={{flex:.6, zIndex:9}}
@@ -118,6 +116,43 @@ const MeetingRoomScreen = () => {
           description={place.city}
         />
       </MapView>
+      <View style={{position:'absolute', top:40, right:20, zIndex:20}}>
+        <Menu>
+            <MenuTrigger>
+              <Text>
+                <Icon                 
+                  name='dots-three-vertical'
+                  type='entypo'
+                  size={26} 
+                  color={'black'}
+                />
+              </Text>
+            </MenuTrigger>
+            <MenuOptions 
+              customStyles={{optionsContainer: 
+                {
+                  paddingHorizontal:10,
+                  paddingVertical:5,
+                  borderRadius:10,
+                  borderWidth:1, 
+                  borderColor: theme.backgroundContent,
+                  backgroundColor: theme.background
+                }, optionText: {color:theme.fontColor}
+              }}>
+              <MenuOption onSelect={() => navigation.navigate('Report', {id, type:'meeting'})} >
+                <Text style={{color: 'red'}}>
+                  {/* {report[language as keyof typeof report]} */}
+                  Report
+                  </Text>
+              </MenuOption>
+              {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/> */}
+              {/* <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
+              <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
+              <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} /> */}
+            </MenuOptions>
+          </Menu>
+      </View>
+     
       <GestureDetector gesture={gesture}>
         <Animated.View style={[style.mainContent, rRoomContentSheetStyle, {backgroundColor: theme.background}]}>
           <View style={[style.textContainer]}>

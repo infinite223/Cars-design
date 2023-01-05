@@ -24,11 +24,9 @@ import { validInpute } from '../../utils/functions/validateInput';
 import * as DocumentPicker from 'expo-document-picker';
 import { playSound } from '../../utils/functions/playSound';
 
-
-
 const CreateScreen = () => {
     const { errorMessage, 
-        historyHeadeText, imageHelpText_1, imageHelpText_2, imageHelpText_3, 
+        historyHeadeText, imageHelpText_1, imageHelpText_2, imageHelpText_3, imageHelpText_4, 
         selectListPlaceholder, soundHeaderText, soundHelpText_1, soundHelpText_2, linksHeader,
         inputPlaceholders: { description, make, model, power, torque }, cameraError, navTitleText, baseHeaderText, historyHeaderText 
     } = translations.screens.CreateScreen
@@ -89,7 +87,7 @@ const CreateScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'300', color:theme.fontColor}}>
+           headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
                 {navTitleText[language as keyof typeof navTitleText]}
             </Text>,
         //    headerLeft: () => (
@@ -212,7 +210,7 @@ const CreateScreen = () => {
 
             <View style={{ flexGrow:.0,  marginTop:20 }} >		
                 <View style={style.headerImages}>
-                    <TouchableOpacity onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
+                    <TouchableOpacity disabled={images.length>=6} onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {borderColor: theme.backgroundContent, opacity:images.length>=6?.5:1}]}>            
                         <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
                     </TouchableOpacity>
                     <View style={[style.helpTextConteiner]}>             
@@ -224,6 +222,9 @@ const CreateScreen = () => {
                         </Text>
                         <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
                             {imageHelpText_3[language as keyof typeof imageHelpText_3]}
+                        </Text>
+                        <Text style={[{color: '#a32', maxWidth:200}]}>
+                            {imageHelpText_4[language as keyof typeof imageHelpText_4]}
                         </Text>
                     </View>
                 </View>

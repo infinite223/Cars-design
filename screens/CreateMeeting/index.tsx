@@ -26,7 +26,7 @@ const CreateMeeting = () => {
     const language = useSelector(selectLanguage)
     const { user }:any = useAuth()
 
-    const { nameMeeting, dateText, locationText, createText } = translations.screens.CreateMeeting
+    const {message: {successText, errorText}, nameMeeting, dateText, locationText, createText } = translations.screens.CreateMeeting
     const [name, setName] = useState('')
     const [date, setDate] = useState(new Date());
     const [image, setImage] = useState<any>(null)
@@ -93,12 +93,12 @@ const CreateMeeting = () => {
         const meetingRef = doc(db, 'meetings', meetingId)
 
         setDoc(meetingRef, meetingData)
-          .then(()=> setShowAlert({message:'Meeting was created!', show:true, type:'SUCCRESS'}))
-          .catch(()=> setShowAlert({message:'Samething was wrong!', show:true, type:'ERROR'}))
+          .then(()=> setShowAlert({message:successText[language as keyof typeof successText], show:true, type:'SUCCRESS'}))
+          .catch(()=> setShowAlert({message:errorText[language as keyof typeof errorText], show:true, type:'ERROR'}))
       }
 
       const validMeeting = name.length>2  
-
+      console.log(place)
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
       {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert} show/>}
@@ -125,8 +125,8 @@ const CreateMeeting = () => {
               longitudeDelta: 0.0421,
             }}
             initialRegion={{
-                latitude: place.latitude,
-                longitude: place.longitude,
+                latitude: 52.22,
+                longitude: 21,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}

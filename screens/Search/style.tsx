@@ -15,11 +15,12 @@ export const style = StyleSheet.create({
         marginHorizontal:15,
         paddingHorizontal:10,
         paddingVertical:7,
-        borderRadius:10,
+        borderRadius:5,
         marginTop:10,
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        borderBottomWidth:1
     },
     imageCar: {
         width:90,

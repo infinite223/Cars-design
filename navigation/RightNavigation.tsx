@@ -102,12 +102,12 @@ export const RightNavigation = () => {
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.link} onPress={() => (navigation.navigate('Groups'), dispatch(setNavigation(false)))}>
+                    {/* <TouchableOpacity style={style.link} onPress={() => (navigation.navigate('Groups'), dispatch(setNavigation(false)))}>
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {group[language as keyof typeof group]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity style={style.link}  onPress={() => (navigation.navigate('Create', {state: user}), dispatch(setNavigation(false)))} >
                         <Text style={[style.linkText, {color: theme.fontColor}]}>
                           {add[language as keyof typeof add]}

@@ -42,16 +42,8 @@ const SettingsScreen = () => {
         <ThemeModal  modalVisible={themeModalVisible} setModalVisible={setThemeModalVisible}/>
         <InformationModal  modalVisible={informationModalVisible} setModalVisible={setInformationModalVisible}/>
         <LanguageModal modalVisible={languageModalVisible} setModalVisible={setLanguageModalVisible}/>
-        <TouchableOpacity style={style.option} onPress={()=>setThemeModalVisible(true)}> 
-            <Icon type="ionicon" name='color-palette-outline' size={24} color={theme.fontColor}/>
-            <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?ThemeText.en:ThemeText.pl}</Text>
-        </TouchableOpacity>  
-        <TouchableOpacity style={style.option} onPress={()=>setInformationModalVisible(true)}>
-            <Icon type='octicon' name='info' size={24} color={theme.fontColor}/>
-            <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?InfoText.en:InfoText.pl}</Text>
-        </TouchableOpacity>  
         <TouchableOpacity style={style.option} onPress={()=>navigation.navigate('EditProfile')}>
-            <Icon type="ionicon" name='person-circle-outline' size={24} color={theme.fontColor}/>
+            <Icon type="ionicon" name='ios-person-circle-outline' size={23} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?ProfileText.en:ProfileText.pl}</Text>
         </TouchableOpacity>  
         <TouchableOpacity style={style.option} onPress={()=>setLanguageModalVisible(true)}>
@@ -62,6 +54,14 @@ const SettingsScreen = () => {
             <Icon type='ionicon' name='notifications-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?NotifyText.en:NotifyText.pl}</Text>
         </TouchableOpacity> 
+        <TouchableOpacity style={style.option} onPress={()=>setThemeModalVisible(true)}> 
+            <Icon type="ionicon" name='color-palette-outline' size={24} color={theme.fontColor}/>
+            <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?ThemeText.en:ThemeText.pl}</Text>
+        </TouchableOpacity>  
+        <TouchableOpacity style={style.option} onPress={()=>setInformationModalVisible(true)}>
+            <Icon type='ionicon' name='information' size={24} color={theme.fontColor}/>
+            <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?InfoText.en:InfoText.pl}</Text>
+        </TouchableOpacity>  
     </View>
   )
 }

@@ -1,4 +1,4 @@
-import { View, Text, Modal, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, Modal, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
@@ -10,10 +10,10 @@ import { translations } from './../../../utils/translations';
 
 const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
     const { user, logout }:any = useAuth()
-    const navigation = useNavigation()
+    const navigation:any = useNavigation()
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
-    const { about, author, rules, support, title, version } = translations.screens.modals.settingsModals.informationModal
+    const { headerText,  about, author, rules, support, title, version } = translations.screens.modals.settingsModals.informationModal
 
     return (
     <Modal
@@ -27,39 +27,36 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
       >
         <ScrollView style={[style.mainContainer, {backgroundColor:theme.background}]}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>{language==="en"?title.en:title.pl}</Text>
-            <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?about.en:about.pl}</Text>
+            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+                <Text style={[style.itemHeader, {color: "#2f3"}]}>{headerText[language as keyof typeof headerText]}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet eligendi id necessitatibus
-                    quae assumenda possimus exercitationem provident nihil odit sapiente, vero, velit sunt
-                    consequuntur consectetur recusandae non! Incidunt, consequatur optio!
+                    {about[language as keyof typeof about]}
                 </Text>
             </View>
-            <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?rules.en:rules.pl}</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate("Terms")}>
+                    <Text style={[style.itemText, {color: theme.fontColorContent}]}>
+                        Go to terms of use
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?support.en:support.pl}</Text>
+                <Text style={[style.itemText, {color: theme.fontColorContent}]}>
+                    carsprojectapp@gmail.com
+                </Text>
+            </View>
+            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
                 <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?version.en:version.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
-                   1.0.0
+                   1.0.1
                 </Text>
             </View>
-            <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
                 <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?author.en:author.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                    Dawid Szmigiel
-                </Text>
-            </View>
-            <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?rules.en:rules.pl}</Text>
-                <Text style={[style.itemText, {color: theme.fontColorContent}]}>
-                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem 
-                   eos, soluta ipsam maxime cum reiciendis iure 
-                   ullam nobis ad culpa itaque dolore fugiat minima dicta quos accusantium 
-                   rerum recusandae expedita?
-                </Text>
-            </View>
-            <View style={[style.itemContainer, {borderColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?support.en:support.pl}</Text>
-                <Text style={[style.itemText, {color: theme.fontColorContent}]}>
-                    dawidszmigiel9@gmail.com
                 </Text>
             </View>
         </ScrollView>
@@ -76,18 +73,25 @@ const style = StyleSheet.create({
         paddingTop:10
     },
     headerText: {
-        fontSize:20,
-        letterSpacing:1
+        fontSize:20, 
+        letterSpacing:1, 
+        fontWeight:'500',
+        marginHorizontal:10,
+        marginBottom:10
     },
     itemContainer: {
         borderWidth:1,
         marginVertical:5,
-        padding:5
+        // paddingHorizontal:10,
+        padding:10,
+        borderRadius:10
     },
     itemHeader: {
-        fontSize:16
+        fontSize:15,
+        letterSpacing:1
     },
     itemText: {
-
+        marginHorizontal:10,
+        marginVertical:5
     }
 })

@@ -99,6 +99,8 @@ const HomeScreen = () => {
     };
   }, []);
   
+  console.log(projects, 'ss')
+
   return (
     <SafeAreaView style={{paddingTop:StatusBar.currentHeight, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {loading&&<LoadingView headerText={'Loading projects'}/>}

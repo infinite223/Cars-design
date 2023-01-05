@@ -42,7 +42,7 @@ export const style = StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:10,
         paddingVertical:5,
-        maxWidth:120
+        maxWidth:200
     },
     textContainer: {
         paddingVertical:2,

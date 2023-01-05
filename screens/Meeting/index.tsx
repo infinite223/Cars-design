@@ -14,6 +14,7 @@ import MapView from 'react-native-maps';
 import { Dimensions } from 'react-native';
 import { setSelectedRoom } from '../../slices/selectedRoomSlice';
 import { query } from 'firebase/firestore';
+import { toDateTime } from '../../utils/toDateTime';
 
 const widthScreen = Dimensions.get('screen').width
 
@@ -67,13 +68,13 @@ const MeetingScreen = () => {
             <FlatList
                 ItemSeparatorComponent={()=><View style={{height:10}}/>}
                 contentContainerStyle={{ width:widthScreen}}
-                data={meetings}
+                data={meetings.filter((meeting:any)=> meeting.date < new Date())}
                 renderItem={({item}) => {
                     return (                        
-                    <TouchableOpacity activeOpacity={.5} onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))}>
+                   <TouchableOpacity activeOpacity={.5} onPress={()=> (navigation.navigate('MeetingRoom', item), dispatch(setSelectedRoom(item)))}>
                         <View style={style.dateContainer}>
                             <Icon type='entypo' name="clock" size={14} color={theme.fontColor}/>
-                            <Text style={{color:theme.fontColor, marginLeft:7}}>za 2 dni...</Text>
+                            <Text style={{color:theme.fontColor, marginLeft:7}}>{toDateTime(item.date.seconds).toDateString()}</Text>
                         </View>
                         <View style={[style.meetingRoom, {backgroundColor: theme.backgroundContent}]}>
                             <MapView          

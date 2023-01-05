@@ -16,7 +16,7 @@ import { style } from './style';
 import SelectList from 'react-native-dropdown-select-list'
 import { getMakes } from '../../utils/functions/getMakes';
 import { findMakeInCategores } from '../../utils/functions/findMakeInCaategores';
-import _Icon_FontAwesome from 'react-native-vector-icons/FontAwesome'
+import _Icon_MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import CustomInput from './../../components/CustomInput';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from './../../utils/translations';
@@ -32,7 +32,8 @@ const SearchScreen = () => {
     const [model, setModel] = useState('')
     const [searchingProjects, setSearchingProjects] = useState<any>([])
     const language = useSelector(selectLanguage)
-    const { headerText } = translations.screens.Search
+    const { headerText, placeholder: { carMakeText, modelText } } = translations.screens.Search
+
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -67,28 +68,26 @@ const SearchScreen = () => {
   
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>
-      <View style={[style.searchContainer, {backgroundColor: theme.backgroundContent}]}>
+      <View style={[style.searchContainer, {backgroundColor: theme.background ==="black"?"#333":"#bbb"}]}>
         {makesCategory&&
             <SelectList    
                 searchPlaceholder={'s'}
                 searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
-                placeholder={'Choose car make'} 
+                placeholder={carMakeText[language as keyof typeof carMakeText]} 
                 setSelected={(selectNumber:any)=>setCarMake(findMakeInCategores(selectNumber, makesCategory))} 
-                boxStyles={{ borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:0, paddingBottom:0, marginBottom:5}}
-                inputStyles={{color: carMake.length>1?theme.fontColor:theme.fontColor, fontSize:16, marginLeft:-9}}
+                boxStyles={{ borderWidth:0, borderBottomWidth:0, borderColor:theme.backgroundContent, marginHorizontal:0, paddingBottom:0, marginBottom:5}}
+                inputStyles={{color: carMake.length>1?theme.fontColor:theme.fontColor, fontSize:15, marginLeft:-9}}
                 dropdownTextStyles={{color: theme.fontColor, marginLeft:0}}
-                dropdownStyles={{borderBottomWidth:1, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:0, marginBottom:5}}  
+                dropdownStyles={{borderBottomWidth:0, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:0, marginBottom:5}}  
                 data={makesCategory} 
                 badgeStyles={{color:'white'}}
-                arrowicon={<_Icon_FontAwesome name="chevron-down" size={15} color={theme.fontColor} style={{alignSelf:'center'}}/>} 
+                arrowicon={<_Icon_MaterialIcons name="keyboard-arrow-down" size={22} color={theme.fontColor} style={{alignSelf:'center', left:5}}/>} 
             />
         }
 
         <View style={{marginHorizontal:5, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-          <CustomInput placeholder='Type model' setValue={setModel} fontSize={15}/>
-          {/* <TouchableOpacity style={[style.searchButton, {backgroundColor: "#273"}]}>
-            <Text style={[{color: theme.fontColor}]}>Search</Text>
-          </TouchableOpacity> */}
+          <CustomInput placeholder={modelText[language as keyof typeof modelText]} setValue={setModel} fontSize={15}/>
+          <Icon type="feather" name="search" color={theme.fontColor} size={18} style={{marginRight:11}}/>
         </View>
       </View>
 
@@ -97,7 +96,7 @@ const SearchScreen = () => {
         data={searchingProjects}
         renderItem={({item})=> {
           return (
-            <TouchableOpacity style={[style.searchItem]}>
+            <TouchableOpacity style={[style.searchItem, {borderColor: theme.backgroundContent}]}>
               <View style={{alignItems:'center', flexDirection:'row'}}>
                 <Image style={style.imageCar} source={{uri: item.car.imagesCar[0].url}}/>
                 <View style={{marginHorizontal:10}}>

@@ -109,14 +109,23 @@ export const translations = {
         modals: {
             settingsModals: {
                 informationModal: {
+                    headerText: {
+                        en: "About application",
+                        pl: "Czym jest Cars project?",
+                    },
                     title: {
                         en: "Information",
-                        pl: "Informacje",
-                        
+                        pl: "Informacje",                       
                     },
                     about: {
-                        en: "Abaut cars projects",
-                        pl: "O cars projects"
+                        en: "The application is designed to connect the automotive community so that every user who has created his car project somewhere can boast about it here, inspire others."+
+                            " Udostępnić najciekawsze zdjęcia, najważniejsze parametry samochodu jak i historię modyfikacji."+
+                            " Share the most interesting photos, the most important parameters of the car as well as the history of modifications."
+                        ,
+                        pl: "Aplikacja ma za zadanie łączyć motoryzacyjną społeczność tak aby każdy użytkownik który stworzył gdzieś swój projekt samochodu mógł się nim tutaj pochwalić, zainspirować innych."+
+                            " Udostępnić najciekawsze zdjęcia, najważniejsze parametry samochodu jak i historię modyfikacji."+ 
+                            " Użytkownicy mogą tworzyć spotkania/spoty gdzie każdy może się do niego dołączyć a końcowo wspólnie spotkać w wybranym miejscu."
+                        ,
                     },
                     version: {
                         en:'Version App',
@@ -127,7 +136,7 @@ export const translations = {
                         pl: "Autor"
                     },
                     rules: {
-                        en: "Rules",
+                        en: "Terms of use",
                         pl: "Regulamin"
                     },
                     support: {
@@ -228,6 +237,10 @@ export const translations = {
             imageHelpText_3: {
                 en: "On long press photo u can set place",
                 pl: "Po dłuższym przytrzymaniu zdjęcia możesz wybrać lokalizacje"
+            },
+            imageHelpText_4: {
+                en: "Maximum 5 images",
+                pl: "Maksymalnie 5 zdjęć"
             },
             soundHeaderText: {
                 en: "Sound check and links",
@@ -340,6 +353,10 @@ export const translations = {
                 user: {
                     en: "Report user",
                     pl: "Zgłoś użytkownika"
+                },
+                meeting: {
+                    en: "Report meeting",
+                    pl: "Zgłoś spotkanie"
                 }
             },
             headerText: {
@@ -350,6 +367,10 @@ export const translations = {
                 user: {
                     en: "Why you want to report this person?",
                     pl: "Dlaczego chcesz zgłosić tą osobe? "
+                },
+                meeting: {
+                    en: "Why you want to report this meeting?",
+                    pl: "Dlaczego chcesz zgłosić te spotkanie? "
                 }
             },
             option_1: {
@@ -368,6 +389,10 @@ export const translations = {
                 user: {
                     en: "User breaks the rules",
                     pl: "Użytkownik łamie regulamin"
+                },
+                meeting: {
+                    en: "Meeting breaks the rules",
+                    pl: "Spotkanie łamie regulamin"
                 }
             },
             option_4: {
@@ -392,6 +417,16 @@ export const translations = {
             }
         },
         CreateMeeting: {
+            message: {
+                errorText: {
+                    en: "Samething was wrong!",
+                    pl: "Coś poszło nie tak!"
+                },
+                successText: {
+                    en: "Meeting was created!",
+                    pl: "Spotkanie zostało utworzone!"
+                }
+            },
             nameMeeting: {
                 en:"Name meeting",
                 pl:"Nazwa spotkania/spotu"
@@ -447,6 +482,16 @@ export const translations = {
             headerText: {
                 en: "Search project",
                 pl: "Szukaj projektu"
+            },
+            placeholder: {
+                carMakeText: {
+                    en: "Choose car make",
+                    pl: "Wybierz markę samochodu"
+                },
+                modelText: {
+                    en: "Type model",
+                    pl: "Wpisz szukany model"
+                }
             }
         }
     }
