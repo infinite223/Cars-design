@@ -21,6 +21,8 @@ import { selectLanguage } from './../slices/languageSlice';
 import useAuth from '../hooks/useAuth';
 import { LinearGradient } from 'expo-linear-gradient';
 import { setHideProjects } from '../slices/hideProjects';
+import { toDateTime } from '../utils/toDateTime';
+import { Timestamp } from 'firebase/firestore';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {
   const navigation:any = useNavigation()
@@ -52,7 +54,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   const saveProject = (projectId:string) => {
     //....
   }
-
+console.log(createdAt)
   return (
       <View style={{backgroundColor: theme.background}}>
       {car.performance&&
@@ -153,7 +155,10 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </MenuOptions>
           </Menu>
         </View>
-        <Text style={[style.dateCreate, {color: theme.fontColorContent}]}>1 day ago</Text>
+        <Text style={[style.dateCreate, {color: theme.fontColorContent}]}>
+          {/* {createdAt&&createdAt.toDateString} */}
+          {toDateTime(createdAt?.seconds).toDateString()}
+        </Text>
         <View style={{borderBottomWidth:1, borderBottomColor:theme.backgroundContent, paddingVertical:5, opacity:.6}}></View>
       </View>
   )

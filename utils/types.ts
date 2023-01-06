@@ -1,4 +1,4 @@
-import { FieldValue } from "firebase/firestore"
+import { FieldValue, Timestamp } from "firebase/firestore"
 
 export type User = {
     name:string,
@@ -66,7 +66,7 @@ export type Car = {
 export type CarprojectData = {
     id:string,
     author:UserList,
-    createdAt:FieldValue,
+    createdAt:Timestamp,
     car:Car,
     place?:Place
 }

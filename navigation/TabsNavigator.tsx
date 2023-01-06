@@ -18,7 +18,6 @@ import HomeScreen from './../screens/Home/index';
 export const TabsNavigator = () => {
 
     const Tab = createBottomTabNavigator()
-    const Stack = createNativeStackNavigator()
     const theme = useSelector(selectTheme)
     const dispatch = useDispatch()
 
@@ -40,7 +39,7 @@ export const TabsNavigator = () => {
             tabBarLabelStyle:{color:theme.fontColorContent, marginBottom:10}
           }}>
             <Tab.Screen name="Home" component={HomeScreen} options={
-              {headerShown:false, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
+              {tabBarLabelStyle:{display:'none'}, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Search' component={SearchScreen} options={
               {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => 

@@ -493,6 +493,28 @@ export const translations = {
                     pl: "Wpisz szukany model"
                 }
             }
+        },
+        Reviews: {
+            headerTitle: {
+                pl: "Dodaj opinię",
+                en: "Add reviews"
+            },
+            contextText: {
+                pl: "Aplikacja cały czas się rozwija, dodaj opinię aby twórca mógł wiedzieć co działa dobrze, co zmienić lub jakiej funkcji aplikacji brakuje",
+                en: "The application is constantly developing, add a review so that the creator can know what works well, what to change or what features of the application are missing"
+            },
+            labelText: {
+                pl: "Twoja opinia",
+                en: "Your review"
+            },
+            placeholderText: {
+                pl: "Tutaj wpisz swoją opinię",
+                en: "There type your review"
+            },
+            buttonText: {
+                pl: "Wyślij",
+                en: "Send"
+            }
         }
     }
 }

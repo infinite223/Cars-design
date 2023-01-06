@@ -55,24 +55,12 @@ const HomeScreen = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      //  headerTitle: () => <View></View>,
-      //  headerLeft: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>Cars projects</Text>
-       
-      //  <Text style={{color: theme.fontColor, fontStyle:'italic', fontWeight:'bold', fontSize:20, letterSpacing:1}}>Cars projects</Text>,
-      // <Image style={style.logo} source={require('../../assets/cars_projects_IconV2.png')}/>,
-
-      // headerRight: () => 
-      // <View style={{flexDirection:'row', alignItems:'center'}}>
-      //   <TouchableOpacity onPress={()=> navigation.navigate('Search')} style={{paddingHorizontal:10}}>
-      //     <_Icon_antDesign name='search1' size={21} color={theme.fontColor}/>
-      //   </TouchableOpacity>
-      //   <TouchableOpacity style={style.iconPadding} 
-      //     onPress={() => dispatch(setNavigation(true))}
-      //   >
-      //     <_Icon name={'menu-outline'} size={30} color={theme.fontColor} style={{ marginRight: 0 }}/>
-      //   </TouchableOpacity>
-      // </View>
-    })
+       headerBackVisible:false,
+       headerTitle: () =>  <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
+        Cars project
+       </Text>,
+       headerLeft: () => <View></View> 
+    })  
   }, [theme])
 
 
@@ -102,7 +90,7 @@ const HomeScreen = () => {
   console.log(projects, 'ss')
 
   return (
-    <SafeAreaView style={{paddingTop:StatusBar.currentHeight, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
+    <SafeAreaView style={{paddingTop:0, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects?<FlatList 
         style={{ width: '100%'}}

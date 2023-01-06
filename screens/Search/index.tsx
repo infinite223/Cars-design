@@ -10,7 +10,7 @@ import HistoryTab from '../../components/ProjectScreenTabs/HistoryTab';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
 import { onShare, likeProject } from '../../utils/functions/projectFunctions';
 import ChatModal from './../modals/ChatModal';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { style } from './style';
 import SelectList from 'react-native-dropdown-select-list'
@@ -22,6 +22,8 @@ import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from './../../utils/translations';
 import { collectionGroup, limit, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../hooks/useAuth';
+import { setSelectedProject } from '../../slices/selectedProject';
+import { CarprojectData } from '../../utils/types';
 const widthScreen = Dimensions.get('window').width
 
 const SearchScreen = () => {
@@ -32,6 +34,7 @@ const SearchScreen = () => {
     const [model, setModel] = useState('')
     const [searchingProjects, setSearchingProjects] = useState<any>([])
     const language = useSelector(selectLanguage)
+    const dispatch = useDispatch()
     const { headerText, placeholder: { carMakeText, modelText } } = translations.screens.Search
 
     useLayoutEffect(() => {
@@ -45,9 +48,9 @@ const SearchScreen = () => {
 
     useEffect(() => {
       getMakes(setMakesCategory)
-  }, [])
+    }, [])
 
-  useEffect(()=> {
+  useEffect(()=> {  
     const projectsRef = collectionGroup(db, 'projects')
     const projectsQuery = query(
       projectsRef, 
@@ -65,6 +68,15 @@ const SearchScreen = () => {
      })
      return unsubscribe
   }, [carMake, model])
+
+  const setProjectToNav = ({id, author, car, createdAt, place}:CarprojectData) => {
+
+    dispatch(setSelectedProject({
+      id, car, author, createdAt, place
+    }))
+
+    navigation.navigate('Project', {id, car, author, createdAt})
+  }
   
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>
@@ -96,7 +108,7 @@ const SearchScreen = () => {
         data={searchingProjects}
         renderItem={({item})=> {
           return (
-            <TouchableOpacity style={[style.searchItem, {borderColor: theme.backgroundContent}]}>
+            <TouchableOpacity onPress={() => setProjectToNav(item)}  style={[style.searchItem, {borderColor: theme.backgroundContent}]}>
               <View style={{alignItems:'center', flexDirection:'row'}}>
                 <Image style={style.imageCar} source={{uri: item.car.imagesCar[0].url}}/>
                 <View style={{marginHorizontal:10}}>

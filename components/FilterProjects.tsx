@@ -59,7 +59,7 @@ export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, inpu
                 <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
             </View>
             
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:[{imageUri:'', name:'Dawid', uid:''}], headerText:`${[{},{}].length} likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:car.likes, headerText:`${[{},{}].length} likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
               <Text style={{fontSize:17, marginHorizontal:5, color:theme.fontColor}}>{car.likes.length}</Text>
               <Icon                 
                   name='heart'

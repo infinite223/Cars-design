@@ -20,7 +20,8 @@ export default function App() {
       <MenuProvider>
         <NavigationContainer>
           <AuthProvider>
-          <GestureHandlerRootView style={{flex:1}}>
+            <GestureHandlerRootView style={{flex:1}}>
+              {/* <StatusBar showHideTransition={'slide'} hidden={false}/> */}
               <PrompttModal/>
               <StackNavigator/>
               <RightNavigation/>

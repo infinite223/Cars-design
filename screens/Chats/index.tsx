@@ -28,6 +28,7 @@ const ChatsScreen = () => {
 
     useLayoutEffect(() => {
       navigation.setOptions({
+        headerBackVisible:false,
          headerTitle: () => <Text style={{marginLeft:0, fontSize:20, color:theme.fontColor}}>
               {language==="en"?"Chats":"Czaty"}
           </Text>,

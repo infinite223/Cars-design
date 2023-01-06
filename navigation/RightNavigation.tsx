@@ -76,14 +76,16 @@ export const RightNavigation = () => {
     })
 
   return (<>
-    <SafeAreaView style={{flex:1, position:'absolute', marginTop: StatusBar.currentHeight}}>
+    <SafeAreaView style={{flex:1, position:'absolute', marginTop: 
+      StatusBar.currentHeight
+    }}>
     <GestureDetector gesture={gesture}>
         <Animated.View style={[style.containerNavigation, rNavigationContentSheetStyle, {backgroundColor: theme.background}]}>
         <View style={{width:SCREEN_WIDTH/1.5 , justifyContent:'space-between', flex:1}}>
             <View>
-                <View style={[style.header, {backgroundColor: '#273'}]}>
-                    <TouchableOpacity onPress={()=>dispatch(setNavigation(false))}>
-                        <_Icon_Ionicons name={'close'} size={25} color={theme.fontColor} style={{ marginRight: 0 }}/>
+                <View style={[style.header, {backgroundColor: theme.background}]}>
+                    <TouchableOpacity style={{borderRadius:15, backgroundColor: theme.backgroundContent,paddingVertical:5, paddingHorizontal:7}} onPress={()=>dispatch(setNavigation(false))}>
+                        <_Icon_Ionicons name={'close'} size={23} color={theme.fontColor} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
@@ -130,7 +132,7 @@ export const RightNavigation = () => {
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.link}>
+                    <TouchableOpacity  onPress={() => (navigation.navigate('Reviews'), dispatch(setNavigation(false)))} style={style.link}>
                         <Text style={[style.linkText, {color: '#2b3'}]}>
                           {reviews[language as keyof typeof reviews]}
                         </Text>
@@ -162,7 +164,7 @@ export const RightNavigation = () => {
 const style = StyleSheet.create({
     containerNavigation: {
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT-40, //nie wiem dlaczego 50 xD       
+        height:SCREEN_HEIGHT-40,    
         position:'absolute',
         top:0,
         zIndex:11
@@ -176,7 +178,7 @@ const style = StyleSheet.create({
         zIndex:10
     },
     header: {
-        borderRadius:10,
+        borderRadius:0,
         flexDirection:'row',
         alignItems:'center',
         paddingHorizontal:15,
