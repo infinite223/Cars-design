@@ -17,7 +17,7 @@ import { Dimensions } from 'react-native';
 import { CarprojectData, User, UserList } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
 import { UsersList } from '../../components/UsersList';
-import { collection, getDoc, onSnapshot } from 'firebase/firestore';
+import { collection, getDoc, onSnapshot, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 import { doc } from 'firebase/firestore';
 
@@ -87,30 +87,40 @@ const ProfileScreen = () => {
       useEffect(() => {
         const getUserData = async () => {
             const userRef = doc(db, 'users', profileUser.uid)
+            console.log(profileUser)
             const userSnap:any = await getDoc(userRef);
-            // console.log(userSnap.data());\
             if(userSnap.data()){
                 setDisplayUser(userSnap.data())
             }
+            if(!isMyProfile){
+                const findUser = displayUser.stats.views.find((person)=>person.uid === user.uid)
+                if((findUser?.uid !== user.uid)===true){
+                    const unsubscribe = async () => {
+                        console.log(profileUser.uid,'xdddddasdd', user.uid)
+                        await updateDoc(doc(db, "users", profileUser.uid), {
+                            'stats.views': arrayUnion({uid: user.uid, imageUri: user.imageUri, name: user.name})
+                        }).catch((e)=>console.log(e, 'error'))
+                        .then(()=>console.log('succedsadas'))
+                    }
+                }
+            }
         }
         
-        const getProjects = () => {
-            const projectsRef = collection(db, 'users', profileUser.uid, 'projects')
-            console.log(profileUser.uid, 'xd')
-             onSnapshot(projectsRef, (snapchot) => { 
-                setUserProjects(snapchot.docs.map((doc, i)=> {
-                    return doc.data()
-                }))      
-            })
-        }
+        const projectsRef = collection(db, 'users', profileUser.uid, 'projects')
+        const unsubscribe =  onSnapshot(projectsRef, (snapchot) => { 
+            setUserProjects(snapchot.docs.map((doc, i)=> {
+                return doc.data()
+            }))      
+        })
 
          if(!isMyProfile){
             getUserData()
          }
 
-          getProjects()
+         return unsubscribe
       }, [])
-      
+
+
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         {(showAlert && showAlert.type)&&<AlertModal resetError={setShowAlert} show={true} message={showAlert?.message} type={showAlert?.type}/>}

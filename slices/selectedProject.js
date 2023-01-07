@@ -10,12 +10,12 @@ export const selectedProjectSlice = createSlice({
     initialState,
     reducers: {
         setSelectedProject: (state, action) => {
-            state.project = action.payload
+            state.project = JSON.stringify(action.payload)
         },       
     }
 })
 
 export const { setSelectedProject } = selectedProjectSlice.actions
-export const selectProject = (state) => state.project.project
+export const selectProject = (state) =>  JSON.parse(state.project.project)
 
-export default selectedProjectSlice.reducer;
+export default selectedProjectSlice.reducer;    

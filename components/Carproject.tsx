@@ -32,11 +32,11 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
 
   const dispatch = useDispatch()
   const { user }:any = useAuth()
-
+  const isMyProject = author.uid ===user.uid
   const setProjectToNav = () => {
 
     dispatch(setSelectedProject({
-      id, car, author, createdAt, place
+      id, car, author, createdAt:JSON.stringify(createdAt), place
     }))
 
     navigation.navigate('Project', {id, car, author, createdAt})
@@ -54,7 +54,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   const saveProject = (projectId:string) => {
     //....
   }
-console.log(createdAt)
+
   return (
       <View style={{backgroundColor: theme.background}}>
       {car.performance&&
@@ -100,7 +100,7 @@ console.log(createdAt)
  
         <View style={style.footer}>
           <View style={{alignItems:'center', flexDirection:'row'}}>
-            <TouchableOpacity
+            {!isMyProject&&<TouchableOpacity
               onPress={()=>likeProject(id, author.uid, car.likes.find((like:any)=>like.uid===user.uid), {imageUri:user.imageUri, name:user.name, uid:user.uid})}
               style={[style.iconContainer]}>
               <Icon                 
@@ -109,7 +109,7 @@ console.log(createdAt)
                     size={24} 
                     color={theme.fontColor}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity>}
             <TouchableOpacity onPress={()=> onShare(car.CarMake, car.model, 'lubie Cie')} style={style.iconContainer}>
               <Icon                 
                     name='share'

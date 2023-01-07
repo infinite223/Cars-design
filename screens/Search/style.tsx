@@ -2,9 +2,10 @@ import { StyleSheet } from "react-native"
 
 export const style = StyleSheet.create({
     searchContainer: {
-        borderRadius:10,
+        borderRadius:5,
         marginHorizontal:15,
-        paddingHorizontal:10
+        paddingLeft:10,
+        paddingRight:5
     },
     searchButton:{
         borderRadius:10, 

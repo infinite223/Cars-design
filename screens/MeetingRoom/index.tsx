@@ -19,6 +19,7 @@ import {
 } from 'react-native-popup-menu';
 import { toDateTime } from '../../utils/toDateTime';
 import { Icon } from '@rneui/themed';
+import useAuth from '../../hooks/useAuth';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 
 
@@ -32,7 +33,10 @@ const MeetingRoomScreen = () => {
     const route = useRoute<any>()
     const context = useSharedValue({y: 0})
     const focuseOnSearch = useSelector(selectFocuseOnSearch)
-    const { name, place, date, id} = route.params;
+    const { user }:any = useAuth()
+    const { name, place, date, id, createdBy} = route.params;
+
+    const isMyMeeting = createdBy.uid === user.uid
 
     toDateTime(date.seconds)
     const gesture = Gesture.Pan()
@@ -55,7 +59,6 @@ const MeetingRoomScreen = () => {
         translateY.value =  withSpring( -SCREEN_HEIGHT, { damping: 50})
       }
     })
-    const selectedRoom = useSelector(selectRoom)
 
     const rRoomContentSheetStyle = useAnimatedStyle(() => {
       const borderRadius = interpolate(translateY.value, [-SCREEN_HEIGHT + 100, -SCREEN_HEIGHT + 50], [20, 0], Extrapolate.CLAMP )
@@ -80,7 +83,6 @@ const MeetingRoomScreen = () => {
       translateY.value = withSpring(-SCREEN_HEIGHT/2.2, { damping: 50})
     }, [])
 
-    console.log(tabInRoom)
     useEffect(() => {
       if(tabInRoom.tab=="Chat" || focuseOnSearch){
         translateY.value = withSpring(-SCREEN_HEIGHT, { damping: 50})
@@ -145,7 +147,7 @@ const MeetingRoomScreen = () => {
                   Report
                   </Text>
               </MenuOption>
-              {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/> */}
+              {isMyMeeting&&<MenuOption onSelect={() => alert(`Not called`)} disabled={true} text="Usuń meeting"/>}
               {/* <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
               <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} /> */}

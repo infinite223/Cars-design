@@ -1,4 +1,4 @@
-import { collectionGroup, onSnapshot, query, limit, startAfter, getDocs, orderBy } from "firebase/firestore";
+import { collectionGroup, onSnapshot, query, limit, startAfter, getDocs, orderBy, QuerySnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { User } from "../utils/types";
 import { db } from "./useAuth";
@@ -9,7 +9,7 @@ export const useProjects = (user:User, _limit:number) => {
 
     const [loading, setLoading] = useState(false)
     const projectsRef = collectionGroup(db, 'projects')
-    const projectsQuery = query(projectsRef, limit(2))
+    const projectsQuery = query(projectsRef,  limit(2), orderBy('createdAt', 'desc'),)
     const [lastVisible, setLastVisible] = useState<any>(null)
 
     const getProjects = async () => {
@@ -17,7 +17,6 @@ export const useProjects = (user:User, _limit:number) => {
             setProjects(snapchot.docs.map((doc, i)=> {
                 return doc.data()
             }))   
-            // setProjects(_projects?.sort((a, b)=>a.createdAt - b.createdAt))
         })
 
         const documentSnapshots = await getDocs(projectsQuery);
@@ -27,14 +26,14 @@ export const useProjects = (user:User, _limit:number) => {
 
     const nextProjects = async () => {
         if(projects?.length){
-            const next = query(projectsRef, startAfter(lastVisible), limit(2))
+            const next = query(projectsRef, orderBy('createdAt', 'desc'), startAfter(lastVisible), limit(2))
+
             onSnapshot(next, async (snapchot) => {   
                 if(snapchot.docs[0]){
                     setLoading(true)
                     const nextProjects = snapchot.docs.map((doc, i)=> {
                         return doc.data()
                     })
-
                     setProjects(projects.concat(nextProjects))
                     const documentSnapshots = await getDocs(next);
                     setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length-1])

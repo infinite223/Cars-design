@@ -16,6 +16,7 @@ import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { setChats } from '../../slices/chatsSlice';
 import { selectHideProjects } from '../../slices/hideProjects';
+import { toDateTime } from '../../utils/toDateTime';
 
 
 Notifications.setNotificationHandler({
@@ -36,6 +37,17 @@ const HomeScreen = () => {
   const {user}:any = useAuth()
   const [limit, setLimit] = useState(2) 
   const { projects, loading, nextProjects}  = useProjects(user, limit)
+
+  const items = [
+    { name: "Edward", value: new Date(1995, 11, 17) },
+    { name: "Sharpe", value:  new Date(1925, 11, 17) },
+    { name: "And", value:  new Date(2095, 11, 17) },
+    { name: "The", value:  new Date(1915, 11, 17) },
+    { name: "Magnetic", value:  new Date(1999, 11, 17) },
+    { name: "Zeros", value:  new Date(1995, 11, 19) },
+  ];
+
+  // projects?.sort((a, b) => toDateTime(b.createdAt).getTime() - toDateTime(a.createdAt).getTime())
 
   useLayoutEffect(()=> {
     if(user.name!=='Tester'){
@@ -87,7 +99,6 @@ const HomeScreen = () => {
     };
   }, []);
   
-  console.log(projects, 'ss')
 
   return (
     <SafeAreaView style={{paddingTop:0, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>

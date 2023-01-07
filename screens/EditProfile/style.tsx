@@ -15,7 +15,7 @@ export const style = StyleSheet.create({
         alignSelf:'center'
     },
     mainData: {
-        marginTop:15,
+        marginVertical:5,
         flexDirection:'row',
         // alignItems:'center',
         // justifyContent:'space-around',
