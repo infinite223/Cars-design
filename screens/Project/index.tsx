@@ -19,7 +19,7 @@ import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 import useAuth from '../../hooks/useAuth';
 import { UsersList } from '../../components/UsersList';
 import { UserList } from '../../utils/types';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, getDoc } from 'firebase/firestore';
 import { db } from './../../hooks/useAuth';
 import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
@@ -31,18 +31,17 @@ const heightScreen = Dimensions.get('window').height
 const ProjectScreen = () => {
     const navigation:any = useNavigation()
     const navigationTabs: any = useNavigation()
-    const [chatModalVisible, setChatModalVisible] = useState(false)
     const [mapModalVisible, setMapModalVisible] = useState(false)
     const [showUsersList, setShowUsersList] = useState<{
       show: boolean;
-      users: UserList[] | null;
+      users: string[] | null;
       headerText: string;
   }>({show:false, users: [], headerText:''})
     const theme = useSelector(selectTheme)
     const chats:any = useSelector(selectChats)
     const route = useRoute<any>()
     const {id, car, author, createdAt } = route.params;
-    const [likes, setLikes] = useState<UserList[]>(car.likes)
+    const [likes, setLikes] = useState<string[]>(car.likes)
 
     const baseColor = getColorsCircle(car.performance[0].value, car.performance[0].type)[0]
     
@@ -61,6 +60,7 @@ const ProjectScreen = () => {
 
     useEffect(()=>{
       const unsubscribe = onSnapshot(projectsRef, (snapchot) => { 
+
         if(snapchot.data()){
           setLikes(snapchot.data()?.car.likes)     
         }
@@ -68,7 +68,6 @@ const ProjectScreen = () => {
 
        return unsubscribe
     }, [likeProject])
-
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -130,14 +129,14 @@ const ProjectScreen = () => {
               <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity 
-              onLongPress={()=>setShowUsersList({show:true, users:car.likes, headerText:"Users"})} 
-              onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like.uid===user.uid), {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
+              onLongPress={()=>setShowUsersList({show:true, users:likes, headerText:"Users"})} 
+              onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like===user.uid)?true:false, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
               style={style.iconPadding}
             >         
               <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
             </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>
-              {likes.length}
+              {likes?.length}
             </Text>
           </View>
           <View>
@@ -153,7 +152,7 @@ const ProjectScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      <UsersList translateX={translateX} isMyProfile={user.uid===author.uid} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
+      <UsersList likes projectId={id} translateX={translateX} isMyProfile={user.uid===author.uid} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
     </View>
   )
 }

@@ -24,13 +24,18 @@ export const onShare = async (carMake:string, model:string, link:string) => {
 };
 
 export const likeProject = async (id:string, authorUid:string, type:boolean, user:UserList) => {
-  console.log(user)
+  console.log(type, user)
   if(authorUid!==user.uid){
  
     await updateDoc(doc(db, `users/${authorUid}/projects`, id), {
       'car.likes':
-      !type?arrayUnion({name:user.name, uid:user.uid, imageUri: user.imageUri}):
-      arrayRemove({name:user.name, uid:user.uid, imageUri: user.imageUri})
+      !type?arrayUnion(user.uid):
+      arrayRemove(user.uid)
+    })
+
+    await updateDoc(doc(db, `users`, user.uid), {
+      'likesProjects':  !type?arrayUnion(id):
+      arrayRemove(id)
     })
 
 

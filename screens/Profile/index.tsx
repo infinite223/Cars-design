@@ -17,7 +17,7 @@ import { Dimensions } from 'react-native';
 import { CarprojectData, User, UserList } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
 import { UsersList } from '../../components/UsersList';
-import { collection, getDoc, onSnapshot, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, getDoc, onSnapshot, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 import { doc } from 'firebase/firestore';
 
@@ -72,10 +72,40 @@ const ProfileScreen = () => {
                     />
                 </TouchableOpacity>
             </View>
-          )
+          ),
+          headerRight: ()=> (
+            <>
+             {!isMyProfile?
+                !displayUser.stats.followers.find((person)=>person.uid === user.uid)?<TouchableOpacity onPress={() => followPerson(true)} style={[style.followButton]}>
+                    <Text style={style.followButtonText}>Obserwuj</Text>
+                </TouchableOpacity>:
+                <TouchableOpacity onPress={() => followPerson(false)} style={[style.followButton, {backgroundColor: '#333'}]}>
+                    <Text style={style.followButtonText}>Obserwujesz</Text>
+                </TouchableOpacity>:
+                <View></View>
+            } 
+             </>
+            )
         })  
       }, [theme, displayUser])
 
+      const followPerson = async (type:boolean) => {
+        await updateDoc(doc(db, "users", profileUser.uid), {
+            'stats.followers': type?arrayUnion({uid: user.uid, imageUri: user.imageUri, name: user.name}):
+            arrayRemove({uid: user.uid, imageUri: user.imageUri, name: user.name})
+        }).catch((e)=>console.log(e, 'error'))
+        .then(()=>console.log('follow success'))
+        .finally( async () =>{
+            await updateDoc(doc(db, "users", user.uid), {
+                'stats.following': type?arrayUnion({uid: displayUser.uid, imageUri: displayUser.imageUri, name: displayUser.name}):
+                arrayRemove({uid: displayUser.uid, imageUri: displayUser.imageUri, name: displayUser.name})
+            }).catch((e)=>console.log(e, 'error'))
+            .then(()=>console.log('following success'))
+        })
+      }
+
+
+      console.log(displayUser)
       const translateX = useSharedValue(-1200)
 
       const rAllContentSheetStyle = useAnimatedStyle(() => {  
@@ -85,13 +115,15 @@ const ProfileScreen = () => {
       })          
 
       useEffect(() => {
-        const getUserData = async () => {
-            const userRef = doc(db, 'users', profileUser.uid)
-            console.log(profileUser)
-            const userSnap:any = await getDoc(userRef);
-            if(userSnap.data()){
-                setDisplayUser(userSnap.data())
+        const userRef = doc(db, 'users', profileUser.uid)
+
+        const unsubscribe2:any =  onSnapshot(userRef, (snapshot)=> {
+            if(snapshot.exists() && snapshot.data()){
+                setDisplayUser(snapshot.data())
             }
+        }); 
+        
+        const getUserData = async () => {
             if(!isMyProfile){
                 const findUser = displayUser.stats.views.find((person)=>person.uid === user.uid)
                 if((findUser?.uid !== user.uid)===true){
@@ -113,11 +145,14 @@ const ProfileScreen = () => {
             }))      
         })
 
-         if(!isMyProfile){
+        //  if(!isMyProfile){
             getUserData()
-         }
+        //  }
 
-         return unsubscribe
+         return () => {
+            unsubscribe
+            unsubscribe2
+         } 
       }, [])
 
 
@@ -136,17 +171,17 @@ const ProfileScreen = () => {
 
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.followers, headerText:`${[{}].length} followers`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.followers, headerText:displayUser.stats.followers.length+` followers`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.followers.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.views, headerText:`${[{},{},{},{},{}].length} views`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.views, headerText:displayUser.stats.views.length+` views`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
                 <Text style={{fontSize:20,  color: theme.fontColor}}>{displayUser.stats.views.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.following, headerText:`${[{},{},{}].length} followed`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.following, headerText:displayUser.stats.following.length+` followed`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.following.length}</Text>
             </TouchableOpacity>

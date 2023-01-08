@@ -78,6 +78,15 @@ export const style = StyleSheet.create({
     },
     searchInput: {
         fontSize:15,
-
+    },
+    followButton: {
+        borderRadius:10,
+        paddingHorizontal:15,
+        paddingVertical:5,
+        backgroundColor: '#273',
+        marginTop:15
+    },
+    followButtonText: {
+        color: 'white'
     }
 })

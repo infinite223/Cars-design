@@ -7,9 +7,10 @@ import _Icon from 'react-native-vector-icons/Entypo'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { UserList } from '../utils/types';
-import useAuth from './../hooks/useAuth';
+import useAuth, { db } from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
 import { FilterUsers } from './FilterUsers';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height
@@ -18,16 +19,19 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 interface UsersListProps {
     translateX?:any,
     isMyProfile: boolean,
-    showUsersList: {show:boolean, users: UserList[] | null, headerText: string},
-    setShowUsersList: (value:{show:boolean, users: UserList[], headerText: string}) =>void, 
+    showUsersList: {show:boolean, users: string[] | null, headerText: string},
+    setShowUsersList: (value:{show:boolean, users: string[], headerText: string}) =>void, 
+    likes?:boolean,
+    projectId: string
 }
 
-export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, showUsersList, setShowUsersList}) => {
+export const UsersList:React.FC<UsersListProps> = ({likes, projectId, translateX, isMyProfile, showUsersList, setShowUsersList}) => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { user, logout }:any = useAuth()
     const [search, setSearch] = useState('')
     const [focuseOnSearch, setFocuseOnSearch] = useState(false)
+    const [users, setUsers] = useState<any>()
 
     const translateY = useSharedValue(0)
     const rUsersListContentSheetStyle = useAnimatedStyle(() => {  
@@ -74,7 +78,23 @@ export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, sh
     const unHide = () => {
       translateY.value =  withSpring( -SCREEN_HEIGHT/1.4, { damping: 50})
     }
-    
+
+    useEffect(()=> {
+      if(likes && showUsersList.show){
+        const usersRef = collection(db, 'users')
+        const queryUsersRef = query(usersRef, where('likesProjects', 'array-contains', projectId))
+
+      const unsubscribe = onSnapshot(queryUsersRef, (snapchot) => {      
+          setUsers(snapchot.docs.map((doc, i)=> {
+                return doc.data()
+            }))  
+        })
+      
+      return unsubscribe
+      }
+    },[])
+
+    console.log(users)
 
   return (
     <GestureDetector gesture={gesture}>
@@ -96,7 +116,7 @@ export const UsersList:React.FC<UsersListProps> = ({ translateX, isMyProfile, sh
                 </View>
             </View>
 
-            <FilterUsers users={showUsersList.users} input={search} edit={isMyProfile} showOptions={showUsersList.show}/>   
+            <FilterUsers users={users} input={search} edit={isMyProfile} showOptions={showUsersList.show}/>   
         </Animated.View>       
       </GestureDetector>     
   )
