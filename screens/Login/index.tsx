@@ -60,7 +60,7 @@ const LoginScreen = () => {
                 {!showRegisterForm?<LoginForm setShowAlert={setShowAlert}/>:<RegisterForm setShowAlert={setShowAlert}/>}
                 <View style={{flexDirection:'row', alignItems:'center'}}>
                   <TouchableOpacity onPress={()=>setShowRegisterForm(!showRegisterForm)} style={{ alignItems:'center'}}>
-                    <Text style={{fontSize:18, color:"#1b3", fontWeight:'bold'}}>{showRegisterForm?'login':'Create account'}</Text>
+                    <Text style={{fontSize:18, color:"#1b3", fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>
                   </TouchableOpacity>
                   <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>
                   <TouchableOpacity onPress={()=>signInAsTester()} style={{alignItems:'center', flexDirection:'row'}}>

@@ -29,15 +29,6 @@ const PeopleTab = () => {
   const selectedMeeting = useSelector(selectRoom)
   const isMyMeeting = user.uid === room.createdBy.uid
 
-  const joinMe = () => {
-    setShowSelectModal(true)
-    // const meetingRef = doc(db, 'meetings', room.id)
-
-    // updateDoc(meetingRef, {
-    //   'people':arrayUnion({name: user.name, imageUri: user.imageUri, uid:user.uid, authorProject:selectedProject})
-    // })
-  }
-
   const unJoinMe = () => {
     const poeople = people.people?.find((people:any)=> people.uid === user.uid)
     const meetingRef = doc(db, 'meetings', room.id)
@@ -90,7 +81,7 @@ const PeopleTab = () => {
                     <Text style={{color: '#2b3', fontSize:12, fontWeight:'400'}}> Admin</Text>       
                 </Text>
                 <Text style={[style.carText, {color: theme.fontColorContent}]}>
-                  {room.authorProject?.carMake+ " "}  {room.authorProject?.model}
+                  {room.authorProject?.carMake != undefined&& room.authorProject?.carMake+ " " +room.authorProject?.model}
                 </Text>
               </View>
                 <Image
@@ -166,7 +157,7 @@ const style = StyleSheet.create({
     borderRadius:10,
   },
   singMeText: {
-    fontSize:15,
+    fontSize:13,
     letterSpacing:2,
     fontWeight:'bold',
     color:'white'

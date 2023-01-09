@@ -55,7 +55,7 @@ export const RegisterForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({
         </View>
 
         <TouchableOpacity style={{marginVertical:35}} onPress={register}>
-            <GradientButton text='Register'/>
+            <GradientButton text='Zarejestruj'/>
         </TouchableOpacity>
     </View>
   )

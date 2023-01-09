@@ -48,7 +48,7 @@ export const LoginForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({set
         </View>
 
         <TouchableOpacity style={{marginVertical:35}} onPress={login}>
-            <GradientButton text='Login'/>
+            <GradientButton text='Zaloguj'/>
         </TouchableOpacity>
     </View>
   )

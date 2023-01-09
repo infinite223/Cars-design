@@ -19,7 +19,7 @@ import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 import useAuth from '../../hooks/useAuth';
 import { UsersList } from '../../components/UsersList';
 import { UserList } from '../../utils/types';
-import { doc, onSnapshot, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot, getDoc, collection } from 'firebase/firestore';
 import { db } from './../../hooks/useAuth';
 import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
@@ -36,7 +36,8 @@ const ProjectScreen = () => {
       show: boolean;
       users: string[] | null;
       headerText: string;
-  }>({show:false, users: [], headerText:''})
+      type:string
+  }>({show:false, users: [], type:'', headerText:''})
     const theme = useSelector(selectTheme)
     const chats:any = useSelector(selectChats)
     const route = useRoute<any>()
@@ -129,11 +130,11 @@ const ProjectScreen = () => {
               <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
             </TouchableOpacity>
             <TouchableOpacity 
-              onLongPress={()=>setShowUsersList({show:true, users:likes, headerText:"Users"})} 
+              onLongPress={()=>setShowUsersList({show:true, type:'likes', users:likes, headerText:"Users"})} 
               onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like===user.uid)?true:false, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
               style={style.iconPadding}
             >         
-              <Icon type="evilicon" name='heart' size={32} color={theme.fontColor}/>
+              <Icon type="evilicon" name='heart' size={32} color={likes.find((like:any)=>like===user.uid)?'#f33':theme.fontColor}/>
             </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>
               {likes?.length}
@@ -152,7 +153,7 @@ const ProjectScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      <UsersList likes projectId={id} translateX={translateX} isMyProfile={user.uid===author.uid} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
+      <UsersList projectId={id} translateX={translateX} isMyProfile={user.uid===author.uid} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
     </View>
   )
 }

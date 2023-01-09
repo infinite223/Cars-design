@@ -3,7 +3,9 @@ import { StyleSheet } from "react-native"
 export const style = StyleSheet.create({
     container: {
         flex:1,
-        paddingHorizontal:15
+        paddingHorizontal:15,
+        alignItems:'center',
+        justifyContent:'center'
     },
     createButton: {
         paddingHorizontal:15,

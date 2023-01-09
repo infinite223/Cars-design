@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity,  Dimensions, Platform, ScrollView, TextInput  } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react'
-import useAuth from '../../hooks/useAuth'
+import useAuth, { db } from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
@@ -23,6 +23,7 @@ import { AccordionView } from './stages';
 import { validInpute } from '../../utils/functions/validateInput';
 import * as DocumentPicker from 'expo-document-picker';
 import { playSound } from '../../utils/functions/playSound';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 const CreateScreen = () => {
     const { errorMessage, 
@@ -40,6 +41,7 @@ const CreateScreen = () => {
     const [imagesStages, setImagesStages] = useState<any[]>([]);
     const [soundCheck, setSoundCheck] = useState('')
     const [links, setLinks] = useState({yt:'', fb:'', ig:''})
+    const [numberProjects, setNummberProjects] = useState(0)
 
     const { user, logout }:any = useAuth()
     const [originImage, setOriginImage] = useState<any>({})
@@ -99,6 +101,17 @@ const CreateScreen = () => {
             
     })
       }, [theme, language])
+
+
+    useEffect(()=> {
+        const projectsRef = collection(db, `users/${user.uid}/projects/`)
+
+        const unsubscribe = onSnapshot(projectsRef, (snapshot) => {
+          setNummberProjects(snapshot.docs.length)
+        })
+
+        return unsubscribe
+      }, [])
 
     useEffect(() => {
 	    (async () => {
@@ -166,7 +179,6 @@ const CreateScreen = () => {
                         dropdownTextStyles={{color: theme.fontColor, marginLeft:-10}}
                         dropdownStyles={{borderBottomWidth:1, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:-5, marginBottom:5}}  
                         data={makesCategory} 
-                        
                     />
                 }
                 <CustomInput placeholder={model[language as keyof typeof model]} setValue={(text)=>setCarData({...carData, model:text})} helpText="(Mustang, Scirocco, M4...)"/>
@@ -341,7 +353,7 @@ const CreateScreen = () => {
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         {showError.show&&<AlertModal type={showError.type} show={showError.show} message={showError.message} resetError={setShowError}/>}
-        <FlatList
+        {numberProjects<2?<FlatList
             ref={flatListRef}
             pagingEnabled
             style={{width:widthScreen}}
@@ -353,7 +365,11 @@ const CreateScreen = () => {
                     {item}
                 </View>
             )}
-        />
+        />:
+            <Text style={[{color: theme.fontColorContent}]}> 
+                {language === 'en'?'Basic account can only add 2 projects':'Podstawowe konto może dodać tylko dwa projekty'}
+            </Text>
+        }
     </View>
   )
 }

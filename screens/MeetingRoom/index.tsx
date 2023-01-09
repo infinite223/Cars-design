@@ -19,7 +19,8 @@ import {
 } from 'react-native-popup-menu';
 import { toDateTime } from '../../utils/toDateTime';
 import { Icon } from '@rneui/themed';
-import useAuth from '../../hooks/useAuth';
+import useAuth, { db } from '../../hooks/useAuth';
+import { deleteDoc, doc } from 'firebase/firestore';
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 
 
@@ -90,6 +91,14 @@ const MeetingRoomScreen = () => {
 
     }, [tabInRoom, focuseOnSearch])
 
+    const deleteMeeting = async (id:string) => {
+      const meetingRef = doc(db, 'meetings', id)
+      navigation.navigate('Meeting')
+      deleteDoc(meetingRef)
+      .then(()=> {})
+      .catch((e)=> console.log(e))
+    }
+
   return (
     <View style={[style.mainContainer, {backgroundColor: theme.background, position:'relative'}]}>
     <ScrollView contentContainerStyle={{flex:1}}>
@@ -147,7 +156,7 @@ const MeetingRoomScreen = () => {
                   Report
                   </Text>
               </MenuOption>
-              {isMyMeeting&&<MenuOption onSelect={() => alert(`Not called`)} disabled={true} text="Usuń meeting"/>}
+              {isMyMeeting&&<MenuOption onSelect={() => deleteMeeting(id)} text="Usuń meeting"/>}
               {/* <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
               <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} /> */}

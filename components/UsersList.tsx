@@ -19,13 +19,12 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 interface UsersListProps {
     translateX?:any,
     isMyProfile: boolean,
-    showUsersList: {show:boolean, users: string[] | null, headerText: string},
-    setShowUsersList: (value:{show:boolean, users: string[], headerText: string}) =>void, 
-    likes?:boolean,
+    showUsersList: {show:boolean, type:string, users: string[] | null, headerText: string},
+    setShowUsersList: (value:{show:boolean, type:string, users: string[], headerText: string}) =>void, 
     projectId: string
 }
 
-export const UsersList:React.FC<UsersListProps> = ({likes, projectId, translateX, isMyProfile, showUsersList, setShowUsersList}) => {
+export const UsersList:React.FC<UsersListProps> = ({projectId, translateX, isMyProfile, showUsersList, setShowUsersList}) => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { user, logout }:any = useAuth()
@@ -80,9 +79,11 @@ export const UsersList:React.FC<UsersListProps> = ({likes, projectId, translateX
     }
 
     useEffect(()=> {
-      if(likes && showUsersList.show){
+      if(showUsersList.type && showUsersList.show){
         const usersRef = collection(db, 'users')
-        const queryUsersRef = query(usersRef, where('likesProjects', 'array-contains', projectId))
+        const queryUsersRef = query(usersRef, where(
+          showUsersList.type === 'likes'?'likesProjects':showUsersList.type === 'followers'?'stats.following':'stats.followers',
+           'array-contains', projectId))
 
       const unsubscribe = onSnapshot(queryUsersRef, (snapchot) => {      
           setUsers(snapchot.docs.map((doc, i)=> {
@@ -92,7 +93,7 @@ export const UsersList:React.FC<UsersListProps> = ({likes, projectId, translateX
       
       return unsubscribe
       }
-    },[])
+    },[showUsersList])
 
     console.log(users)
 

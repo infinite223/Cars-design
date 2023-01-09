@@ -33,9 +33,8 @@ export const style = StyleSheet.create({
     dateContainer: {
         position:'relative',
         zIndex:10,
-        backgroundColor:'#273',
-        marginHorizontal:30,
-        // borderTopRadius:20,
+        backgroundColor:'#222',
+        marginHorizontal:25,
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
         flexDirection:'row',

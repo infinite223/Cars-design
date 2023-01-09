@@ -36,7 +36,7 @@ const ProfileScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<RouteProp<ProfileScreenProps, 'B'>>()
     const [showOptions, setShowOptions] = useState<{show:boolean, selectedProject: CarprojectData | null}>({show:false, selectedProject: null})
-    const [showUsersList, setShowUsersList] = useState<{show:boolean, users: UserList[] | null, headerText: string}>({show:false, users: null, headerText:''})
+    const [showUsersList, setShowUsersList] = useState<{show:boolean, type:string, projectId?:string, users: string[] | null, headerText: string}>({show:false, type:'', projectId:'', users: null, headerText:''})
     const [showAlert, setShowAlert] = useState<{show:boolean, message:string, type?:string}>()
     const profileUser:any = route.params;
     const [userProjects, setUserProjects] = useState<any>([])
@@ -91,14 +91,14 @@ const ProfileScreen = () => {
 
       const followPerson = async (type:boolean) => {
         await updateDoc(doc(db, "users", profileUser.uid), {
-            'stats.followers': type?arrayUnion({uid: user.uid, imageUri: user.imageUri, name: user.name}):
-            arrayRemove({uid: user.uid, imageUri: user.imageUri, name: user.name})
+            'stats.followers': type?arrayUnion(user.uid):
+            arrayRemove(user.uid)
         }).catch((e)=>console.log(e, 'error'))
         .then(()=>console.log('follow success'))
         .finally( async () =>{
             await updateDoc(doc(db, "users", user.uid), {
-                'stats.following': type?arrayUnion({uid: displayUser.uid, imageUri: displayUser.imageUri, name: displayUser.name}):
-                arrayRemove({uid: displayUser.uid, imageUri: displayUser.imageUri, name: displayUser.name})
+                'stats.following': type?arrayUnion(displayUser.uid):
+                arrayRemove(displayUser.uid)
             }).catch((e)=>console.log(e, 'error'))
             .then(()=>console.log('following success'))
         })
@@ -125,15 +125,15 @@ const ProfileScreen = () => {
         
         const getUserData = async () => {
             if(!isMyProfile){
-                const findUser = displayUser.stats.views.find((person)=>person.uid === user.uid)
-                if((findUser?.uid !== user.uid)===true){
+                const findUser = displayUser.stats.views.find((person)=>person === user.uid)
+                if((findUser !== user.uid)===true){
                     const unsubscribe = async () => {
-                        console.log(profileUser.uid,'xdddddasdd', user.uid)
                         await updateDoc(doc(db, "users", profileUser.uid), {
-                            'stats.views': arrayUnion({uid: user.uid, imageUri: user.imageUri, name: user.name})
+                            'stats.views': arrayUnion(user.uid)
                         }).catch((e)=>console.log(e, 'error'))
                         .then(()=>console.log('succedsadas'))
                     }
+                    unsubscribe()
                 }
             }
         }
@@ -171,17 +171,17 @@ const ProfileScreen = () => {
 
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.followers, headerText:displayUser.stats.followers.length+` followers`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, type:'followers', projectId:displayUser.uid, users:displayUser.stats.followers, headerText:displayUser.stats.followers.length+` followers`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.followers.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.views, headerText:displayUser.stats.views.length+` views`})} style={style.itemInfo}>
+            <TouchableOpacity disabled onPress={() => setShowUsersList({show:true, type:'views', users:displayUser.stats.views, headerText:displayUser.stats.views.length+` views`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
                 <Text style={{fontSize:20,  color: theme.fontColor}}>{displayUser.stats.views.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:displayUser.stats.following, headerText:displayUser.stats.following.length+` followed`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, type:'following', projectId:displayUser.uid, users:displayUser.stats.following, headerText:displayUser.stats.following.length+` followed`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
                 <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.following.length}</Text>
             </TouchableOpacity>
@@ -208,7 +208,7 @@ const ProfileScreen = () => {
             </View>
            
             <FilterProjects setShowUsersList={setShowUsersList} userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>  
-            <UsersList isMyProfile showUsersList={showUsersList} translateX={translateX} setShowUsersList={setShowUsersList}/>
+            {showUsersList.projectId&&<UsersList projectId={showUsersList.projectId} isMyProfile showUsersList={showUsersList} translateX={translateX} setShowUsersList={setShowUsersList}/>}
             <BottomOptions setShowAlert={setShowAlert} isMyProfile={isMyProfile} translateX={translateX} showOptions={showOptions} setShowOptions={setShowOptions}/> 
         </View>
     </View>

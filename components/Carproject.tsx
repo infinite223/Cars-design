@@ -101,16 +101,16 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
         <View style={style.footer}>
           <View style={{alignItems:'center', flexDirection:'row'}}>
             {!isMyProject&&<TouchableOpacity
-              onPress={()=>likeProject(id, author.uid, car.likes.find((like:any)=>like.uid===user.uid), {imageUri:user.imageUri, name:user.name, uid:user.uid})}
+              onPress={()=>likeProject(id, author.uid, car.likes.find((like:any)=>like===user.uid)?true:false, {imageUri:user.imageUri, name:user.name, uid:user.uid})}
               style={[style.iconContainer]}>
               <Icon                 
                     name='heart-outlined'
                     type='entypo'
                     size={24} 
-                    color={theme.fontColor}
+                    color={car.likes.find((like:any)=>like===user.uid)?'#f32':theme.fontColor}
                 />
             </TouchableOpacity>}
-            <TouchableOpacity onPress={()=> onShare(car.CarMake, car.model, 'lubie Cie')} style={style.iconContainer}>
+            <TouchableOpacity onPress={()=> onShare(car.CarMake, car.model, 'xd')} style={style.iconContainer}>
               <Icon                 
                     name='share'
                     type='entypo'

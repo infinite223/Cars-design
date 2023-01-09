@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
@@ -15,7 +15,7 @@ import useAuth, { db } from '../../hooks/useAuth';
 import { MeetingRoom } from '../../utils/types';
 import MapView from 'react-native-maps';
 import { v4 as uuid } from 'uuid';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 
 
@@ -30,6 +30,7 @@ const CreateMeeting = () => {
     const [name, setName] = useState('')
     const [date, setDate] = useState(new Date());
     const [image, setImage] = useState<any>(null)
+    const [nummberMeetings, setNummberMeetings] = useState(0)
     const [showAlert, setShowAlert] = useState({type:'', show:false, message:''})
 
 
@@ -39,6 +40,16 @@ const CreateMeeting = () => {
       longitude: user.place.longitude,
     })
 
+    useEffect(()=> {
+      const meetingsRef = collection(db, `meetings`)
+      const meetingsQuery = query(meetingsRef, where('createdBy.uid', '==', user.uid))
+      const unsubscribe = onSnapshot(meetingsQuery, (snapshot) => {
+        setNummberMeetings(snapshot.docs.length)
+      })
+
+      return unsubscribe
+    }, [])
+    console.log(nummberMeetings)
     const onChange = (event:any, selectedDate:any) => {
       const currentDate = selectedDate;
       setDate(currentDate);
@@ -88,65 +99,77 @@ const CreateMeeting = () => {
           people:[],
           place:place,
           id:meetingId,
+          authorProject:{carMake:'', imageUri:'', model:'' }
         }
 
         const meetingRef = doc(db, 'meetings', meetingId)
-
-        setDoc(meetingRef, meetingData)
+        if(place.city && place.latitude){
+          setDoc(meetingRef, meetingData)
           .then(()=> setShowAlert({message:successText[language as keyof typeof successText], show:true, type:'SUCCRESS'}))
           .catch(()=> setShowAlert({message:errorText[language as keyof typeof errorText], show:true, type:'ERROR'}))
+        }
+        else {
+          setShowAlert({message:errorText[language as keyof typeof errorText], show:true, type:'ERROR'})
+        }
+      
       }
 
       const validMeeting = name.length>2  
-      console.log(place)
+
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
       {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert} show/>}
       <SelectPlaceOnMap origin={place} setOrigin={setPlace} modalVisible={selectPlaceOnMapVisible} setModalVisible={setSelectPlaceOnMapVisible}/>
-      <CustomInput max={10} fontSize={18} setValue={setName} placeholder={nameMeeting[language as keyof typeof nameMeeting]}/>
-      <TouchableOpacity onPress={showDatepicker} style={[style.dateButton, {backgroundColor: theme.backgroundContent}]}>
-        <View style={{flexDirection:'column-reverse'}}>
-          <Text style={[{color: theme.fontColor}]}>{dateText[language as keyof typeof dateText]}</Text>
-          <Text style={[style.dateText]}>{date.toLocaleString()}</Text>
-        </View>
+      {nummberMeetings<1?<View style={{flex:1, width:'100%'}}>
+        <CustomInput max={10} fontSize={18} setValue={setName} placeholder={nameMeeting[language as keyof typeof nameMeeting]}/>
+        <TouchableOpacity onPress={showDatepicker} style={[style.dateButton, {backgroundColor: theme.backgroundContent}]}>
+          <View style={{flexDirection:'column-reverse'}}>
+            <Text style={[{color: theme.fontColor}]}>{dateText[language as keyof typeof dateText]}</Text>
+            <Text style={[style.dateText]}>{date.toLocaleString()}</Text>
+          </View>
 
-        <Icon type='ionicon' name='time-outline' color={theme.fontColorContent}/>
-      </TouchableOpacity>
+          <Icon type='ionicon' name='time-outline' color={theme.fontColorContent}/>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={()=>setSelectPlaceOnMapVisible(true)} style={[style.locationButton, {backgroundColor: theme.backgroundContent}]}>
-        <View>
-          <MapView          
-            scrollEnabled={false}          
-            style={style.miniMap}
-            region={{
-              latitude: place.latitude,
-              longitude: place.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            initialRegion={{
-                latitude: 52.22,
-                longitude: 21,
+        <TouchableOpacity onPress={()=>setSelectPlaceOnMapVisible(true)} style={[style.locationButton, {backgroundColor: theme.backgroundContent}]}>
+          <View>
+            <MapView          
+              scrollEnabled={false}          
+              style={style.miniMap}
+              region={{
+                latitude: place.latitude,
+                longitude: place.longitude,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-            }}
-          />
-        </View>
+              }}
+              initialRegion={{
+                  latitude: 52.22,
+                  longitude: 21,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+              }}
+            />
+          </View>
 
-        <View style={{ alignItems:'center', flex:1}}>
-          <Icon type='ionicon' name='location-outline' size={24} color={theme.fontColorContent}/>
-        </View>
-      </TouchableOpacity>
-      <Text style={[style.locationText, {color: theme.fontColorContent}]}>
-        {locationText[language as keyof typeof locationText]}
-      </Text>
-           
-      <TouchableOpacity disabled={!validMeeting} onPress={createMeeting} style={[style.createButton, {opacity:!validMeeting?.5:1}]}>
-        <Text style={{color: theme.fontColor, fontSize:17, letterSpacing:2, marginRight:10}}>
-          {createText[language as keyof typeof createText]}
+          <View style={{ alignItems:'center', flex:1}}>
+            <Icon type='ionicon' name='location-outline' size={24} color={theme.fontColorContent}/>
+          </View>
+        </TouchableOpacity>
+        <Text style={[style.locationText, {color: theme.fontColorContent}]}>
+          {locationText[language as keyof typeof locationText]}
         </Text>
-        <Icon type='materialicon' name='arrow-forward-ios' size={20} color={theme.fontColor}/>
-      </TouchableOpacity>
+            
+        <TouchableOpacity disabled={!validMeeting} onPress={createMeeting} style={[style.createButton, {opacity:!validMeeting?.5:1}]}>
+          <Text style={{color: theme.fontColor, fontSize:17, letterSpacing:2, marginRight:10}}>
+            {createText[language as keyof typeof createText]}
+          </Text>
+          <Icon type='materialicon' name='arrow-forward-ios' size={20} color={theme.fontColor}/>
+        </TouchableOpacity>    
+      </View>: 
+          <Text style={[{color: theme.fontColorContent}]}> 
+            {language === 'en'?'Basic account can only add 1 meeting':'Podstawowe konto może dodać tylko jeden meeting'}
+        </Text>
+      }
     </View>
   )
 }

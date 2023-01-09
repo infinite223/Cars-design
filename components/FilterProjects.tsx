@@ -17,7 +17,7 @@ interface FilterProjectsProps {
   edit?:boolean, 
   setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 
   showOptions:boolean,
-  setShowUsersList: (value: {show:boolean, users: UserList[] | null, headerText: string}) =>void
+  setShowUsersList: (value: {show:boolean, type:string, projectId:string, users: string[] | null, headerText: string}) =>void,
 }
 
 export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, input, edit, setShowOptions, showOptions, setShowUsersList}) => {
@@ -59,7 +59,7 @@ export const FilterProjects:React.FC<FilterProjectsProps> = ({userProjects, inpu
                 <Text style={{fontSize:13, color:theme.fontColorContent}}>{car.model}</Text>    
             </View>
             
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, users:car.likes, headerText:`${[{},{}].length} likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, type: 'likes', projectId: id, users:car.likes, headerText:car.likes.length +` likes`})} style={[localStyle.likesConteiner, {backgroundColor: theme.backgroundContent}]}>
               <Text style={{fontSize:17, marginHorizontal:5, color:theme.fontColor}}>{car.likes.length}</Text>
               <Icon                 
                   name='heart'

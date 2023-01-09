@@ -91,7 +91,9 @@ const MeetingScreen = () => {
                             <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
                                 <View style={style.textContainer}>
                                     <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
-                                    <Text style={[style.placeText, {color: '#5f9'}]}>{item.place.city}</Text>
+                                    <Text style={[style.placeText, {color: '#5f9'}]}>
+                                      {item.place.city.length<15?item.place.city:item.place.city.substring(0, 15)}
+                                    </Text>
                                 </View>  
                                 <View style={[style.countPeople, {borderColor: theme.fontColorContent}]}>
                                     <Text style={[{color: theme.fontColor, marginRight:8, fontSize:15, fontWeight:'bold'}]}>{item.people.length}</Text>

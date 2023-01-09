@@ -9,9 +9,9 @@ export type User = {
     place?:Place,
     uid:string,
     stats: {
-        followers: {uid:string, name: string, imageUri:string}[],
-        views:  {uid:string, name: string, imageUri:string}[],
-        following: {uid:string, name: string, imageUri:string}[],
+        followers:string[],
+        views: string[],
+        following:string[],
     },
     hideProjects: []
 }   
@@ -57,7 +57,7 @@ export type Car = {
     description:string,
     performance?:Performance,
     imagesCar:Image[],
-    likes:UserList[],
+    likes:string[],
     history:HistoryCar[],
     soundCheck:string,
     links: {ig:string, yt:string, fb:string}
