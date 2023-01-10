@@ -3,6 +3,7 @@ import { uploadImage } from "../uploadImage"
 import { uploadDataCar } from './uploadDataCar';
 import { v4 as uuid } from 'uuid';
 import { uploadSoundChcek } from './uploadSoundCheck';
+import { setLoading } from "../../slices/loadingSlice";
 
 export const addProject = async (
         images:any, 
@@ -13,13 +14,15 @@ export const addProject = async (
         user:User, 
         language:string, 
         stages:HistoryCar[],
-        setShowAlert: (value:AlertProps)=>void
+        setShowAlert: (value:AlertProps)=>void,
+        dispatch:any
     ) => {
 
         const { uid } = user
         const userUid = uid
         
     if(userUid){
+        dispatch(setLoading(true))
         const project_id = uuid();
         let soundCheckFirebaseUri = ''
         if(soundCheckUri.length>1){
@@ -80,11 +83,13 @@ export const addProject = async (
                 )
                 .then((alertSuccess:AlertProps | undefined)=> {
                     alertSuccess&&setShowAlert(alertSuccess)
-                    console.log('jupi', firebaseImagesUri)
+                    console.log('jupi', firebaseImagesUri),
+                    dispatch(setLoading(false))
                 })
                 .catch((alertError:AlertProps)=> {
                     setShowAlert(alertError), 
-                    console.log(alertError)
+                    console.log(alertError),
+                    dispatch(setLoading(false))
                 })
             }
         }
@@ -96,5 +101,6 @@ export const addProject = async (
             :'You must be login to add project' 
       
         setShowAlert({type:'ERROR', show:true, message: errorMessage})
+        dispatch(setLoading(false))
     }
 }

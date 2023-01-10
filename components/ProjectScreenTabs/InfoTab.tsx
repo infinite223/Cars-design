@@ -46,6 +46,8 @@ const InfoTab = () => {
     
   }, [selectedProject])
 
+  console.log(selectedProject)
+
   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
 
   const soundControl = async (playSound:boolean) => {
@@ -138,7 +140,7 @@ const InfoTab = () => {
                 </TouchableOpacity>
             </View>
 
-            {selectedProject.place&&<View style={{marginTop:15}}>
+            {selectedProject.place?.city&&<View style={{marginTop:15}}>
                 <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={localStyle.mapContainer}>          
                     <MapView          
                         scrollEnabled={false}          
@@ -153,7 +155,7 @@ const InfoTab = () => {
                     <View style={localStyle.mapData}>
                         <Icon type="materialicon" name='place' color={theme.fontColor} size={22} style={{marginRight:5}}/>
                         <Text style={[style.locationPlace, {color:theme.fontColor}]}>
-                            {selectedProject.place.city}
+                            {selectedProject.place?.city}
                         </Text>
                     </View>
                 </TouchableOpacity>

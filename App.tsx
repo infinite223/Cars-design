@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RightNavigation } from './navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';
 import PrompttModal from './screens/modals/ProptModal';
+import UploadingStatus from './components/UploadingStatus';
 
 LogBox.ignoreAllLogs()
 
@@ -22,6 +23,7 @@ export default function App() {
           <AuthProvider>
             <GestureHandlerRootView style={{flex:1}}>
               {/* <StatusBar showHideTransition={'slide'} hidden={false}/> */}
+              <UploadingStatus/>
               <PrompttModal/>
               <StackNavigator/>
               <RightNavigation/>

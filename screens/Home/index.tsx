@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Platform, SafeAreaView, StatusBar } from 'react-native'
+import { View, Text, FlatList, Platform, SafeAreaView, StatusBar, Image } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
@@ -68,9 +68,12 @@ const HomeScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () =>  <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-        Cars project
-       </Text>,
+       headerTitle: () =>  
+      //  <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
+      //   Cars project
+      //  </Text>
+      <Image style={{width:150, height:35}} source={require('./../../assets/nameApp.png')}/>
+       ,
        headerLeft: () => <View></View> 
     })  
   }, [theme])

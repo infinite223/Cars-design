@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { Icon } from '@rneui/themed';
 import CustomInput from '../../components/CustomInput';
@@ -17,6 +17,7 @@ import MapView from 'react-native-maps';
 import { v4 as uuid } from 'uuid';
 import { collection, doc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
+import { setLoading } from '../../slices/loadingSlice';
 
 
 const CreateMeeting = () => {
@@ -26,12 +27,12 @@ const CreateMeeting = () => {
     const language = useSelector(selectLanguage)
     const { user }:any = useAuth()
 
-    const {message: {successText, errorText}, nameMeeting, dateText, locationText, createText } = translations.screens.CreateMeeting
+    const {message: {successText, errorText, errorText2}, nameMeeting, dateText, locationText, createText } = translations.screens.CreateMeeting
     const [name, setName] = useState('')
     const [date, setDate] = useState(new Date());
-    const [image, setImage] = useState<any>(null)
     const [nummberMeetings, setNummberMeetings] = useState(0)
     const [showAlert, setShowAlert] = useState({type:'', show:false, message:''})
+    const dispatch = useDispatch()
 
 
     const [place, setPlace] = useState<any>({
@@ -91,6 +92,7 @@ const CreateMeeting = () => {
       }, [theme])
 
       const createMeeting = () => {
+        dispatch(setLoading(true))
         const meetingId = uuid();
         const meetingData:MeetingRoom = {
           name: name,
@@ -105,11 +107,19 @@ const CreateMeeting = () => {
         const meetingRef = doc(db, 'meetings', meetingId)
         if(place.city && place.latitude){
           setDoc(meetingRef, meetingData)
-          .then(()=> setShowAlert({message:successText[language as keyof typeof successText], show:true, type:'SUCCRESS'}))
-          .catch(()=> setShowAlert({message:errorText[language as keyof typeof errorText], show:true, type:'ERROR'}))
+          .then(()=> {
+            setShowAlert({message:successText[language as keyof typeof successText], show:true, type:'SUCCRESS'})
+            dispatch(setLoading(false))
+            navigation.navigate('Meeting')
+          })
+          .catch(()=> {
+            setShowAlert({message:errorText[language as keyof typeof errorText], show:true, type:'ERROR'})
+            dispatch(setLoading(false))
+          })
         }
         else {
-          setShowAlert({message:errorText[language as keyof typeof errorText], show:true, type:'ERROR'})
+          setShowAlert({message:errorText2[language as keyof typeof errorText2], show:true, type:'ERROR'})
+          dispatch(setLoading(false))
         }
       
       }

@@ -425,6 +425,10 @@ export const translations = {
                 successText: {
                     en: "Meeting was created!",
                     pl: "Spotkanie zostało utworzone!"
+                },
+                errorText2: {
+                    pl: "Nie wybrano miejsca",
+                    en: "Place was not selected"
                 }
             },
             nameMeeting: {

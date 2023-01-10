@@ -14,7 +14,7 @@ export const style = StyleSheet.create({
         marginVertical:10,
         position:'absolute',
         bottom:20,
-        right:20,
+        right:10,
         backgroundColor:'#273',
         flexDirection:'row',
         alignItems:'center'

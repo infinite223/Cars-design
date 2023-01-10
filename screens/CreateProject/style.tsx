@@ -19,7 +19,7 @@ export const style = StyleSheet.create({
     },
     headerText: {
         color: 'white',
-        fontSize:18,
+        fontSize:16,
         letterSpacing:1,
     },
     headerContainer: {
@@ -28,7 +28,7 @@ export const style = StyleSheet.create({
         width:'100%',
         backgroundColor: '#273',
         alignSelf:'center',
-        paddingVertical:5,
+        paddingVertical:8,
         paddingHorizontal:15,
         marginVertical:4,
         marginBottom:10,

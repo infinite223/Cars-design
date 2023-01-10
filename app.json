@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Cars-projects",
-    "slug": "Cars-projects",
+    "name": "Cars project",
+    "slug": "Carsproject",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -43,11 +43,12 @@
       }
     },
     "android": {
+      "package": "com.Carsproject",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "package": "host.exp.exponent"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

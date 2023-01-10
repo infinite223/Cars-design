@@ -1,0 +1,62 @@
+{
+    "expo": {
+      "name": "Cars project",
+      "slug": "Carsproject",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/icon.png",
+      "userInterfaceStyle": "light",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "updates": {
+        "fallbackToCacheTimeout": 0
+      },
+      "plugins": [
+        [
+          "expo-notifications",
+          {
+            "icon": "./local/assets/notification-icon.png",
+            "color": "#ffffff",
+            "sounds": [
+              "./local/assets/notification-sound.wav",
+              "./local/assets/notification-sound-other.wav"
+            ]
+          }
+        ],
+        [
+          "expo-document-picker",
+          {
+            "iCloudContainerEnvironment": "Production"
+          }
+        ]
+      ],
+      "assetBundlePatterns": [
+        "**/*"
+      ],
+      "ios": {
+        "supportsTablet": true,
+        "infoPlist": {
+          "NSAppleMusicUsageDescription": "The app accesses your music to play it"
+        }
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/adaptive-icon.png",
+          "backgroundColor": "#FFFFFF"
+        },
+        "package": "host.exp.exponent"
+      },
+      "web": {
+        "favicon": "./assets/favicon.png"
+      },
+      "extra": {
+        "eas": {
+          "projectId": "2a847d1f-94f6-4a27-aeca-1ec7ab5d5ba1"
+        }
+      }
+    }
+  }
+  

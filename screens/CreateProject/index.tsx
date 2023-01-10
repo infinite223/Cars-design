@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity,  Dimensions, Platform, ScrollView,
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react'
 import useAuth, { db } from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from './../../utils/translations';
@@ -24,6 +24,7 @@ import { validInpute } from '../../utils/functions/validateInput';
 import * as DocumentPicker from 'expo-document-picker';
 import { playSound } from '../../utils/functions/playSound';
 import { collection, onSnapshot } from 'firebase/firestore';
+import UploadingStatus from '../../components/UploadingStatus';
 
 const CreateScreen = () => {
     const { errorMessage, 
@@ -42,6 +43,7 @@ const CreateScreen = () => {
     const [soundCheck, setSoundCheck] = useState('')
     const [links, setLinks] = useState({yt:'', fb:'', ig:''})
     const [numberProjects, setNummberProjects] = useState(0)
+    const dispatch = useDispatch()
 
     const { user, logout }:any = useAuth()
     const [originImage, setOriginImage] = useState<any>({})
@@ -341,7 +343,7 @@ const CreateScreen = () => {
             </ScrollView>
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
-                onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError)} 
+                onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
                 style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Finish</Text>
