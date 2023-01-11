@@ -1,10 +1,10 @@
 {
   "expo": {
     "name": "Cars project",
-    "slug": "Carsproject",
+    "slug": "Cars-projects",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/cars_projects_IconV2.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -16,14 +16,16 @@
     },
     "plugins": [
       [
-        "expo-notifications",
+        "expo-build-properties",
         {
-          "icon": "./local/assets/notification-icon.png",
-          "color": "#ffffff",
-          "sounds": [
-            "./local/assets/notification-sound.wav",
-            "./local/assets/notification-sound-other.wav"
-          ]
+          "android": {
+            "compileSdkVersion": 31,
+            "targetSdkVersion": 31,
+            "buildToolsVersion": "31.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
         }
       ],
       [
@@ -31,7 +33,8 @@
         {
           "iCloudContainerEnvironment": "Production"
         }
-      ]
+      ],
+      "expo-build-properties"
     ],
     "assetBundlePatterns": [
       "**/*"
