@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Cars project",
+    "name": "Cars designs",
     "slug": "Cars-projects",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -49,7 +49,7 @@
       "package": "com.Carsproject",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/cars_projects_IconV2.png",
         "backgroundColor": "#FFFFFF"
       }
     },

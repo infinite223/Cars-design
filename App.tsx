@@ -12,10 +12,15 @@ import { RightNavigation } from './navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';
 import PrompttModal from './screens/modals/ProptModal';
 import UploadingStatus from './components/UploadingStatus';
+import { Appearance, useColorScheme } from 'react-native';
+
 
 LogBox.ignoreAllLogs()
 
 export default function App() {
+  let colorScheme = useColorScheme();
+  console.log(colorScheme)
+  
   return (   
     <Provider store={store}>
       <MenuProvider>

@@ -7,6 +7,7 @@ export const style = StyleSheet.create({
     },
     headerText: {
         fontSize:20,
-        marginVertical:10
+        marginVertical:10,
+        
     }
 })

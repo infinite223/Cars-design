@@ -1,6 +1,6 @@
 import { Modal, Dimensions, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import MapView from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useSelector } from 'react-redux';
@@ -14,9 +14,10 @@ interface SelectPlaceOnMapProps {
     setOrigin: (value:any) => void,
     modalVisible:boolean, 
     setModalVisible: (value:boolean) => void,
+    details?: {description:string, title:string}
 }
 
-const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, modalVisible, setModalVisible}) => {
+const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({details, origin, setOrigin, modalVisible, setModalVisible}) => {
     const navigation = useNavigation<any>()
     const widthScreen = Dimensions.get("screen").width
     const language = useSelector(selectLanguage)
@@ -26,6 +27,11 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
             longitude: -122.4324,
             latitudeDelta: 0.015,       
             longitudeDelta: 0.0121,
+    })
+
+    const [markerCords, setMarkerCords] = useState({
+        latitude: 37.78825,
+        longitude: -122.4324,
     })
 
     return (
@@ -74,7 +80,22 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                 style={{flex:1}}
                 initialRegion={region}
                 region={region}
-            />
+                provider={PROVIDER_GOOGLE}
+                onPress={(e) => setMarkerCords({
+                    latitude:  e.nativeEvent.coordinate.latitude,
+                    longitude:  e.nativeEvent.coordinate.longitude,
+                })}
+                // onAccessibilityTap
+            >
+                <Marker
+                    coordinate={{
+                        latitude:markerCords.latitude, 
+                        longitude: markerCords.longitude,                
+                    }}
+                    description={details?details.description:''}     
+                    title={details?details.title:''}    
+                />
+            </MapView>
            <TouchableOpacity 
                 disabled={!region?.city} 
                 style={[style.setButton,
@@ -82,8 +103,8 @@ const SelectPlaceOnMap:React.FC<SelectPlaceOnMapProps> = ({origin, setOrigin, mo
                     ]} 
                 onPress={()=>(setModalVisible(false), setOrigin({
                     city: region.city,
-                    latitude: region.latitude,
-                    longitude: region.longitude,
+                    latitude: markerCords.latitude,
+                    longitude: markerCords.longitude,
                 }))}
             >             
                 <Icon type='entypo' name={'check'} size={24} color="white"/>

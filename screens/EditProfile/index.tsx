@@ -51,10 +51,10 @@ const EditProfileScreen = () => {
   return (
     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
         {(showAlert && showAlert.type)&&<AlertModal resetError={setShowAlert} show={true} message={showAlert?.message} type={showAlert?.type}/>}
-        <SelectPlaceOnMap origin={place} setOrigin={setPlace} modalVisible={selectPlaceOnMapVisible} setModalVisible={setSelectPlaceOnMapVisible}/>
+        <SelectPlaceOnMap details={{title:name, description:place.city}} origin={place} setOrigin={setPlace} modalVisible={selectPlaceOnMapVisible} setModalVisible={setSelectPlaceOnMapVisible}/>
         <View style={[style.containerModal, {backgroundColor: theme.background}]}>
             <View style={{}}>
-              <CustomInput value={name} helpText={nameHelpText[language as keyof typeof nameHelpText]} placeholder={nameText[language as keyof typeof nameText]} setValue={setName} />
+                  <CustomInput value={name} helpText={nameHelpText[language as keyof typeof nameHelpText]} placeholder={nameText[language as keyof typeof nameText]} setValue={setName} />
                   <TouchableOpacity style={[style.mainData, {alignItems:'center'}]} onPress={()=>chooseImg(
                     image, setImage, undefined, true
                   )}>
