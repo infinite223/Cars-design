@@ -85,7 +85,7 @@ export const AuthProvider = ({children}) => {
       console.log("response")
       const credential = GoogleAuthProvider.credential(id_token, accessToken);
       await signInWithCredential(auth, credential)
-        .then((e)=>console.log(e))
+        .then((e)=>console.log(e.user))
         .catch((a)=> console.log(a))
         .finally(()=>setLoading(false))
     }

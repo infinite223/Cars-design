@@ -16,6 +16,26 @@ export type User = {
     hideProjects: []
 }   
 
+export type Message = {
+    email: string,
+    imageUri: string,
+    message:string,
+    name:string,
+    timestamp: any
+}
+
+export type Chat = {
+    data: {
+        from: {id: string, name: string, imageUri:string}
+        to: {id: string, name: string, imageUri:string}
+    }
+    lastMessage: {message:string, fromUid: string, time: Timestamp},
+    new?:boolean,
+    persons: string[]
+    id:string,
+    block?:boolean
+}
+
 export type UserList = {
     name:string,
     imageUri: string,

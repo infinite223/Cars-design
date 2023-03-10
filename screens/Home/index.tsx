@@ -49,7 +49,7 @@ const HomeScreen = () => {
 
   // projects?.sort((a, b) => toDateTime(b.createdAt).getTime() - toDateTime(a.createdAt).getTime())
 
-  useLayoutEffect(()=> {
+  useEffect(()=> {
     if(user.name!=='Tester'){
       const chatsRef = collection(db, "chats")
       //add query

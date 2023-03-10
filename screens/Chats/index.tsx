@@ -1,7 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { AlertProps, User } from '../../utils/types';
+import { AlertProps, Chat, User } from '../../utils/types';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
@@ -18,7 +18,7 @@ const ChatsScreen = () => {
     const navigation:any = useNavigation()
     const route = useRoute<any>()
     const theme = useSelector(selectTheme)
-    const chats = useSelector(selectChats)
+    const chats:Chat[] = useSelector(selectChats)
     const language = useSelector(selectLanguage)
     const { menu: { blockText, reportText, deleteText }} = translations.screens.Chats 
     const { user }:any = useAuth()

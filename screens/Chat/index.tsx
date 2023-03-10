@@ -1,17 +1,18 @@
 import { View, Text, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback, StatusBar } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useRef } from 'react'
 import { Avatar } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
-import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { style } from './style';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';
 import { selectChats } from './../../slices/chatsSlice';
 import { selectLanguage } from './../../slices/languageSlice';
+import { Chat } from '../../utils/types';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
@@ -23,15 +24,17 @@ const ChatScreen = () => {
     const [modalVisible, setModalVisible] = useState(false)
 
     const route = useRoute<any>()
-    const to = route.params;
+    const to:Chat = route.params;
     const [newChat, setNewChat] = useState(to.new)
     const language = useSelector(selectLanguage)
     useLayoutEffect(() => {
         navigation.setOptions({
           headerBackVisible:false,
           headerTitle: () => <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Avatar rounded size={35} source={{uri:to.data.to.imageUri}}/>
-            <Text style={{color: theme.fontColor, fontSize:19, marginLeft:10}}> {to.data.to.name}</Text>
+            <Avatar rounded size={35} source={{uri: to.data.to.id===user.uid?to.data.from.imageUri:to.data.to.imageUri}}/>
+            <Text style={{color: theme.fontColor, fontSize:19, marginLeft:10}}>
+              {to.data.to.id===user.uid?to.data.from.name:to.data.to.name}
+            </Text>
            </View>,
            headerLeft: () => (
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
@@ -76,6 +79,10 @@ const ChatScreen = () => {
         name: user.name,
         imageUri: user.imageUri,
         email:user.email
+      }).then( async () => {
+        await updateDoc(doc(db, "chats", to.id), {
+          "lastMessage": {message, fromUid:user.uid, time: serverTimestamp()}
+        }).then(() => console.log('git xd'));
       })
 
       setMessage('')
@@ -95,30 +102,36 @@ const ChatScreen = () => {
       return unsubscribe
 
     }, [])
+    const scrollViewRef:any = useRef(null);
+
+    function scrollViewSizeChanged(height:any){
+      // y since we want to scroll vertically, use x and the width-value if you want to scroll horizontally
+      scrollViewRef.current?.scrollTo({y: height, animated: true}); 
+  }
 
     return (
     <View style={[style.mainContainer, {backgroundColor: theme.background}]}>          
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <>
-            <ScrollView style={{flex:1}} contentContainerStyle={[{paddingTop:15, opacity:to.block?0.4:1}]}>
+            <ScrollView ref={scrollViewRef} onContentSizeChange={(width,height) => {scrollViewSizeChanged(height)}} style={{flex:1}} contentContainerStyle={[{paddingTop:15, opacity:to.block?0.4:1}]}>
             {messages.map(({id, data}:{id:number, data:any})=> 
                 data.email===user.email? (
-                <View key={id} style={[style.reciever,{backgroundColor: '#253'}]}>
+                <View key={id} style={[style.reciever]}>
                     {/* <Avatar                     
                       size={28}
                       rounded
                       source={{uri:data.imageUri}}    
                     /> */}
-                    <Text style={[style.recieverText, {color: theme.fontColor}]}>{data.message}</Text>
+                    <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: '#253'}]}>{data.message}</Text>
                 </View>
                 ) : (
-                <View key={id} style={[style.sender, {backgroundColor: theme.backgroundContent}]}>
+                <View key={id} style={[style.sender]}>
                     <Avatar                     
-                      size={20}
+                      size={32}
                       rounded
                       source={{uri:data.imageUri}}    
                     />
-                    <Text style={[style.senderText, {color: theme.fontColor}]}>{data.message}</Text>
+                    <Text selectable style={[style.senderText, {color: theme.fontColor, backgroundColor: theme.backgroundContent}]}>{data.message}</Text>
                 </View>
                 ))
             }

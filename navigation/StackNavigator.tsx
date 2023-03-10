@@ -13,7 +13,6 @@ import { selectTheme } from './../slices/themeSlice';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsNavigator } from './TabsNavigator'
 import EditProfileScreen from './../screens/EditProfile/index';
-import GroupsScreen from '../screens/Groups'
 import ChatScreen from '../screens/Chat'
 import SearchScreen from './../screens/Search/index';
 import MeetingRoomScreen from '../screens/MeetingRoom'
@@ -46,7 +45,6 @@ const StackNavigator = () => {
           <>    
             <Stack.Screen name='User' component={TabsNavigator} options={{headerShown:false}}/>
             <Stack.Screen name='Project' component={ProjectScreen}/>
-            <Stack.Screen name='Groups' component={GroupsScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Chat' component={ChatScreen}/>
             <Stack.Screen name='Profile' component={ProfileScreen}/>               

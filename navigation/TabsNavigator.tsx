@@ -21,7 +21,6 @@ export const TabsNavigator = () => {
     const theme = useSelector(selectTheme)
     const dispatch = useDispatch()
 
-
   return (
         <Tab.Navigator screenOptions={{
             headerShadowVisible: false,

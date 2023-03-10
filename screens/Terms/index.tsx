@@ -5,24 +5,26 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { Icon } from '@rneui/base';
 import { style } from './style';
+import { translations } from './../../utils/translations';
+import { selectLanguage } from './../../slices/languageSlice';
 
 const TermsScreen = () => {
     const navigation = useNavigation()
     const theme = useSelector(selectTheme)
+    const { headerText } = translations.screens.Terms
+    const language = useSelector(selectLanguage)
+    
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{ fontSize:21, color:theme.fontColor}}>
-            Terms of use
+            {headerText[language as keyof typeof headerText]}
            </Text>,
            headerLeft: () => (
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
-          // headerRight: () => 
-              // <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
-
         })  
       }, [theme])
 

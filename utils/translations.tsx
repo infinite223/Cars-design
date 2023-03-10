@@ -519,6 +519,12 @@ export const translations = {
                 pl: "Wyślij",
                 en: "Send"
             }
+        },
+        Terms: {
+            headerText: {
+                en: "Terms of use",
+                pl: "Warunki korzystania"
+            }
         }
     }
 }

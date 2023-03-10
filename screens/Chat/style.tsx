@@ -51,14 +51,22 @@ export const style = StyleSheet.create({
       paddingVertical:6,
       alignSelf:'flex-start',
       borderRadius:15,
-      marginBottom:20,
+      marginBottom:10,
       maxWidth: '80%',
       position:'relative' 
     },
     recieverText: {
       // marginLeft:10
+      fontSize:17,
+      paddingHorizontal:10,
+      paddingVertical:5,
+      borderRadius:10
     },
     senderText:{
-      marginLeft:10
+      marginLeft:10,
+      fontSize:17,
+      paddingHorizontal:10,
+      paddingVertical:5,
+      borderRadius:10
     }
   })
