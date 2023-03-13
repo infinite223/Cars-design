@@ -346,7 +346,7 @@ const CreateScreen = () => {
                 onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
                 style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
             >
-                <Text style={[style.finishButtonText, { color: 'white'}]}>Finish</Text>
+                <Text style={[style.finishButtonText, { color: 'white'}]}>Dodaj projekt</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>}
         </View>            
@@ -355,7 +355,7 @@ const CreateScreen = () => {
   return (
     <View style={[style.mainContainer, {backgroundColor:theme.background}]}>
         {showError.show&&<AlertModal type={showError.type} show={showError.show} message={showError.message} resetError={setShowError}/>}
-        {numberProjects<2?<FlatList
+        {numberProjects<4?<FlatList
             ref={flatListRef}
             pagingEnabled
             style={{width:widthScreen}}

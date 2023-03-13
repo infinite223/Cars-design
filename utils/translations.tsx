@@ -228,7 +228,7 @@ export const translations = {
             },
             imageHelpText_1: {
                 en: "Choose images to your gallery",
-                pl: "Wybierz zdjędzia ze swojej galerii"
+                pl: "Wybierz zdjęcia ze swojej galerii"
             },
             imageHelpText_2: {
                 en: "Minimum one image",

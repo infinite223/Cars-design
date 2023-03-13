@@ -80,7 +80,9 @@ const SearchScreen = () => {
   
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>
-      <View style={[style.searchContainer, {backgroundColor: theme.background ==="black"?"#333":"#bbb"}]}>
+      <View style={[style.searchContainer, 
+        // {backgroundColor: theme.background ==="black"?"#333":"#bbb"}
+        ]}>
         {makesCategory&&
             <SelectList    
                 searchPlaceholder={'s'}

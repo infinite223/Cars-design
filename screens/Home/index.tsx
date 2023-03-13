@@ -72,7 +72,7 @@ const HomeScreen = () => {
       //  <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
       //   Cars project
       //  </Text>
-      <Image style={{width:130, height:35}} source={require('./../../assets/nameApp.png')}/>
+      <Image style={{width:130, height:35, marginLeft:-10}} source={require('./../../assets/nameApp.png')}/>
        ,
        headerLeft: () => <View></View> 
     })  

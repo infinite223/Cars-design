@@ -28,7 +28,7 @@ export const style = StyleSheet.create({
         width:'100%',
         backgroundColor: '#273',
         alignSelf:'center',
-        paddingVertical:8,
+        paddingVertical:7,
         paddingHorizontal:15,
         marginVertical:4,
         marginBottom:10,
@@ -109,16 +109,16 @@ export const style = StyleSheet.create({
         letterSpacing:1
     },
     finishButton: {
-        borderRadius:25,  
-        paddingVertical:12, 
+        borderRadius:15,  
+        paddingVertical:8, 
         flexDirection:'row',
         borderWidth:1,
-
     },
     finishButtonText: {
         fontSize:18,
-        letterSpacing:3,
+        letterSpacing:2,
         paddingHorizontal:7,
+        marginRight:5,
         fontWeight:'600'
     },
     stageComponent: {

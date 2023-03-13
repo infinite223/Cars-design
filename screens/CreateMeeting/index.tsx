@@ -78,7 +78,7 @@ const CreateMeeting = () => {
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () => <Text style={{ fontSize:21, color:theme.fontColor}}>
-            Create meeting
+            Utwórz spotkanie
            </Text>,
            headerLeft: () => (
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>

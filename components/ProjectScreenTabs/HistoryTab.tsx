@@ -30,13 +30,13 @@ const HistoryTab = () => {
     }
     return outputBackground
   }
-  
+  console.log(selectedProject)
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
       {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
         <FlatList
           scrollEnabled={true}        
-          contentContainerStyle={{height:240}}
+          contentContainerStyle={{flex:1}}
           style={{}}
           data={selectedProject.car.history}
           renderItem={({item, index})=>(
@@ -56,7 +56,6 @@ const HistoryTab = () => {
                         <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance?.[1].value} </Text>
                         <Text style={style.performanceType}>{item.performance?.[1].type}</Text>
                       </View>}
-                 
                     </View>
                     <View style={style.performanceContainer}>
                     {item.performance?.[2]?.type&&
@@ -70,6 +69,8 @@ const HistoryTab = () => {
                         <Text style={style.performanceType}>100-200Km/h</Text>
                       </View>}
                     </View>
+                    <Text style={{color: theme.fontColorContent}}>{item.description}</Text>
+
                   {(item.components && item.performance)&&
                       <FlatList
                         style={[style.componentsContainer]}
