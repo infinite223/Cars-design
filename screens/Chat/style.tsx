@@ -40,7 +40,7 @@ export const style = StyleSheet.create({
       paddingVertical:6,
       alignSelf:'flex-end',
       borderRadius:15,
-      marginBottom:20,
+      marginBottom:0,
       maxWidth: '80%',
       position:'relative' 
     },
@@ -51,7 +51,7 @@ export const style = StyleSheet.create({
       paddingVertical:6,
       alignSelf:'flex-start',
       borderRadius:15,
-      marginBottom:10,
+      marginBottom:5,
       maxWidth: '80%',
       position:'relative' 
     },

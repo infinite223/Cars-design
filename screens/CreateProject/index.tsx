@@ -26,6 +26,7 @@ import { playSound } from '../../utils/functions/playSound';
 import { collection, onSnapshot } from 'firebase/firestore';
 import UploadingStatus from '../../components/UploadingStatus';
 
+
 const CreateScreen = () => {
     const { errorMessage, 
         historyHeadeText, imageHelpText_1, imageHelpText_2, imageHelpText_3, imageHelpText_4, 

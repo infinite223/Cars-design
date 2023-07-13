@@ -32,7 +32,7 @@ export const ChatItem:React.FC<{item:Chat, deleteChat: (value:string) => void}> 
     const dispatch = useDispatch()
     
     const { menu: { blockText, unBlockText, reportText, deleteText }} = translations.screens.Chats 
-
+    console.log(item)
 
     // useEffect(()=> {
     //     const messagesRef = collection(db, `chats/${item.id}/messages`)
@@ -49,12 +49,14 @@ export const ChatItem:React.FC<{item:Chat, deleteChat: (value:string) => void}> 
 
   return (
     <View style={style.renderItem}>
-        {item&&
+        {(item && item.data && item.data.from )&&
         <TouchableOpacity onPress={()=>navigation.navigate('Chat', item )} style={{alignItems:'center', flexDirection:'row', flex:1, opacity:item.block?.4:1}}>
-            <Avatar size={40} rounded source={{uri:!item.lastMessage.fromUid===user.uid?item.data.from.imageUri:item.data.to.imageUri}}/>
+            {/* <Avatar size={40} rounded source={{uri:!item.lastMessage.fromUid===user.uid?item.data.from.imageUri:item.data?.to?.imageUri}}/> */}
+            <Avatar size={40} rounded source={{uri: item.data.from.imageUri}}/>
+
             <View style={style.textContainer}>
                 <Text style={[{color: theme.fontColor}]}>{item.data.from.name}</Text>
-                <Text style={[{color: theme.fontColorContent}]}>{item.lastMessage.message}</Text>
+                <Text style={[{color: theme.fontColorContent}]}>{item.lastMessage.message.length>30?item.lastMessage.message.substring(0, 30)+ '...':item.lastMessage.message}</Text>
             </View>
         </TouchableOpacity>}
     <View>

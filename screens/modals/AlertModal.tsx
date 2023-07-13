@@ -17,7 +17,7 @@ const AlertModal:React.FC<AlertModalProps> = ({show, message, type, resetError})
     
   return (
     <View style={style.modal}>
-        <View style={[style.alertContainer, {backgroundColor: type==='ERROR'?'rgba(140, 40, 40, .9)':'rgba(40, 140, 40, .9)'}]}>
+        <View style={[style.alertContainer, {backgroundColor: type==='ERROR'?'rgba(40, 40, 40, 8)':'rgba(40, 140, 40, .9)'}]}>
             <Text style={[style.message, {color: 'white'}]}>{message}</Text>
         </View>
     </View>
@@ -38,7 +38,7 @@ const style = StyleSheet.create({
     alertContainer: {
         width:'90%',
 
-        backgroundColor:'rgba(140, 40, 40, .9)',
+        backgroundColor:'rgba(40, 40, 40, .9)',
         alignItems:'center',
         justifyContent: 'center',
         borderRadius:15,

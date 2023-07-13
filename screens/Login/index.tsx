@@ -9,6 +9,7 @@ import { RegisterForm } from '../../components/RegisterForm';
 import AlertModal from '../modals/AlertModal';
 import { AlertProps } from '../../utils/types';
 import { useEffect } from 'react';
+import { globalStyles } from '../../utils/globalStyles';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -53,14 +54,13 @@ const LoginScreen = () => {
             </Text>
           </View>
 
-
           <View style={style.main}>
           <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}}>
             <View style={{marginBottom:0, alignItems:'center'}}>
                 {!showRegisterForm?<LoginForm setShowAlert={setShowAlert}/>:<RegisterForm setShowAlert={setShowAlert}/>}
                 <View style={{flexDirection:'row', alignItems:'center'}}>
                   <TouchableOpacity onPress={()=>setShowRegisterForm(!showRegisterForm)} style={{ alignItems:'center'}}>
-                    <Text style={{fontSize:18, color:"#1b3", fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>
+                    <Text style={{fontSize:18, color:globalStyles.background_1, fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>
                   </TouchableOpacity>
                   <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>
                   <TouchableOpacity onPress={()=>signInAsTester()} style={{alignItems:'center', flexDirection:'row'}}>

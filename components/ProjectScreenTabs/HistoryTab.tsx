@@ -92,7 +92,7 @@ const HistoryTab = () => {
                       />}
                <View style={style.footer}>
                   {item.company&&<Text  style={style.company}>{item.company}</Text>}
-                  {item.date&&<Text style={style.date}>{item.date}</Text>}
+                  {/* {item.date&&<Text style={style.date}>{item.date}</Text>} */}
                 </View>
               </View>
             </View>

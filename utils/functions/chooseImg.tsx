@@ -8,7 +8,6 @@ export const chooseImg = async (images:any[] | undefined, setImages: (value:any[
         allowsEditing: true,
     });
 
-
     if (!result.canceled && images) {
        
         if(id!==undefined){

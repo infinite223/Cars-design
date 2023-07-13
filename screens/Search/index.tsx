@@ -37,7 +37,7 @@ const SearchScreen = () => {
     const dispatch = useDispatch()
     const { headerText, placeholder: { carMakeText, modelText } } = translations.screens.Search
 
-    useLayoutEffect(() => {
+    useLayoutEffect(() => { 
         navigation.setOptions({
            headerBackVisible:false,
            headerTitle: () =>  <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
@@ -120,16 +120,16 @@ const SearchScreen = () => {
               </View>
               <View>
                 <View style={style.performanceContainer}>
-                <Text style={[style.performanceValue, {color: getColorsCircle(item.car.performance[0].value, item.car.performance[0].type)[0]}]}>
-                  {item.car.performance[0].value+ " "}
+                <Text style={[style.performanceValue, {color: getColorsCircle(item.car.history[item.car.history.length-1].performance[0].value, item.car.history[item.car.history.length-1].performance[0].type)[0]}]}>
+                  {item.car.history[item.car.history.length-1].performance[0].value+ " "}
                 </Text>
-                <Text style={[style.performanceType, {color: theme.fontColor}]}>{item.car.performance[0].type}</Text>
+                <Text style={[style.performanceType, {color: theme.fontColor}]}>{item.car.history[item.car.history.length-1].performance[0].type}</Text>
               </View>
               <View style={style.performanceContainer}>
-                <Text style={[style.performanceValue, {color: getColorsCircle(item.car.performance[1].value, item.car.performance[1].type)[0]}]}>
-                  {item.car.performance[1].value + " "}
+                <Text style={[style.performanceValue, {color: getColorsCircle(item.car.history[item.car.history.length-1].performance[1].value, item.car.history[item.car.history.length-1].performance[1].type)[0]}]}>
+                {item.car.history[item.car.history.length-1].performance[1].value+ " "}
                 </Text>
-                <Text style={[style.performanceType, {color: theme.fontColor}]}>{item.car.performance[1].type}</Text>
+                <Text style={[style.performanceType, {color: theme.fontColor}]}>{item.car.history[item.car.history.length-1].performance[1].type}</Text>
               </View>
                 </View>
             </TouchableOpacity>

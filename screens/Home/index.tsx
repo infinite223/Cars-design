@@ -13,10 +13,11 @@ import { useProjects } from '../../hooks/useProjects';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { setChats } from '../../slices/chatsSlice';
 import { selectHideProjects } from '../../slices/hideProjects';
 import { toDateTime } from '../../utils/toDateTime';
+import { useChats } from '../../hooks/useChats';
 
 
 Notifications.setNotificationHandler({
@@ -35,6 +36,8 @@ const HomeScreen = () => {
   const language = useSelector(selectLanguage)
   const hideProjects = useSelector(selectHideProjects)
   const {user}:any = useAuth()
+  const { loadingChats } =  useChats(user, dispatch, 1)
+
   const [limit, setLimit] = useState(2) 
   const { projects, loading, nextProjects}  = useProjects(user, limit)
 
@@ -49,20 +52,20 @@ const HomeScreen = () => {
 
   // projects?.sort((a, b) => toDateTime(b.createdAt).getTime() - toDateTime(a.createdAt).getTime())
 
-  useEffect(()=> {
-    if(user.name!=='Tester'){
-      const chatsRef = collection(db, "chats")
-      //add query
-      const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid))
-      const unsubscribe = onSnapshot(chatsQuery, (snapchot) => {      
-          dispatch(setChats(snapchot.docs.map((doc, i)=> {
-                return doc.data()
-            })))  
-        })
+  // useEffect(()=> {
+  //   if(user.name!=='Tester'){
+  //     const chatsRef = collection(db, "chats")
+  //     //add query
+  //     const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid),  orderBy('lastMessage.time', 'desc'))
+  //     const unsubscribe = onSnapshot(chatsQuery, (snapchot) => {      
+  //         dispatch(setChats(snapchot.docs.map((doc, i)=> {
+  //               return doc.data()
+  //           })))  
+  //       })
       
-      return unsubscribe
-    }
-  }, [])
+  //     return unsubscribe
+  //   }
+  // }, [])
 
 
   useLayoutEffect(() => {

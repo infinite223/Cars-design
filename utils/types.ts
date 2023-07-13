@@ -29,7 +29,7 @@ export type Chat = {
         from: {id: string, name: string, imageUri:string}
         to: {id: string, name: string, imageUri:string}
     }
-    lastMessage: {message:string, fromUid: string, time: Timestamp},
+    lastMessage: {message:string, fromUid: string, time: Timestamp, view:boolean},
     new?:boolean,
     persons: string[]
     id:string,
@@ -67,7 +67,7 @@ export type HistoryCar = {
     name?:string, 
     description?:string,
     company?:string,
-    performance?:Performance,
+    performance:Performance,
     components?: Component[]
 }
 

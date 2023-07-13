@@ -1,13 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
+import { globalStyles } from '../utils/globalStyles';
 
 export const GradientButton: React.FC<{text:string}> = ({ text }) => {
 
     return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#3c3", "#3b2", "#2a2"]}
+        colors={[globalStyles.background_1, globalStyles.background_2]}
         start={{x:1, y:1}}
         style={styles.buttonContainer}
       >

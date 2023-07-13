@@ -44,7 +44,7 @@ const ProjectScreen = () => {
     const {id, car, author, createdAt } = route.params;
     const [likes, setLikes] = useState<string[]>(car.likes)
 
-    const baseColor = getColorsCircle(car.performance[0].value, car.performance[0].type)[0]
+    const baseColor = getColorsCircle(car.history[car.history.length-1].performance[0].value, car.history[car.history.length-1].performance[0].type)[0]
     
     const Tab = createMaterialTopTabNavigator();
     const { user }:any = useAuth()

@@ -47,8 +47,8 @@ const InfoTab = () => {
   }, [selectedProject])
 
   console.log(selectedProject)
-
-  const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
+  const getBaseColors = getColorsCircle(selectedProject.car.history[selectedProject.car.history.length-1].performance?.[0].value, 'hp')
+//   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
 
   const soundControl = async (playSound:boolean) => {
         if(sound){
@@ -76,7 +76,7 @@ const InfoTab = () => {
                 style={{flexGrow:0}}
                 ItemSeparatorComponent={() => <View style={{width: 20}} />}
                 snapToInterval={105}
-                data={selectedProject.car.performance}
+                data={selectedProject.car.history[selectedProject.car.history.length-1].performance}
                 renderItem={({item})=> (
                     <>
                         {
