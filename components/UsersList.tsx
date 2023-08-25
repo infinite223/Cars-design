@@ -11,6 +11,7 @@ import useAuth, { db } from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
 import { FilterUsers } from './FilterUsers';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { globalStyles } from '../utils/globalStyles';
 
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height
@@ -101,7 +102,7 @@ export const UsersList:React.FC<UsersListProps> = ({projectId, translateX, isMyP
     <GestureDetector gesture={gesture}>
       <Animated.View style={[style.listContainer, rUsersListContentSheetStyle,  {backgroundColor: theme.background, borderWidth:1, borderColor:theme.backgroundContent}]}>
         <View style={{marginBottom:10, width:40, height:5, backgroundColor: theme.backgroundContent, borderRadius:15, alignSelf:'center'}}/>
-            <Text style={{marginVertical:3, color:'#2b3', fontWeight:'bold', fontSize:16, alignSelf:'center'}}>
+            <Text style={{marginVertical:3, color:globalStyles.background_1, fontWeight:'bold', fontSize:16, alignSelf:'center'}}>
               {showUsersList.headerText}
             </Text>
             <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>

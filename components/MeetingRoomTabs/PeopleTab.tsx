@@ -14,6 +14,7 @@ import useAuth, { db } from '../../hooks/useAuth';
 import { updateDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
 import SelectProjectModal from './../../screens/modals/SelectProjectModal';
+import { globalStyles } from '../../utils/globalStyles';
 
 const PeopleTab = () => {
   const navigationTab:any = useNavigation()
@@ -78,7 +79,7 @@ const PeopleTab = () => {
               <View style={style.textContainer}>
                 <Text style={[style.nameText, {color: theme.fontColor}]}>
                     {room.createdBy.name}
-                    <Text style={{color: '#2b3', fontSize:12, fontWeight:'400'}}> Admin</Text>       
+                    <Text style={{color: globalStyles.background_2, fontSize:12, fontWeight:'400'}}> Admin</Text>       
                 </Text>
                 <Text style={[style.carText, {color: theme.fontColorContent}]}>
                   {room.authorProject?.carMake != undefined&& room.authorProject?.carMake+ " " +room.authorProject?.model}
@@ -151,7 +152,7 @@ const style = StyleSheet.create({
     minWidth:100,
     justifyContent:'center',
     paddingHorizontal:10,
-    backgroundColor: '#272',
+    backgroundColor: globalStyles.background_1,
     paddingVertical:5,
     alignItems: 'center',    
     borderRadius:10,

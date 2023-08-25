@@ -35,7 +35,7 @@ const HomeScreen = () => {
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
   const hideProjects = useSelector(selectHideProjects)
-  const {user}:any = useAuth()
+  const { user }:any = useAuth()
   const { loadingChats } =  useChats(user, dispatch, 1)
 
   const [limit, setLimit] = useState(2) 

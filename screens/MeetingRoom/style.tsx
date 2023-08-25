@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native"
+import { globalStyles } from "../../utils/globalStyles"
 const { height: SCREEN_HEIGHT }:any = Dimensions.get('window')
 
 export const style = StyleSheet.create({
@@ -28,7 +29,7 @@ export const style = StyleSheet.create({
       fontWeight: 'bold',
        letterSpacing:2,
       fontFamily: 'notoserif',
-      color:'#1b3'
+      color: globalStyles.background_2,
     },
     place: {
       fontSize:13,

@@ -13,6 +13,7 @@ import useAuth from '../hooks/useAuth';
 import _Icon_SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import { translations } from './../utils/translations';
 import { selectLanguage } from './../slices/languageSlice';
+import { globalStyles } from '../utils/globalStyles';
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 const SCREEN_WIDTH = Dimensions.get('screen').width
@@ -133,7 +134,7 @@ export const RightNavigation = () => {
                         <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>
                     </TouchableOpacity>
                     <TouchableOpacity  onPress={() => (navigation.navigate('Reviews'), dispatch(setNavigation(false)))} style={style.link}>
-                        <Text style={[style.linkText, {color: '#2b3'}]}>
+                        <Text style={[style.linkText, {color: globalStyles.background_2}]}>
                           {reviews[language as keyof typeof reviews]}
                         </Text>
                         <Icon type='materialicon' name="arrow-forward-ios" size={15} color={theme.fontColorContent}/>

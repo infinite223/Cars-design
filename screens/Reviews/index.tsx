@@ -7,6 +7,7 @@ import { Icon } from '@rneui/base';
 import { translations } from './../../utils/translations';
 import { selectLanguage } from './../../slices/languageSlice';
 import { style } from './style';
+import { globalStyles } from '../../utils/globalStyles';
 
 const ReviewsScreen = () => {
     const theme = useSelector(selectTheme)
@@ -38,7 +39,7 @@ const ReviewsScreen = () => {
         </Text> 
        </View>
 
-       <Text style={[style.labelText, {color: '#2f3'}]}>{labelText[language as keyof typeof labelText]}</Text>
+       <Text style={[style.labelText, {color: globalStyles.background_2}]}>{labelText[language as keyof typeof labelText]}</Text>
 
        <View style={[style.mainContent, {backgroundColor: theme.backgroundContent}]}>
         <TextInput 

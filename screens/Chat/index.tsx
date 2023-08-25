@@ -13,6 +13,7 @@ import { Icon } from '@rneui/base';
 import { selectChats } from './../../slices/chatsSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Chat } from '../../utils/types';
+import { globalStyles } from '../../utils/globalStyles';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
@@ -122,7 +123,7 @@ const ChatScreen = () => {
                       rounded
                       source={{uri:data.imageUri}}    
                     /> */}
-                    <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: '#253'}]}>{data.message}</Text>
+                    <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: globalStyles.background_1}]}>{data.message}</Text>
                 </View>
                 ) : (
                 <View key={id} style={[style.sender]}>

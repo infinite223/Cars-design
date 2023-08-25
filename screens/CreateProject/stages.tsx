@@ -101,7 +101,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
           <Text style={[{textAlign:'center', color: theme.fontColorContent, marginLeft:5, fontSize:15, marginVertical:10, maxWidth:150}]}>
             {language==='en'?addComponentHeader.en:addComponentHeader.pl}
           </Text>
-          <TouchableOpacity onPress={()=>setShowAddComponentModal(true)} style={[style.addComponentButton, {backgroundColor:"#273"}]}>
+          <TouchableOpacity onPress={()=>setShowAddComponentModal(true)} style={[style.addComponentButton, {backgroundColor: theme.backgroundContent}]}>
             <Text style={[{color:'white', fontSize:40}]}>+</Text>
           </TouchableOpacity>
         </View>
@@ -133,7 +133,7 @@ export const AccordionView:React.FC<AccordionViewProps> = ({stages, setStages, s
             <Text style={[{textAlign:'center', color: theme.fontColorContent, marginLeft:20, fontSize:15, marginVertical:10, maxWidth:150}]}>
               {language==='en'?addImageHeader.en:addImageHeader.pl}
             </Text>
-            <TouchableOpacity  onPress={()=>chooseImg(imagesStages, setImagesStages, activeSections[0])} style={[style.addComponentButton, {backgroundColor:"#273"}]}>
+            <TouchableOpacity  onPress={()=>chooseImg(imagesStages, setImagesStages, activeSections[0])} style={[style.addComponentButton, {backgroundColor:theme.backgroundContent}]}>
               <Text style={[{color:'white', fontSize:40}]}>+</Text>
             </TouchableOpacity>
           </View>

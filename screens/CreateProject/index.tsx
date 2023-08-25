@@ -25,6 +25,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import { playSound } from '../../utils/functions/playSound';
 import { collection, onSnapshot } from 'firebase/firestore';
 import UploadingStatus from '../../components/UploadingStatus';
+import { globalStyles } from '../../utils/globalStyles';
 
 
 const CreateScreen = () => {
@@ -192,27 +193,27 @@ const CreateScreen = () => {
                  helpText={language==='pl'?"(np. Projekt został stowrzony...max 100 letters)":"(np. Project was created...max 100 letters)"}
                 />
             </View>
-            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
         </View>,
-        <View style={{flex:1}}>
-            <View style={[style.headerContainer]}>
-                <TouchableOpacity onPress={goToPrevStep}>
-                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
-                </TouchableOpacity>
-                <Text style={[style.headerText]}>Performance</Text>
-            </View>
-            <View>
-                <CustomInput placeholder={power[language as keyof typeof power]}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
-                <CustomInput placeholder={torque[language as keyof typeof torque]}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
-                <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text.replace(',', '.'))})} helpText="(np. 5.3)" performance="_0_100"/>
-                <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text.replace(',', '.'))})} helpText="(np. 13.9)" performance="_100_200"/>
-            </View>
-            <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'rgba(100, 160, 100, .3)'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
-            </TouchableOpacity>
-        </View>,
+        // <View style={{flex:1}}>
+        //     <View style={[style.headerContainer]}>
+        //         <TouchableOpacity onPress={goToPrevStep}>
+        //             <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
+        //         </TouchableOpacity>
+        //         <Text style={[style.headerText]}>Performance</Text>
+        //     </View>
+        //     <View>
+        //         <CustomInput placeholder={power[language as keyof typeof power]}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
+        //         <CustomInput placeholder={torque[language as keyof typeof torque]}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
+        //         <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text.replace(',', '.'))})} helpText="(np. 5.3)" performance="_0_100"/>
+        //         <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text.replace(',', '.'))})} helpText="(np. 13.9)" performance="_100_200"/>
+        //     </View>
+        //     <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'rgba(100, 160, 100, .3)'}]}>
+        //         <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+        //     </TouchableOpacity>
+        // </View>,
         <View style={{flex:1}}>
             <View style={[style.headerContainer]}>
                 <TouchableOpacity onPress={goToPrevStep}>
@@ -260,7 +261,7 @@ const CreateScreen = () => {
                     )}
                 />
             </View>
-            {images.length>0&&<TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+            {images.length>0&&<TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>}
         </View>,
@@ -305,7 +306,7 @@ const CreateScreen = () => {
                 <TextInput onChangeText={(text=> setLinks({...links, fb: text}))} style={[style.linkInput, {color:theme.fontColor, borderBottomColor: theme.backgroundContent}]}/>
             </View>
 
-            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}>
+            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
          </View>,
@@ -336,7 +337,7 @@ const CreateScreen = () => {
                {(stages.length<6 && !showAddComponentModal)&&
                <TouchableOpacity 
                     onPress={()=>setStages([...stages, {name: `Stage ${stages.length+1}`, company:'', components: [], date:'', description:'', performance:[{type:'hp', value:0}, {type:'nm',value:0}, {type:'_0_100',value:0}, {type:'_100_200',value:0}]}])} 
-                    style={[style.stageComponent, style.stageAddButton]}
+                    style={[style.stageComponent, style.stageAddButton, {backgroundColor : theme.backgroundContent}]}
                 >
                         <Icon type='octicon' name='plus' color={'white'} size={15}/>
                         <Text style={[style.addStageText, {color: 'white'}]}>Dodaj stage {stages.length+1}</Text>
@@ -345,7 +346,7 @@ const CreateScreen = () => {
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
                 onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
-                style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?'#273':'rgba(100, 160, 100, .3)'}]}
+                style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Dodaj projekt</Text>
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>

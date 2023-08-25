@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
+import { View, Text, TouchableOpacity, Image,  ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
@@ -44,11 +44,11 @@ const LoginScreen = () => {
         {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert}/>}
           <View style={{alignItems:'center', flex:1, justifyContent:'center'}}>
 
-            {/* <Image style={{width:100, height:100}} source={require("../../assets/cars_projects_IconV2.png")}/> */}
+            <Image style={{width:100, height:100}} source={require("../../assets/iconApp_1.png")}/>
             <Text style={[style.aboutText, {fontSize:20, marginVertical:20, letterSpacing:2, fontWeight:'500'}]}>
               WELCOME TO
             </Text>
-            <Text style={style.logoText}>Cars projects</Text>
+            <Text style={style.logoText}>Cars Design</Text>
             <Text style={style.aboutText}>
               Do you have your own car project? Share it with the rest of the world for others to see.
             </Text>

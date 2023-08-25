@@ -13,6 +13,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../hooks/useAuth';
 import AlertModal from '../modals/AlertModal';
 import { AlertProps } from '../../utils/types';
+import { globalStyles } from '../../utils/globalStyles';
 
 const ReportScreen = () => {
     const navigation = useNavigation()
@@ -58,17 +59,17 @@ const ReportScreen = () => {
         <Text style={[style.headerText, {color: theme.fontColor}]}>
             {headerText[type as keyof typeof headerText][language as keyof typeof headerText.project]}
         </Text>
-        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "1":!selectedOption[1]})} style={[style.option, {backgroundColor:selectedOption[1]?'#273':theme.backgroundContent}]}>
+        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "1":!selectedOption[1]})} style={[style.option, {backgroundColor:selectedOption[1]?globalStyles.background_1:theme.backgroundContent}]}>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
                 {option_1[language as keyof typeof option_1]}
             </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "2":!selectedOption[2]})} style={[style.option, {backgroundColor:selectedOption[2]?'#273':theme.backgroundContent}]}>
+        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "2":!selectedOption[2]})} style={[style.option, {backgroundColor:selectedOption[2]?globalStyles.background_1:theme.backgroundContent}]}>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
             {option_2[language as keyof typeof option_2]}
             </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "3":!selectedOption[3]})} style={[style.option, {backgroundColor: selectedOption[3]?'#273':theme.backgroundContent}]}>
+        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "3":!selectedOption[3]})} style={[style.option, {backgroundColor: selectedOption[3]?globalStyles.background_1:theme.backgroundContent}]}>
             <Text style={[style.optionText, {color: theme.fontColor}]}>
             {option_3[type as keyof typeof option_3][language as keyof typeof option_3.project]}
             </Text>

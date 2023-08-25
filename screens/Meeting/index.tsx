@@ -15,6 +15,7 @@ import { Dimensions } from 'react-native';
 import { setSelectedRoom } from '../../slices/selectedRoomSlice';
 import { query } from 'firebase/firestore';
 import { toDateTime } from '../../utils/toDateTime';
+import { globalStyles } from '../../utils/globalStyles';
 
 const widthScreen = Dimensions.get('screen').width
 
@@ -85,13 +86,12 @@ const MeetingScreen = () => {
                                     longitude: item.place.longitude,
                                     latitudeDelta: 0.0922,
                                     longitudeDelta: 0.0421,
-                                }}
-                                
+                                }}                  
                             />
                             <View style={{flex:1, marginHorizontal: 10, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>                
                                 <View style={style.textContainer}>
                                     <Text style={[style.nameText, {color: 'white'}]}>{item.name}</Text>
-                                    <Text style={[style.placeText, {color: '#5f9'}]}>
+                                    <Text style={[style.placeText, {color: globalStyles.background_2}]}>
                                       {item.place.city.length<15?item.place.city:item.place.city.substring(0, 15)}
                                     </Text>
                                 </View>  

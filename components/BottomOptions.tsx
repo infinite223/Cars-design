@@ -13,6 +13,7 @@ import { translations } from './../utils/translations';
 import { onShare } from './../utils/functions/projectFunctions';
 import { deleteProject } from '../firebase/project/deleteProject';
 import { useNavigation } from '@react-navigation/native';
+import { globalStyles } from '../utils/globalStyles';
 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
@@ -73,7 +74,7 @@ export const BottomOptions:React.FC<BottomOptionsProps> = ({ translateX, isMyPro
     <GestureDetector gesture={gesture}>
       <Animated.View style={[style.optionsMenu, rOptionsContentSheetStyle, {backgroundColor: theme.background, borderWidth:1, borderColor:theme.backgroundContent}]}>
         <View style={{marginBottom:10, width:40, height:5, backgroundColor: theme.backgroundContent, borderRadius:15, alignSelf:'center'}}/>
-          <Text style={{color:'#2b3', fontWeight:'bold', alignSelf:'center'}}>
+          <Text style={{color: globalStyles.background_1, fontWeight:'bold', alignSelf:'center'}}>
             {showOptions.selectedProject?.car.CarMake+' '} 
             {showOptions.selectedProject?.car.model}
           </Text>

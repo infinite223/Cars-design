@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import CustomInput from '../../components/CustomInput';
 import { Icon } from '@rneui/base';
+import { globalStyles } from '../../utils/globalStyles';
 
 const carComponents:string[] = ["turbo", 'intercooler', 'engine', 'exhaust', 'transmission']
 
@@ -132,7 +133,7 @@ const style = StyleSheet.create({
     },
     addComponentButton: {
         marginVertical:10,
-        backgroundColor:'#273',
+        backgroundColor: globalStyles.background_1,
         paddingHorizontal:15,
         paddingVertical:7,
         borderRadius:15

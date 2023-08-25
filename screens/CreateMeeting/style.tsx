@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { globalStyles } from "../../utils/globalStyles"
 
 export const style = StyleSheet.create({
     container: {
@@ -15,7 +16,7 @@ export const style = StyleSheet.create({
         position:'absolute',
         bottom:20,
         right:10,
-        backgroundColor:'#273',
+        backgroundColor: globalStyles.background_1,
         flexDirection:'row',
         alignItems:'center'
     },
@@ -37,7 +38,7 @@ export const style = StyleSheet.create({
         overflow: 'hidden',
     },
     dateText: {
-        color: '#2b3',
+        color: globalStyles.background_2,
         fontWeight:'bold',
         fontSize:18,
     },

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { globalStyles } from "../../utils/globalStyles"
 
 export const style = StyleSheet.create({
     headerLeftContainer: {
@@ -26,7 +27,7 @@ export const style = StyleSheet.create({
         position:'relative',
         // paddingHorizontal:15,
         width:'100%',
-        backgroundColor: '#273',
+        backgroundColor: globalStyles.background_1,
         alignSelf:'center',
         paddingVertical:7,
         paddingHorizontal:15,
@@ -151,11 +152,12 @@ export const style = StyleSheet.create({
         fontSize:16,
     },
     stageAddButton: {
-        backgroundColor:'#273',
+        backgroundColor: globalStyles.background_1,
+        // backgroundColor:'gray'
         flexDirection:'row',
         alignItems:'center',
         paddingHorizontal:15,
-        marginVertical:12,
+        marginVertical:15,
         borderRadius:15
     },
     addStageText: {

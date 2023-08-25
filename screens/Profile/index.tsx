@@ -20,6 +20,7 @@ import { UsersList } from '../../components/UsersList';
 import { collection, getDoc, onSnapshot, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 import { doc } from 'firebase/firestore';
+import { globalStyles } from '../../utils/globalStyles';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -199,10 +200,7 @@ const ProfileScreen = () => {
                         onChangeText={setSearch}
                     />
                 </View>
-                {isMyProfile&&<TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: '#263'}]}>
-                    {/* <Text style={[{color:'white', fontSize:12}]}>
-                        {language==='en'?addProjectButton.en:addProjectButton.pl}
-                    </Text> */}
+                {isMyProfile&&<TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: globalStyles.background_1}]}>
                     <_Icon name="plus" size={22} color={'white'}/>
                 </TouchableOpacity>}
             </View>

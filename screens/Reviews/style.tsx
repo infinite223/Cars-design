@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { globalStyles } from "../../utils/globalStyles";
 
 export const style = StyleSheet.create({
     headerText: {
@@ -32,7 +33,7 @@ export const style = StyleSheet.create({
         paddingHorizontal:15,
         paddingVertical:7,
         borderRadius:20,
-        backgroundColor:'#273',
+        backgroundColor: globalStyles.background_1,
         position:'absolute',
         bottom:20,
         right:20,
