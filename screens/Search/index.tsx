@@ -89,7 +89,7 @@ const SearchScreen = () => {
                 searchicon={<Icon type='evilicon' name='search' color={theme.fontColor} style={{marginLeft:-4, marginRight:15}}/>}      
                 placeholder={carMakeText[language as keyof typeof carMakeText]} 
                 setSelected={(selectNumber:any)=>setCarMake(findMakeInCategores(selectNumber, makesCategory))} 
-                boxStyles={{ borderWidth:0, borderBottomWidth:0, borderColor:theme.backgroundContent, marginHorizontal:0, paddingBottom:0, marginBottom:5}}
+                boxStyles={{ borderWidth:0, borderBottomWidth:0, borderColor:theme.backgroundContent, marginHorizontal:-15, paddingBottom:0, marginBottom:5}}
                 inputStyles={{color: carMake.length>1?theme.fontColor:theme.fontColor, fontSize:15, marginLeft:-9}}
                 dropdownTextStyles={{color: theme.fontColor, marginLeft:0}}
                 dropdownStyles={{borderBottomWidth:0, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:0, marginBottom:5}}  
@@ -99,7 +99,7 @@ const SearchScreen = () => {
             />
         }
 
-        <View style={{marginHorizontal:5, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+        <View style={{marginHorizontal:-8, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
           <CustomInput placeholder={modelText[language as keyof typeof modelText]} setValue={setModel} fontSize={15}/>
           <Icon type="feather" name="search" color={theme.fontColor} size={18} style={{marginRight:11}}/>
         </View>

@@ -10,6 +10,7 @@ import AlertModal from '../modals/AlertModal';
 import { AlertProps } from '../../utils/types';
 import { useEffect } from 'react';
 import { globalStyles } from '../../utils/globalStyles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -40,24 +41,29 @@ const LoginScreen = () => {
 
   return (
       <View style={style.headerContainer}>
-        <ImageBackground style={style.headerContainer} resizeMode='cover' source={require("../../assets/background_login_2.png")}>
+        
+        <ImageBackground style={[style.headerContainer]} resizeMode='cover' source={require("../../assets/background_login_2.png")}>
         {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert}/>}
-          <View style={{alignItems:'center', flex:1, justifyContent:'center'}}>
+          <View style={{ paddingBottom:20, alignItems:'center', flex:1, justifyContent:'center'}}>
 
             <Image style={{width:100, height:100}} source={require("../../assets/iconApp_1.png")}/>
             <Text style={[style.aboutText, {fontSize:20, marginVertical:20, letterSpacing:2, fontWeight:'500'}]}>
               WELCOME TO
             </Text>
             <Text style={style.logoText}>Cars Design</Text>
-            <Text style={style.aboutText}>
+            <Text style={style.description}>
               Do you have your own car project? Share it with the rest of the world for others to see.
             </Text>
           </View>
-
-          <View style={style.main}>
-          <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}}>
+          
+          <View 
+            style={style.main}
+          >
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}}>
             <View style={{marginBottom:0, alignItems:'center'}}>
-                {!showRegisterForm?<LoginForm setShowAlert={setShowAlert}/>:<RegisterForm setShowAlert={setShowAlert}/>}
+                <ScrollView>
+                  {!showRegisterForm?<LoginForm setShowAlert={setShowAlert}/>:<RegisterForm setShowAlert={setShowAlert}/>}
+                </ScrollView>
                 <View style={{flexDirection:'row', alignItems:'center'}}>
                   <TouchableOpacity onPress={()=>setShowRegisterForm(!showRegisterForm)} style={{ alignItems:'center'}}>
                     <Text style={{fontSize:18, color:globalStyles.background_1, fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>

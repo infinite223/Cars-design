@@ -17,7 +17,15 @@ export const style = StyleSheet.create({
       fontSize:13, 
       color:'white', 
       marginHorizontal:"17%", 
-      textAlign:'center'
+      textAlign:'center',
+      marginBottom:10,
+    },
+    description: {
+      fontSize:13, 
+      color:'white', 
+      marginHorizontal:"17%", 
+      textAlign:'center',
+      marginVertical:20,
     },
     main: {
       flex:1,

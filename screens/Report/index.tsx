@@ -56,35 +56,37 @@ const ReportScreen = () => {
   return (
     <View style={[style.optionsContainer, {backgroundColor: theme.background}]}>
         {alertModal.show&&<AlertModal {...alertModal} resetError={setAlertModal}/>}
-        <Text style={[style.headerText, {color: theme.fontColor}]}>
-            {headerText[type as keyof typeof headerText][language as keyof typeof headerText.project]}
-        </Text>
-        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "1":!selectedOption[1]})} style={[style.option, {backgroundColor:selectedOption[1]?globalStyles.background_1:theme.backgroundContent}]}>
-            <Text style={[style.optionText, {color: theme.fontColor}]}>
-                {option_1[language as keyof typeof option_1]}
+        <View style={style.optionsContainer_content}>
+            <Text style={[style.headerText, {color: theme.fontColor}]}>
+                {headerText[type as keyof typeof headerText][language as keyof typeof headerText.project]}
             </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "2":!selectedOption[2]})} style={[style.option, {backgroundColor:selectedOption[2]?globalStyles.background_1:theme.backgroundContent}]}>
-            <Text style={[style.optionText, {color: theme.fontColor}]}>
-            {option_2[language as keyof typeof option_2]}
-            </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "3":!selectedOption[3]})} style={[style.option, {backgroundColor: selectedOption[3]?globalStyles.background_1:theme.backgroundContent}]}>
-            <Text style={[style.optionText, {color: theme.fontColor}]}>
-            {option_3[type as keyof typeof option_3][language as keyof typeof option_3.project]}
-            </Text>
-        </TouchableOpacity>
-        <View style={style.option}>
-            <Text style={[style.optionText, {color: theme.fontColor, fontSize:17}]}>
-            {option_4[language as keyof typeof option_4]}
-            </Text>
-            <TextInput 
-                placeholder={placeholderOption[language as keyof typeof placeholderOption]}
-                placeholderTextColor={theme.fontColorContent}
-                style={[style.reportInput, {color:theme.fontColor, borderBottomColor:theme.backgroundContent}]} 
-                onChangeText={(text=> setReportText(text))}
-                multiline={true}               
-            />
+            <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "1":!selectedOption[1]})} style={[style.option, {backgroundColor:selectedOption[1]?globalStyles.background_1:theme.backgroundContent}]}>
+                <Text style={[style.optionText, {color: theme.fontColor}]}>
+                    {option_1[language as keyof typeof option_1]}
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "2":!selectedOption[2]})} style={[style.option, {backgroundColor:selectedOption[2]?globalStyles.background_1:theme.backgroundContent}]}>
+                <Text style={[style.optionText, {color: theme.fontColor}]}>
+                {option_2[language as keyof typeof option_2]}
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>setSelectedOption({...selectedOption, "3":!selectedOption[3]})} style={[style.option, {backgroundColor: selectedOption[3]?globalStyles.background_1:theme.backgroundContent}]}>
+                <Text style={[style.optionText, {color: theme.fontColor}]}>
+                {option_3[type as keyof typeof option_3][language as keyof typeof option_3.project]}
+                </Text>
+            </TouchableOpacity>
+            <View style={style.option}>
+                <Text style={[style.optionText, {color: theme.fontColor, fontSize:17}]}>
+                {option_4[language as keyof typeof option_4]}
+                </Text>
+                <TextInput 
+                    placeholder={placeholderOption[language as keyof typeof placeholderOption]}
+                    placeholderTextColor={theme.fontColorContent}
+                    style={[style.reportInput, {color:theme.fontColor, borderBottomColor:theme.backgroundContent}]} 
+                    onChangeText={(text=> setReportText(text))}
+                    multiline={true}               
+                />
+            </View>
         </View>
 
         <TouchableOpacity 

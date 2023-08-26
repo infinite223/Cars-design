@@ -26,6 +26,7 @@ import { playSound } from '../../utils/functions/playSound';
 import { collection, onSnapshot } from 'firebase/firestore';
 import UploadingStatus from '../../components/UploadingStatus';
 import { globalStyles } from '../../utils/globalStyles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 const CreateScreen = () => {
@@ -162,15 +163,21 @@ const CreateScreen = () => {
         }
       };
     
-
+    const colorsGradient = ['rgb(12,94,88)', 'rgb(1, 71, 67)','rgb(1, 131, 107)', 'rgb(12,57,48)']
 
     const steps = [
         <View style={{flex:1}}> 
             {showwSelectPlaceVisible&&<SelectPlaceOnMap origin={images[0].place} setOrigin={setOriginImage} modalVisible={showwSelectPlaceVisible} setModalVisible={setShowwSelectPlaceVisible}/>}
-            <View style={[style.headerContainer]}>
-                {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={20} color='white' style={style.backIcon}/>}
+            <LinearGradient
+                colors={colorsGradient}
+                locations={[0, 0.25, 0.45, 1]}
+                start={[0, 0]}   
+                end={[1, 0]}   
+                style={style.headerContainer}
+            >
+                {index>1&&<Icon type="materialicon" name='arrow-back-ios' size={17} color='white' style={style.backIcon}/>}
                 <Text style={[style.headerText]}>{baseHeaderText[language as keyof typeof baseHeaderText]}</Text>
-            </View>
+            </LinearGradient>
             <View>
                 {makesCategory&&
                     <SelectList    
@@ -197,32 +204,21 @@ const CreateScreen = () => {
                 <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
             </TouchableOpacity>
         </View>,
-        // <View style={{flex:1}}>
-        //     <View style={[style.headerContainer]}>
-        //         <TouchableOpacity onPress={goToPrevStep}>
-        //             <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
-        //         </TouchableOpacity>
-        //         <Text style={[style.headerText]}>Performance</Text>
-        //     </View>
-        //     <View>
-        //         <CustomInput placeholder={power[language as keyof typeof power]}  setValue={(text)=>setCarData({...carData, power: parseInt(text)})} helpText="(np. 360)" performance="hp"/>
-        //         <CustomInput placeholder={torque[language as keyof typeof torque]}  setValue={(text)=>setCarData({...carData, torque:parseInt(text)})} helpText="(np. 530)" performance="nm"/>
-        //         <CustomInput placeholder='0-100km/h (s)'  setValue={(text)=>setCarData({...carData, _0_100: parseFloat(text.replace(',', '.'))})} helpText="(np. 5.3)" performance="_0_100"/>
-        //         <CustomInput placeholder='100-200km/h (s)'  setValue={(text)=>setCarData({...carData, _100_200: parseFloat(text.replace(',', '.'))})} helpText="(np. 13.9)" performance="_100_200"/>
-        //     </View>
-        //     <TouchableOpacity disabled={!validatePerformance} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validatePerformance?'#273':'rgba(100, 160, 100, .3)'}]}>
-        //         <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
-        //     </TouchableOpacity>
-        // </View>,
         <View style={{flex:1}}>
-            <View style={[style.headerContainer]}>
+            <LinearGradient
+                colors={colorsGradient}
+                locations={[0, 0.25, 0.45, 1]}
+                start={[0, 0]}   
+                end={[1, 0]}   
+                style={style.headerContainer}
+            >
                 <TouchableOpacity onPress={goToPrevStep}>
-                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
+                    <Icon type="materialicon" name='arrow-back-ios' size={17} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
                 <Text style={[style.headerText]}>
                     {language==="en"?'Images':'Zdjęcia'}
                 </Text>
-            </View>
+            </LinearGradient>
 
             <View style={{ flexGrow:.0,  marginTop:20 }} >		
                 <View style={style.headerImages}>
@@ -266,14 +262,20 @@ const CreateScreen = () => {
             </TouchableOpacity>}
         </View>,
          <View style={{flex:1}}>
-            <View style={[style.headerContainer]}>
-                <TouchableOpacity onPress={goToPrevStep}>
-                    <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
+            <LinearGradient
+                colors={colorsGradient}
+                locations={[0, 0.25, 0.45, 1]}
+                start={[0, 0]}   
+                end={[1, 0]}   
+                style={style.headerContainer}
+            >
+               <TouchableOpacity onPress={goToPrevStep}>
+                    <Icon type="materialicon" name='arrow-back-ios' size={17} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
                 <Text style={[style.headerText]}>               
                     {soundHeaderText[language as keyof typeof soundHeaderText]}
                 </Text>
-            </View>
+            </LinearGradient>
 
             <View style={[style.headerImages, {marginTop:20}]}>
                     <TouchableOpacity onPress={()=>pickMediaAsync()} style={[style.addImageButton, {borderColor: theme.backgroundContent}]}>            
@@ -313,14 +315,20 @@ const CreateScreen = () => {
 
 
         <View style={{flex:1}}>
-            <View style={[style.headerContainer]}>
+            <LinearGradient
+                colors={colorsGradient}
+                locations={[0, 0.25, 0.45, 1]}
+                start={[0, 0]}   
+                end={[1, 0]}   
+                style={style.headerContainer}
+            >
                 <TouchableOpacity onPress={goToPrevStep}>
                     <Icon type="materialicon" name='arrow-back-ios' size={20} color={'white'} style={style.backIcon}/>
                 </TouchableOpacity>
                 <Text style={[style.headerText]}>               
                     {historyHeadeText[language as keyof typeof historyHeadeText]}
                 </Text>
-            </View>
+            </LinearGradient>
 
             <ScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}}>
                <Text style={[{color: theme.fontColorContent, marginVertical:10}]}>{historyHeaderText[language as keyof typeof historyHeaderText]}</Text>       

@@ -46,7 +46,7 @@ const HistoryTab = () => {
                     <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
                   </TouchableOpacity>
                   <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
-                    <Text style={style.name}>{item.name}</Text>
+                    <Text style={style.name}>{item.name==='Stage 0'?'Stock':item.name}</Text>
                     <View style={style.performanceContainer}>
                       {item.performance?.[0].value&&<View style={style.performance}>
                         <Text style={[style.performanceValue, {color: getColorsCircle(item.performance[0].value, 'hp')[0]}]}>{item.performance[0].value} </Text>

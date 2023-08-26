@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../../../slices/themeSlice';
 import { selectLanguage } from './../../../slices/languageSlice';
 import { translations } from './../../../utils/translations';
+import { globalStyles } from '../../../utils/globalStyles';
 
 
 const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
@@ -28,8 +29,8 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
         <ScrollView style={[style.mainContainer, {backgroundColor:theme.background}]}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>{language==="en"?title.en:title.pl}</Text>
             <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
-                <Text style={[style.itemHeader, {color: "#2f3"}]}>{headerText[language as keyof typeof headerText]}</Text>
-                <Text style={[style.itemText, {color: theme.fontColorContent}]}>
+                <Text style={[style.itemHeader, {color: globalStyles.background_2}]}>{headerText[language as keyof typeof headerText]}</Text>
+                <Text style={[style.itemText, {color: theme.fontColor}]}>
                     {about[language as keyof typeof about]}
                 </Text>
             </View>
@@ -91,7 +92,7 @@ const style = StyleSheet.create({
         letterSpacing:1
     },
     itemText: {
-        marginHorizontal:10,
+        marginHorizontal:0,
         marginVertical:5
     }
 })

@@ -19,12 +19,7 @@ import * as Linking from 'expo-linking';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const InfoTab = () => {
-  const navigationTab:any = useNavigation()
-  const [imagesModalVisible, setImagesModalVisible] = useState(false)
-  const [chatModalVisible, setChatModalVisible] = useState(false)
   const theme = useSelector(selectTheme) 
-  const navigation:any = useNavigation()
-  const screenWidth = Dimensions.get('window').width
   const selectedProject:CarprojectData = useSelector(selectProject)
   const [mapModalVisible, setMapModalVisible] = useState(false)
   const [play, setPlay] = useState<boolean>(false);
@@ -48,7 +43,6 @@ const InfoTab = () => {
 
   console.log(selectedProject)
   const getBaseColors = getColorsCircle(selectedProject.car.history[selectedProject.car.history.length-1].performance?.[0].value, 'hp')
-//   const getBaseColors = selectedProject.car.performance?.[0].value?getColorsCircle(selectedProject.car.performance?.[0].value, selectedProject.car.performance[0].type):['#273']
 
   const soundControl = async (playSound:boolean) => {
         if(sound){
@@ -102,16 +96,46 @@ const InfoTab = () => {
                         end={{x:1, y:2}}
                     >
                         <Text style={[localStyle.stageNumber, {color: theme.fontColor}]}>
-                            Stock
+                            {selectedProject?.car?.history[selectedProject?.car?.history.length-1]?.name}
                         </Text>
                     </LinearGradient>
             </View>
 
-            <View style={{flex:1}}>
-                <Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>
+            <View style={{ flex:1 }}>
+                    {selectedProject.car.description.length>1&&<Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>
                         {selectedProject.car.description}
-                    </Text>
+                    </Text>}
+                    <View style={{flex: 1, marginTop:40}}>
+                    <View style={localStyle.itemContainer}>
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.engine.name}
+                        </Text>
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.engine.cylinderType}                       
+                        </Text>
+                        
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.engine.volume}                        
+                        </Text>
+
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.engine.fuel}
+                        </Text>
+                    </View>
+                    <View style={localStyle.itemContainer}>
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.driveType}
+                        </Text>
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.transmission.name}                       
+                        </Text>
+
+                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
+                            {selectedProject.car.mainDataCarType.transmission.countGear}
+                        </Text>
+                    </View>
                 </View>
+            </View>
 
             <View style={localStyle.footerLinks}>
                 <TouchableOpacity 
@@ -168,6 +192,21 @@ const InfoTab = () => {
 export default InfoTab
 
 const localStyle = StyleSheet.create({
+    itemContainer: {
+        flexDirection:'row',
+        justifyContent: 'space-between',
+        marginBottom: 10
+    },
+    textValue: {
+        backgroundColor: '#111',
+        borderRadius: 5,
+        padding:5,
+        paddingHorizontal: 10,
+        flex: 1,
+        marginHorizontal: 5,
+        textAlign:'center',
+        textAlignVertical:'center'
+    },
     footerLinks: {
         flexDirection:'row',
         justifyContent:'space-between',

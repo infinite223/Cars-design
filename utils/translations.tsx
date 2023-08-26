@@ -164,8 +164,8 @@ export const translations = {
                 en: "File is too large"
             },
             navTitleText: {
-                en: "Add project",
-                pl:"Dodaj projekt"
+                en: "Adding project",
+                pl:"Dodawanie projektu"
             },
             cameraError: {
                 en: "Sorry, Camera roll permissions are required to make this work!",

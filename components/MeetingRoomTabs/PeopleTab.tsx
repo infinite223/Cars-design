@@ -31,7 +31,7 @@ const PeopleTab = () => {
   const isMyMeeting = user.uid === room.createdBy.uid
 
   const unJoinMe = () => {
-    const poeople = people.people?.find((people:any)=> people.uid === user.uid)
+    const poeople = people?.people?.find((people:any)=> people.uid === user.uid)
     const meetingRef = doc(db, 'meetings', room.id)
 
     updateDoc(meetingRef, {
@@ -53,10 +53,10 @@ const PeopleTab = () => {
     <View style={{flex:1, backgroundColor: theme.background, paddingBottom:30}}>
       <SelectProjectModal roomId={room.id} modalVisible={showSelectModal} setModalVisible={setShowSelectModal}/>
       <NavigationHeaderTabs navigationTab={navigationTab} tabName="People"/>
-      <FlatList
+      {people?.people&&<FlatList
         style={{flex:1}}  
         scrollEnabled={true}
-        data={people.people}
+        data={people?.people}
         ListHeaderComponent={()=>(
           <View>
             <View style={[style.searchContainer, {backgroundColor: theme.background==="black"?"#222":'#ddd'}]}>
@@ -112,7 +112,7 @@ const PeopleTab = () => {
             </View>          
           </TouchableOpacity>
         )}
-      />
+      />}
    </View>
   )
 }

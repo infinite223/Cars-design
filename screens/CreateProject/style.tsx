@@ -34,7 +34,7 @@ export const style = StyleSheet.create({
         marginVertical:4,
         marginBottom:10,
         marginHorizontal:0,
-        borderRadius:10,
+        borderRadius:5,
         flexDirection:'row',
         alignItems:'center',
         opacity:1

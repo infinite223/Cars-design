@@ -72,10 +72,10 @@ const HomeScreen = () => {
     navigation.setOptions({
        headerBackVisible:false,
        headerTitle: () =>  
-      //  <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-      //   Cars project
-      //  </Text>
-      <Image style={{width:130, height:35, marginLeft:-10}} source={require('./../../assets/nameApp.png')}/>
+      <View style={{alignItems:'center', flexDirection:'row'}}>
+        <Image style={{width:30, height:30, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+        <Text style={{fontSize:16 ,color: theme.fontColor, marginLeft: 5, fontWeight: '800'}}>Cars design</Text>
+      </View>
        ,
        headerLeft: () => <View></View> 
     })  

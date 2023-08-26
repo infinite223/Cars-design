@@ -14,7 +14,7 @@ export const style = StyleSheet.create({
     },
     searchItem: {
         marginHorizontal:15,
-        paddingHorizontal:10,
+        paddingHorizontal:5,
         paddingVertical:7,
         borderRadius:5,
         marginTop:10,
@@ -26,7 +26,7 @@ export const style = StyleSheet.create({
     imageCar: {
         width:90,
         height:50,
-        borderRadius:5
+        borderRadius:2
     },
     carMake: {
 
