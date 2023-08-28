@@ -20,6 +20,9 @@ import ReportScreen from '../screens/Report'
 import CreateMeeting from '../screens/CreateMeeting'
 import TermsScreen from '../screens/Terms'
 import ReviewsScreen from '../screens/Reviews'
+import CreateScreen from '../screens/CreateProject'
+import CreateProblem from '../screens/CreateProblem'
+import CreateProject from '../screens/CreateProject'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -58,7 +61,11 @@ const StackNavigator = () => {
             <Stack.Screen 
               name='CreateMeeting' 
               component={CreateMeeting} 
-              // options={{headerShown:false}}
+            />
+            <Stack.Screen name='CreateProject' component={CreateProject}/>
+            <Stack.Screen 
+              name='CreateProblem' 
+              component={CreateProblem} 
             />
             <Stack.Screen name="Reviews" component={ReviewsScreen}/>
 

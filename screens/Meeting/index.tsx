@@ -32,11 +32,11 @@ const MeetingScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-          Meetings 
+       headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
+          Spotkania 
        </Text>,
       headerRight: () => 
-      <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5, marginRight:5}} onPress={() => navigation.navigate('CreateMeeting')}>
+      <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5}} onPress={() => navigation.navigate('CreateMeeting')}>
         <_Icon_MaterialCommunityIcons name={'account-multiple-plus-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
       </TouchableOpacity>
     })  

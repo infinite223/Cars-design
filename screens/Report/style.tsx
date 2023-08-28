@@ -36,15 +36,17 @@ export const style = StyleSheet.create({
         backgroundColor:'#a11',
         paddingHorizontal:17,
         paddingVertical:10,
-        borderRadius:20,
+        borderRadius:5,
         alignItems:'center',
         flexDirection:'row',
-        justifyContent:'center'
+        justifyContent:'center',
+        marginBottom:15
     },
     reportText: {
         color:'white',
-        fontSize:17,
+        fontSize:15,
         letterSpacing:1,
         marginRight:10,
+        fontWeight: '600'
     }
 })

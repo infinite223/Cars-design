@@ -46,7 +46,7 @@ const LoginScreen = () => {
         {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert}/>}
           <View style={{ paddingBottom:20, alignItems:'center', flex:1, justifyContent:'center'}}>
 
-            <Image style={{width:100, height:100}} source={require("../../assets/iconApp_1.png")}/>
+            <Image style={{width:100, height:100, marginTop: 30}} source={require("../../assets/iconApp_1.png")}/>
             <Text style={[style.aboutText, {fontSize:20, marginVertical:20, letterSpacing:2, fontWeight:'500'}]}>
               WELCOME TO
             </Text>

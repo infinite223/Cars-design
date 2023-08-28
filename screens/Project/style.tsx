@@ -1,6 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native"
 
 export const style = StyleSheet.create({
+    type: {
+
+    },
     descriptopnText: {
       maxWidth:Dimensions.get('screen').width,
       fontSize:14,

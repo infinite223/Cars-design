@@ -165,17 +165,19 @@ export const RightNavigation = () => {
 const style = StyleSheet.create({
     containerNavigation: {
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT-40,    
+        height:SCREEN_HEIGHT-5,    
         position:'absolute',
-        top:0,
+        top:-35,
+        paddingTop: 35,
         zIndex:11
     },
     backgroundNavigation: {
         backgroundColor: 'rgba(1, 1, 1, .5)',
         width:SCREEN_WIDTH+200,
-        height:SCREEN_HEIGHT+50,
+        height:SCREEN_HEIGHT+0,
         position:'absolute',
-        top:0,
+        top:-35,
+        paddingTop: 35,
         zIndex:10
     },
     header: {

@@ -19,7 +19,7 @@ export const style = StyleSheet.create({
         fontSize:13
     },
     mainContent: {
-        borderRadius:10,
+        borderRadius:5,
         paddingHorizontal:15,
         marginVertical:10,
         paddingVertical:10,

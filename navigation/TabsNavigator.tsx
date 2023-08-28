@@ -1,19 +1,20 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CreateScreen from '../screens/CreateProject/index';
+import CreateScreen from '../screens/Create/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTheme } from '../slices/themeSlice';
 import _Icon_Entypo  from 'react-native-vector-icons/Entypo'
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 import _Icon_MaterialIcons  from 'react-native-vector-icons/Fontisto'
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
+import _Icon_Feather from 'react-native-vector-icons/Feather'
 import { Icon } from '@rneui/themed';
 import MeetingScreen from '../screens/Meeting';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SearchScreen from './../screens/Search/index';
 import { TouchableOpacity, View } from 'react-native';
 import { setNavigation } from '../slices/navigationSlice';
 import HomeScreen from './../screens/Home/index';
+import { ProblemsScreen } from '../screens/Problems';
 
 export const TabsNavigator = () => {
 
@@ -40,13 +41,13 @@ export const TabsNavigator = () => {
             <Tab.Screen name="Home" component={HomeScreen} options={
               {tabBarLabelStyle:{display:'none'}, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
-              <Tab.Screen name='Search' component={SearchScreen} options={
+              <Tab.Screen name='Problems' component={ProblemsScreen} options={
               {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => 
-                <_Icon_antDesign name='search1' size={21} color={focused?theme.fontColor:theme.fontColorContent}/>
+                <_Icon_Feather name='refresh-cw' size={21} color={focused?theme.fontColor:theme.fontColorContent}/>
             }} 
             />
-              <Tab.Screen name='Create' component={CreateScreen} options={
-              {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus-a' size={25} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
+            <Tab.Screen name='Create' component={CreateScreen} options={
+              {headerShown: false, tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus-a' size={25} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
             />
             
             <Tab.Screen name="Meeting" component={MeetingScreen} options={

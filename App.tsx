@@ -28,7 +28,6 @@ export default function App() {
           <AuthProvider>
             <GestureHandlerRootView style={{flex:1}}>
             <RightNavigation/>
-              {/* <StatusBar showHideTransition={'slide'} hidden={false}/> */}
               <UploadingStatus/>
               <PrompttModal/>
               <StackNavigator/>

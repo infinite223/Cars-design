@@ -29,7 +29,7 @@ import { globalStyles } from '../../utils/globalStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-const CreateScreen = () => {
+const CreateProject = () => {
     const { errorMessage, 
         historyHeadeText, imageHelpText_1, imageHelpText_2, imageHelpText_3, imageHelpText_4, 
         selectListPlaceholder, soundHeaderText, soundHelpText_1, soundHelpText_2, linksHeader,
@@ -94,16 +94,9 @@ const CreateScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ marginLeft:5, fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
+           headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
                 {navTitleText[language as keyof typeof navTitleText]}
             </Text>,
-        //    headerLeft: () => (
-        //     <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
-        //         <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
-        //     </TouchableOpacity> 
-        //     ),
-            // headerRight: () => <Image style={style.logo} source={require('./../../assets/cars_projects_IconV2.png')}/>
-            
     })
       }, [theme, language])
 
@@ -249,7 +242,7 @@ const CreateScreen = () => {
                     ItemSeparatorComponent={()=><View style={{width:20}}/>}
                     renderItem={({item})=> (
                         <TouchableOpacity onLongPress={()=>setShowwSelectPlaceVisible(true)} style={{alignItems:'center', justifyContent:'center', height:120, marginVertical:10}}>
-                            <Image source={{ uri: item.uri }} style={{ width: widthScreen / 2.5, height: 120, marginStart:15, borderRadius:15 }} />
+                            <Image source={{ uri: item.uri }} style={{ width: widthScreen / 2.2, height: 120, marginStart:5, borderRadius:5 }} />
                             <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.uri!==item.uri))} style={{position:'absolute', top:10, right:10, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
                                 <Icon type='entypo' name="minus" size={20} color={theme.fontColor}/>
                             </TouchableOpacity>
@@ -354,10 +347,10 @@ const CreateScreen = () => {
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
             <TouchableOpacity 
                 onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
-                style={[style.nextStepButton, style.finishButton, {borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}
+                style={[ style.finishButton, { borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Dodaj projekt</Text>
-                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+                {/* <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/> */}
             </TouchableOpacity>}
         </View>            
     ]
@@ -386,4 +379,4 @@ const CreateScreen = () => {
   )
 }
 
-export default CreateScreen
+export default CreateProject

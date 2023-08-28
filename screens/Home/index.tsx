@@ -72,12 +72,13 @@ const HomeScreen = () => {
     navigation.setOptions({
        headerBackVisible:false,
        headerTitle: () =>  
-      <View style={{alignItems:'center', flexDirection:'row'}}>
-        <Image style={{width:30, height:30, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
-        <Text style={{fontSize:16 ,color: theme.fontColor, marginLeft: 5, fontWeight: '800'}}>Cars design</Text>
-      </View>
-       ,
-       headerLeft: () => <View></View> 
+        <View style={{alignItems:'center', flexDirection:'row'}}>
+          <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 5, fontWeight: '800'}}>Cars design</Text>
+        </View>,
+       headerLeft: () => <View></View> ,
+       headerRight: () => <_Icon_antDesign name='search1' size={21} color={theme.fontColor} style={{marginRight: 15}}/>
+
     })  
   }, [theme])
 

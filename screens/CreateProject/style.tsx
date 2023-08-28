@@ -10,13 +10,13 @@ export const style = StyleSheet.create({
     },
     mainContainer: {
         flex:1, 
-        paddingHorizontal:15, 
+        paddingHorizontal:0, 
         position:'relative',
         alignItems:'center',
         justifyContent:'center',
     },
     renderItem: {
-        paddingHorizontal:20
+        paddingHorizontal:10
     },
     headerText: {
         color: 'white',
@@ -110,17 +110,21 @@ export const style = StyleSheet.create({
         letterSpacing:1
     },
     finishButton: {
-        borderRadius:15,  
+        borderRadius:5,  
         paddingVertical:8, 
         flexDirection:'row',
         borderWidth:1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom:15
     },
     finishButtonText: {
-        fontSize:18,
-        letterSpacing:2,
+        fontSize:16,
+        letterSpacing:0,
         paddingHorizontal:7,
         marginRight:5,
-        fontWeight:'600'
+        fontWeight:'700',
+        textTransform: 'uppercase'
     },
     stageComponent: {
         flexDirection:'row',
@@ -183,7 +187,7 @@ export const style = StyleSheet.create({
         alignItems:'center', 
         justifyContent:'space-evenly',
         
-        borderRadius:20,
+        borderRadius:5,
         paddingHorizontal:20,
         paddingVertical:10,
         marginVertical:10

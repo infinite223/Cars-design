@@ -100,39 +100,76 @@ const InfoTab = () => {
                         </Text>
                     </LinearGradient>
             </View>
-
             <View style={{ flex:1 }}>
                     {selectedProject.car.description.length>1&&<Text style={[style.descriptopnText, {color:theme.fontColorContent}]}>
                         {selectedProject.car.description}
                     </Text>}
                     <View style={{flex: 1, marginTop:40}}>
                     <View style={localStyle.itemContainer}>
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.engine.name}
-                        </Text>
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.engine.cylinderType}                       
-                        </Text>
-                        
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.engine.volume}                        
-                        </Text>
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.engine.name}
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Silnik
+                            </Text>
+                        </View>
 
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.engine.fuel}
-                        </Text>
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.engine.cylinderType}                       
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Typ
+                            </Text>
+                        </View>
+                        
+
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.engine.volume}                        
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Pojemność
+                            </Text>
+                        </View>
+
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.engine.fuel}
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Paliwo
+                            </Text>
+                        </View>
                     </View>
                     <View style={localStyle.itemContainer}>
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.driveType}
-                        </Text>
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.transmission.name}                       
-                        </Text>
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.driveType}
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Napęd
+                            </Text>
+                        </View>
+                        
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.transmission.name}                       
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Skrzynia
+                            </Text>
+                        </View>
 
-                        <Text style={[localStyle.textValue, {color: theme.fontColor}]}>
-                            {selectedProject.car.mainDataCarType.transmission.countGear}
-                        </Text>
+                        <View style={[localStyle.textContainer]}>
+                            <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
+                                {selectedProject.car.mainDataCarType.transmission.countGear}
+                            </Text>
+                            <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
+                                Ilość biegów
+                            </Text>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -197,7 +234,7 @@ const localStyle = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 10
     },
-    textValue: {
+    textContainer: {
         backgroundColor: '#111',
         borderRadius: 5,
         padding:5,
@@ -205,7 +242,17 @@ const localStyle = StyleSheet.create({
         flex: 1,
         marginHorizontal: 5,
         textAlign:'center',
-        textAlignVertical:'center'
+        textAlignVertical:'center',
+        justifyContent: 'center'
+    },
+    textValue: {
+        fontSize:14,
+        textAlign: 'center'
+    },
+    textType: {
+        fontSize: 10,
+        textAlign: 'center'
+
     },
     footerLinks: {
         flexDirection:'row',
