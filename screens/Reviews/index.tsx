@@ -33,23 +33,25 @@ const ReviewsScreen = () => {
       
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
-      <View style={[style.context, { backgroundColor: theme.background}]}>
-        <Text style={[style.contextText, {color: theme.fontColorContent}]}>
-            {contextText[language as keyof typeof contextText]}
-        </Text> 
-       </View>
+        <View style={{flex: 1}}>
+        <View style={[style.context, { backgroundColor: theme.background}]}>
+          <Text style={[style.contextText, {color: theme.fontColorContent}]}>
+              {contextText[language as keyof typeof contextText]}
+          </Text> 
+        </View>
 
-       <Text style={[style.labelText, {color: globalStyles.background_2}]}>{labelText[language as keyof typeof labelText]}</Text>
+        <Text style={[style.labelText, {color: globalStyles.background_2}]}>{labelText[language as keyof typeof labelText]}</Text>
 
-       <View style={[style.mainContent, {backgroundColor: theme.backgroundContent}]}>
-        <TextInput 
-            placeholder={placeholderText[language as keyof typeof placeholderText]}
-            placeholderTextColor={theme.fontColorContent}
-            multiline
-            style={{color: theme.fontColor, textAlignVertical:'top'}}
-            numberOfLines={10}
-        />
-       </View>
+        <View style={[style.mainContent, {backgroundColor: theme.backgroundContent}]}>
+          <TextInput 
+              placeholder={placeholderText[language as keyof typeof placeholderText]}
+              placeholderTextColor={theme.fontColorContent}
+              multiline
+              style={{color: theme.fontColor, textAlignVertical:'top'}}
+              numberOfLines={10}
+          />
+        </View>
+      </View>
 
        <TouchableOpacity style={style.sendButton}>
         <Text style={style.sendButtonText}>

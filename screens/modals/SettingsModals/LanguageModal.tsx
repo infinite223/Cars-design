@@ -36,8 +36,8 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
             paddingHorizontal:10,
             paddingVertical:15,
             borderColor:theme.backgroundContent,
-            borderWidth:2,
-            borderRadius:15,
+            borderWidth:1,
+            borderRadius:5,
         }}>
             <Text style={{color: theme.fontColor, fontSize:22, marginTop:10, marginBottom:30}}>
                 {language==="en"?_translations.en:_translations.pl}
@@ -46,7 +46,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
                 <TouchableOpacity
                     onPress={()=> (dispatch(setLanguage('pl')), setModalVisible(!modalVisible))}
                     style={{
-                        backgroundColor: language==='pl'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:10,
+                        backgroundColor: language==='pl'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:5,
                         alignItems:'center', justifyContent:'center'
                 }}>
                         <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:20, paddingVertical:5}}>Polski</Text>
@@ -55,7 +55,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
                 <TouchableOpacity 
                     onPress={()=>(dispatch(setLanguage('en')), setModalVisible(!modalVisible))}
                     style={{
-                        backgroundColor: language==='en'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:10,
+                        backgroundColor: language==='en'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:5,
                         alignItems:'center', justifyContent:'center'
                 }}>
                         <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:20, paddingVertical:5}}>English</Text>

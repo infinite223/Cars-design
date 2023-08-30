@@ -95,7 +95,7 @@ export const style = StyleSheet.create({
     },
     addImageButton: {
         borderWidth:1,
-        borderRadius:15,
+        borderRadius:5,
         alignItems:'center',
         justifyContent:'center',
 

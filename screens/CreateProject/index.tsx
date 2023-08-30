@@ -218,19 +218,19 @@ const CreateProject = () => {
                     <TouchableOpacity disabled={images.length>=6} onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {borderColor: theme.backgroundContent, opacity:images.length>=6?.5:1}]}>            
                         <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
                     </TouchableOpacity>
-                    <View style={[style.helpTextConteiner]}>             
+                    <View style={[style.helpTextConteiner]}>     
                         <Text style={[{color: theme.fontColor}]}>
                             {imageHelpText_1[language as keyof typeof imageHelpText_1]}
+                        </Text>        
+                        <Text style={[{color: '#f32', maxWidth:200, fontWeight: '600', fontSize: 16}]}>
+                            -  {imageHelpText_2[language as keyof typeof imageHelpText_2]}
                         </Text>
-                        <Text style={[{color: '#a32', maxWidth:200}]}>
-                            {imageHelpText_2[language as keyof typeof imageHelpText_2]}
+                        <Text style={[{color: '#f32', maxWidth:200, fontWeight: '600', fontSize: 16}]}>
+                           -  {imageHelpText_4[language as keyof typeof imageHelpText_4]}
                         </Text>
-                        <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
+                        {/* <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
                             {imageHelpText_3[language as keyof typeof imageHelpText_3]}
-                        </Text>
-                        <Text style={[{color: '#a32', maxWidth:200}]}>
-                            {imageHelpText_4[language as keyof typeof imageHelpText_4]}
-                        </Text>
+                        </Text> */}
                     </View>
                 </View>
 

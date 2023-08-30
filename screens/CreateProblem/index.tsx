@@ -115,7 +115,7 @@ const CreateProblem = () => {
       </View>
 
 
-      <View>
+      <View style={{flex: 1, padding: 10}}>
         {selectedOption===0?
           <GeneralProblem/>:
           <SpecyficProblem/>

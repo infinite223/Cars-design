@@ -12,7 +12,7 @@ export const style = StyleSheet.create({
         position:'relative'
     },
     context: {
-        paddingHorizontal:5,
+        paddingHorizontal:0,
         paddingVertical:10,
     },
     contextText: {
@@ -30,19 +30,25 @@ export const style = StyleSheet.create({
         letterSpacing:1
     },
     sendButton: {
-        paddingHorizontal:15,
-        paddingVertical:7,
-        borderRadius:20,
         backgroundColor: globalStyles.background_1,
-        position:'absolute',
-        bottom:20,
-        right:20,
+        // position:'absolute',
+        // bottom:20,
+        // right:20,
+        paddingHorizontal:17,
+        paddingVertical:10,
+        borderRadius:5,
+        alignItems:'center',
         flexDirection:'row',
-        alignItems:'center'
+        justifyContent:'center',
+        marginBottom:15
     },
     sendButtonText: {
-        color:'white',
-        fontSize:20,
-        letterSpacing:2
+        fontSize:16,
+        letterSpacing:0,
+        paddingHorizontal:7,
+        marginRight:5,
+        fontWeight:'700',
+        textTransform: 'uppercase',
+        color: 'white'
     }
 })

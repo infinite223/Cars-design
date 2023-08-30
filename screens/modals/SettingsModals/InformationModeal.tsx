@@ -70,7 +70,7 @@ export default InformationModal
 const style = StyleSheet.create({
     mainContainer: {
         width:"100%",  
-        paddingHorizontal:15,
+        paddingHorizontal:5,
         paddingTop:10
     },
     headerText: {
@@ -85,14 +85,17 @@ const style = StyleSheet.create({
         marginVertical:5,
         // paddingHorizontal:10,
         padding:10,
-        borderRadius:10
+        borderRadius:0
     },
     itemHeader: {
         fontSize:15,
-        letterSpacing:1
+        letterSpacing:1,
+        paddingHorizontal:5,
+        fontWeight: '800',
+        paddingVertical: 6
     },
     itemText: {
-        marginHorizontal:0,
+        marginHorizontal:5,
         marginVertical:5
     }
 })

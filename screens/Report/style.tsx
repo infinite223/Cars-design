@@ -43,10 +43,12 @@ export const style = StyleSheet.create({
         marginBottom:15
     },
     reportText: {
-        color:'white',
-        fontSize:15,
-        letterSpacing:1,
-        marginRight:10,
-        fontWeight: '600'
+        fontSize:16,
+        letterSpacing:0,
+        paddingHorizontal:7,
+        marginRight:5,
+        fontWeight:'700',
+        textTransform: 'uppercase',
+        color: 'white'
     }
 })
