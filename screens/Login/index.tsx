@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image,  ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
+import { StatusBar, View, Text, TouchableOpacity, Image,  ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigation } from '@react-navigation/native'
@@ -41,7 +41,7 @@ const LoginScreen = () => {
 
   return (
       <View style={style.headerContainer}>
-        
+        <StatusBar  barStyle={'dark-content'} backgroundColor={'#3391be'}/>
         <ImageBackground style={[style.headerContainer]} resizeMode='cover' source={require("../../assets/background_login_2.png")}>
         {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert}/>}
           <View style={{ paddingBottom:20, alignItems:'center', flex:1, justifyContent:'center'}}>

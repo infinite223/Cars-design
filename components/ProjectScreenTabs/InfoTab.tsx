@@ -235,7 +235,7 @@ const localStyle = StyleSheet.create({
         marginBottom: 10
     },
     textContainer: {
-        backgroundColor: '#111',
+        backgroundColor: '#222829',
         borderRadius: 5,
         padding:5,
         paddingHorizontal: 10,

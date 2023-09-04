@@ -3,7 +3,6 @@ import React, { useLayoutEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { selectTheme } from '../../slices/themeSlice'
-import { Icon } from '@rneui/base'
 import { style } from './style'
 import { LinearGradient } from 'expo-linear-gradient'
 

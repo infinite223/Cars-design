@@ -215,7 +215,7 @@ const CreateProject = () => {
 
             <View style={{ flexGrow:.0,  marginTop:20 }} >		
                 <View style={style.headerImages}>
-                    <TouchableOpacity disabled={images.length>=6} onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {borderColor: theme.backgroundContent, opacity:images.length>=6?.5:1}]}>            
+                    <TouchableOpacity disabled={images.length>=6} onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {backgroundColor: theme.backgroundContent, opacity:images.length>=6?.5:1}]}>            
                         <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
                     </TouchableOpacity>
                     <View style={[style.helpTextConteiner]}>     
@@ -243,7 +243,7 @@ const CreateProject = () => {
                     renderItem={({item})=> (
                         <TouchableOpacity onLongPress={()=>setShowwSelectPlaceVisible(true)} style={{alignItems:'center', justifyContent:'center', height:120, marginVertical:10}}>
                             <Image source={{ uri: item.uri }} style={{ width: widthScreen / 2.2, height: 120, marginStart:5, borderRadius:5 }} />
-                            <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.uri!==item.uri))} style={{position:'absolute', top:10, right:10, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:10}}>                         
+                            <TouchableOpacity onPress={()=>setImages(images.filter((image)=>image.uri!==item.uri))} style={{position:'absolute', top:10, right:10, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:3}}>                         
                                 <Icon type='entypo' name="minus" size={20} color={theme.fontColor}/>
                             </TouchableOpacity>
                         </TouchableOpacity>

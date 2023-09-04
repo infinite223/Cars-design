@@ -1,17 +1,47 @@
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Image, Dimensions} from 'react-native'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { selectTheme } from '../../slices/themeSlice'
 import CustomInput from '../../components/CustomInput'
 import { globalStyles } from '../../utils/globalStyles'
+import { Icon } from '@rneui/themed';
+import { chooseImg } from '../../utils/functions/chooseImg'
+import { style } from './style'
+import { GeneralProblemType, SpecyficProblemType } from '../../utils/types'
+import { setLoading } from '../../slices/loadingSlice'
+import { v4 as uuid } from 'uuid';
+import useAuth from '../../hooks/useAuth'
+import { Timestamp } from 'firebase/firestore'
+
+const widthScreen = Dimensions.get('window').width
 
 const GeneralProblem = () => {
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
   const [title, setTitle] = useState('')
   const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
+  const [images, setImages] = useState<any[]>([]);
+  const { user }:any = useAuth()
+  const dispatch = useDispatch()
 
+  const createProblem = () => {
+    dispatch(setLoading(true))
+    const problemId = uuid();
+    const problemData:GeneralProblemType = {
+        author: user,
+        date: Timestamp.now(),
+        description: '',
+        id: '',
+        imageUri: [],
+        status:'Unresolved',
+        title: '',
+        type: 'General',
+    }
+
+   
+    dispatch(setLoading(false))
+  }
   return (
     <ScrollView style={localStyles.container} contentContainerStyle={{justifyContent: 'space-between', height: 900}}>
       <View style={{flex: 1}}>
@@ -28,9 +58,22 @@ const GeneralProblem = () => {
             numberOfLines={10}
         />
         <Text style={[localStyles.text, { color: theme.fontColor, backgroundColor: theme.backgroundContent }]}>Dodaj zdjęcie</Text>
+        
+        <View style={{marginVertical: 15, flexDirection:'row', justifyContent:'space-between'}}>
+          <TouchableOpacity disabled={images.length>=1} onPress={()=>chooseImg(images, setImages)} style={[style.addImageButton, {backgroundColor: theme.backgroundContent, opacity:images.length>=1?.5:1}]}>            
+            <Icon type='entypo' name="plus" size={30} color={theme.fontColor}/>
+          </TouchableOpacity>
+          <View>
+            <Image source={{ uri: images[0]?.uri }} style={{ width: widthScreen / 2.2, height: 120, marginStart:5, borderRadius:5 }} />
+
+            {images.length>0&&<TouchableOpacity onPress={()=>setImages([])} style={{position:'absolute', top:5, right:5, padding:4, backgroundColor:'rgba(0,0,0, .6)', borderRadius:5}}>                         
+                <Icon type='entypo' name="minus" size={20} color={theme.fontColor}/>
+            </TouchableOpacity>}
+          </View>
+        </View>
       </View>
 
-      <TouchableOpacity style={localStyles.button}>
+      <TouchableOpacity style={localStyles.button} onPress={createProblem}>
         <Text style={localStyles.buttonText}>Utwórz problem ogólny</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -44,15 +87,14 @@ const localStyles = StyleSheet.create({
     flex: 1,
   },
   headerText: {
-
+    marginBottom: 5
   },
   text: {
-    fontSize: 16,
+    fontSize: 15,
     marginTop: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 5
-      // backgroundColor: 'gray'
+    paddingHorizontal: 20,
+    paddingVertical: 7,
+    borderRadius: 25
   },
   button: {
     backgroundColor: globalStyles.background_1,

@@ -6,7 +6,6 @@ import { Icon } from "@rneui/themed";
 import _Icon from 'react-native-vector-icons/Entypo'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { UserList } from '../utils/types';
 import useAuth, { db } from './../hooks/useAuth';
 import { selectLanguage } from './../slices/languageSlice';
 import { FilterUsers } from './FilterUsers';

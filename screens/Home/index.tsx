@@ -109,6 +109,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{paddingTop:0, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
+      <StatusBar  barStyle={'dark-content'} backgroundColor={'black'}/>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects?<FlatList 
         style={{ width: '100%'}}

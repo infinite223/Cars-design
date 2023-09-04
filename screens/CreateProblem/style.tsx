@@ -10,7 +10,15 @@ export const style = StyleSheet.create({
     navigation: {
         alignItems: 'center',
         flexDirection:'row',
-    
+    },
+    addImageButton: {
+        borderWidth:1,
+        borderRadius: 5,
+        alignItems:'center',
+        justifyContent:'center',
+
+        width:120,
+        height:120
     },
     typeProblem : {
         borderRadius:5,

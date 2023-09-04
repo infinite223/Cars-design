@@ -33,7 +33,7 @@ const ReviewsScreen = () => {
       
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
-        <View style={{flex: 1}}>
+      <View style={{flex: 1}}>
         <View style={[style.context, { backgroundColor: theme.background}]}>
           <Text style={[style.contextText, {color: theme.fontColorContent}]}>
               {contextText[language as keyof typeof contextText]}

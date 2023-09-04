@@ -47,26 +47,6 @@ const CreateProblem = () => {
   })
     }, [theme, language])
 
-      const createProblem = () => {
-        dispatch(setLoading(true))
-        const meetingId = uuid();
-        const meetingData:SpecyficProblemType = {
-            author: user,
-            category:'Engine',
-            date,
-            description: '',
-            errorCodes: [],
-            id: '',
-            imageUri: [],
-            status:'Unresolved',
-            title: '',
-            type: 'General',
-        }
-
-       
-      
-      }
-
       const validMeeting = name.length>2  
       const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
 

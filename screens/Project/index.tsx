@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions, StatusBar } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Avatar } from "@rneui/themed";
@@ -100,6 +100,7 @@ const ProjectScreen = () => {
 
   return (
     <View style={{flex:1}}>
+      <StatusBar  barStyle={'dark-content'} backgroundColor={'black'}/>
       <Animated.View style={[rAllContentSheetStyle, {backgroundColor:`rgba(1, 1, 1, .5)`, zIndex:9, position:'absolute', width: widthScreen, height:heightScreen+100}]}/>
       <Tab.Navigator  
         screenOptions={{
