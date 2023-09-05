@@ -46,12 +46,7 @@ export const useProjects = (user:User, _limit:number) => {
 
     useEffect(()=> {
         setLoading(true)
-        if(user.name==="Tester") {
-            setProjects([])
-        }
-        else {
             getProjects()
-        }
     }, [])
 
     return { projects, loading, nextProjects }

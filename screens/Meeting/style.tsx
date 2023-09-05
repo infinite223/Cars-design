@@ -14,10 +14,10 @@ export const style = StyleSheet.create({
         maxWidth:250
     },
     meetingRoom: {
-        marginHorizontal:15,
+        marginHorizontal:0,
         flexDirection:'row',
         // backgroundColor:'#333',
-        borderRadius:5,
+        borderRadius:0,
         alignItems:'center',
         position:'relative',
         overflow: 'hidden',  
@@ -34,7 +34,7 @@ export const style = StyleSheet.create({
         position:'relative',
         zIndex:10,
         backgroundColor:'#222',
-        marginHorizontal:25,
+        marginHorizontal:10,
         borderTopLeftRadius:5,
         borderTopRightRadius:50,
         flexDirection:'row',

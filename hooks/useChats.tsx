@@ -57,7 +57,6 @@ export const useChats = (user:any,  dispatch:any, readCounts:number) => {
         })
       
         setLoadingChats(false) 
-
         return () => {
           if(user) unsubscribe();
         };

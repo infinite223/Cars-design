@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react'
-import { getAuth } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore';
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth'
@@ -69,7 +69,8 @@ export const AuthProvider = ({children}) => {
   ), [signInWithGoogle])
 
   const signInAsTester = () => {
-    setUser({name: "Tester", imageUri:'https://th.bing.com/th/id/OIP.GHGGLYe7gDfZUzF_tElxiQHaHa?pid=ImgDet&rs=1'})
+   signInWithEmailAndPassword(auth, 'test@gmail.com', 'test123')
+   .catch((e) => console.log(e))
   }
 
   const [request, response, signInWithGoogle] = Google.useIdTokenAuthRequest(

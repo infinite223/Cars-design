@@ -52,9 +52,10 @@ const ImagesModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolea
               [{nativeEvent: { contentOffset: {x: scrollX} }}],
               { useNativeDriver: true }
             )}
-            renderItem={({item})=> <View style={[style.renderPhoto, {width:widthScreen}]}>
-               <Image style={{width:350, height:220, resizeMode: 'cover', borderRadius:10}} source={{uri: item.url}}/>
-            </View>          
+            renderItem={({item})=> 
+              <View style={[style.renderPhoto, {width:widthScreen}]}>
+                <Image style={{width:350, height:220, resizeMode: 'cover', borderRadius:3}} source={{uri: item.url}}/>
+              </View>          
             }   
           />              
         </View>

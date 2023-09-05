@@ -55,9 +55,8 @@ const MeetingScreen = () => {
         }))      
       })
     }
-    if(user.name!=='Tester'){
-      getMeetings()
-    }
+    
+    getMeetings()
   }, [])
   
 

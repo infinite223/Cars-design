@@ -24,6 +24,7 @@ import { db } from './../../hooks/useAuth';
 import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { selectChats } from './../../slices/chatsSlice';
+import { globalStyles } from '../../utils/globalStyles';
 
 const widthScreen = Dimensions.get('window').width
 const heightScreen = Dimensions.get('window').height
@@ -135,7 +136,7 @@ const ProjectScreen = () => {
               onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like===user.uid)?true:false, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
               style={style.iconPadding}
             >         
-              <Icon type="evilicon" name='heart' size={32} color={likes.find((like:any)=>like===user.uid)?'#f33':theme.fontColor}/>
+              <Icon type="evilicon" name='heart' size={32} color={likes.find((like:any)=>like===user.uid)?globalStyles.background_1:theme.fontColor}/>
             </TouchableOpacity>
             <Text style={{marginLeft:6, color:theme.fontColor}}>
               {likes?.length}

@@ -12,7 +12,7 @@ import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { style } from './style';
 import SelectPlaceOnMap from './../modals/SelectPlaceOnMap';
 import useAuth, { db } from '../../hooks/useAuth';
-import { MeetingRoom, SpecyficProblemType } from '../../utils/types';
+import { AlertProps, MeetingRoom, SpecyficProblemType } from '../../utils/types';
 import MapView from 'react-native-maps';
 import { v4 as uuid } from 'uuid';
 import { collection, doc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
@@ -29,20 +29,15 @@ const CreateProblem = () => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { user }:any = useAuth()
+    const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     const [name, setName] = useState('')
-    const [date, setDate] = useState(new Date());
-    const [nummberMeetings, setNummberMeetings] = useState(0)
-    const [showAlert, setShowAlert] = useState({type:'', show:false, message:''})
-    const dispatch = useDispatch()
-
-  
     
     useLayoutEffect(() => {
       navigation.setOptions({
          headerBackVisible:false,
          headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-            Tworzenie problemu
+            Dodawanie problemu
         </Text>,
   })
     }, [theme, language])
@@ -52,6 +47,8 @@ const CreateProblem = () => {
 
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
+      {alertModal.show&&<AlertModal {...alertModal} resetError={setAlertModal}/>}
+
       <View style={style.navigation}>
         <TouchableOpacity 
           style={[style.typeContainer, {backgroundColor: theme.backgroundContent}]} 
@@ -97,8 +94,8 @@ const CreateProblem = () => {
 
       <View style={{flex: 1, padding: 10}}>
         {selectedOption===0?
-          <GeneralProblem/>:
-          <SpecyficProblem/>
+          <GeneralProblem setAlertModal={setAlertModal}/>:
+          <SpecyficProblem setAlertModal={setAlertModal}/>
         }
         
       </View>

@@ -64,7 +64,7 @@ const LoginScreen = () => {
                 <ScrollView>
                   {!showRegisterForm?<LoginForm setShowAlert={setShowAlert}/>:<RegisterForm setShowAlert={setShowAlert}/>}
                 </ScrollView>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
+                {!keyboardShow&&<View style={{flexDirection:'row', alignItems:'center'}}>
                   <TouchableOpacity onPress={()=>setShowRegisterForm(!showRegisterForm)} style={{ alignItems:'center'}}>
                     <Text style={{fontSize:18, color:globalStyles.background_1, fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>
                   </TouchableOpacity>
@@ -73,7 +73,7 @@ const LoginScreen = () => {
                     <Text style={{fontSize:18, color:"gray"}}>Demo</Text>
                     <Icon type='ionicon' name="ios-chevron-forward-outline" size={22} color="gray"/>
                   </TouchableOpacity>
-                </View>
+                </View>}
             </View> 
             </KeyboardAvoidingView>
           

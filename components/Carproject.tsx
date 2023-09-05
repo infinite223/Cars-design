@@ -23,6 +23,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { setHideProjects } from '../slices/hideProjects';
 import { toDateTime } from '../utils/toDateTime';
 import { Timestamp } from 'firebase/firestore';
+import { globalStyles } from '../utils/globalStyles';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {
   const navigation:any = useNavigation()
@@ -54,19 +55,19 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
   const saveProject = (projectId:string) => {
     //....
   }
-
+  const carLastStagePerformance = car.history[car.history.length-1].performance
   return (
       <View style={{backgroundColor: theme.background}}>
-      {car.performance&&
+      {carLastStagePerformance&&
        <TouchableWithoutFeedback onPress={setProjectToNav}>
         <View style={[style.projectContainer]}>
           <View style={{ flexDirection:'column', alignItems:'flex-start', marginBottom:10}}>
-            <Text style={{fontSize:17, marginRight:10, color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}}>{car.model}</Text>
+            <Text style={{fontSize:17, marginRight:10, color: getColorsCircle(carLastStagePerformance[0].value, carLastStagePerformance[0].type)[0]}}>{car.model}</Text>
             <Text style={{fontSize:12, color:theme.fontColor}}>{car.CarMake} </Text>
           </View>
           <View style={{flexDirection:'row'}}>
             <LinearGradient
-              colors={getColorsCircle(car.performance[0].value, car.performance[0].type)}
+              colors={getColorsCircle(carLastStagePerformance[0].value, carLastStagePerformance[0].type)}
               style={style.stageContainer}
               start={{x:0, y:0}}
               end={{x:1, y:2}}
@@ -76,16 +77,16 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
               </Text>
             </LinearGradient>
             <View style={style.performanceContainer}>
-              <Text style={[style.performanceValue, {color: getColorsCircle(car.performance[0].value, car.performance[0].type)[0]}]}>
-                {car.performance[0].value}
+              <Text style={[style.performanceValue, {color: getColorsCircle(carLastStagePerformance[0].value, carLastStagePerformance[0].type)[0]}]}>
+                {carLastStagePerformance[0].value}
               </Text>
-              <Text style={[style.performanceType, {color: theme.fontColor}]}>{car.performance[0].type}</Text>
+              <Text style={[style.performanceType, {color: theme.fontColor}]}>{carLastStagePerformance[0].type}</Text>
             </View>
             <View style={style.performanceContainer}>
-              <Text style={[style.performanceValue, {color: getColorsCircle(car.performance[1].value, car.performance[1].type)[0]}]}>
-                {car.performance[1].value}
+              <Text style={[style.performanceValue, {color: getColorsCircle(carLastStagePerformance[1].value, carLastStagePerformance[1].type)[0]}]}>
+                {carLastStagePerformance[1].value}
               </Text>
-              <Text style={[style.performanceType, {color: theme.fontColor}]}>{car.performance[1].type}</Text>
+              <Text style={[style.performanceType, {color: theme.fontColor}]}>{carLastStagePerformance[1].type}</Text>
             </View>
           </View>   
         </View>
@@ -107,7 +108,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
                     name='heart-outlined'
                     type='entypo'
                     size={24} 
-                    color={car.likes.find((like:any)=>like===user.uid)?'#f32':theme.fontColor}
+                    color={car.likes.find((like:any)=>like===user.uid)?globalStyles.background_1:theme.fontColor}
                 />
             </TouchableOpacity>}
             <TouchableOpacity onPress={()=> onShare(car.CarMake, car.model, 'xd')} style={style.iconContainer}>
@@ -139,19 +140,20 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
                 {
                   paddingHorizontal:10,
                   paddingVertical:5,
-                  borderRadius:10,
+                  borderRadius:5,
                   borderWidth:1, 
                   borderColor: theme.backgroundContent,
                   backgroundColor: theme.background
                 }, optionText: {color:theme.fontColor}
               }}>
-              <MenuOption onSelect={() => navigation.navigate('Report', {id, type:'project'})} >
-                <Text style={{color: 'red'}}>{report[language as keyof typeof report]}</Text>
-              </MenuOption>
+
               {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/> */}
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
               <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} />
+              <MenuOption onSelect={() => navigation.navigate('Report', {id, type:'project'})} >
+                <Text style={{color: '#ff7777'}}>{report[language as keyof typeof report]}</Text>
+              </MenuOption>
             </MenuOptions>
           </Menu>
         </View>
