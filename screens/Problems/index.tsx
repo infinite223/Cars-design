@@ -10,6 +10,7 @@ import useAuth, { db } from '../../hooks/useAuth'
 import { collection, collectionGroup, limit, onSnapshot, query, where } from 'firebase/firestore'
 import { ProblemItem } from './ProblemItem'
 import { SpecyficProblemType } from '../../utils/types'
+import { Image } from 'react-native'
 export const ProblemsScreen = () => {
     const theme = useSelector(selectTheme)
     const navigation:any = useNavigation()
@@ -26,9 +27,10 @@ export const ProblemsScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-              Problemy 
-           </Text>,
+           headerTitle: () =>  <View style={{alignItems:'center', flexDirection:'row'}}>
+           <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+           <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Problemy</Text>
+         </View>,
           headerRight: () => 
           <TouchableOpacity style={{paddingHorizontal:15, paddingVertical:5}} onPress={() => navigation.navigate('CreateProblem')}>
             <_Icon_Entypo name={'plus'} size={26} color={theme.fontColor} style={{ marginRight: 0 }}/>

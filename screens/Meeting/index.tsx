@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, FlatList, Text } from 'react-native'
+import { View, TouchableOpacity, FlatList, Text, Image } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,9 +32,10 @@ const MeetingScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-          Spotkania 
-       </Text>,
+       headerTitle: () =>     <View style={{alignItems:'center', flexDirection:'row'}}>
+       <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+       <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Spotkania</Text>
+     </View>,
       headerRight: () => 
       <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5}} onPress={() => navigation.navigate('CreateMeeting')}>
         <_Icon_MaterialCommunityIcons name={'account-multiple-plus-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
@@ -63,7 +64,7 @@ const MeetingScreen = () => {
   
   return (
     <View style={{flex:1, justifyContent:'flex-start', backgroundColor:theme.background}}>   
-      <View style={style.roomsContainer}>
+      {/* <View style={style.roomsContainer}>
         {meetings?
             <FlatList
                 ItemSeparatorComponent={()=><View style={{height:10}}/>}
@@ -109,7 +110,7 @@ const MeetingScreen = () => {
                 {warningText[language as keyof typeof warningText]}
             </Text>
         }
-      </View>
+      </View> */}
     </View>
   )
 }

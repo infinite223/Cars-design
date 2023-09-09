@@ -24,6 +24,7 @@ import { setHideProjects } from '../slices/hideProjects';
 import { toDateTime } from '../utils/toDateTime';
 import { Timestamp } from 'firebase/firestore';
 import { globalStyles } from '../utils/globalStyles';
+import { getCorrectNameLikes } from '../utils/functions/getCorrectNameLikes';
 
 const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, createdAt, place}}) => {
   const navigation:any = useNavigation()
@@ -121,7 +122,8 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </TouchableOpacity>
 
             <Text style={[style.likes, {color: theme.fontColorContent}]}>
-              {car.likes.length} {likesText[language as keyof typeof likesText]}
+              {/* {car.likes.length} {likesText[language as keyof typeof likesText]} */}
+              {getCorrectNameLikes(car.likes?.length)} 
             </Text>
           </View>
           <Menu>

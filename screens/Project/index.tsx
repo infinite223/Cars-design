@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { selectChats } from './../../slices/chatsSlice';
 import { globalStyles } from '../../utils/globalStyles';
+import { getCorrectNameLikes } from './../../utils/functions/getCorrectNameLikes';
 
 const widthScreen = Dimensions.get('window').width
 const heightScreen = Dimensions.get('window').height
@@ -73,12 +74,12 @@ const ProjectScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ fontSize:21, color:theme.fontColor}}>{car.CarMake} 
+           headerTitle: () => <Text style={{ fontSize:18, color:theme.fontColor}}>{car.CarMake} 
            <Text style={{color: baseColor}}> {car.model}</Text>
            </Text>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:5}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
           // headerRight: () => 
@@ -131,15 +132,15 @@ const ProjectScreen = () => {
             <TouchableOpacity onPress={() => onShare(car.carMake, car.model, '')} style={style.iconPadding}>
               <Icon type="evilicon" name='share-google' size={30} color={theme.fontColor}/>
             </TouchableOpacity>
-            <TouchableOpacity 
+            {user.uid!==author.uid&&<TouchableOpacity 
               onLongPress={()=>setShowUsersList({show:true, type:'likes', users:likes, headerText:"Users"})} 
               onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like===user.uid)?true:false, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
               style={style.iconPadding}
             >         
               <Icon type="evilicon" name='heart' size={32} color={likes.find((like:any)=>like===user.uid)?globalStyles.background_1:theme.fontColor}/>
-            </TouchableOpacity>
-            <Text style={{marginLeft:6, color:theme.fontColor}}>
-              {likes?.length}
+            </TouchableOpacity>}
+            <Text style={{marginLeft:6, color:theme.fontColorContent, alignItems: 'center', gap: 5}}>
+              {getCorrectNameLikes(likes?.length)} 
             </Text>
           </View>
           <View>

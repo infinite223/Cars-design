@@ -1,12 +1,12 @@
 import { View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LoginScreen from './../screens/Login'
 import ProfileScreen from './../screens/Profile'
 import ProjectScreen from './../screens/Project'
 import SettingsScreen from './../screens/Settings'
 import ChatsScreen from './../screens/Chats'
-import useAuth from './../hooks/useAuth'
+import useAuth, { auth } from './../hooks/useAuth'
 import MyCamera from './../screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
@@ -23,6 +23,9 @@ import ReviewsScreen from '../screens/Reviews'
 import CreateScreen from '../screens/CreateProject'
 import CreateProblem from '../screens/CreateProblem'
 import CreateProject from '../screens/CreateProject'
+import { ProblemScreen } from '../screens/Problem'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useNavigation } from '@react-navigation/native'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -30,6 +33,17 @@ const Tab = createBottomTabNavigator()
 const StackNavigator = () => {
   const { user } :any = useAuth()
   const theme = useSelector(selectTheme)
+  const navigation:any = useNavigation()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(user)
+
+      if(!user) {
+        navigation.navigate('Login')
+      }
+    })
+  }, [])
 
   return (<>
     <View style={{ 
@@ -48,6 +62,7 @@ const StackNavigator = () => {
           <>    
             <Stack.Screen name='User' component={TabsNavigator} options={{headerShown:false}}/>
             <Stack.Screen name='Project' component={ProjectScreen}/>
+            <Stack.Screen name='Problem' component={ProblemScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Chat' component={ChatScreen}/>
             <Stack.Screen name='Profile' component={ProfileScreen}/>               

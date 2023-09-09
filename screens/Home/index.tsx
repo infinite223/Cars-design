@@ -18,6 +18,7 @@ import { setChats } from '../../slices/chatsSlice';
 import { selectHideProjects } from '../../slices/hideProjects';
 import { toDateTime } from '../../utils/toDateTime';
 import { useChats } from '../../hooks/useChats';
+import { globalStyles } from '../../utils/globalStyles';
 
 
 Notifications.setNotificationHandler({
@@ -74,13 +75,14 @@ const HomeScreen = () => {
        headerTitle: () =>  
         <View style={{alignItems:'center', flexDirection:'row'}}>
           <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
-          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 5, fontWeight: '800'}}>Cars design</Text>
+          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Projekty</Text>
         </View>,
        headerLeft: () => <View></View> ,
        headerRight: () => <_Icon_antDesign name='search1' size={21} color={theme.fontColor} style={{marginRight: 15}}/>
 
     })  
   }, [theme])
+
 
 
   const [expoPushToken, setExpoPushToken] = useState('');

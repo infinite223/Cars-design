@@ -20,7 +20,7 @@ export const ProblemItem:FC<ProblemItemProps> = ({ data }) => {
         onPressOut={() => setShowStatus(false)}
         onLongPress={() => setShowStatus(true)}
         activeOpacity={.5}
-        onPress={() => navigation.navigate('/')} style={[localStyles.constainer, {backgroundColor: theme.backgroundContent}]}
+        onPress={() => navigation.navigate('Problem', {data})} style={[localStyles.constainer, {backgroundColor: theme.backgroundContent}]}
     >
         <View style={localStyles.nav}>
             <Text style={[localStyles.headerText, { color: theme.fontColor }]}>
