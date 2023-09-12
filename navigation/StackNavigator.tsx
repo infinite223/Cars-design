@@ -37,7 +37,6 @@ const StackNavigator = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user)
 
       if(!user) {
         navigation.navigate('Login')

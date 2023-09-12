@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useState } from 'react'
-import { data } from '../../utils/data'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -8,9 +7,7 @@ import { selectTheme } from '../../slices/themeSlice';
 import ImagesModal from './../../screens/modals/ImagesModal';
 import { Icon } from '@rneui/base';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
-import { hexToRGB } from './../../utils/functions/hexToRgb';
 import { selectProject } from '../../slices/selectedProject';
-
 
 const HistoryTab = () => {
   const navigationTab:any = useNavigation()
@@ -21,16 +18,7 @@ const HistoryTab = () => {
   const selectedProject = useSelector(selectProject)
 
   const [opacity, setOpacity] = useState(.7)
-  const getBackground = () => {
-    let outputBackground = "rgba(11,23,21,.4)"
-    const hpValue = data[0].car.performance?.[0].value
-    if(hpValue){
-      const rgbObject = hexToRGB(getColorsCircle(hpValue, 'hp')[0])
-      outputBackground = `rgba(${rgbObject.red},${rgbObject.green}, ${rgbObject.blue}, .3)`
-    }
-    return outputBackground
-  }
-  console.log(selectedProject)
+
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
       {selectStage.images&&<ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={[{url:selectStage.images[0]}]} index={0}/>}
@@ -92,7 +80,6 @@ const HistoryTab = () => {
                       />}
                <View style={style.footer}>
                   {item.company&&<Text  style={style.company}>{item.company}</Text>}
-                  {/* {item.date&&<Text style={style.date}>{item.date}</Text>} */}
                 </View>
               </View>
             </View>

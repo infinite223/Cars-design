@@ -1,7 +1,6 @@
 import { View, Image, TouchableWithoutFeedback } from 'react-native'
 import React, { useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import ImagesModal from '../../screens/modals/ImagesModal';
 import { useSelector } from 'react-redux';
@@ -10,7 +9,6 @@ import { CarprojectData } from '../../utils/types';
 import { selectTheme } from './../../slices/themeSlice';
 
 const PhotosTab = () => {
-  const navigationTab:any = useNavigation()
   const [imagesModalVisible, setImagesModalVisible] = useState(false)
   const [selectImage, setSelectImage] = useState(0)
   const theme = useSelector(selectTheme) 
@@ -20,7 +18,6 @@ const PhotosTab = () => {
   return (
     <View style={{flex:1, backgroundColor:'white'}}>
       <ImagesModal modalVisible={imagesModalVisible} setModalVisible={setImagesModalVisible} photos={selectedProject.car.imagesCar} index={selectImage}/>
-      {/* <NavigationHeaderTabs navigationTab={navigationTab} tabName="Photos"/> */}
       <FlatList
         style={{flex:1, backgroundColor: theme.background}}
         scrollEnabled={true}

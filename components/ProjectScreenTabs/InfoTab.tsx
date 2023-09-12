@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native';
-import { Dimensions, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectProject } from './../../slices/selectedProject';
 import { CarprojectData } from '../../utils/types';
@@ -201,7 +200,7 @@ const InfoTab = () => {
                 </TouchableOpacity>
             </View>
 
-            {selectedProject.place?.city&&<View style={{marginTop:15}}>
+            {(selectedProject.place?.latitude && selectedProject.place?.longitude)&&<View style={{marginTop:15}}>
                 <TouchableOpacity onPress={()=>setMapModalVisible(true)} style={localStyle.mapContainer}>          
                     <MapView          
                         scrollEnabled={false}          

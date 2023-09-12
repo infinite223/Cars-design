@@ -15,7 +15,6 @@ import { deleteProject } from '../firebase/project/deleteProject';
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles } from '../utils/globalStyles';
 
-
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -138,19 +137,18 @@ const style = StyleSheet.create({
     top: SCREEN_HEIGHT-100,
     borderRadius: 25,
     zIndex:10
-},
-optionText: {
-    fontSize:17,
-    letterSpacing:1,
-    marginLeft:10
-},
-optionContainer: {
-    paddingHorizontal:15,
-    paddingVertical:5,
-    borderRadius:15,
-    flexDirection:'row',
-    alignItems:'center',
-    // justifyContent:'space-between',
-    marginVertical:5
-}
+  },
+  optionText: {
+      fontSize:17,
+      letterSpacing:1,
+      marginLeft:10
+  },
+  optionContainer: {
+      paddingHorizontal:15,
+      paddingVertical:5,
+      borderRadius:15,
+      flexDirection:'row',
+      alignItems:'center',
+      marginVertical:5
+  }
 })

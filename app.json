@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cars designs",
     "slug": "Cars-projects",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/iconApp_1.png",
     "userInterfaceStyle": "dark",
@@ -48,7 +48,7 @@
     },
     "android": {
       "package": "com.Carsproject",
-      "versionCode": 4,
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/iconApp_1.png",
         "backgroundColor": "#121819"

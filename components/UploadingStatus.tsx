@@ -7,7 +7,6 @@ import { LoadingView } from './LoadingView';
 
 const UploadingStatus = () => {
     const loading = useSelector(selectLoading)
-    // const loading = true
     const theme = useSelector(selectTheme)
 
   return (

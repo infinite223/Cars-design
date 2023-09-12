@@ -13,7 +13,6 @@ import { MenuProvider } from 'react-native-popup-menu';
 import PrompttModal from './screens/modals/ProptModal';
 import UploadingStatus from './components/UploadingStatus';
 
-
 LogBox.ignoreAllLogs()
 
 export default function App() {

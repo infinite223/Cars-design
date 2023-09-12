@@ -6,21 +6,14 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
 import { Icon } from '@rneui/base';
 
-
 const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: string)=> void, sendMessage:() => void, author?:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({message, setMessage, sendMessage,setModalVisible}) => {
   const navigation = useNavigation<any>()
   const [nickname, setNickname] = useState('')
   const [description, setDescription] = useState('')
   const theme = useSelector(selectTheme)
-  const complate = (nickname && description)? true:false
 
   return (
     <View style={style.bottomNav}>
-      {/* <TouchableOpacity onPress={() => (navigation.navigate('Camera'), setModalVisible(false))}
-        style={[style.cameraIcon, { borderColor:theme.backgroundContent}]}
-      >       
-        <Icon type="ionicon" name="camera-outline" size={20} color={theme.fontColor}/>
-      </TouchableOpacity> */}
       <TextInput
         placeholderTextColor={theme.fontColorContent}
         placeholder='Type message'

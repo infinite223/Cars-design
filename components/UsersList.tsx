@@ -12,7 +12,6 @@ import { FilterUsers } from './FilterUsers';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { globalStyles } from '../utils/globalStyles';
 
-
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 

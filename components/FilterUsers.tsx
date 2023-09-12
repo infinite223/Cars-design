@@ -11,9 +11,7 @@ interface FilterUsersProps {
   users:UserList[] | null, 
   input:string, 
   edit?:boolean, 
-//   setShowOptions: (value:{show:boolean, selectedProject: CarprojectData}) =>void, 
   showOptions:boolean,
-//   setShowUsersList: (value: {show:boolean, users: User[] | null, headerText: string}) =>void
 }
 
 export const FilterUsers:React.FC<FilterUsersProps> = ({users, input, edit, showOptions}) => {
@@ -41,7 +39,6 @@ export const FilterUsers:React.FC<FilterUsersProps> = ({users, input, edit, show
         renderItem={({item})=> 
         <TouchableOpacity 
           style={style.renderItem} 
-          // onPress={()=>navigation.navigate('Project', {car, author, createdAt})}
         >
             <Image style={[style.imageIcon, {borderColor:theme.backgroundContent}]} source={{uri:item.imageUri}}/>
             <View style={{marginHorizontal:15, flex:1}}>

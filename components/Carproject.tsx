@@ -122,7 +122,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
             </TouchableOpacity>
 
             <Text style={[style.likes, {color: theme.fontColorContent}]}>
-              {/* {car.likes.length} {likesText[language as keyof typeof likesText]} */}
               {getCorrectNameLikes(car.likes?.length)} 
             </Text>
           </View>
@@ -149,7 +148,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
                 }, optionText: {color:theme.fontColor}
               }}>
 
-              {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text={hide[language as keyof typeof report]}/> */}
               <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
               <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
               <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} />
@@ -160,7 +158,6 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
           </Menu>
         </View>
         <Text style={[style.dateCreate, {color: theme.fontColorContent}]}>
-          {/* {createdAt&&createdAt.toDateString} */}
           {toDateTime(createdAt?.seconds).toDateString()}
         </Text>
         <View style={{borderBottomWidth:1, borderBottomColor:theme.backgroundContent, paddingVertical:5, opacity:.6}}></View>

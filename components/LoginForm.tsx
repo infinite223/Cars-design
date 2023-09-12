@@ -1,7 +1,6 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
-import React, { useRef, useState} from 'react'
-import useAuth from '../hooks/useAuth'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@firebase/auth'
+import { View, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import React, { useState } from 'react'
+import { signInWithEmailAndPassword } from '@firebase/auth'
 import { getAuth } from '@firebase/auth'
 import { GradientButton } from './GradientButton'
 import { Icon } from '@rneui/themed';
@@ -9,8 +8,6 @@ import { AlertProps } from '../utils/types'
 import { useSelector } from 'react-redux'
 import { selectLanguage } from '../slices/languageSlice'
 import { translations } from '../utils/translations'
-
-// connectAuthEmulator(getAuth(), "http://localhost:9099");
 
 const widthScreen = Dimensions.get('window').width
 
