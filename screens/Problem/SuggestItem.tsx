@@ -1,14 +1,14 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
-import { SpecyficProblemType, SuggestResolvedType } from '../../utils/types'
+import { SuggestResolvedType } from '../../utils/types'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '../../slices/themeSlice'
 import _Icon_AntDesign from 'react-native-vector-icons/AntDesign'
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 
 export const SuggestItem:FC<{suggest: SuggestResolvedType}> = ({suggest}) => {
-    const theme = useSelector(selectTheme)
+  const theme = useSelector(selectTheme)
 
   return (
     <View style={[localStyles.container, {backgroundColor: theme.backgroundContent}]}>

@@ -1,15 +1,12 @@
 import { View, Text, Modal, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../../slices/themeSlice';
 import { selectLanguage } from './../../../slices/languageSlice';
 import { setLanguage } from './../../../slices/languageSlice'
 import { translations } from '../../../utils/translations'
 
-
 const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
-    const navigation = useNavigation()
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const _translations = translations.screens.modals.settingsModals.languageModal.header

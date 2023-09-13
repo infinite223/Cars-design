@@ -18,8 +18,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import InfoTab from '../../components/ProjectScreenTabs/InfoTab';
 import useAuth from '../../hooks/useAuth';
 import { UsersList } from '../../components/UsersList';
-import { UserList } from '../../utils/types';
-import { doc, onSnapshot, getDoc, collection } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from './../../hooks/useAuth';
 import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
@@ -71,6 +70,7 @@ const ProjectScreen = () => {
 
        return unsubscribe
     }, [likeProject])
+
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -81,10 +81,7 @@ const ProjectScreen = () => {
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:5}}>
                     <Icon type="materialicon" name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
                 </TouchableOpacity> 
-          ),
-          // headerRight: () => 
-              // <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
-
+          )
         })  
       }, [theme])
 
@@ -143,9 +140,9 @@ const ProjectScreen = () => {
               {getCorrectNameLikes(likes?.length)} 
             </Text>
           </View>
-          <View>
+        <View>
             
-          </View> 
+      </View> 
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Profile', {uid: author.uid, displayName:author.name})} style={style.iconsContainer}>
           <Text style={{marginRight:8,  color:theme.fontColor}}>{author.name}</Text>

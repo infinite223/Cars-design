@@ -19,7 +19,7 @@ const MapModal:React.FC<{ place:Place, modalVisible:boolean, setModalVisible: (v
           setModalVisible(!modalVisible);
         }}
       >   
-          <MapView
+          {(place.latitude && place.longitude)&&<MapView
             style={{flex:1}}
             initialRegion={{
               latitude: place.latitude,
@@ -28,7 +28,7 @@ const MapModal:React.FC<{ place:Place, modalVisible:boolean, setModalVisible: (v
               longitudeDelta: 0.0421,
             }}
           >
-             <MapMarker
+            {place.city&&<MapMarker
               coordinate={{
                 latitude: place.latitude,
                 longitude: place.longitude, 
@@ -36,8 +36,8 @@ const MapModal:React.FC<{ place:Place, modalVisible:boolean, setModalVisible: (v
               title={selectedProject.car.CarMake+" "+selectedProject.car.model}
               identifier='Origin'
               description={place.city}
-            />
-          </MapView> 
+            />}
+          </MapView>}
       </Modal>
   )
 }

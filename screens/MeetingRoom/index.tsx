@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
+import { View, Text, Dimensions, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PeopleTab from './../../components/MeetingRoomTabs/PeopleTab';
 import ChatTab from './../../components/MeetingRoomTabs/ChatTab';      
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { selectedTabInRoom, selectRoom, selectFocuseOnSearch } from './../../slices/selectedRoomSlice';
+import { selectedTabInRoom, selectFocuseOnSearch } from './../../slices/selectedRoomSlice';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { style } from './style';
 import {
@@ -41,7 +41,6 @@ const MeetingRoomScreen = () => {
 
     toDateTime(date.seconds)
     const gesture = Gesture.Pan()
-
 
     .onStart(()=> {
       context.value = { y: translateY.value }
@@ -157,9 +156,6 @@ const MeetingRoomScreen = () => {
                   </Text>
               </MenuOption>
               {isMyMeeting&&<MenuOption onSelect={() => deleteMeeting(id)} text="Usuń meeting"/>}
-              {/* <MenuOption onSelect={() => copyToClipboard(car.CarMake, car.model)}  text={capy[language as keyof typeof report]} />
-              <MenuOption onSelect={() => hideProject(id)}  text={hide[language as keyof typeof report]} />
-              <MenuOption onSelect={() => saveProject(id)}  text={save[language as keyof typeof report]} /> */}
             </MenuOptions>
           </Menu>
       </View>
@@ -169,7 +165,6 @@ const MeetingRoomScreen = () => {
           <View style={[style.textContainer]}>
             <Text style={[style.date, {color: theme.fontColorContent}]}>{toDateTime(date.seconds).toDateString()}</Text>
             <Animated.Text style={[style.name, rNameSpotSheetStyle]}>{name}</Animated.Text>
-            {/* <Text style={[style.place, {color: theme.fontColor}]}>{place.city}</Text> */}
           </View>
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}

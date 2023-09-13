@@ -1,15 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, FlatList, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Avatar } from "@rneui/themed";
+import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/base';
-import { CircleData } from '../../components/CircleData';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PhotosTab from '../../components/ProjectScreenTabs/PhotosTab';
-import HistoryTab from '../../components/ProjectScreenTabs/HistoryTab';
 import { getColorsCircle } from './../../utils/functions/colorsCircle';
-import { onShare, likeProject } from '../../utils/functions/projectFunctions';
-import ChatModal from './../modals/ChatModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
 import { style } from './style';
@@ -24,7 +17,6 @@ import { collectionGroup, limit, onSnapshot, query, where } from 'firebase/fires
 import { db } from '../../hooks/useAuth';
 import { setSelectedProject } from '../../slices/selectedProject';
 import { CarprojectData } from '../../utils/types';
-const widthScreen = Dimensions.get('window').width
 
 const SearchScreen = () => {
     const navigation:any = useNavigation()
@@ -80,9 +72,7 @@ const SearchScreen = () => {
   
   return (
     <View style={{flex:1, backgroundColor: theme.background}}>
-      <View style={[style.searchContainer, 
-        // {backgroundColor: theme.background ==="black"?"#333":"#bbb"}
-        ]}>
+      <View style={[style.searchContainer]}>
         {makesCategory&&
             <SelectList    
                 searchPlaceholder={'s'}

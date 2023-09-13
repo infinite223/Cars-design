@@ -8,7 +8,7 @@ import { Icon } from '@rneui/base'
 import SelectPlaceOnMap from '../modals/SelectPlaceOnMap'
 import { style } from './style'
 import { chooseImg } from './../../utils/functions/chooseImg';
-import { deleteProfile, updateProfile } from '../../firebase/profile/updateProfile';
+import { updateProfile } from '../../firebase/profile/updateProfile';
 import CustomInput from './../../components/CustomInput';
 import { selectLanguage } from './../../slices/languageSlice';
 import AlertModal from '../modals/AlertModal'

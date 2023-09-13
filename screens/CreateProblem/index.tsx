@@ -1,26 +1,16 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useLayoutEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectTheme } from './../../slices/themeSlice';
-import { Icon } from '@rneui/themed';
-import CustomInput from '../../components/CustomInput';
 import { selectLanguage } from './../../slices/languageSlice';
-import { translations } from './../../utils/translations';
 import { useState } from 'react';
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { style } from './style';
-import SelectPlaceOnMap from './../modals/SelectPlaceOnMap';
 import useAuth, { db } from '../../hooks/useAuth';
-import { AlertProps, MeetingRoom, SpecyficProblemType } from '../../utils/types';
-import MapView from 'react-native-maps';
-import { v4 as uuid } from 'uuid';
-import { collection, doc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
+import { AlertProps } from '../../utils/types';
 import AlertModal from '../modals/AlertModal';
-import { setLoading } from '../../slices/loadingSlice';
 import GeneralProblem from './GeneralProblem';
 import SpecyficProblem from './SpecyficProblem';
-import { globalStyles } from '../../utils/globalStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const CreateProblem = () => {
@@ -39,7 +29,7 @@ const CreateProblem = () => {
          headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
             Dodawanie problemu
         </Text>,
-  })
+      })
     }, [theme, language])
 
       const validMeeting = name.length>2  

@@ -24,10 +24,8 @@ import { validInpute } from '../../utils/functions/validateInput';
 import * as DocumentPicker from 'expo-document-picker';
 import { playSound } from '../../utils/functions/playSound';
 import { collection, onSnapshot } from 'firebase/firestore';
-import UploadingStatus from '../../components/UploadingStatus';
-import { globalStyles } from '../../utils/globalStyles';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { globalStyles } from '../../utils/globalStyles';
 
 const CreateProject = () => {
     const { errorMessage, 
@@ -137,7 +135,7 @@ const CreateProject = () => {
     }, [stages])
 
     const pickMediaAsync = async () => {
-        let result = await DocumentPicker.getDocumentAsync({
+        let result:any = await DocumentPicker.getDocumentAsync({
             type: 'audio/*',
             copyToCacheDirectory:true,
         });
@@ -228,9 +226,6 @@ const CreateProject = () => {
                         <Text style={[{color: '#f32', maxWidth:200, fontWeight: '600', fontSize: 16}]}>
                            -  {imageHelpText_4[language as keyof typeof imageHelpText_4]}
                         </Text>
-                        {/* <Text style={[{color: theme.fontColorContent, maxWidth:200}]}>
-                            {imageHelpText_3[language as keyof typeof imageHelpText_3]}
-                        </Text> */}
                     </View>
                 </View>
 
@@ -282,7 +277,7 @@ const CreateProject = () => {
                         <Text style={[{color: '#a32', maxWidth:200}]}>
                             {soundHelpText_2[language as keyof typeof soundHelpText_2]}
                         </Text>
-                        {soundCheck.length>1&&<TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck)} style={[style.soundContainer, {borderColor:theme.fontColorContent}]}>
+                        {soundCheck.length>1&&<TouchableOpacity disabled={soundCheck.length<1} onPress={()=>playSound(soundCheck, true)} style={[style.soundContainer, {borderColor:theme.fontColorContent}]}>
                             <Icon type='feather' name='play' size={20} color={soundCheck.length>1?theme.fontColor:theme.fontColorContent}/>
                             <Text style={[style.soundText, {color:theme.fontColorContent}]}>Sound check</Text>
                         </TouchableOpacity>}
@@ -350,7 +345,6 @@ const CreateProject = () => {
                 style={[ style.finishButton, { borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}
             >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Dodaj projekt</Text>
-                {/* <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/> */}
             </TouchableOpacity>}
         </View>            
     ]

@@ -1,10 +1,6 @@
 import { Modal, StatusBar, StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native'
 import React from 'react'
-import MapView, { MapMarker } from 'react-native-maps';
-import { useNavigation } from '@react-navigation/native';
-import { Place } from '../../utils/types';
 import { useSelector } from 'react-redux';
-import { selectProject } from './../../slices/selectedProject';
 import { selectTheme } from './../../slices/themeSlice';
 import { FlatList } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
@@ -14,7 +10,6 @@ import { Icon } from '@rneui/base';
 import { selectLanguage } from './../../slices/languageSlice';
 
 const SelectProjectModal:React.FC<{roomId:string, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({roomId, modalVisible, setModalVisible}) => {
-    const navigation = useNavigation<any>()
     const theme = useSelector(selectTheme)
     const [userProjects, setUserProjects] = useState<any>([])
     const { user }:any = useAuth()

@@ -20,9 +20,6 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
     const [messages, setMessages] = useState<any>([])
     const [message, setMessage] = useState('')
 
-
-    const complate = (nickname && description)? true:false
-
     const sendMessage = () => {
       Keyboard.dismiss()
       const messageId = uuid();
@@ -42,9 +39,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
     
     useLayoutEffect(()=> {
       const messagesRef = collection(db, "chats/" + 'jR10GOJtyPXT9fRTKuEjHbhvsz23' + "/messages")
-
-      // const messagesRef = collectionGroup(db, `messages`)
-       const messagesQuery = query(messagesRef, orderBy("timestamp"));
+      const messagesQuery = query(messagesRef, orderBy("timestamp"));
 
       const unsubscribe = onSnapshot(messagesQuery, (snapchot) => {      
             setMessages(snapchot.docs.map((doc, i)=> {
@@ -57,7 +52,6 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
 
     }, [])
 
-    // console.log(messages)
     return (
     <Modal
         animationType="fade"
@@ -81,7 +75,7 @@ const ChatModal:React.FC<{author:User, modalVisible:boolean, setModalVisible: (v
            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <>
               <ScrollView style={{flex:1}} contentContainerStyle={{paddingTop:15}}>
-                {messages.map(({id, data})=> 
+                {messages.map(({id, data}:{id: number, data: any})=> 
                   data.email===user.email? (
                     <View key={id} style={[style.reciever, {backgroundColor: theme.backgroundContent}]}>
                       <Avatar                     

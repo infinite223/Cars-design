@@ -96,7 +96,6 @@ const ReportScreen = () => {
             <Text style={style.reportText}>
                 {buttonText[language as keyof typeof buttonText]}
             </Text>
-            {/* <Icon type="ionicon" name="send-outline" size={15} color={theme.fontColor}/> */}
         </TouchableOpacity>
     </View>
   )

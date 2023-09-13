@@ -13,13 +13,8 @@ import { useProjects } from '../../hooks/useProjects';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
-import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { setChats } from '../../slices/chatsSlice';
 import { selectHideProjects } from '../../slices/hideProjects';
-import { toDateTime } from '../../utils/toDateTime';
 import { useChats } from '../../hooks/useChats';
-import { globalStyles } from '../../utils/globalStyles';
-
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -51,24 +46,6 @@ const HomeScreen = () => {
     { name: "Zeros", value:  new Date(1995, 11, 19) },
   ];
 
-  // projects?.sort((a, b) => toDateTime(b.createdAt).getTime() - toDateTime(a.createdAt).getTime())
-
-  // useEffect(()=> {
-  //   if(user.name!=='Tester'){
-  //     const chatsRef = collection(db, "chats")
-  //     //add query
-  //     const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid),  orderBy('lastMessage.time', 'desc'))
-  //     const unsubscribe = onSnapshot(chatsQuery, (snapchot) => {      
-  //         dispatch(setChats(snapchot.docs.map((doc, i)=> {
-  //               return doc.data()
-  //           })))  
-  //       })
-      
-  //     return unsubscribe
-  //   }
-  // }, [])
-
-
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
@@ -82,8 +59,6 @@ const HomeScreen = () => {
 
     })  
   }, [theme])
-
-
 
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState<any>(false);
@@ -125,23 +100,15 @@ const HomeScreen = () => {
           }
         })} 
         onEndReached={() => 
-          // setLimit(prev => prev + 1)
           nextProjects()
         }        
         bounces
-        // keyExtractor={(item) => item.id}
         renderItem={(carData)=> 
         <Carproject data={carData.item}/>
       }
       />:<View>
           <Text style={[{color: theme.fontColorContent}]}>No projects...</Text>
         </View>}
-
-        {/* <TouchableOpacity  onPress={async () => {
-          await schedulePushNotification();
-        }}>
-          <Text style={{color:theme.fontColor}}>click</Text>
-        </TouchableOpacity> */}
     </SafeAreaView>
   )
 }

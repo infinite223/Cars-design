@@ -14,11 +14,8 @@ import MapView from 'react-native-maps';
 import { Dimensions } from 'react-native';
 import { setSelectedRoom } from '../../slices/selectedRoomSlice';
 import { query } from 'firebase/firestore';
-import { toDateTime } from '../../utils/toDateTime';
-import { globalStyles } from '../../utils/globalStyles';
 
 const widthScreen = Dimensions.get('screen').width
-
 
 const MeetingScreen = () => {
   const { warningText } = translations.screens.MeetingScreen

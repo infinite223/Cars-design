@@ -25,9 +25,7 @@ const ReviewsScreen = () => {
                <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
-          ),
-          // headerRight: () => 
-              // <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
+          )
         })  
       }, [theme])
       

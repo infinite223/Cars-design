@@ -12,7 +12,6 @@ import { globalStyles } from '../../utils/globalStyles'
 import CustomInput from '../../components/CustomInput'
 import { chooseImg } from '../../utils/functions/chooseImg'
 import { style } from './style'
-import { setPrompt } from '../../slices/promptSlice'
 import { v4 as uuid } from 'uuid';
 
 const widthScreen = Dimensions.get('window').width

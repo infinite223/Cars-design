@@ -8,7 +8,6 @@ export const StatusProblem:FC<{status: 'resolved' | 'Unresolved', showStatus:boo
     <View style={[localStyles.container, status==="resolved"?localStyles.resolved:localStyles.unresolved]}>
         {status==='resolved'?
         <>
-            {/* <IoCheckmarkDoneCircleSharp size={14}/> */}
             <View style={{marginLeft:showStatus?5:0}}>
                 <_Icon_Ionicons name={'checkmark-circle-outline'} size={17} color={'white'} style={{ marginRight: 0 }}/>
 
@@ -19,8 +18,6 @@ export const StatusProblem:FC<{status: 'resolved' | 'Unresolved', showStatus:boo
         </>:
         
         <>
-            {/* <FiHelpCircle size={14}/> */}
-
             <View style={{marginLeft:showStatus?5:0, flexDirection:'row'}}>
                 <_Icon_MaterialIcons name={'error-outline'} size={17} color={'white'} style={{ marginRight: 0 }}/>
                 {showStatus&&<Text style={localStyles.text}>
@@ -42,7 +39,6 @@ const localStyles = StyleSheet.create({
         color: 'white',
         fontSize: 12,
         paddingHorizontal:10
-        // width: 100
     },
     resolved: {
         backgroundColor: 'rgb(3, 157, 3)'

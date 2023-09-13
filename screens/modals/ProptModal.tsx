@@ -41,9 +41,7 @@ const PrompttModal:React.FC<{}> = () => {
         animationType="fade"
         transparent={true}
         visible={prompt.show}
-        onRequestClose={() => {
-        // setModalVisible(!show);
-        }}
+        onRequestClose={() => {}}
   >
     <View style={[style.modal, {backgroundColor: 'rgba(1, 1, 1, .5)'}]}>
     <View style={{

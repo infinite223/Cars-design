@@ -14,10 +14,10 @@ import { style } from './style';
 import { FilterProjects } from './../../components/FilterProjects';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
-import { CarprojectData, User, UserList } from '../../utils/types';
+import { CarprojectData, User } from '../../utils/types';
 import { BottomOptions } from '../../components/BottomOptions';
 import { UsersList } from '../../components/UsersList';
-import { collection, getDoc, onSnapshot, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { collection, getDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import AlertModal from '../modals/AlertModal';
 import { doc } from 'firebase/firestore';
 import { globalStyles } from '../../utils/globalStyles';
@@ -65,19 +65,19 @@ const ProfileScreen = () => {
                         color={theme.fontColor}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+                {displayUser?.imageUri&&<TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
                     <Avatar
                         size={37}
                         rounded
                         source={{uri: displayUser?.imageUri}}    
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
           ),
           headerRight: ()=> (
             <>
              {!isMyProfile?
-                !displayUser.stats.followers.find((person)=>person.uid === user.uid)?<TouchableOpacity onPress={() => followPerson(true)} style={[style.followButton]}>
+                !displayUser.stats.followers.find((person)=>person === user.uid)?<TouchableOpacity onPress={() => followPerson(true)} style={[style.followButton]}>
                     <Text style={style.followButtonText}>Obserwuj</Text>
                 </TouchableOpacity>:
                 <TouchableOpacity onPress={() => followPerson(false)} style={[style.followButton, {backgroundColor: '#333'}]}>
@@ -120,7 +120,8 @@ const ProfileScreen = () => {
 
         const unsubscribe2:any =  onSnapshot(userRef, (snapshot)=> {
             if(snapshot.exists() && snapshot.data()){
-                setDisplayUser(snapshot.data())
+                const snapshotData:any = snapshot
+                setDisplayUser(snapshotData)
             }
         }); 
         

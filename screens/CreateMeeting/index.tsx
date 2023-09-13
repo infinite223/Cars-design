@@ -19,7 +19,6 @@ import { collection, doc, onSnapshot, query, setDoc, where } from 'firebase/fire
 import AlertModal from '../modals/AlertModal';
 import { setLoading } from '../../slices/loadingSlice';
 
-
 const CreateMeeting = () => {
     const [selectPlaceOnMapVisible, setSelectPlaceOnMapVisible] = useState(false)
     const navigation:any = useNavigation()

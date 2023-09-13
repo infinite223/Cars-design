@@ -7,22 +7,21 @@ import { style } from './style'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import useAuth, { db } from '../../hooks/useAuth'
-import { collection, collectionGroup, limit, onSnapshot, query, where } from 'firebase/firestore'
+import { collection, limit, onSnapshot, query, where } from 'firebase/firestore'
 import { ProblemItem } from './ProblemItem'
 import { SpecyficProblemType } from '../../utils/types'
 import { Image } from 'react-native'
+
 export const ProblemsScreen = () => {
     const theme = useSelector(selectTheme)
     const navigation:any = useNavigation()
     const { user }:any = useAuth()
     const dispatch = useDispatch()
     const [problemsState, setProblemsState] = useState<SpecyficProblemType[]>([])
-    // const orderByType = useSelector(selectOrderBy)
     const problemRef = collection(db, 'problems')
   
     const selectedCategory = {name: 'kategoria', type: ''}
     const errorText:any = []
-    // const inputChange = useSelector(selectInputChange)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -57,9 +56,7 @@ export const ProblemsScreen = () => {
             };
           })
         }
-      }, [
-        // selectType, selectedCategory, inputChange, user
-      ])
+      }, [])
 
       
   return (

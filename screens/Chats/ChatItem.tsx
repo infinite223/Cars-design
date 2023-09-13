@@ -14,14 +14,10 @@ import {
   } from 'react-native-popup-menu';
 import { selectLanguage } from '../../slices/languageSlice';
 import { translations } from '../../utils/translations';
-import { useEffect } from 'react';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { useState } from 'react';
 import useAuth, { db } from './../../hooks/useAuth';
 import { setPrompt } from './../../slices/promptSlice';
 import { unBlockPerson } from '../../firebase/chats/block';
 import { Chat } from '../../utils/types';
-
 
 export const ChatItem:React.FC<{item:Chat, deleteChat: (value:string) => void}> = ({item, deleteChat}) => {
     const navigation:any = useNavigation()

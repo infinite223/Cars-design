@@ -1,20 +1,17 @@
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Image, Dimensions} from 'react-native'
 import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
 import { selectTheme } from '../../slices/themeSlice'
 import CustomInput from '../../components/CustomInput'
 import { globalStyles } from '../../utils/globalStyles'
 import { Icon } from '@rneui/themed';
 import { chooseImg } from '../../utils/functions/chooseImg'
 import { style } from './style'
-import { AlertProps, GeneralProblemType } from '../../utils/types'
+import { GeneralProblemType } from '../../utils/types'
 import { setLoading } from '../../slices/loadingSlice'
 import { v4 as uuid } from 'uuid';
 import useAuth, { db } from '../../hooks/useAuth'
 import { Timestamp, doc, setDoc } from 'firebase/firestore'
-import { setPrompt } from '../../slices/promptSlice'
-import AlertModal from '../modals/AlertModal'
 import { uploadImage } from '../../firebase/uploadImage'
 
 const widthScreen = Dimensions.get('window').width
@@ -27,11 +24,11 @@ const GeneralProblem:FC<CreateProblemSctionProps> = ({setAlertModal}) => {
   const theme = useSelector(selectTheme)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
   const [images, setImages] = useState<any[]>([]);
   const { user }:any = useAuth()
   const dispatch = useDispatch()
   const firebaseImagesStagesUriUpload = (uri:string, image:any) => {}
+  
   const createProblem = async () => {
     dispatch(setLoading(true))
     const problemId = uuid();
@@ -53,8 +50,6 @@ const GeneralProblem:FC<CreateProblemSctionProps> = ({setAlertModal}) => {
         })        
        })   
       })
-
-
 
     const problemData:GeneralProblemType = {
         author: {name: user.name, imageUri: user.imageUri, uid: user.uid},

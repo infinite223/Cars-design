@@ -13,6 +13,7 @@ const CreateScreen = () => {
   const colorsProjectGradient = ['rgb(12,94,88)', 'rgb(1, 71, 67)','rgb(1, 131, 107)', 'rgb(12,57,48)']
   const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
   const colorsMeetingGradient = ['rgb(22,94,108)', 'rgb(31, 71, 87)','rgb(41, 131, 167)', 'rgb(12,57,78)']
+  
   return (
     <View style={[style.createContainer, {backgroundColor: theme.background}]}>
       <TouchableOpacity activeOpacity={.6} style={style.createSection} onPress={() => navigation.navigate('CreateProject')}>

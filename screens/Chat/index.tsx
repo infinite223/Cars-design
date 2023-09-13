@@ -10,7 +10,6 @@ import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp, u
 import { style } from './style';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';
-import { selectChats } from './../../slices/chatsSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Chat } from '../../utils/types';
 import { globalStyles } from '../../utils/globalStyles';
@@ -28,6 +27,7 @@ const ChatScreen = () => {
     const to:Chat = route.params;
     const [newChat, setNewChat] = useState(to.new)
     const language = useSelector(selectLanguage)
+
     useLayoutEffect(() => {
         navigation.setOptions({
           headerBackVisible:false,
@@ -42,9 +42,6 @@ const ChatScreen = () => {
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
-          // headerRight: () => 
-          //     <Image style={{width:40, height:40, marginVertical:10}} source={require('../../assets/cars_projects_IconV2.png')}/>
-
         })  
       }, [theme])
 

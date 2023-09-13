@@ -6,7 +6,6 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import { useSelector } from 'react-redux';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Icon } from '@rneui/base';
-
 import { envGoogle } from './../../utils/env';
 
 interface SelectPlaceOnMapProps {

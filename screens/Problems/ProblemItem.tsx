@@ -16,7 +16,6 @@ export const ProblemItem:FC<ProblemItemProps> = ({ data }) => {
     const [showStatus, setShowStatus] = useState(false)
   return (
     <TouchableOpacity 
-        // onPressIn={() => setShowStatus(true)}
         onPressOut={() => setShowStatus(false)}
         onLongPress={() => setShowStatus(true)}
         activeOpacity={.5}
@@ -36,8 +35,7 @@ export const ProblemItem:FC<ProblemItemProps> = ({ data }) => {
         </View>
         {(data.category && data.type ==='Specyfic' && data.category !== 'other')&&
         <View style={{backgroundColor: 'rgb(59, 59, 59)', marginTop:'auto', alignSelf:'flex-end'}}>
-                  {ProblemsCategoryData.find((_category) => _category.type === data.category)?.name}
-                  {/* <BiCategory size={16}/> */}
+            {ProblemsCategoryData.find((_category) => _category.type === data.category)?.name}
         </View>}
     </TouchableOpacity>
   )
