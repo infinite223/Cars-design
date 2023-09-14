@@ -1,12 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
-import tw from 'tailwindcss-react-native'
 import 'react-native-gesture-handler';
 import { AuthProvider } from './hooks/useAuth';
 import StackNavigator from './navigation/StackNavigator';
 import { Provider } from 'react-redux';
-import { LogBox, StatusBar, Text, View } from 'react-native';
+import { LogBox } from 'react-native';
 import { store } from './store';
-import { selectTheme } from './slices/themeSlice';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RightNavigation } from './navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';

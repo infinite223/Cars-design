@@ -3,6 +3,7 @@
     "name": "Cars designs",
     "slug": "Cars-projects",
     "version": "1.0.5",
+    "scheme": "mojaschemat",
     "orientation": "portrait",
     "icon": "./assets/iconApp_1.png",
     "userInterfaceStyle": "dark",

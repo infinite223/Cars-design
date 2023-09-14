@@ -5,7 +5,31 @@ import { useNavigation } from '@react-navigation/native'
 import { selectTheme } from '../../slices/themeSlice'
 import { style } from './style'
 import { LinearGradient } from 'expo-linear-gradient'
+import CreateItem from './CreateItem'
 
+const createOptions = [
+  {
+    name: 'Dodaj projekt',
+    description: 'Podziel się z innymi własnymi projektamiDodawaj własne projekty samochodów, przedstaw efekty swoich prac w jednym miejscu',
+    navigate: "CreateProject",
+    gradientColors: ['rgb(12,154,188)', 'rgb(1, 191, 187)','rgb(1, 131, 107)', 'rgb(12, 157, 148)'],
+    disabled: false
+  },
+  {
+    name: 'Dodaj problem',
+    description: 'Masz jakiś problem z samochodem? dodaj go tutaj, może akurat ktoś miał podobny problem i zna rozwiązanie',
+    navigate: "CreateProblem",
+    gradientColors:  ['rgb(162,124,48)', 'rgb(131, 141, 17)','rgb(181, 161, 27)', 'rgb(92,77,28)'],
+    disabled: false
+  },
+  {
+    name: 'Dodaj spotkanie',
+    description: '',
+    navigate: "CreateMeeting",
+    gradientColors: ['rgb(22,94,108)', 'rgb(31, 71, 87)','rgb(41, 131, 167)', 'rgb(12,57,78)'],
+    disabled: true
+  },
+]
 const CreateScreen = () => {
 
   const navigation:any = useNavigation()
@@ -16,7 +40,7 @@ const CreateScreen = () => {
   
   return (
     <View style={[style.createContainer, {backgroundColor: theme.background}]}>
-      <TouchableOpacity activeOpacity={.6} style={style.createSection} onPress={() => navigation.navigate('CreateProject')}>
+      {/* <TouchableOpacity activeOpacity={.6} style={style.createSection} onPress={() => navigation.navigate('CreateProject')}>
       <LinearGradient
         colors={colorsProjectGradient}
         locations={[0, 0.25, 0.45, 1]}
@@ -66,7 +90,11 @@ const CreateScreen = () => {
           Utwórz spotkanie
         </Text>
       </LinearGradient>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
+      {createOptions.map((data) => 
+        <CreateItem data={data} />
+      )}
     </View>
   );
 }
