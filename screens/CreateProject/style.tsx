@@ -23,13 +23,22 @@ export const style = StyleSheet.create({
         fontSize:16,
         letterSpacing:1,
     },
+    mainHeader: {
+        // width:'100%',
+        flex:1,
+        marginLeft: -5,
+        marginRight: 25,
+        paddingHorizontal:15,
+        paddingVertical:7,
+        borderRadius:5
+    },
     headerContainer: {
         position:'relative',
         width:'100%',
         backgroundColor: globalStyles.background_1,
         alignSelf:'center',
         paddingVertical:7,
-        paddingHorizontal:15,
+        paddingHorizontal:5,
         marginVertical:4,
         marginBottom:0,
         marginHorizontal:0,

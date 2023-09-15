@@ -4,30 +4,34 @@ import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { selectTheme } from '../../slices/themeSlice'
 import { style } from './style'
-import { LinearGradient } from 'expo-linear-gradient'
 import CreateItem from './CreateItem'
+import { Image } from 'react-native'
+import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 
 const createOptions = [
   {
     name: 'Dodaj projekt',
-    description: 'Podziel się z innymi własnymi projektamiDodawaj własne projekty samochodów, przedstaw efekty swoich prac w jednym miejscu',
+    description: 'Podziel się z innymi własnym projektem, pochawal się co udało Ci się uzyskać.',
     navigate: "CreateProject",
     gradientColors: ['rgb(12,154,188)', 'rgb(1, 191, 187)','rgb(1, 131, 107)', 'rgb(12, 157, 148)'],
-    disabled: false
+    disabled: false,
+    offersList: ["Podstawowe parametry samochodu", "Zdjęcia", "Soundcheck", "Modyfikacje"]
   },
   {
     name: 'Dodaj problem',
     description: 'Masz jakiś problem z samochodem? dodaj go tutaj, może akurat ktoś miał podobny problem i zna rozwiązanie',
     navigate: "CreateProblem",
-    gradientColors:  ['rgb(162,124,48)', 'rgb(131, 141, 17)','rgb(181, 161, 27)', 'rgb(92,77,28)'],
-    disabled: false
+    gradientColors:  ['rgb(131, 121, 27)', 'rgb(192,197,28)', 'rgb(112,114, 28)', 'rgb(151, 161, 17)'],
+    disabled: false,
+    offersList: ["Problem ogólny", "Problem konkretny", "Zdjęcia", "Kody błędów"]
   },
   {
     name: 'Dodaj spotkanie',
     description: '',
     navigate: "CreateMeeting",
-    gradientColors: ['rgb(22,94,108)', 'rgb(31, 71, 87)','rgb(41, 131, 167)', 'rgb(12,57,78)'],
-    disabled: true
+    gradientColors: ['rgb(41, 51, 167)', 'rgb(12,127,208)', 'rgb(11, 71, 107)',  'rgb(12, 127,188)'],
+    disabled: true,
+    offersList: ["Ustawienie miejsca na mapie", "Zaproszenie innych osób"]
   },
 ]
 const CreateScreen = () => {
@@ -38,6 +42,21 @@ const CreateScreen = () => {
   const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
   const colorsMeetingGradient = ['rgb(22,94,108)', 'rgb(31, 71, 87)','rgb(41, 131, 167)', 'rgb(12,57,78)']
   
+  useLayoutEffect(() => {
+    navigation.setOptions({
+       headerBackVisible:false,
+       headerTitle: () =>  
+        <View style={{alignItems:'center', flexDirection:'row'}}>
+          <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Utwórz</Text>
+        </View>,
+       headerLeft: () => <View></View> ,
+      //  headerRight: () => <_Icon_antDesign name='search1' size={21} color={theme.fontColor} style={{marginRight: 15}}/>
+
+    })  
+  }, [theme])
+
+
   return (
     <View style={[style.createContainer, {backgroundColor: theme.background}]}>
       {/* <TouchableOpacity activeOpacity={.6} style={style.createSection} onPress={() => navigation.navigate('CreateProject')}>
@@ -92,8 +111,8 @@ const CreateScreen = () => {
       </LinearGradient>
       </TouchableOpacity> */}
 
-      {createOptions.map((data) => 
-        <CreateItem data={data} />
+      {createOptions.map((data, i) => 
+        <CreateItem data={data} key={i}/>
       )}
     </View>
   );

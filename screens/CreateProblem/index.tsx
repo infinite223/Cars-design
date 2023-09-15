@@ -22,18 +22,29 @@ const CreateProblem = () => {
     const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     const [name, setName] = useState('')
-    
+    const colorsGradient = ['rgb(162,124,48)', 'rgb(131, 141, 17)','rgb(181, 161, 27)', 'rgb(92,77,28)']
+
     useLayoutEffect(() => {
       navigation.setOptions({
          headerBackVisible:false,
-         headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
+         headerTitle: () => 
+         <LinearGradient
+            colors={colorsGradient}
+            locations={[0, 0.25, 0.45, 1]}
+            start={[0, 0]}   
+            end={[1, 0]}   
+            style={style.mainHeader}
+          >
+         <Text style={{ fontSize:16, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
             Dodawanie problemu
-        </Text>,
+        </Text>
+        </LinearGradient>,
       })
     }, [theme, language])
 
       const validMeeting = name.length>2  
       const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
+      const colorsGradient_1 = [theme.backgroundContent, theme.backgroundContent, theme.backgroundContent]
 
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
@@ -45,7 +56,7 @@ const CreateProblem = () => {
           onPress={() => setSelectedOption(0)}
         >
           {selectedOption===0?<LinearGradient
-          colors={colorsProblemGradient}
+          colors={colorsGradient_1}
           locations={[0, 0.25, 0.45, 1]}
           start={[0, 1]}   
           end={[1, 0]}   
@@ -65,7 +76,7 @@ const CreateProblem = () => {
           onPress={() => setSelectedOption(1)}
         >
           {selectedOption===1?<LinearGradient
-          colors={colorsProblemGradient}
+          colors={colorsGradient_1}
           locations={[0, 0.25, 0.45, 1]}
           start={[0, 1]}   
           end={[1, 0]}   

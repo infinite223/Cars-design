@@ -92,9 +92,19 @@ const CreateProject = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
-           headerTitle: () => <Text style={{ fontSize:20, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
-                {navTitleText[language as keyof typeof navTitleText]}
-            </Text>,
+           headerTitle: () => 
+           <LinearGradient
+                colors={colorsGradient_2}
+                locations={[0, 0.25, 0.45, 1]}
+                start={[0, 0]}   
+                end={[1, 0]}   
+                style={style.mainHeader}
+            >
+                <Text style={{ fontSize:16, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
+                    {navTitleText[language as keyof typeof navTitleText]}
+                </Text>
+            </LinearGradient>
+            ,
     })
       }, [theme, language])
 
@@ -154,7 +164,9 @@ const CreateProject = () => {
         }
       };
     
-    const colorsGradient = ['rgb(12,94,88)', 'rgb(1, 71, 67)','rgb(1, 131, 107)', 'rgb(12,57,48)']
+    const colorsGradient_2 = ['rgb(12,94,88)', 'rgb(1, 71, 67)','rgb(1, 131, 107)', 'rgb(12,57,48)']
+    const colorsGradient_3 = [theme.backgroundContent, theme.backgroundContent, theme.backgroundContent]
+    const colorsGradient = [theme.background, theme.background, theme.background]
 
     const steps = [
         <View style={{flex:1}}> 

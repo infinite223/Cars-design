@@ -7,6 +7,15 @@ export const style = StyleSheet.create({
         paddingHorizontal:5,
 
     },
+    mainHeader: {
+        // width:'100%',
+        flex:1,
+        marginLeft: -5,
+        marginRight: 25,
+        paddingHorizontal:15,
+        paddingVertical:7,
+        borderRadius:5
+    },
     navigation: {
         alignItems: 'center',
         flexDirection:'row',

@@ -43,6 +43,7 @@ export const AuthProvider = ({children}) => {
       if(user){
         const getUserData = async () => {
           console.log(user, 'uuu')
+          setLoading(true)
           const usersRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(usersRef);
           if (docSnap.data()?.name) {
@@ -58,6 +59,7 @@ export const AuthProvider = ({children}) => {
              })
             navigation.navigate('EditProfile')
           }
+          setLoading(false)
         }
         getUserData()
       }

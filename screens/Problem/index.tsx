@@ -78,8 +78,8 @@ export const ProblemScreen = () => {
       <Text style={[style.descriptionText, {color: theme.fontColor}]}>{data.description}</Text>
       <ScrollView style={{flex: 1, gap: 5}}>
         <Text style={{color: theme.fontColorContent}}>Sugerowane rozwiązania:</Text>
-        {suggestResolved.map((suggest) => 
-          <SuggestItem suggest={suggest}/>
+        {suggestResolved.map((suggest, i) => 
+          <SuggestItem suggest={suggest} key={i}/>
         )}
         
       </ScrollView>    

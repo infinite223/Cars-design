@@ -47,7 +47,9 @@ export const TabsNavigator = () => {
             }} 
             />
             <Tab.Screen name='Create' component={CreateScreen} options={
-              {headerShown: false, tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus-a' size={25} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
+              {
+                headerShown: false, tabBarLabelStyle:{display:'none'},
+               tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => <_Icon_MaterialIcons name='plus-a' size={25} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:0}}/>}} 
             />
             
             <Tab.Screen name="Meeting" component={MeetingScreen} options={
