@@ -22,7 +22,7 @@ const CreateItem:FC<{data: CreateItemProps}> = ({data: { offersList, disabled, d
   return (
     <TouchableOpacity disabled={disabled} style={[style.createContainer, {opacity: disabled?.4:1}]} activeOpacity={.6} onPress={() => navigation.navigate(navigate)}>
         <LinearGradient
-            colors={[theme.background, theme.background, gradientColors[2], gradientColors[3]]}
+            colors={[gradientColors[3], gradientColors[3], gradientColors[2], gradientColors[3]]}
             // colors={[gradientColors[2], gradientColors[2], gradientColors[3]]}
             locations={[0, 0.25, 0.45, 1]}
             start={[.3, .9]}   
@@ -58,7 +58,7 @@ const CreateItem:FC<{data: CreateItemProps}> = ({data: { offersList, disabled, d
                     />
 
                     <LinearGradient
-                        colors={gradientColors}
+                        colors={[gradientColors[2], gradientColors[1], gradientColors[0], gradientColors[2]]}
                         locations={[0, 0.1, 0.45, 1]}
                         start={[0, 1]}   
                         end={[1, 0]}   
@@ -76,8 +76,10 @@ const CreateItem:FC<{data: CreateItemProps}> = ({data: { offersList, disabled, d
 const style = StyleSheet.create({
     containerItem: {
         flex: 1,
-        paddingHorizontal: 15,
-        paddingVertical:15
+        paddingHorizontal: 12,
+        paddingVertical:15,
+        borderBottomColor:'#333',
+        borderWidth:1
     },
     createContainer: {
         flex: 1,
@@ -98,9 +100,9 @@ const style = StyleSheet.create({
         // justifyContent:'space-between',
     },
     textSection: {
-        fontSize: 18,
-        fontWeight: '900',
-        letterSpacing: 0,
+        fontSize: 17,
+        fontWeight: 'bold',
+        letterSpacing:1,
         // backgroundColor:'#333',
         flex:1, 
         paddingHorizontal:5,
@@ -111,7 +113,7 @@ const style = StyleSheet.create({
         borderRadius:5,
         marginLeft:-5,
         marginRight:-5,
-        fontFamily: '',
+        // fontFamily: 'Avenir-Black',
         // textTransform: 'uppercase'
     },
     description: {
@@ -121,7 +123,7 @@ const style = StyleSheet.create({
     footer: {
         flex:1,
         flexDirection:'row',
-        alignItems:'flex-end',
+        alignItems:'center',
         justifyContent:'space-between'
     },
     infoList: {

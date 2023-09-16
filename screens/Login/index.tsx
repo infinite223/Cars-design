@@ -11,6 +11,7 @@ import { AlertProps } from '../../utils/types';
 import { useEffect } from 'react';
 import { globalStyles } from '../../utils/globalStyles';
 import { ScrollView } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>()
@@ -39,10 +40,19 @@ const LoginScreen = () => {
     );
     }, [])
 
+    const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
+
   return (
       <View style={style.headerContainer}>
-        <StatusBar  barStyle={'dark-content'} backgroundColor={'#3391be'}/>
-        <ImageBackground style={[style.headerContainer]} resizeMode='cover' source={require("../../assets/background_login_2.png")}>
+        <StatusBar  barStyle={'dark-content'} backgroundColor={colorsGradient_2[1]}/>
+        {/* <ImageBackground style={[style.headerContainer]} resizeMode='cover' source={require("../../assets/background_login_2.png")}> */}
+        <LinearGradient
+          colors={colorsGradient_2}
+          locations={[0, 0.25, 0.45, 1]}
+          start={[0, 0]}   
+          end={[1, 1]}   
+          style={style.headerContainer}
+        >
         {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert}/>}
           <View style={{ paddingBottom:20, alignItems:'center', flex:1, justifyContent:'center'}}>
 
@@ -57,7 +67,7 @@ const LoginScreen = () => {
           </View>
           
           <View 
-            style={style.main}
+            style={[style.main, {backgroundColor: 'black'}]}
           >
           <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}}>
             <View style={{marginBottom:0, alignItems:'center'}}>
@@ -85,7 +95,8 @@ const LoginScreen = () => {
             <Icon type='antdesign' name='google' size={19} style={{marginLeft:8}} color="gray"/>
           </TouchableOpacity> }
         </View>
-        </ImageBackground>
+        </LinearGradient>
+        {/* </ImageBackground> */}
       </View>
   )
 }

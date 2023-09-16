@@ -61,7 +61,7 @@ export const ProblemsScreen = () => {
       
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={{gap: 10}}>
           {problemsState.map((data) => 
             <ProblemItem data={data}/>
           )}

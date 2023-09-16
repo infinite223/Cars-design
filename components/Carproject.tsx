@@ -74,7 +74,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
               end={{x:1, y:2}}
             >
               <Text style={[style.stageText, {color: theme.fontColor}]}>
-                {car.history.length===0?'STOCK':'STAGE '+car.history.length}
+                {car.history.length===0?'STOCK':car.history[car.history.length-1].name.toUpperCase()}
               </Text>
             </LinearGradient>
             <View style={style.performanceContainer}>
@@ -109,7 +109,7 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
                     name='heart-outlined'
                     type='entypo'
                     size={24} 
-                    color={car.likes.find((like:any)=>like===user.uid)?globalStyles.background_1:theme.fontColor}
+                    color={car.likes.find((like:any)=>like===user.uid)?globalStyles.background_2:theme.fontColor}
                 />
             </TouchableOpacity>}
             <TouchableOpacity onPress={()=> onShare(car.CarMake, car.model, 'xd')} style={style.iconContainer}>
@@ -169,7 +169,6 @@ export default Carproject
 
 const style = StyleSheet.create({
   projectContainer: {
-    marginVertical:5, 
     paddingHorizontal:10, 
     flexDirection:'row', 
     justifyContent:'space-between', 

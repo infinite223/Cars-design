@@ -24,13 +24,12 @@ export const style = StyleSheet.create({
         letterSpacing:1,
     },
     mainHeader: {
-        // width:'100%',
         flex:1,
-        marginLeft: -5,
-        marginRight: 25,
+        marginLeft: -15,
+        marginRight: 10,
         paddingHorizontal:15,
         paddingVertical:7,
-        borderRadius:5
+        borderRadius:0
     },
     headerContainer: {
         position:'relative',
@@ -83,10 +82,12 @@ export const style = StyleSheet.create({
         marginTop:5,
         letterSpacing:1
     },
-    nextStepButton: {
+    positionButton: {
         position: 'absolute', 
         bottom: 20, 
         right: 20,
+    },
+    nextStepButton: {
         backgroundColor: '#273', 
         paddingHorizontal:22, 
         borderRadius:50, 

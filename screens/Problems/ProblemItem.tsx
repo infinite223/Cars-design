@@ -45,7 +45,6 @@ const localStyles = StyleSheet.create({
     constainer: {
         borderRadius: 0,
         padding: 10,
-        marginVertical: 5
     },
     nav: {
         flexDirection:'row',

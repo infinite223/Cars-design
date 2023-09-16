@@ -12,6 +12,7 @@ import AlertModal from '../modals/AlertModal';
 import GeneralProblem from './GeneralProblem';
 import SpecyficProblem from './SpecyficProblem';
 import { LinearGradient } from 'expo-linear-gradient';
+import { globalStyles } from '../../utils/globalStyles';
 
 const CreateProblem = () => {
   const [selectedOption, setSelectedOption] = useState(0)
@@ -22,15 +23,15 @@ const CreateProblem = () => {
     const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     const [name, setName] = useState('')
-    const colorsGradient = ['rgb(162,124,48)', 'rgb(131, 141, 17)','rgb(181, 161, 27)', 'rgb(92,77,28)']
+    const colorsGradient = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
 
     useLayoutEffect(() => {
       navigation.setOptions({
          headerBackVisible:false,
          headerTitle: () => 
          <LinearGradient
-            colors={colorsGradient}
-            locations={[0, 0.25, 0.45, 1]}
+          colors={[colorsGradient[1], colorsGradient[0], colorsGradient[1], colorsGradient[0]]}
+          locations={[0, 0.25, 0.45, 1]}
             start={[0, 0]}   
             end={[1, 0]}   
             style={style.mainHeader}
@@ -44,7 +45,7 @@ const CreateProblem = () => {
 
       const validMeeting = name.length>2  
       const colorsProblemGradient = ['rgb(102,94,48)', 'rgb(81, 71, 17)','rgb(141, 131, 27)', 'rgb(62,57,28)']
-      const colorsGradient_1 = [theme.backgroundContent, theme.backgroundContent, theme.backgroundContent]
+      const colorsGradient_1 = [theme.background, theme.background, theme.background]
 
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
@@ -52,42 +53,31 @@ const CreateProblem = () => {
 
       <View style={style.navigation}>
         <TouchableOpacity 
-          style={[style.typeContainer, {backgroundColor: theme.backgroundContent}]} 
+          style={[style.typeContainer, {borderColor: selectedOption===0?globalStyles.background_1:theme.backgroundContent}]} 
           onPress={() => setSelectedOption(0)}
         >
-          {selectedOption===0?<LinearGradient
-          colors={colorsGradient_1}
-          locations={[0, 0.25, 0.45, 1]}
-          start={[0, 1]}   
-          end={[1, 0]}   
-          style={style.typeProblem}
-        >
+          {selectedOption===0?<View style={style.typeProblem}>
           <Text style={[{color: theme.fontColor}]}>Problem ogólny</Text>
-
-        </LinearGradient>:
-        <View style={style.typeProblem}>
-            <Text style={[{color: theme.fontColor}]}>Problem ogólny</Text>
-        </View>
+          </View>:
+          <View style={style.typeProblem}>
+              <Text style={[{color: theme.fontColor}]}>Problem ogólny</Text>
+          </View>
          }
         </TouchableOpacity>
 
         <TouchableOpacity 
-          style={[style.typeContainer, {backgroundColor: theme.backgroundContent}]} 
+          style={[style.typeContainer, {borderColor: selectedOption===1?globalStyles.background_1: theme.backgroundContent}]} 
           onPress={() => setSelectedOption(1)}
         >
-          {selectedOption===1?<LinearGradient
-          colors={colorsGradient_1}
-          locations={[0, 0.25, 0.45, 1]}
-          start={[0, 1]}   
-          end={[1, 0]}   
-          style={style.typeProblem}
-        >
+        {selectedOption===1?
+          <View
+            style={style.typeProblem}
+          >
           <Text style={[{color: theme.fontColor}]}>Problem konkretny</Text>
-
-        </LinearGradient>:
-        <View style={style.typeProblem}>
-            <Text style={[{color: theme.fontColor}]}>Problem konkretny</Text>
-        </View>
+          </View>:
+          <View style={style.typeProblem}>
+              <Text style={[{color: theme.fontColor}]}>Problem konkretny</Text>
+          </View>
          }
         </TouchableOpacity>
       </View>

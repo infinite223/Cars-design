@@ -83,14 +83,13 @@ const HomeScreen = () => {
     };
   }, []);
   
-
   return (
     <SafeAreaView style={{paddingTop:0, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
       <StatusBar  barStyle={'dark-content'} backgroundColor={'black'}/>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects?<FlatList 
         style={{ width: '100%'}}
-        contentContainerStyle={{flexGrow:1}}
+        contentContainerStyle={{flexGrow:1, gap:5}}
         data={projects.filter((project)=> {
           if(hideProjects && !hideProjects.find((id:string) => id===project.id )){
             return project
@@ -106,6 +105,7 @@ const HomeScreen = () => {
         renderItem={(carData)=> 
         <Carproject data={carData.item}/>
       }
+      
       />:<View>
           <Text style={[{color: theme.fontColorContent}]}>No projects...</Text>
         </View>}

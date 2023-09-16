@@ -94,7 +94,7 @@ const CreateProject = () => {
            headerBackVisible:false,
            headerTitle: () => 
            <LinearGradient
-                colors={colorsGradient_2}
+                colors={[colorsGradient_2[1], colorsGradient_2[0], colorsGradient_2[1], colorsGradient_2[0]]}
                 locations={[0, 0.25, 0.45, 1]}
                 start={[0, 0]}   
                 end={[1, 0]}   
@@ -164,7 +164,7 @@ const CreateProject = () => {
         }
       };
     
-    const colorsGradient_2 = ['rgb(12,94,88)', 'rgb(1, 71, 67)','rgb(1, 131, 107)', 'rgb(12,57,48)']
+    const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
     const colorsGradient_3 = [theme.backgroundContent, theme.backgroundContent, theme.backgroundContent]
     const colorsGradient = [theme.background, theme.background, theme.background]
 
@@ -203,8 +203,16 @@ const CreateProject = () => {
                  helpText={language==='pl'?"(np. Projekt został stowrzony...max 100 letters)":"(np. Project was created...max 100 letters)"}
                 />
             </View>
-            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={style.positionButton}>
+                <LinearGradient
+                    colors={[colorsGradient_2[2], colorsGradient_2[1], colorsGradient_2[0], colorsGradient_2[2]]}
+                    locations={[0, 0.1, 0.45, 1]}
+                    start={[0, 1]}   
+                    end={[1, 0]}   
+                    style={[style.nextStepButton, {opacity: validateBasicInfo?1:.3}]}
+                >
+                    <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+                </LinearGradient>
             </TouchableOpacity>
         </View>,
         <View style={{flex:1}}>
@@ -257,8 +265,16 @@ const CreateProject = () => {
                     )}
                 />
             </View>
-            {images.length>0&&<TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+            {images.length>0&&            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={style.positionButton}>
+                <LinearGradient
+                    colors={[colorsGradient_2[2], colorsGradient_2[1], colorsGradient_2[0], colorsGradient_2[2]]}
+                    locations={[0, 0.1, 0.45, 1]}
+                    start={[0, 1]}   
+                    end={[1, 0]}   
+                    style={[style.nextStepButton, {opacity: validateBasicInfo?1:.3}]}
+                >
+                    <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+                </LinearGradient>
             </TouchableOpacity>}
         </View>,
          <View style={{flex:1}}>
@@ -308,8 +324,16 @@ const CreateProject = () => {
                 <TextInput onChangeText={(text=> setLinks({...links, fb: text}))} style={[style.linkInput, {color:theme.fontColor, borderBottomColor: theme.backgroundContent}]}/>
             </View>
 
-            <TouchableOpacity onPress={goToNextStep} style={[style.nextStepButton, {backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}>
-                <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={style.positionButton}>
+                <LinearGradient
+                    colors={[colorsGradient_2[2], colorsGradient_2[1], colorsGradient_2[0], colorsGradient_2[2]]}
+                    locations={[0, 0.1, 0.45, 1]}
+                    start={[0, 1]}   
+                    end={[1, 0]}   
+                    style={[style.nextStepButton, {opacity: validateBasicInfo?1:.3}]}
+                >
+                    <Icon type='materialicon' name="arrow-forward-ios" color={'white'} size={23}/>
+                </LinearGradient>
             </TouchableOpacity>
          </View>,
 

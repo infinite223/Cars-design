@@ -134,7 +134,7 @@ const ProjectScreen = () => {
               onPress={() =>likeProject(id, author.uid, likes.find((like:any)=>like===user.uid)?true:false, {imageUri:user.imageUri, name:user.name, uid:user.uid})} 
               style={style.iconPadding}
             >         
-              <Icon type="evilicon" name='heart' size={32} color={likes.find((like:any)=>like===user.uid)?globalStyles.background_1:theme.fontColor}/>
+              <Icon type="evilicon" name='heart' size={32} color={likes.find((like:any)=>like===user.uid)?globalStyles.background_2:theme.fontColor}/>
             </TouchableOpacity>}
             <Text style={{marginLeft:6, color:theme.fontColorContent, alignItems: 'center', gap: 5}}>
               {getCorrectNameLikes(likes?.length)} 

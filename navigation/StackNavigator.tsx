@@ -26,12 +26,14 @@ import CreateProject from '../screens/CreateProject'
 import { ProblemScreen } from '../screens/Problem'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native'
+import { Text } from 'react-native'
+import { LoadingView } from '../components/LoadingView'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const StackNavigator = () => {
-  const { user } :any = useAuth()
+  const { user, loading } :any = useAuth()
   const theme = useSelector(selectTheme)
   const navigation:any = useNavigation()
 
@@ -45,12 +47,21 @@ const StackNavigator = () => {
   }, [])
 
   return (<>
-    <View style={{ 
-      position: 'absolute',
-      height: '100%', 
-      width: '100%', 
-      backgroundColor: theme.background
-   }}/>
+    {loading&&
+      <View style={{ 
+        position: 'absolute',
+        top:0,
+        left:0,
+        zIndex:5,
+        height: '100%', 
+        width: '100%', 
+        alignItems:'center',
+        justifyContent:'center'
+      }}>
+      <LoadingView headerText={'Loading...'}/>
+    </View>}
+
+
     <Stack.Navigator screenOptions={{
      headerShadowVisible: false,
      headerStyle:{

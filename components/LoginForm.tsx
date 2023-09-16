@@ -34,13 +34,24 @@ export const LoginForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({set
         <View style={{alignItems:'center'}}>
             <View style={style.inputConteiner}>
                 <Icon type="materialcon" name='email' color={'#bbb'}/>
-                <TextInput placeholder={emailText[language as keyof typeof emailText]} textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
+                <TextInput 
+                    placeholderTextColor={'#999'}
+                    placeholder={emailText[language as keyof typeof emailText]} 
+                    textContentType='emailAddress' 
+                    style={style.input} 
+                    onChangeText={setEmail}
+                />
             </View>
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput placeholder={passText[language as keyof typeof passText]} secureTextEntry={true} textContentType='password' style={style.input} onChangeText={setPassword}/>
+                <TextInput 
+                    placeholderTextColor={'#999'}
+                    placeholder={passText[language as keyof typeof passText]} 
+                    secureTextEntry={true} textContentType='password' 
+                    style={style.input} 
+                    onChangeText={setPassword}/>
             </View>
         </View>
 
@@ -61,7 +72,8 @@ const style = StyleSheet.create({
         borderBottomWidth:0, 
         width:widthScreen/1.5,
         borderColor:'#ddd', 
-        fontSize:16
+        fontSize:16,
+        color:'white'
     },
     submitButton: {
         marginVertical:25, 
@@ -80,8 +92,8 @@ const style = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'rgb(248, 248, 248)',
-        borderColor: "rgba(100, 180, 100, .2)",
+        backgroundColor:'rgb(38, 38, 38)',
+        borderColor: "rgba(10, 120, 160, .2)",
         borderWidth:1,
         borderRadius:15,
         marginVertical:2,

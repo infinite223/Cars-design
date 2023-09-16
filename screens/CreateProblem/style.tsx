@@ -8,13 +8,12 @@ export const style = StyleSheet.create({
 
     },
     mainHeader: {
-        // width:'100%',
         flex:1,
-        marginLeft: -5,
-        marginRight: 25,
+        marginLeft: -15,
+        marginRight: 10,
         paddingHorizontal:15,
         paddingVertical:7,
-        borderRadius:5
+        borderRadius:0
     },
     navigation: {
         alignItems: 'center',
@@ -39,7 +38,8 @@ export const style = StyleSheet.create({
         height:40,
         flex:1,
         marginHorizontal: 5,
-        borderRadius: 5
+        borderRadius: 5,
+        borderBottomWidth:1
     },
     createButton: {
         paddingHorizontal:15,

@@ -38,19 +38,39 @@ export const RegisterForm:React.FC<{setShowAlert:(value:AlertProps)=> void}>= ({
         <View style={{alignItems:'center'}}>
             <View style={style.inputConteiner}>
                 <Icon type="materialcon" name='email' color={'#bbb'}/>
-                <TextInput placeholder={emailText[language as keyof typeof emailText]} textContentType='emailAddress' style={style.input} onChangeText={setEmail}/>
+                <TextInput 
+                    placeholder={emailText[language as keyof typeof emailText]} 
+                    textContentType='emailAddress' 
+                    style={style.input} 
+                    onChangeText={setEmail}
+                    placeholderTextColor={'#999'}
+                />
             </View>        
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput secureTextEntry placeholder={passText[language as keyof typeof passText]} textContentType='password' style={style.input} onChangeText={setPassword}/>
+                <TextInput 
+                    secureTextEntry 
+                    placeholder={passText[language as keyof typeof passText]} 
+                    textContentType='password' 
+                    style={style.input} 
+                    onChangeText={setPassword}                    
+                    placeholderTextColor={'#999'}
+                />
             </View>
         </View>
         <View style={{alignItems:'center', marginTop:20}}>
             <View style={style.inputConteiner}>
                 <Icon type="ionicon" name='key' color={'#bbb'}/>
-                <TextInput secureTextEntry placeholder={repeatPassText[language as keyof typeof repeatPassText]} textContentType='password' style={style.input} onChangeText={setRepeatPassword}/>
+                <TextInput 
+                    secureTextEntry 
+                    placeholder={repeatPassText[language as keyof typeof repeatPassText]} 
+                    textContentType='password' 
+                    style={style.input} 
+                    onChangeText={setRepeatPassword}
+                    placeholderTextColor={'#999'}
+                />
             </View>
         </View>
 
@@ -71,7 +91,8 @@ const style = StyleSheet.create({
         borderBottomWidth:0, 
         width:widthScreen/1.5,
         borderColor:'#ddd', 
-        fontSize:16
+        fontSize:16,
+        color:'white'
     },
     submitButton: {
         marginVertical:25, 
@@ -90,9 +111,9 @@ const style = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'rgb(251, 251, 251)',
+        backgroundColor:'rgb(40, 40, 40)',
         borderWidth:1,
-        borderColor: "rgba(100, 180, 100, .2)",
+        borderColor: "rgba(10, 120, 160, .2)",
         borderRadius:15,
         paddingHorizontal:15,
         marginVertical:2,

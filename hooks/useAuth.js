@@ -59,9 +59,10 @@ export const AuthProvider = ({children}) => {
              })
             navigation.navigate('EditProfile')
           }
-          setLoading(false)
         }
-        getUserData()
+        getUserData().then(() => {
+          setLoading(false)
+        })
       }
       else {
         setUser(null)
@@ -92,6 +93,7 @@ export const AuthProvider = ({children}) => {
         .catch((a)=> console.log(a))
         .finally(()=>setLoading(false))
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -99,12 +101,11 @@ export const AuthProvider = ({children}) => {
   }, [response]);
 
     const logout = () => {
-      setLoading(true)
       if(user.uid){
         signOut(auth).catch((err)=>setError(err)).finally(()=>setLoading(false))
-        const { id_token, accessToken, oauthIdToken } = response.params;
-        AuthSession.revokeAsync({token: id_token, clientId: envGoogle.authKey}, Google.discovery)
-        .then(()=>console.log("xd")).catch((e)=>console.log(e))
+        // const { id_token, accessToken, oauthIdToken } = response.params;
+        // AuthSession.revokeAsync({token: id_token, clientId: envGoogle.authKey}, Google.discovery)
+        // .then(()=>console.log("xd")).catch((e)=>console.log(e))
       }
       else {
         setUser(null)
