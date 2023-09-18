@@ -13,7 +13,11 @@ export const style = StyleSheet.create({
         marginRight: 10,
         paddingHorizontal:15,
         paddingVertical:7,
-        borderRadius:0
+        borderRadius:0,
+        height: 56,
+        alignItems:'center',
+        justifyContent:'center',
+        marginBottom:10
     },
     navigation: {
         alignItems: 'center',

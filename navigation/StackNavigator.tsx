@@ -36,6 +36,7 @@ const StackNavigator = () => {
   const { user, loading } :any = useAuth()
   const theme = useSelector(selectTheme)
   const navigation:any = useNavigation()
+  const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -45,6 +46,7 @@ const StackNavigator = () => {
       }
     })
   }, [])
+  
 
   return (<>
     {loading&&
@@ -64,14 +66,19 @@ const StackNavigator = () => {
 
     <Stack.Navigator screenOptions={{
      headerShadowVisible: false,
-     headerStyle:{
-      backgroundColor:theme.background
-    },
+     statusBarColor:'black',
+     headerStyle: {backgroundColor:'black'},
+     animation: 'slide_from_right',
+     animationDuration: 0.01
     }}>
         {user ?
           <>    
             <Stack.Screen name='User' component={TabsNavigator} options={{headerShown:false}}/>
-            <Stack.Screen name='Project' component={ProjectScreen}/>
+            <Stack.Screen 
+              name='Project' 
+              component={ProjectScreen}
+              options={{headerStyle: {backgroundColor: 'black'}}}
+            />
             <Stack.Screen name='Problem' component={ProblemScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
             <Stack.Screen name='Chat' component={ChatScreen}/>
@@ -87,15 +94,24 @@ const StackNavigator = () => {
               name='CreateMeeting' 
               component={CreateMeeting} 
             />
-            <Stack.Screen name='CreateProject' component={CreateProject}/>
+            <Stack.Screen name='CreateProject' 
+              options={{ statusBarColor:colorsGradient_2[1]}}
+              component={CreateProject}
+            />
             <Stack.Screen 
               name='CreateProblem' 
+              options={{statusBarColor:colorsGradient_2[1]}}
               component={CreateProblem} 
             />
             <Stack.Screen name="Reviews" component={ReviewsScreen}/>
-
           </>:
-          <Stack.Screen name='Login' component={LoginScreen}/>
+          <Stack.Screen 
+            name='Login' 
+            component={LoginScreen}
+            options={{ 
+              statusBarColor: colorsGradient_2[0],   
+            }}
+          />
         } 
     </Stack.Navigator></>
   )

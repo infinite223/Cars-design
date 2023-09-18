@@ -5,7 +5,7 @@ export const style = StyleSheet.create({
       flex:1,
       justifyContent:'space-around', 
       alignItems:'center',
-      backgroundColor:'white'
+      backgroundColor:'white',
     },
     logoText: {
       fontFamily:'monospace', 

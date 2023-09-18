@@ -78,8 +78,8 @@ const ProjectScreen = () => {
            <Text style={{color: baseColor}}> {car.model}</Text>
            </Text>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:5}}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight: 10}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={25} color={theme.fontColor}/>
                 </TouchableOpacity> 
           )
         })  

@@ -10,6 +10,7 @@ import { RightNavigation } from './navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';
 import PrompttModal from './screens/modals/ProptModal';
 import UploadingStatus from './components/UploadingStatus';
+import { StatusBar } from 'react-native';
 
 LogBox.ignoreAllLogs()
 
@@ -19,6 +20,10 @@ export default function App() {
     <Provider store={store}>
       <MenuProvider>
         <NavigationContainer>
+        <StatusBar
+          animated={true}
+          backgroundColor="transparent"
+        />
           <AuthProvider>
             <GestureHandlerRootView style={{flex:1}}>
               <RightNavigation/>

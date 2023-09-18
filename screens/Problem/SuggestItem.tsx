@@ -1,5 +1,5 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native'
-import React, { FC } from 'react'
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard } from 'react-native'
+import React, { FC, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { SuggestResolvedType } from '../../utils/types'
 import { useSelector } from 'react-redux'
@@ -7,9 +7,23 @@ import { selectTheme } from '../../slices/themeSlice'
 import _Icon_AntDesign from 'react-native-vector-icons/AntDesign'
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 
-export const SuggestItem:FC<{suggest: SuggestResolvedType}> = ({suggest}) => {
+export const SuggestItem:FC<{suggest: SuggestResolvedType, setShowSuggestInput: (value:boolean) => void}> = ({suggest, setShowSuggestInput}) => {
   const theme = useSelector(selectTheme)
 
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        // setShowSuggestInput(false);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setShowSuggestInput(true);
+      }
+    );
+    }, [])
   return (
     <View style={[localStyles.container, {backgroundColor: theme.backgroundContent}]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -42,6 +56,10 @@ export const SuggestItem:FC<{suggest: SuggestResolvedType}> = ({suggest}) => {
             placeholder='Dodaj komentarz do rozwiązania'
             style={{flex: 1, color: theme.fontColor, marginHorizontal: 10, fontSize: 13}}
             placeholderTextColor={theme.fontColorContent}
+            onFocus={() => setShowSuggestInput(false)}
+            onEndEditing={() => setShowSuggestInput(true)}
+            // onFocus={}
+            // onEndEditing={}
         />
         <TouchableOpacity style={{padding: 5}}>
             <_Icon_Ionicons name={'send-outline'} size={16} color={theme.fontColor} style={{ marginRight: 0 }}/>

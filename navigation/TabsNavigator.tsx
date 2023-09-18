@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CreateScreen from '../screens/Create/index';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,10 +11,11 @@ import _Icon_Feather from 'react-native-vector-icons/Feather'
 import { Icon } from '@rneui/themed';
 import MeetingScreen from '../screens/Meeting';
 import SearchScreen from './../screens/Search/index';
-import { TouchableOpacity, View } from 'react-native';
+import { StatusBar, TouchableOpacity, View } from 'react-native';
 import { setNavigation } from '../slices/navigationSlice';
 import HomeScreen from './../screens/Home/index';
 import { ProblemsScreen } from '../screens/Problems';
+import { useRoute } from '@react-navigation/native';
 
 export const TabsNavigator = () => {
 
@@ -29,6 +30,7 @@ export const TabsNavigator = () => {
             headerStyle:{
               backgroundColor:theme.background
             },
+            tabBarVisibilityAnimationConfig: {hide: {animation: 'spring', config: {delay: 3}}, show: {animation: 'spring'}},
             tabBarStyle: {
                 backgroundColor:theme.background,
                 borderTopWidth:0,
@@ -39,7 +41,7 @@ export const TabsNavigator = () => {
             tabBarLabelStyle:{color:theme.fontColorContent, marginBottom:10}
           }}>
             <Tab.Screen name="Home" component={HomeScreen} options={
-              {tabBarLabelStyle:{display:'none'}, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
+              { tabBarLabelStyle:{display:'none'}, tabBarIcon: ({focused})  => <_Icon_Entypo name='home' size={24} color={focused?theme.fontColor:theme.fontColorContent} style={{paddingTop:8}}/>}}
             />
               <Tab.Screen name='Problems' component={ProblemsScreen} options={
               {tabBarLabelStyle:{display:'none'}, tabBarIconStyle: {paddingBottom:0}, tabBarIcon: ({focused})  => 

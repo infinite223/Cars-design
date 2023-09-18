@@ -30,10 +30,11 @@ const CreateProblem = () => {
          headerBackVisible:false,
          headerTitle: () => 
          <LinearGradient
-          colors={[colorsGradient[1], colorsGradient[0], colorsGradient[1], colorsGradient[0]]}
+          // colors={[colorsGradient[3], colorsGradient[3], colorsGradient[1], colorsGradient[3]]}
+          colors={[colorsGradient[1], colorsGradient[1], colorsGradient[1], colorsGradient[1]]}
           locations={[0, 0.25, 0.45, 1]}
             start={[0, 0]}   
-            end={[1, 0]}   
+            end={[0, 1]}   
             style={style.mainHeader}
           >
          <Text style={{ fontSize:16, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>

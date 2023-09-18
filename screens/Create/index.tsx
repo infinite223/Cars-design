@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StatusBar } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { selectTheme } from '../../slices/themeSlice'
 import { style } from './style'
 import CreateItem from './CreateItem'
@@ -9,7 +9,13 @@ import { Image } from 'react-native'
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 // const gradeintColors = ['rgb(1, 220, 167)', 'rgb(1, 171, 127)','rgb(10, 15, 12)', 'rgb(10, 31, 17)']
 const gradeintColors = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
+import { useIsFocused } from '@react-navigation/native';
 
+function FocusAwareStatusBar(props:any) {
+  const isFocused = useIsFocused();
+
+  return isFocused ? <StatusBar {...props} /> : null;
+}
 const createOptions = [
   {
     name: 'Projekt',
@@ -34,11 +40,11 @@ const createOptions = [
     navigate: "CreateMeeting",
     gradientColors: gradeintColors,
     // gradientColors: ['rgb(41, 51, 167)', 'rgb(12,127,208)', 'rgb(11, 71, 107)',  'rgb(12, 127,188)'],
-    disabled: false,
+    disabled: true,
     offersList: ["Ustawienie miejsca na mapie", "Zaproszenie innych osób"]
   },
 ]
-const CreateScreen = () => {
+const CreateScreen = (props:any) => {
 
   const navigation:any = useNavigation()
   const theme = useSelector(selectTheme)
@@ -47,21 +53,20 @@ const CreateScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
+      
        headerTitle: () =>  
-        <View style={{alignItems:'center', flexDirection:'row', backgroundColor: colorsGradient_2[3], flex:1, width: 500}}>
-          <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+        <View style={{left: -12,alignItems:'center', flexDirection:'row', backgroundColor: colorsGradient_2[3], flex:1, width: 500}}>
+          <Image style={{width:40, height:40, marginLeft: 4, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
           <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Wybierz co chcesz dodać</Text>
         </View>,
-       headerLeft: () => <View></View> ,
       //  headerRight: () => <_Icon_antDesign name='search1' size={21} color={theme.fontColor} style={{marginRight: 15}}/>
 
     })  
   }, [theme])
 
-
   return (
     <View style={[style.createContainer, {backgroundColor: theme.background}]}>
-     <StatusBar backgroundColor={createOptions[0].gradientColors[3]} />
+      <FocusAwareStatusBar barStyle="light-content" backgroundColor={colorsGradient_2[3]} />
 
       {createOptions.map((data, i) => 
         <CreateItem data={data} key={i}/>

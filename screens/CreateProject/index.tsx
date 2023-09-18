@@ -94,12 +94,13 @@ const CreateProject = () => {
            headerBackVisible:false,
            headerTitle: () => 
            <LinearGradient
-                colors={[colorsGradient_2[1], colorsGradient_2[0], colorsGradient_2[1], colorsGradient_2[0]]}
-                locations={[0, 0.25, 0.45, 1]}
-                start={[0, 0]}   
-                end={[1, 0]}   
-                style={style.mainHeader}
-            >
+           // colors={[colorsGradient[3], colorsGradient[3], colorsGradient[1], colorsGradient[3]]}
+             colors={[colorsGradient_2[1], colorsGradient_2[1], colorsGradient_2[1], colorsGradient_2[1]]}
+             locations={[0, 0.25, 0.45, 1]}
+             start={[0, 0]}   
+             end={[0, 1]}   
+             style={style.mainHeader}
+           >
                 <Text style={{ fontSize:16, letterSpacing:1, fontWeight:'500', color:theme.fontColor}}>
                     {navTitleText[language as keyof typeof navTitleText]}
                 </Text>
@@ -165,7 +166,6 @@ const CreateProject = () => {
       };
     
     const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
-    const colorsGradient_3 = [theme.backgroundContent, theme.backgroundContent, theme.backgroundContent]
     const colorsGradient = [theme.background, theme.background, theme.background]
 
     const steps = [
@@ -265,7 +265,7 @@ const CreateProject = () => {
                     )}
                 />
             </View>
-            {images.length>0&&            <TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={style.positionButton}>
+            {images.length>0&&<TouchableOpacity disabled={!validateBasicInfo} onPress={goToNextStep} style={style.positionButton}>
                 <LinearGradient
                     colors={[colorsGradient_2[2], colorsGradient_2[1], colorsGradient_2[0], colorsGradient_2[2]]}
                     locations={[0, 0.1, 0.45, 1]}

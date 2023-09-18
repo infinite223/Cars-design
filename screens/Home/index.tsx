@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Platform, SafeAreaView, StatusBar, Image } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
@@ -51,7 +51,7 @@ const HomeScreen = () => {
        headerBackVisible:false,
        headerTitle: () =>  
         <View style={{alignItems:'center', flexDirection:'row'}}>
-          <Image style={{width:35, height:35, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
+          <Image style={{width:40, height:40, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
           <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Projekty</Text>
         </View>,
        headerLeft: () => <View></View> ,
@@ -83,9 +83,30 @@ const HomeScreen = () => {
     };
   }, []);
   
+  const route = useRoute()
+
+  useEffect(() => {
+    console.log(route.name)
+    switch (route.name) {
+      case 'Create':
+        console.log('Create')
+        StatusBar.pushStackEntry({ barStyle: 'light-content', backgroundColor:'red', hidden: false });
+        break;
+      case 'Home':
+        console.log('Home')
+
+        StatusBar.pushStackEntry({ barStyle: 'dark-content',backgroundColor:'black', hidden: false });
+        break;
+      default:
+        StatusBar.pushStackEntry({ barStyle: 'dark-content',backgroundColor:'black', hidden: false });
+    }
+  }, [route, navigation]);
+
   return (
-    <SafeAreaView style={{paddingTop:0, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}>
-      <StatusBar  barStyle={'dark-content'} backgroundColor={'black'}/>
+    <View 
+      style={{paddingTop:0, flex:1, position:'relative',alignItems:'center', justifyContent:'center', backgroundColor:theme.background}}
+    >
+      <StatusBar backgroundColor={'black'}/>
       {loading&&<LoadingView headerText={'Loading projects'}/>}
       {projects?<FlatList 
         style={{ width: '100%'}}
@@ -109,7 +130,7 @@ const HomeScreen = () => {
       />:<View>
           <Text style={[{color: theme.fontColorContent}]}>No projects...</Text>
         </View>}
-    </SafeAreaView>
+    </View>
   )
 }
   

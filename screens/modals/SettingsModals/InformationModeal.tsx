@@ -8,7 +8,6 @@ import { selectLanguage } from './../../../slices/languageSlice';
 import { translations } from './../../../utils/translations';
 import { globalStyles } from '../../../utils/globalStyles';
 
-
 const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({modalVisible, setModalVisible}) => {
     const { user, logout }:any = useAuth()
     const navigation:any = useNavigation()
@@ -28,13 +27,13 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
       >
         <ScrollView style={[style.mainContainer, {backgroundColor:theme.background}]}>
             <Text style={[style.headerText, {color:theme.fontColor}]}>{language==="en"?title.en:title.pl}</Text>
-            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer, {borderColor:theme.backgroundContent, borderWidth:1}]}>
                 <Text style={[style.itemHeader, {color: globalStyles.background_2}]}>{headerText[language as keyof typeof headerText]}</Text>
                 <Text style={[style.itemText, {color: theme.fontColor}]}>
                     {about[language as keyof typeof about]}
                 </Text>
             </View>
-            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer,  {borderColor:theme.backgroundContent, borderWidth:1}]}>
                 <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?rules.en:rules.pl}</Text>
                 <TouchableOpacity onPress={()=>navigation.navigate("Terms")}>
                     <Text style={[style.itemText, {color: theme.fontColorContent}]}>
@@ -42,19 +41,19 @@ const InformationModal:React.FC<{modalVisible:boolean, setModalVisible: (value:b
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer,  {borderColor:theme.backgroundContent, borderWidth:1}]}>
                 <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?support.en:support.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                     carsprojectapp@gmail.com
                 </Text>
             </View>
-            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer,  {borderColor:theme.backgroundContent, borderWidth:1}]}>
                 <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?version.en:version.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                    1.0.1
                 </Text>
             </View>
-            <View style={[style.itemContainer, {backgroundColor:theme.backgroundContent}]}>
+            <View style={[style.itemContainer,  {borderColor:theme.backgroundContent, borderWidth:1}]}>
                 <Text style={[style.itemHeader, {color: theme.fontColor}]}>{language==="en"?author.en:author.pl}</Text>
                 <Text style={[style.itemText, {color: theme.fontColorContent}]}>
                    Dawid Szmigiel

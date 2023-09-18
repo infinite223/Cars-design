@@ -28,8 +28,13 @@ export const style = StyleSheet.create({
         marginLeft: -15,
         marginRight: 10,
         paddingHorizontal:15,
+        backgroundColor:'grey',
         paddingVertical:7,
-        borderRadius:0
+        borderRadius:0,
+        height: 56,
+        alignItems:'center',
+        justifyContent:'center',
+        marginBottom:10
     },
     headerContainer: {
         position:'relative',

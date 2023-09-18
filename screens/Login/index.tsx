@@ -44,13 +44,13 @@ const LoginScreen = () => {
 
   return (
       <View style={style.headerContainer}>
-        <StatusBar  barStyle={'dark-content'} backgroundColor={colorsGradient_2[1]}/>
+        {/* <StatusBar barStyle={'default'} backgroundColor={colorsGradient_2[1]}/> */}
         {/* <ImageBackground style={[style.headerContainer]} resizeMode='cover' source={require("../../assets/background_login_2.png")}> */}
         <LinearGradient
           colors={colorsGradient_2}
           locations={[0, 0.25, 0.45, 1]}
           start={[0, 0]}   
-          end={[1, 1]}   
+          end={[0, 1]}   
           style={style.headerContainer}
         >
         {showAlert.show&&<AlertModal {...showAlert} resetError={setShowAlert}/>}
@@ -76,11 +76,11 @@ const LoginScreen = () => {
                 </ScrollView>
                 {!keyboardShow&&<View style={{flexDirection:'row', alignItems:'center'}}>
                   <TouchableOpacity onPress={()=>setShowRegisterForm(!showRegisterForm)} style={{ alignItems:'center'}}>
-                    <Text style={{fontSize:18, color:globalStyles.background_1, fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>
+                    <Text style={{fontSize:18, color:globalStyles.background_2, fontWeight:'bold'}}>{showRegisterForm?'Zaloguj':'Utwórz konto'}</Text>
                   </TouchableOpacity>
-                  <Text style={{marginHorizontal:10, color:'gray'}}>OR</Text>
+                  <Text style={{marginHorizontal:10, color:'lightgray'}}>OR</Text>
                   <TouchableOpacity onPress={()=>signInAsTester()} style={{alignItems:'center', flexDirection:'row'}}>
-                    <Text style={{fontSize:18, color:"gray"}}>Demo</Text>
+                    <Text style={{fontSize:18, color:"white"}}>Demo</Text>
                     <Icon type='ionicon' name="ios-chevron-forward-outline" size={22} color="gray"/>
                   </TouchableOpacity>
                 </View>}
@@ -91,8 +91,8 @@ const LoginScreen = () => {
             style={{elevation:5, flexDirection:'row', alignItems:'center', marginTop:30}}
             onPress={()=>signInWithGoogle()}
           >
-            <Text style={{fontSize:13, color:"gray", letterSpacing:2}}>Sign up with google</Text>
-            <Icon type='antdesign' name='google' size={19} style={{marginLeft:8}} color="gray"/>
+            <Text style={{fontSize:13, color:"white", letterSpacing:2}}>Sign up with google</Text>
+            <Icon type='antdesign' name='google' size={19} style={{marginLeft:8}} color="white"/>
           </TouchableOpacity> }
         </View>
         </LinearGradient>

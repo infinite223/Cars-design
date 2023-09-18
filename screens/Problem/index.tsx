@@ -27,6 +27,7 @@ export const ProblemScreen = () => {
     const [showChangeStatus, setShowChangeStatus] = useState(false)
     const [suggestText, setSuggestText] = useState('')
     const suggestsRef = collection(db, `problems/${data?.id}/suggests`)
+    const [showSuggestInput, setShowSuggestInput] = useState(true)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -36,8 +37,8 @@ export const ProblemScreen = () => {
             {data.title.length>20?data.title.substring(0, 20)+ "...": data.title} 
            </Text>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:5}}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={22} color={theme.fontColor}/>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:10}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={25} color={theme.fontColor}/>
                 </TouchableOpacity> 
           )
         })  
@@ -78,12 +79,13 @@ export const ProblemScreen = () => {
       <Text style={[style.descriptionText, {color: theme.fontColor}]}>{data.description}</Text>
       <ScrollView style={{flex: 1, gap: 5}}>
         <Text style={{color: theme.fontColorContent}}>Sugerowane rozwiązania:</Text>
+        
         {suggestResolved.map((suggest, i) => 
-          <SuggestItem suggest={suggest} key={i}/>
+          <SuggestItem suggest={suggest} key={i} setShowSuggestInput={setShowSuggestInput}/>
         )}
         
       </ScrollView>    
-      <View style={[style.footer, {backgroundColor: theme.backgroundContent}]}>
+      {showSuggestInput&&<View style={[style.footer, {backgroundColor: theme.backgroundContent}]}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity onPress={saveProblem} style={{padding: 5}}>
             <_Icon_Feather name={'download'} size={20} color={theme.fontColor} style={{ marginRight: 0 }}/>
@@ -98,7 +100,7 @@ export const ProblemScreen = () => {
         <TouchableOpacity onPress={sendSuggest} style={{padding: 5}}>
          <_Icon_Ionicons name={'send-outline'} size={20} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
-      </View>
+      </View>}
 
     </View>
   )

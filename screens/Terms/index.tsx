@@ -21,8 +21,8 @@ const TermsScreen = () => {
             {headerText[language as keyof typeof headerText]}
            </Text>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:10}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={25} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
         })  

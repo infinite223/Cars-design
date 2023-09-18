@@ -31,8 +31,8 @@ const SettingsScreen = () => {
             {language==="en"?HeaderText.en:HeaderText.pl}
         </Text>,
        headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
-         <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:10}}>
+         <Icon type="materialicon" name={'arrow-back-ios'} size={25} color={theme.fontColor}/>
         </TouchableOpacity> 
     )})
   }, [theme, language])
