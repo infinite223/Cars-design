@@ -62,7 +62,6 @@ export const ProblemsCategoryData:{name: string, icon:string, type: ProblemsCate
     {name: 'Chłodnice', icon: '', type: 'Cooler'},
     {name: 'zawieszenie', icon: '', type: 'suspension'},
     {name: 'inna', icon: '', type: 'other'}
-
 ]
 
 export type SuggestResolvedType = {

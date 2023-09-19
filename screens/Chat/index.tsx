@@ -13,6 +13,7 @@ import { Icon } from '@rneui/base';
 import { selectLanguage } from './../../slices/languageSlice';
 import { Chat } from '../../utils/types';
 import { globalStyles } from '../../utils/globalStyles';
+import { toDateTime } from '../../utils/toDateTime';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
@@ -120,7 +121,10 @@ const ChatScreen = () => {
                       rounded
                       source={{uri:data.imageUri}}    
                     /> */}
-                    <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: globalStyles.background_1}]}>{data.message}</Text>
+                    <View>
+                      <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: globalStyles.background_1}]}>{data.message}</Text>
+                      <Text style={[{color: theme.fontColorContent, fontSize:10, textAlign:'right', margin:3}]}>{toDateTime(data.timestamp?.seconds).toDateString()}</Text>
+                    </View>
                 </View>
                 ) : (
                 <View key={id} style={[style.sender]}>
@@ -129,7 +133,10 @@ const ChatScreen = () => {
                       rounded
                       source={{uri:data.imageUri}}    
                     />
-                    <Text selectable style={[style.senderText, {color: theme.fontColor, backgroundColor: theme.backgroundContent}]}>{data.message}</Text>
+                     <View>
+                        <Text selectable style={[style.senderText, {color: theme.fontColor, backgroundColor: theme.backgroundContent}]}>{data.message}</Text>
+                        <Text style={[{color: theme.fontColorContent, fontSize:10, textAlign:'left', margin:3}]}>{toDateTime(data.timestamp?.seconds).toDateString()}</Text> 
+                     </View>
                 </View>
                 ))
             }

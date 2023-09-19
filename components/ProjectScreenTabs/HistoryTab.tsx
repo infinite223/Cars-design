@@ -17,7 +17,7 @@ const HistoryTab = () => {
   const theme = useSelector(selectTheme)
   const selectedProject = useSelector(selectProject)
 
-  const [opacity, setOpacity] = useState(.7)
+  const [opacity, setOpacity] = useState(1)
 
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
@@ -28,12 +28,12 @@ const HistoryTab = () => {
           style={{}}
           data={selectedProject.car.history}
           renderItem={({item, index})=>(
-            <View style={style.renderItem}>          
-                  <Image style={{width:windowWidth, height:240}} source={{uri:item.photosUrl}}/>                  
-                  <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:[item.photosUrl], index}))} style={style.zoomIcon}>                   
+            <View style={[style.renderItem]}>          
+                  {item.photosUrl.length>0&&<Image style={[style.image]} source={{uri:item.photosUrl}}/>}              
+                  {item.photosUrl.length>0&&<TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectStage({images:[item.photosUrl], index}))} style={style.zoomIcon}>                   
                     <Icon type='materialicons' name="zoom-out-map" size={22} color="white"/>
-                  </TouchableOpacity>
-                  <View style={[style.nameContainer, {backgroundColor: `rgba(1,1,1,${opacity})`}]}>
+                  </TouchableOpacity>}
+                  <View style={[style.nameContainer, {borderBottomWidth:1, borderColor: theme.backgroundContent}]}>
                     <Text style={style.name}>{item.name==='Stage 0'?'Stock':item.name}</Text>
                     <View style={style.performanceContainer}>
                       {item.performance?.[0].value&&<View style={style.performance}>
@@ -57,25 +57,20 @@ const HistoryTab = () => {
                         <Text style={style.performanceType}>100-200Km/h</Text>
                       </View>}
                     </View>
-                    <Text style={{color: theme.fontColorContent}}>{item.description}</Text>
+                    {item.description.length>0&&<Text style={{color: theme.fontColorContent}}>{item.description}</Text>}
 
                   {(item.components && item.performance)&&
                       <FlatList
-                        style={[style.componentsContainer]}
+                        contentContainerStyle={[style.componentsContainer]}
                         ItemSeparatorComponent={()=><View style={{width:10}}/>}
                         horizontal
                         data={item.components}
                         renderItem={({item})=> (
-                          <TouchableOpacity style={[style.component, {backgroundColor: 'rgba(1,1,1, .25)'}]}>
+                          <View style={[style.component, {backgroundColor: theme.backgroundContent}]}>
                             <Text style={[style.typeComponent]}>{item.type}</Text>
-                            <Image 
-                              source={item.type=="turbo"?
-                                require('../../assets/componentsIcons/turbo_white.png'):
-                                require('../../assets/componentsIcons/engine_white.png')} 
-                              style={style.imageComponent}
-                            />
-                            <Text style={[style.nameComponent]}>{item.name}</Text>
-                          </TouchableOpacity>
+                            <Text style={[style.nameComponent, {color: theme.fontColor, fontWeight:'500'}]}>{item.name}</Text>
+                            <Text style={[style.nameComponent, {color: theme.fontColor}]}>{item.description}</Text>
+                          </View>
                         )}
                       />}
                <View style={style.footer}>
@@ -95,7 +90,6 @@ const style = StyleSheet.create({
   renderItem: {
     position:'relative',
     marginBottom:5,
-    borderColor:'#eee'
   },
   zoomIcon: {
     position:'absolute', 
@@ -104,11 +98,16 @@ const style = StyleSheet.create({
     zIndex:3
   },
   nameContainer: {  
+    // position:'absolute',
+    // width:'100%',
+    // height:"100%",
+    paddingVertical:15,
+    paddingHorizontal:15
+  },
+  image: {
     position:'absolute',
     width:'100%',
     height:"100%",
-    paddingVertical:15,
-    paddingHorizontal:15
   },
   name:{
     fontSize:18,
@@ -151,28 +150,27 @@ const style = StyleSheet.create({
     marginTop:5,
   },
   componentsContainer: {
-   
+   marginTop:10
   },
   component:{
-    alignItems:'center',
+    // alignItems:'center',
     justifyContent:'space-around',
     width:100,
-    height:110,
     //backgroundColor: 'rgba(1,1,1,.2)',
     paddingHorizontal:10,
     paddingVertical:6,
-    borderRadius:15
+    borderRadius:5
   },
   typeComponent: {
     textTransform:'uppercase',
     fontSize:12,
     color:'#bbb',
-    letterSpacing:1
+    letterSpacing:1,
+    marginBottom:5
   },
   nameComponent: {
-    color:'white',
-    fontWeight:'bold',
-    letterSpacing:1
+    fontWeight:'300',
+    fontSize:11
   },
   imageComponent: {
     width:35, 

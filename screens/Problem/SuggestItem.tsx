@@ -1,14 +1,24 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard } from 'react-native'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
-import { SuggestResolvedType } from '../../utils/types'
+import { AlertProps, SuggestResolvedType } from '../../utils/types'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '../../slices/themeSlice'
 import _Icon_AntDesign from 'react-native-vector-icons/AntDesign'
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
+import useAuth, { db } from '../../hooks/useAuth'
+import { Timestamp, arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { globalStyles } from '../../utils/globalStyles'
 
-export const SuggestItem:FC<{suggest: SuggestResolvedType, setShowSuggestInput: (value:boolean) => void}> = ({suggest, setShowSuggestInput}) => {
+export const SuggestItem:FC<{suggest: SuggestResolvedType,
+   setShowSuggestInput: (value:boolean) => void,
+   setAlertModal: (value: AlertProps) => void,
+   problemId: string
+  }> = ({suggest, setShowSuggestInput, setAlertModal, problemId}) => {
   const theme = useSelector(selectTheme)
+  const { user }:any = useAuth()
+  const isLikedByMe = suggest.likes.find((uid:string) => uid === user.uid)
+  const [commentText, setCommentText] = useState('')
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -24,6 +34,39 @@ export const SuggestItem:FC<{suggest: SuggestResolvedType, setShowSuggestInput: 
       }
     );
     }, [])
+
+    const addComment = () => {
+      if(user.uid === ''){
+        setAlertModal({show:true, message: 'Jako tester nie możesz proponować rozwiązań', type:'ERROR'})
+      }
+      else if(user && commentText.length>1){
+        updateDoc(doc(db, `problems/${problemId}/suggests`, suggest.id), 
+          {
+            'comments': arrayUnion({text: commentText, createdAt: Timestamp.now(), author: {uid:user.uid, name:user.name, imageUri: user.imageUri}}), 
+          }
+        )
+        .then(() => setCommentText(''))
+        .catch(() => setAlertModal({show:true, message: 'Coś poszło nie tak, spróbuj ponownie później', type:'ERROR'})) 
+      }
+      else {
+        setAlertModal({show:true, message: 'Długość sugerowanego rozwiązania musi mieć minimum 2 znaki', type:'ERROR'})
+      }
+    } 
+  
+    const likeComment = () => {
+      if(user){
+        updateDoc(doc(db, `problems/${problemId}/suggests`, suggest.id), 
+          {
+            'likes': isLikedByMe?arrayRemove(user.uid):arrayUnion(user.uid), 
+          }
+        )
+        .then(() => {})
+        .catch(() => setAlertModal({show:true, message: 'Coś poszło nie tak, spróbuj ponownie później', type:'ERROR'})) 
+      }
+      else {
+      }
+    } 
+
   return (
     <View style={[localStyles.container, {backgroundColor: theme.backgroundContent}]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -48,8 +91,17 @@ export const SuggestItem:FC<{suggest: SuggestResolvedType, setShowSuggestInput: 
       <View style={localStyles.footer}>
         <View style={{flexDirection: 'row', alignItems:'center', gap: 5}}>
             <Text style={{color: theme.fontColor}}>{suggest.likes.length}</Text>
-            <TouchableOpacity style={{padding: 5}}>
-                <_Icon_AntDesign name={'like2'} size={16} color={theme.fontColor} style={{ marginRight: 0 }}/>
+            <TouchableOpacity 
+              onPress={likeComment} 
+              disabled={suggest.author.uid===user.uid} 
+              style={{padding: 5}}
+            >
+                <_Icon_AntDesign 
+                  name={'like2'} 
+                  size={16} 
+                  color={isLikedByMe?globalStyles.background_2:theme.fontColor} 
+                  style={{ marginRight: 0 }}
+                />
             </TouchableOpacity>
         </View>
         <TextInput 
@@ -58,10 +110,10 @@ export const SuggestItem:FC<{suggest: SuggestResolvedType, setShowSuggestInput: 
             placeholderTextColor={theme.fontColorContent}
             onFocus={() => setShowSuggestInput(false)}
             onEndEditing={() => setShowSuggestInput(true)}
-            // onFocus={}
-            // onEndEditing={}
+            value={commentText}
+            onChangeText={setCommentText}
         />
-        <TouchableOpacity style={{padding: 5}}>
+        <TouchableOpacity onPress={addComment} style={{padding: 5}}>
             <_Icon_Ionicons name={'send-outline'} size={16} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
       </View>

@@ -46,6 +46,12 @@ const StackNavigator = () => {
       }
     })
   }, [])
+
+  const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
   
 
   return (<>
@@ -69,7 +75,7 @@ const StackNavigator = () => {
      statusBarColor:'black',
      headerStyle: {backgroundColor:'black'},
      animation: 'slide_from_right',
-     animationDuration: 0.01
+     animationDuration: 50,
     }}>
         {user ?
           <>    

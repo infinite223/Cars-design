@@ -16,6 +16,9 @@ import { TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Linking from 'expo-linking';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'react-native';
+import engineImg from './../../assets/componentsIcons/engine_white.png'
+import transmission_white from './../../assets/componentsIcons/transmission_white.png'
 
 const InfoTab = () => {
   const theme = useSelector(selectTheme) 
@@ -104,13 +107,17 @@ const InfoTab = () => {
                         {selectedProject.car.description}
                     </Text>}
                     <View style={{flex: 1, marginTop:40}}>
-                    <View style={localStyle.itemContainer}>
+                    <View style={[localStyle.header, {width: 140, backgroundColor: theme.backgroundContent}]}>
+                        <Image style={{width: 20, height:20}} source={engineImg}/>
+                        <Text style={[localStyle.headerText, {color: theme.fontColor}]}>Silnik</Text>
+                    </View>
+                    <View style={[localStyle.itemContainer, {backgroundColor: theme.backgroundContent}]}>
                         <View style={[localStyle.textContainer]}>
                             <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
                                 {selectedProject.car.mainDataCarType.engine.name}
                             </Text>
                             <Text style={[localStyle.textType, {color: theme.fontColorContent}]}>
-                                Silnik
+                                nazwa
                             </Text>
                         </View>
 
@@ -142,7 +149,12 @@ const InfoTab = () => {
                             </Text>
                         </View>
                     </View>
-                    <View style={localStyle.itemContainer}>
+
+                    <View style={[localStyle.header, {width: 210, backgroundColor: theme.backgroundContent}]}>
+                        <Image style={{width: 15, height:15, opacity:.7}} source={transmission_white}/>
+                        <Text style={[localStyle.headerText, {color: theme.fontColor}]}>Napęd/Skrzynia</Text>
+                    </View>
+                    <View style={[localStyle.itemContainer, {backgroundColor: theme.backgroundContent}]}>
                         <View style={[localStyle.textContainer]}>
                             <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
                                 {selectedProject.car.mainDataCarType.driveType}
@@ -231,18 +243,33 @@ const localStyle = StyleSheet.create({
     itemContainer: {
         flexDirection:'row',
         justifyContent: 'space-between',
-        marginBottom: 10
+        marginBottom: 15,
+        borderRadius: 5,
+        borderTopLeftRadius:0,
     },
     textContainer: {
-        backgroundColor: '#222829',
-        borderRadius: 5,
         padding:5,
         paddingHorizontal: 10,
         flex: 1,
         marginHorizontal: 5,
+        paddingVertical:7,
         textAlign:'center',
         textAlignVertical:'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    header: {
+        padding:10,
+        borderTopRightRadius:50,
+        borderTopLeftRadius:0,
+        paddingLeft:15,
+        flexDirection:'row',
+        alignItems:'center',
+        gap:10
+    },
+    headerText: {
+        textTransform:'uppercase',
+        fontWeight:'300',
+        letterSpacing:1,
     },
     textValue: {
         fontSize:14,

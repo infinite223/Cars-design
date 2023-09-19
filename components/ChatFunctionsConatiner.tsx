@@ -4,7 +4,7 @@ import { User } from '../utils/types';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { Icon } from '@rneui/base';
+import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 
 const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: string)=> void, sendMessage:() => void, author?:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({message, setMessage, sendMessage,setModalVisible}) => {
   const navigation = useNavigation<any>()
@@ -14,16 +14,18 @@ const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: strin
 
   return (
     <View style={style.bottomNav}>
-      <TextInput
-        placeholderTextColor={theme.fontColorContent}
-        placeholder='Type message'
-        value={message}
-        onChangeText={setMessage}
-        style={[style.inputMessage, {color:theme.fontColor, borderColor:theme.backgroundContent}]}
-      />
-      <TouchableOpacity onPress={sendMessage} style={{marginLeft:8}}>
-        <Icon type="ionicon" name="send-outline" size={20} color={theme.fontColor}/>
-      </TouchableOpacity>
+      <View style={[style.container, {backgroundColor: theme.backgroundContent}]}>
+        <TextInput
+          placeholderTextColor={theme.fontColorContent}
+          placeholder='Type message'
+          value={message}
+          onChangeText={setMessage}
+          style={[style.inputMessage, { color: theme.fontColor, backgroundColor:theme.backgroundContent}]}
+        />
+        <TouchableOpacity onPress={sendMessage} style={{paddingHorizontal:8}}>
+          <_Icon_Ionicons name={'send-outline'} size={20} color={theme.fontColor} style={{ marginRight: 0 }}/>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -31,6 +33,14 @@ const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: strin
 export default ChatFunctionsConatiner
 
 const style = StyleSheet.create({
+  container: {
+    borderRadius:50,
+    paddingHorizontal:10,
+    paddingVertical:8,
+    flexDirection:'row',
+    alignItems:'center',
+    // justifyContent:'s'
+  },
   bottomNav: {
     flexDirection:'row', 
     alignItems:'center', 
@@ -44,11 +54,7 @@ const style = StyleSheet.create({
   },
   inputMessage: {
     marginHorizontal:10,
-    flex:1, 
-    borderWidth:1,
-    fontSize:15, 
-    borderRadius:20, 
-    paddingVertical:3, 
-    paddingHorizontal:12
+    flex:1,
+    fontSize:15,
   }
 })

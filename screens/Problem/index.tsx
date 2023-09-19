@@ -2,16 +2,18 @@ import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-nativ
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { style } from './style'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectTheme } from '../../slices/themeSlice'
 import { Icon } from '@rneui/base';
-import { SpecyficProblemType, SuggestResolvedType } from '../../utils/types'
+import { AlertProps, SpecyficProblemType, SuggestResolvedType } from '../../utils/types'
 import { StatusProblem } from '../Problems/StatusProblem'
 import _Icon_Feather from 'react-native-vector-icons/Feather'
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 import useAuth, { db } from '../../hooks/useAuth'
 import { SuggestItem } from './SuggestItem'
+import { v4 as uuid } from 'uuid';
+import AlertModal from '../modals/AlertModal'
 
 export const ProblemScreen = () => {
     const navigation:any = useNavigation()
@@ -19,6 +21,7 @@ export const ProblemScreen = () => {
     const route = useRoute<any>()
     const { user }:any = useAuth()
     const [suggestResolved, setSuggestResolved] = useState<SuggestResolvedType[]>([])
+    const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     const { data }:{data: SpecyficProblemType} = route.params;
     const isMyProblem = user.uid === data?.author.uid
@@ -28,6 +31,7 @@ export const ProblemScreen = () => {
     const [suggestText, setSuggestText] = useState('')
     const suggestsRef = collection(db, `problems/${data?.id}/suggests`)
     const [showSuggestInput, setShowSuggestInput] = useState(true)
+    const dispatch = useDispatch()
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -59,19 +63,36 @@ export const ProblemScreen = () => {
   }, [])
 
       const sendSuggest = () => {
-        // 
+        const suggestId = uuid();
+
+        if(suggestText.length>0){
+          setDoc(doc(db, `problems/${data?.id}/suggests`, suggestId), 
+          {
+            id:suggestId, 
+            solution:false, 
+            text: suggestText, 
+            likes:[], 
+            comments: [], 
+            author: {name: user.name, uid:user.uid, imageUri: user.imageUri}},
+          ).then(() => {
+            setAlertModal({message: 'Sugestia została dodana', show:true, type:'SUCCESS'})
+            setSuggestText("")
+          })
+          .catch(() => {
+            setAlertModal({message: 'Coś poszło nie tak', show:true, type:'ERROR'})
+          })
+        }
+
       } 
 
-      const addComment = () => {
-
-      }
-
       const saveProblem = () => {
-
+        
       }
 
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
+      {alertModal.show&&<AlertModal {...alertModal} resetError={setAlertModal}/>}
+
         <View style={style.header}>
             <Text style={[style.titleText, {color: theme.fontColor}]}>{data.title}</Text>
             <StatusProblem showStatus={true} status={data.status}/>
@@ -81,7 +102,7 @@ export const ProblemScreen = () => {
         <Text style={{color: theme.fontColorContent}}>Sugerowane rozwiązania:</Text>
         
         {suggestResolved.map((suggest, i) => 
-          <SuggestItem suggest={suggest} key={i} setShowSuggestInput={setShowSuggestInput}/>
+          <SuggestItem problemId={data.id} setAlertModal={setAlertModal} suggest={suggest} key={i} setShowSuggestInput={setShowSuggestInput}/>
         )}
         
       </ScrollView>    
@@ -95,6 +116,8 @@ export const ProblemScreen = () => {
             style={{color: theme.fontColor, marginHorizontal: 15}}
             placeholderTextColor={theme.fontColorContent} 
             placeholder='Zaproponuj rozwiązanie'
+            value={suggestText}
+            onChangeText={setSuggestText}
           />
         </View>
         <TouchableOpacity onPress={sendSuggest} style={{padding: 5}}>
