@@ -85,7 +85,7 @@ export const RightNavigation = () => {
         <View style={{width:SCREEN_WIDTH/1.5 , justifyContent:'space-between', flex:1}}>
             <View>
                 <View style={[style.header, {backgroundColor: theme.background}]}>
-                    <TouchableOpacity style={{borderRadius:15, backgroundColor: theme.backgroundContent,paddingVertical:5, paddingHorizontal:7}} onPress={()=>dispatch(setNavigation(false))}>
+                    <TouchableOpacity style={{borderRadius:15, backgroundColor: theme.background, paddingVertical:5, paddingHorizontal:7}} onPress={()=>dispatch(setNavigation(false))}>
                         <_Icon_Ionicons name={'close'} size={23} color={theme.fontColor} style={{ marginRight: 0 }}/>
                     </TouchableOpacity>
 

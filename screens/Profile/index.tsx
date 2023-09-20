@@ -57,7 +57,7 @@ const ProfileScreen = () => {
             </Text>,
            headerLeft: () => (
             <View style={style.headerLeftContainer}>
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:10}}>
                     <Icon
                         size={24}
                         name='arrow-back-ios'
@@ -200,9 +200,9 @@ const ProfileScreen = () => {
                         onChangeText={setSearch}
                     />
                 </View>
-                {isMyProfile&&<TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: globalStyles.background_1}]}>
+                {/* {isMyProfile&&<TouchableOpacity onPress={() => navigation.navigate('Create')} style={[style.addProjectButton, {backgroundColor: globalStyles.background_1}]}>
                     <_Icon name="plus" size={22} color={'white'}/>
-                </TouchableOpacity>}
+                </TouchableOpacity>} */}
             </View>
            
             <FilterProjects setShowUsersList={setShowUsersList} userProjects={userProjects} input={search} edit={isMyProfile} showOptions={showOptions.show} setShowOptions={setShowOptions}/>  

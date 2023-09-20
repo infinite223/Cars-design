@@ -146,7 +146,7 @@ export const ProblemsScreen = () => {
             boxStyles={{borderWidth:0, borderBottomWidth:1, borderColor:theme.backgroundContent, marginHorizontal:-5, paddingBottom:10, marginBottom:5}}
             inputStyles={{color: category.length>1?theme.fontColor:theme.fontColorContent, fontSize:16, marginLeft:-9}}
             dropdownTextStyles={{color: theme.fontColor, marginLeft:-10}}
-            dropdownStyles={{borderBottomWidth:1, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:-5, marginBottom:5}}  
+            dropdownStyles={{borderBottomWidth:1, borderWidth:0, borderColor: theme.backgroundContent, marginLeft:5, marginBottom:5}}  
             data={ProblemsCategoryData.map((category, i) => {
               return {key: category.name, value: category.name}
             })} 

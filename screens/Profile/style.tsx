@@ -51,7 +51,7 @@ export const style = StyleSheet.create({
         borderRadius:10,
         paddingVertical:5,
         paddingHorizontal:8,
-        marginRight:5
+        marginRight:0
     },
     renderItem: {
         paddingVertical:5, 
@@ -81,11 +81,11 @@ export const style = StyleSheet.create({
         fontSize:15,
     },
     followButton: {
-        borderRadius:10,
+        borderRadius:50,
         paddingHorizontal:15,
         paddingVertical:5,
         backgroundColor: globalStyles.background_1,
-        marginTop:15
+        marginTop:15,
     },
     followButtonText: {
         color: 'white'

@@ -127,12 +127,13 @@ const Carproject:React.FC<{data:CarprojectData}> = ({data: {id, car, author, cre
           </View>
           <Menu>
             <MenuTrigger>
-              <Text>
+              <Text style={{paddingLeft:20, paddingRight:5}}>
                 <Icon                 
                   name='dots-three-vertical'
                   type='entypo'
                   size={16} 
                   color={theme.fontColor}
+                  style={{paddingLeft: 0}}
                 />
               </Text>
             </MenuTrigger>

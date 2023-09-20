@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Platform, SafeAreaView, StatusBar, Image } from 'react-native'
+import { View, Text, FlatList, Platform, StatusBar, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Carproject from '../../components/Carproject';
@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import { selectLanguage } from './../../slices/languageSlice';
 import { translations } from '../../utils/translations'; 
-import useAuth, { db } from './../../hooks/useAuth';
+import useAuth from './../../hooks/useAuth';
 import { LoadingView } from './../../components/LoadingView';
 import _Icon from 'react-native-vector-icons/Ionicons'
 import { useProjects } from '../../hooks/useProjects';
@@ -55,8 +55,10 @@ const HomeScreen = () => {
           <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Projekty</Text>
         </View>,
        headerLeft: () => <View></View> ,
-       headerRight: () => <_Icon_antDesign name='search1' size={21} color={theme.fontColor} style={{marginRight: 15}}/>
-
+       headerRight: () => 
+       <TouchableOpacity onPress={() => navigation.navigate("Search")} style={{paddingLeft:5}}>
+        <_Icon_antDesign name='search1' size={21} color={theme.fontColor} style={{marginRight: 15}}/>
+       </TouchableOpacity>
     })  
   }, [theme])
 

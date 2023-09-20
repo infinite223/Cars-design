@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
-import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, setDoc, serverTimestamp, updateDoc, Timestamp } from 'firebase/firestore';
 import { style } from './style';
 import { v4 as uuid } from 'uuid';
 import { Icon } from '@rneui/base';
@@ -72,18 +72,20 @@ const ChatScreen = () => {
       const messageId = uuid();
       const messageRef = doc(db, `chats/${to.id}/messages/${messageId}`);
 
-      setDoc(messageRef, {
-        timestamp: serverTimestamp(),
-        message: message, 
-        name: user.name,
-        imageUri: user.imageUri,
-        email:user.email
-      }).then( async () => {
-        await updateDoc(doc(db, "chats", to.id), {
-          "lastMessage": {message, fromUid:user.uid, time: serverTimestamp()}
-        }).then(() => console.log('git xd'));
-      })
-
+      if(message.length>0){
+        setDoc(messageRef, {
+          timestamp: serverTimestamp(),
+          message: message, 
+          name: user.name,
+          imageUri: user.imageUri,
+          email:user.email
+        }).then( async () => {
+          await updateDoc(doc(db, "chats", to.id), {
+            "lastMessage": {message, fromUid:user.uid, time: serverTimestamp()}
+          }).then(() => console.log('git xd'));
+        })
+      }
+      
       setMessage('')
       setNewChat(false)
     }
@@ -123,7 +125,11 @@ const ChatScreen = () => {
                     /> */}
                     <View>
                       <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: globalStyles.background_1}]}>{data.message}</Text>
-                      <Text style={[{color: theme.fontColorContent, fontSize:10, textAlign:'right', margin:3}]}>{toDateTime(data.timestamp?.seconds).toDateString()}</Text>
+                      <Text style={[{color: theme.fontColorContent, fontSize:10, textAlign:'right', margin:3}]}>{toDateTime(data.timestamp?.seconds).toDateString()}
+                       {' '} {new Date(data.timestamp?.seconds * 1000).getHours()}:
+                        {new Date(data.timestamp?.seconds * 1000).getMinutes()}
+
+                      </Text>
                     </View>
                 </View>
                 ) : (

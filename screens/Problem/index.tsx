@@ -116,7 +116,7 @@ export const ProblemScreen = () => {
               contentContainerStyle={{ height: 200}}
               data={data.imageUri}
               renderItem={({ item, index }) => 
-              <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
+              <TouchableOpacity activeOpacity={.6} onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
                 <Image 
                   style={{width: data.imageUri.length==1?screenWidth:270, height: 200}} 
                   source={{uri: item}}

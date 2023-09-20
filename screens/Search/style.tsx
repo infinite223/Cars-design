@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export const style = StyleSheet.create({
     searchContainer: {
         borderRadius:5,
-        marginHorizontal:15,
+        marginHorizontal:5,
         paddingLeft:10,
         paddingRight:5
     },

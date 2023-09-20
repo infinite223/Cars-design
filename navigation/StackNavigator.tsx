@@ -83,7 +83,7 @@ const StackNavigator = () => {
             <Stack.Screen 
               name='Project' 
               component={ProjectScreen}
-              options={{headerStyle: {backgroundColor: 'black'}}}
+              options={{ headerStyle: {backgroundColor: 'black'}}}
             />
             <Stack.Screen name='Problem' component={ProblemScreen}/>
             <Stack.Screen name='Chats' component={ChatsScreen}/>
@@ -91,7 +91,11 @@ const StackNavigator = () => {
             <Stack.Screen name='Profile' component={ProfileScreen}/>               
             <Stack.Screen name='Camera' component={MyCamera}  options={{headerShown:false}}/>
             <Stack.Screen name='Settings' component={SettingsScreen}/>
-            <Stack.Screen name='Search' component={SearchScreen}/>
+            <Stack.Screen  
+              options={{animation: 'fade_from_bottom'}}
+              name='Search' 
+              component={SearchScreen}
+            />
             <Stack.Screen name='EditProfile' component={EditProfileScreen}/> 
             <Stack.Screen name='Report' component={ReportScreen}/>   
             <Stack.Screen name='MeetingRoom' component={MeetingRoomScreen} options={{headerShown:false}}/>

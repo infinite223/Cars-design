@@ -20,10 +20,7 @@ const ChatsScreen = () => {
     const theme = useSelector(selectTheme)
     const chats:Chat[] = useSelector(selectChats)
     const language = useSelector(selectLanguage)
-    const { menu: { blockText, reportText, deleteText }} = translations.screens.Chats 
-    const { user }:any = useAuth()
-    const authorUid = route.params;
-    const [selectChat, setSelectChat] = useState<User>()
+
     const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
 
     useLayoutEffect(() => {
