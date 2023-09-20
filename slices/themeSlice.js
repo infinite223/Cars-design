@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
    theme:{
     background:'black', 
-    backgroundContent:'#333',
+    backgroundContent:'#222',
     fontColor:'white',
     fontColorContent: '#aaa'
    }

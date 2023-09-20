@@ -111,7 +111,7 @@ const InfoTab = () => {
                         <Image style={{width: 20, height:20}} source={engineImg}/>
                         <Text style={[localStyle.headerText, {color: theme.fontColor}]}>Silnik</Text>
                     </View>
-                    <View style={[localStyle.itemContainer, {backgroundColor: theme.backgroundContent}]}>
+                    <View style={[localStyle.itemContainer, {borderColor: theme.backgroundContent}]}>
                         <View style={[localStyle.textContainer]}>
                             <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
                                 {selectedProject.car.mainDataCarType.engine.name}
@@ -154,7 +154,7 @@ const InfoTab = () => {
                         <Image style={{width: 15, height:15, opacity:.7}} source={transmission_white}/>
                         <Text style={[localStyle.headerText, {color: theme.fontColor}]}>Napęd/Skrzynia</Text>
                     </View>
-                    <View style={[localStyle.itemContainer, {backgroundColor: theme.backgroundContent}]}>
+                    <View style={[localStyle.itemContainer, {borderColor: theme.backgroundContent}]}>
                         <View style={[localStyle.textContainer]}>
                             <Text style={[localStyle.textValue ,{color: theme.fontColor}]}>
                                 {selectedProject.car.mainDataCarType.driveType}
@@ -246,6 +246,7 @@ const localStyle = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 5,
         borderTopLeftRadius:0,
+        borderWidth:1
     },
     textContainer: {
         padding:5,

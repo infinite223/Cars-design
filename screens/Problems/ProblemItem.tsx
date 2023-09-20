@@ -33,10 +33,12 @@ export const ProblemItem:FC<ProblemItemProps> = ({ data }) => {
                 {(data.description.length>100&&!showStatus)?data.description.substring(0, 100)+ '...':data.description}
             </Text>
         </View>
+
         {(data.category && data.type ==='Specyfic' && data.category !== 'other')&&
         <View style={{backgroundColor: 'rgb(59, 59, 59)', marginTop:'auto', alignSelf:'flex-end'}}>
-            {ProblemsCategoryData.find((_category) => _category.type === data.category)?.name}
-        </View>}
+            {/* {ProblemsCategoryData.find((_category) => _category.type === data.category)?.name} */}
+        </View>
+        }
     </TouchableOpacity>
   )
 }

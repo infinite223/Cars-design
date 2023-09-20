@@ -34,7 +34,7 @@ const MeetingScreen = () => {
        <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Spotkania</Text>
      </View>,
       headerRight: () => 
-      <TouchableOpacity style={{paddingHorizontal:20, paddingVertical:5}} onPress={() => navigation.navigate('CreateMeeting')}>
+      <TouchableOpacity disabled style={{opacity:.2, paddingHorizontal:20, paddingVertical:5}} onPress={() => navigation.navigate('CreateMeeting')}>
         <_Icon_MaterialCommunityIcons name={'account-multiple-plus-outline'} size={24} color={theme.fontColor} style={{ marginRight: 0 }}/>
       </TouchableOpacity>
     })  
@@ -54,7 +54,7 @@ const MeetingScreen = () => {
       })
     }
     
-    getMeetings()
+    // getMeetings()
   }, [])
   
 
@@ -108,6 +108,12 @@ const MeetingScreen = () => {
             </Text>
         }
       </View> */}
+
+      <View style={{alignItems:'center', justifyContent:'center', flex: 1, paddingHorizontal:60}}>
+        <Text style={{color: theme.fontColorContent, textAlign:'center'}}>
+          Aktualnie spotkania nie są dostępne w aplikacji
+        </Text>
+      </View>
     </View>
   )
 }

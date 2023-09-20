@@ -8,13 +8,12 @@ import { selectTheme } from '../../slices/themeSlice'
 import useAuth, { db } from '../../hooks/useAuth'
 import { setLoading } from '../../slices/loadingSlice'
 import { Icon } from '@rneui/base'
-import { globalStyles } from '../../utils/globalStyles'
 import CustomInput from '../../components/CustomInput'
 import { chooseImg } from '../../utils/functions/chooseImg'
-import { style } from './style'
 import { v4 as uuid } from 'uuid';
 import SelectList from 'react-native-dropdown-select-list'
 import { LinearGradient } from 'expo-linear-gradient'
+import { uploadImage } from '../../firebase/uploadImage'
 
 const widthScreen = Dimensions.get('window').width
 
@@ -33,32 +32,56 @@ const SpecyficProblem:FC<CreateProblemSctionProps> = ({ setAlertModal }) => {
   const [errorCodes, setErrorCodes] = useState<string[]>([])
   const { user }:any = useAuth()
   const dispatch = useDispatch()
+  const firebaseImagesStagesUriUpload = (uri:string, image:any) => {}
 
   const createProblem = async () => {
       dispatch(setLoading(true))
       const problemId = uuid();
       const findCategoryType = ProblemsCategoryData.find((_category) => _category.name === category)?.type
+      let firebaseImagesUri:string[] = []
+
+      const firebaseImagesUriUpload = (uri:string, image:any) => {
+          firebaseImagesUri.push(uri)
+      }
+
+      let uploadAllImages = new Promise(function (resolve, reject){
+          images.forEach((image:any, id) => {
+          uploadImage(image, '', false, user.uid, firebaseImagesStagesUriUpload, (value: any) => {})
+          .then((promise:any)=> {firebaseImagesUriUpload(promise.url, promise.image); console.log(promise)})  
+          .catch(() => setAlertModal({type:'ERROR', show:true, message: 'error'})) 
+          .finally(()=> {
+            if(id===firebaseImagesUri.length-1){
+                resolve('Promise resolved'); 
+            }
+        })        
+       })   
+      })
       const problemData:SpecyficProblemType = {
         author: user,
         category:findCategoryType?findCategoryType:'other',
         date: Timestamp.now(),
-        description: '',
+        description,
         errorCodes,
-        id: '',
-        imageUri: [],
+        id: problemId,
+        imageUri: firebaseImagesUri,
         status:'Unresolved',
-        title: '',
-        type: 'General',
+        title,
+        type: 'Specyfic',
+    }
+    
+    let result = await uploadAllImages; 
+    
+    if(result){
+      await setDoc(doc(db, 'problems', problemId), problemData).then(() => {
+        setAlertModal({message: 'Problem został pomyślnie dodany', show:true, type:'SUCCESS'})
+        dispatch(setLoading(false))
+      }).catch((e) => {
+        console.log(e)
+        setAlertModal({message: 'Coś poszło nie tak', show:true, type:'ERROR'})
+        dispatch(setLoading(false))
+      })
     }
 
-    await setDoc(doc(db, 'problems', problemId), problemData).then(() => {
-      setAlertModal({message: 'Problem został pomyślnie dodany', show:true, type:'SUCCESS'})
-      dispatch(setLoading(false))
-    }).catch((e) => {
-      console.log(e)
-      setAlertModal({message: 'Coś poszło nie tak', show:true, type:'ERROR'})
-      dispatch(setLoading(false))
-    })
     dispatch(setLoading(false))
   }
   
@@ -99,6 +122,8 @@ const SpecyficProblem:FC<CreateProblemSctionProps> = ({ setAlertModal }) => {
             multiline
             style={{color: theme.fontColor, textAlignVertical:'top', fontSize: 16, padding: 15, marginVertical:10, borderColor: theme.backgroundContent, borderWidth:1}}
             numberOfLines={10}
+            value={description}
+            onChangeText={setDescription}
         />
 
         <Text style={[localStyles.text, { color: theme.fontColor, backgroundColor: theme.backgroundContent }]}>Dodaj kody błędów</Text>

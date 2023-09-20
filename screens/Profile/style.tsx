@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native"
+import { globalStyles } from "../../utils/globalStyles"
 const widthScreen = Dimensions.get('window').width
 const heightScreen = Dimensions.get('window').height
 
@@ -83,7 +84,7 @@ export const style = StyleSheet.create({
         borderRadius:10,
         paddingHorizontal:15,
         paddingVertical:5,
-        backgroundColor: '#273',
+        backgroundColor: globalStyles.background_1,
         marginTop:15
     },
     followButtonText: {

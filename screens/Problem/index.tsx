@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ScrollView, FlatList } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { style } from './style'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -14,6 +14,10 @@ import useAuth, { db } from '../../hooks/useAuth'
 import { SuggestItem } from './SuggestItem'
 import { v4 as uuid } from 'uuid';
 import AlertModal from '../modals/AlertModal'
+import { Image } from 'react-native'
+import ImagesModal from '../modals/ImagesModal'
+import { Dimensions } from 'react-native'
+const screenWidth = Dimensions.get('screen').width
 
 export const ProblemScreen = () => {
     const navigation:any = useNavigation()
@@ -22,16 +26,12 @@ export const ProblemScreen = () => {
     const { user }:any = useAuth()
     const [suggestResolved, setSuggestResolved] = useState<SuggestResolvedType[]>([])
     const [alertModal, setAlertModal] = useState<AlertProps>({message:'', show:false, type:''})
-
+    const [imagesModalVisible, setImagesModalVisible] = useState(false)
+    const [selectImage, setSelectImage] = useState(0)
     const { data }:{data: SpecyficProblemType} = route.params;
-    const isMyProblem = user.uid === data?.author.uid
-    const [showOptions, setShowOptions] = useState(false)
-    const [showModal, setShowModal] = useState(false)
-    const [showChangeStatus, setShowChangeStatus] = useState(false)
     const [suggestText, setSuggestText] = useState('')
     const suggestsRef = collection(db, `problems/${data?.id}/suggests`)
     const [showSuggestInput, setShowSuggestInput] = useState(true)
-    const dispatch = useDispatch()
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -41,9 +41,9 @@ export const ProblemScreen = () => {
             {data.title.length>20?data.title.substring(0, 20)+ "...": data.title} 
            </Text>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:10}}>
-                    <Icon type="materialicon" name={'arrow-back-ios'} size={25} color={theme.fontColor}/>
-                </TouchableOpacity> 
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingRight:10}}>
+                <Icon type="materialicon" name={'arrow-back-ios'} size={25} color={theme.fontColor}/>
+            </TouchableOpacity> 
           )
         })  
     }, [theme])
@@ -82,24 +82,53 @@ export const ProblemScreen = () => {
             setAlertModal({message: 'Coś poszło nie tak', show:true, type:'ERROR'})
           })
         }
-
       } 
 
       const saveProblem = () => {
-        
+
       }
 
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
+      <ImagesModal 
+        modalVisible={imagesModalVisible} 
+        setModalVisible={setImagesModalVisible} 
+        photos={data.imageUri.map((image) => {
+          return (
+            {url: image, place:{city: '', latitude: 0, longitude: 0}, likes:0}
+          )
+        })} 
+        index={selectImage}
+      />
+
       {alertModal.show&&<AlertModal {...alertModal} resetError={setAlertModal}/>}
 
-        <View style={style.header}>
-            <Text style={[style.titleText, {color: theme.fontColor}]}>{data.title}</Text>
-            <StatusProblem showStatus={true} status={data.status}/>
-        </View>
+      <View style={style.header}>
+          <Text style={[style.titleText, {color: theme.fontColor}]}>{data.title}</Text>
+          <StatusProblem showStatus={true} status={data.status}/>
+      </View>
       <Text style={[style.descriptionText, {color: theme.fontColor}]}>{data.description}</Text>
+      
+       {data.imageUri.length>0&&
+        <View style={{marginBottom: 20}}>
+            <FlatList
+              horizontal
+              contentContainerStyle={{ height: 200}}
+              data={data.imageUri}
+              renderItem={({ item, index }) => 
+              <TouchableOpacity onPress={()=>(setImagesModalVisible(true), setSelectImage(index))}>
+                <Image 
+                  style={{width: data.imageUri.length==1?screenWidth:270, height: 200}} 
+                  source={{uri: item}}
+                />
+              </TouchableOpacity>
+            }
+            />
+        </View>
+        }
+
       <ScrollView style={{flex: 1, gap: 5}}>
-        <Text style={{color: theme.fontColorContent}}>Sugerowane rozwiązania:</Text>
+        <Text style={{color: theme.fontColor, fontWeight: '300', fontSize: 12, marginBottom: 4}}>Sugerowane rozwiązania:</Text>
         
         {suggestResolved.map((suggest, i) => 
           <SuggestItem problemId={data.id} setAlertModal={setAlertModal} suggest={suggest} key={i} setShowSuggestInput={setShowSuggestInput}/>
@@ -124,7 +153,6 @@ export const ProblemScreen = () => {
          <_Icon_Ionicons name={'send-outline'} size={20} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>
       </View>}
-
     </View>
   )
 }

@@ -23,7 +23,6 @@ const CreateItem:FC<{data: CreateItemProps}> = ({data: { offersList, disabled, d
     <TouchableOpacity disabled={disabled} style={[style.createContainer, {opacity: disabled?.4:1}]} activeOpacity={.6} onPress={() => navigation.navigate(navigate)}>
         <LinearGradient
             colors={[gradientColors[3], gradientColors[3], gradientColors[2], gradientColors[3]]}
-            // colors={[gradientColors[2], gradientColors[2], gradientColors[3]]}
             locations={[0, 0.25, 0.45, 1]}
             start={[.3, .9]}   
             end={[1, 0]}   

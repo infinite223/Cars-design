@@ -48,7 +48,7 @@ const ProfileScreen = () => {
     const theme = useSelector(selectTheme)
     const language = useSelector(selectLanguage)
     const { followersText, viewsText, followingText, headerText, headerProjectsText, addProjectButton } = translations.screens.ProfileScreen
-    
+
     useLayoutEffect(() => {
         navigation.setOptions({
            headerBackVisible:false,
@@ -77,10 +77,10 @@ const ProfileScreen = () => {
           headerRight: ()=> (
             <>
              {!isMyProfile?
-                !displayUser.stats.followers.find((person)=>person === user.uid)?<TouchableOpacity onPress={() => followPerson(true)} style={[style.followButton]}>
+                !displayUser.stats?.followers?.find((person)=>person === user.uid)?<TouchableOpacity onPress={() => followPerson(true)} style={[style.followButton]}>
                     <Text style={style.followButtonText}>Obserwuj</Text>
                 </TouchableOpacity>:
-                <TouchableOpacity onPress={() => followPerson(false)} style={[style.followButton, {backgroundColor: '#333'}]}>
+                <TouchableOpacity onPress={() => followPerson(false)} style={[style.followButton, {backgroundColor: globalStyles.background_1}]}>
                     <Text style={style.followButtonText}>Obserwujesz</Text>
                 </TouchableOpacity>:
                 <View></View>
@@ -105,8 +105,6 @@ const ProfileScreen = () => {
         })
       }
 
-
-      console.log(displayUser)
       const translateX = useSharedValue(-1200)
 
       const rAllContentSheetStyle = useAnimatedStyle(() => {  
@@ -116,12 +114,13 @@ const ProfileScreen = () => {
       })          
 
       useEffect(() => {
+        console.log(displayUser.uid, 'dsa')
         const userRef = doc(db, 'users', profileUser.uid)
 
         const unsubscribe2:any =  onSnapshot(userRef, (snapshot)=> {
             if(snapshot.exists() && snapshot.data()){
                 const snapshotData:any = snapshot
-                setDisplayUser(snapshotData)
+                setDisplayUser(snapshotData.data())
             }
         }); 
         
@@ -173,19 +172,19 @@ const ProfileScreen = () => {
 
 
         <View style={[style.infoContainer, {borderBottomColor: theme.backgroundContent, borderTopColor: theme.backgroundContent}]}>
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, type:'followers', projectId:displayUser.uid, users:displayUser.stats.followers, headerText:displayUser.stats.followers.length+` followers`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, type:'followers', projectId:displayUser.uid, users:displayUser.stats?.followers, headerText:displayUser?.stats.followers?.length+` followers`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followersText.en:followersText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.followers.length}</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats?.followers?.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity disabled onPress={() => setShowUsersList({show:true, type:'views', users:displayUser.stats.views, headerText:displayUser.stats.views.length+` views`})} style={style.itemInfo}>
+            <TouchableOpacity disabled onPress={() => setShowUsersList({show:true, type:'views', users:displayUser.stats?.views, headerText:displayUser.stats.views?.length+` views`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?viewsText.en:viewsText.pl}</Text>
-                <Text style={{fontSize:20,  color: theme.fontColor}}>{displayUser.stats.views.length}</Text>
+                <Text style={{fontSize:20,  color: theme.fontColor}}>{displayUser.stats?.views?.length}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setShowUsersList({show:true, type:'following', projectId:displayUser.uid, users:displayUser.stats.following, headerText:displayUser.stats.following.length+` followed`})} style={style.itemInfo}>
+            <TouchableOpacity onPress={() => setShowUsersList({show:true, type:'following', projectId:displayUser.uid, users:displayUser.stats.following, headerText:displayUser.stats?.following?.length+` followed`})} style={style.itemInfo}>
                 <Text style={{color:theme.fontColorContent}}>{language==="en"?followingText.en:followingText.pl}</Text>
-                <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats.following.length}</Text>
+                <Text style={{fontSize:20, color: theme.fontColor}}>{displayUser.stats?.following?.length}</Text>
             </TouchableOpacity>
         </View>
 

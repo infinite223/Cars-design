@@ -3,10 +3,8 @@ import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectTheme } from '../../slices/themeSlice'
 import CustomInput from '../../components/CustomInput'
-import { globalStyles } from '../../utils/globalStyles'
 import { Icon } from '@rneui/themed';
 import { chooseImg } from '../../utils/functions/chooseImg'
-import { style } from './style'
 import { GeneralProblemType } from '../../utils/types'
 import { setLoading } from '../../slices/loadingSlice'
 import { v4 as uuid } from 'uuid';

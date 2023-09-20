@@ -68,7 +68,7 @@ export const SuggestItem:FC<{suggest: SuggestResolvedType,
     } 
 
   return (
-    <View style={[localStyles.container, {backgroundColor: theme.backgroundContent}]}>
+    <View style={[localStyles.container, {borderTopWidth: 1, borderBottomWidth:1, backgroundColor: theme.backgroundContent}]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Image style={localStyles.avatarImage} source={{ uri:suggest.author.imageUri }}/>
         <Text style={[localStyles.nameauthor, {color: theme.fontColor}]}>{suggest.author.name}</Text>
@@ -125,7 +125,7 @@ export const SuggestItem:FC<{suggest: SuggestResolvedType,
 const localStyles = StyleSheet.create({
     container: {
         borderRadius: 5,
-        padding: 10,
+        padding: 5,
         marginVertical:5
     },
     avatarImage: {
@@ -134,7 +134,9 @@ const localStyles = StyleSheet.create({
         height: 20
     },
     nameauthor: {
-        marginLeft: 7
+        marginLeft: 7,
+        fontWeight: '100',
+        fontSize: 13
     },
     footer: {
         flexDirection:'row',
