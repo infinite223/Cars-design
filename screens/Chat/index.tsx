@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback, StatusBar } from 'react-native'
-import React, { useLayoutEffect, useState, useRef } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback, StatusBar, BackHandler } from 'react-native'
+import React, { useLayoutEffect, useState, useRef, useEffect } from 'react'
 import { Avatar } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ChatFunctionsConatiner from '../../components/ChatFunctionsConatiner';
 import useAuth, { db } from '../../hooks/useAuth';
@@ -14,6 +14,7 @@ import { selectLanguage } from './../../slices/languageSlice';
 import { Chat } from '../../utils/types';
 import { globalStyles } from '../../utils/globalStyles';
 import { toDateTime } from '../../utils/toDateTime';
+import { setActiveChat } from '../../slices/chatsSlice';
 
 const ChatScreen = () => {
     const navigation = useNavigation<any>()
@@ -23,7 +24,7 @@ const ChatScreen = () => {
     const [messages, setMessages] = useState<any>([])
     const [message, setMessage] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
-
+    const dispatch = useDispatch()
     const route = useRoute<any>()
     const to:Chat = route.params;
     const [newChat, setNewChat] = useState(to.new)
@@ -39,33 +40,67 @@ const ChatScreen = () => {
             </Text>
            </View>,
            headerLeft: () => (
-               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
+               <TouchableOpacity onPress={() => { navigation.goBack(); dispatch(setActiveChat(""))}} style={{paddingHorizontal:10}}>
                     <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
                 </TouchableOpacity> 
           ),
         })  
       }, [theme])
 
+    useEffect(() => {
+      if(to.lastMessage &&!to.lastMessage?.view && to.lastMessage?.fromUid !== user.uid){
+        updateDoc(doc(db, "chats", to.id), {
+          "lastMessage.view": true
+        }).then(() => console.log('git xd'));
+      }
+    }, [])
+
+    useEffect(() => {
+      dispatch(setActiveChat(to.id))
+
+      const backAction = () => {
+        dispatch(setActiveChat(""))
+
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+  
+      return () => backHandler.remove();
+    }, []);
+
     const sendMessage = () => {
       if(newChat){
+        // const chatId = uuid();
+
         const chatRef = doc(db, `chats/${to.id}`);
+
         setDoc(chatRef, {
           blcok:false,
           persons: [user.uid, to.data.to.id],
-          data: {
-            from: {
-              id:user.uid,
-              name:user.name,
-              imageUri:user.imageUri
-            },
-            to: {
-              id:to.data.to.id,
-              name:to.data.to.name,
-              imageUri:to.data.to.imageUri
-            }
-          },
+          lastMessage: { message:message, fromUid: user.uid, view:false },
           id:to.id
         })
+        // setDoc(chatRef, {
+        //   blcok:false,
+        //   persons: [user.uid, to.data.to.id],
+        //   data: {
+        //     from: {
+        //       id:user.uid,
+        //       name:user.name,
+        //       imageUri:user.imageUri
+        //     },
+        //     to: {
+        //       id:to.data.to.id,
+        //       name:to.data.to.name,
+        //       imageUri:to.data.to.imageUri
+        //     }
+        //   },
+        //   id:to.id
+        // })
       }
 
       Keyboard.dismiss()

@@ -15,14 +15,15 @@ import * as Device from 'expo-device';
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import { selectHideProjects } from '../../slices/hideProjects';
 import { useChats } from '../../hooks/useChats';
+import { selectActiveChat } from '../../slices/chatsSlice';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: false,
+//     shouldSetBadge: false,
+//   }),
+// });
 
 const HomeScreen = () => {
   const _translations = translations.screens.HomeScreen.textInput
@@ -32,19 +33,13 @@ const HomeScreen = () => {
   const language = useSelector(selectLanguage)
   const hideProjects = useSelector(selectHideProjects)
   const { user }:any = useAuth()
-  const { loadingChats } =  useChats(user, dispatch, 1)
+  const route = useRoute()
+  const activeChat = useSelector(selectActiveChat)
+
+  const { loadingChats } =  useChats(user, dispatch, 1, activeChat)
 
   const [limit, setLimit] = useState(2) 
   const { projects, loading, nextProjects}  = useProjects(user, limit)
-
-  const items = [
-    { name: "Edward", value: new Date(1995, 11, 17) },
-    { name: "Sharpe", value:  new Date(1925, 11, 17) },
-    { name: "And", value:  new Date(2095, 11, 17) },
-    { name: "The", value:  new Date(1915, 11, 17) },
-    { name: "Magnetic", value:  new Date(1999, 11, 17) },
-    { name: "Zeros", value:  new Date(1995, 11, 19) },
-  ];
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,25 +62,32 @@ const HomeScreen = () => {
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(token => token&&setExpoPushToken(token));
+  // useEffect(() => {
+  //   if(route.name !=='Chat'){
+  //     console.log(route)
+  //     registerForPushNotificationsAsync().then(token => token&&setExpoPushToken(token));
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+  //   notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+  //     setNotification(notification);
+  //   });
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-      navigation.navigate('Chats')
-    });
+  //   responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+  //     console.log(response.notification.request.content.data.data, "res");
+  //     navigation.navigate('Chat', response.notification.request.content.data.data)
+  //   });
+  //   console.log('e')
 
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
+  //   if(route.name ==='Chat'){
+  //     console.log('eaa')
+  //   }
+
+  //   return () => {
+  //     Notifications.removeNotificationSubscription(notificationListener.current);
+  //     Notifications.removeNotificationSubscription(responseListener.current);
+  //   };
+  //   }
+  // }, [route]);
   
-  const route = useRoute()
 
   useEffect(() => {
     console.log(route.name)

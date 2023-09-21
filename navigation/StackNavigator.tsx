@@ -1,5 +1,5 @@
-import { View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Platform, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LoginScreen from './../screens/Login'
 import ProfileScreen from './../screens/Profile'
@@ -25,18 +25,33 @@ import CreateProblem from '../screens/CreateProblem'
 import CreateProject from '../screens/CreateProject'
 import { ProblemScreen } from '../screens/Problem'
 import { onAuthStateChanged } from 'firebase/auth'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { Text } from 'react-native'
 import { LoadingView } from '../components/LoadingView'
-
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import { selectActiveChat } from '../slices/chatsSlice'
 const Stack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const StackNavigator = () => {
   const { user, loading } :any = useAuth()
   const theme = useSelector(selectTheme)
   const navigation:any = useNavigation()
   const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
+  const [notification, setNotification] = useState<any>(false);
+  const notificationListener = useRef<any>();
+  const responseListener = useRef<any>();
+  // const route = useRoute()
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const activeChat = useSelector(selectActiveChat)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -47,12 +62,35 @@ const StackNavigator = () => {
     })
   }, [])
 
-  const forFade = ({ current }) => ({
-    cardStyle: {
-      opacity: current.progress,
-    },
-  });
-  
+  useEffect(() => {
+    // if(route.name !=='Chat'){ 
+      console.log(activeChat)
+      registerForPushNotificationsAsync().then(token => token&&setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      if(notification.request.content.data.data.id === activeChat){
+        // console.log(notification.request.content.data.data.id, 'ddadsadasdsa')
+        // console.log(activeChat)
+      }
+      // setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response.notification.request.content.data.data, "res");
+      navigation.navigate('Chat', response.notification.request.content.data.data)
+    });
+    console.log('e')
+
+    // if(route.name ==='Chat'){
+    //   console.log('eaa')
+    // }
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+    // }
+  }, [activeChat]);
 
   return (<>
     {loading&&
@@ -128,3 +166,36 @@ const StackNavigator = () => {
 }
 
 export default StackNavigator
+
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  return token;
+}
