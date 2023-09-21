@@ -128,7 +128,6 @@ const HomeScreen = () => {
         renderItem={(carData)=> 
         <Carproject data={carData.item}/>
       }
-      
       />:<View>
           <Text style={[{color: theme.fontColorContent}]}>No projects...</Text>
         </View>}

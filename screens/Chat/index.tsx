@@ -125,10 +125,10 @@ const ChatScreen = () => {
                     /> */}
                     <View>
                       <Text selectable style={[style.recieverText, {color: theme.fontColor, backgroundColor: globalStyles.background_1}]}>{data.message}</Text>
-                      <Text style={[{color: theme.fontColorContent, fontSize:10, textAlign:'right', margin:3}]}>{toDateTime(data.timestamp?.seconds).toDateString()}
+                      <Text style={[{color: theme.fontColorContent, fontSize:10, textAlign:'right', margin:3}]}>
+                        {toDateTime(data.timestamp?.seconds).toDateString()}
                        {' '} {new Date(data.timestamp?.seconds * 1000).getHours()}:
                         {new Date(data.timestamp?.seconds * 1000).getMinutes()}
-
                       </Text>
                     </View>
                 </View>

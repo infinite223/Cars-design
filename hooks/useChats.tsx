@@ -1,14 +1,15 @@
-import { onSnapshot, query,getDocs, orderBy, collection, where } from "firebase/firestore";
+import { onSnapshot, query,getDocs, orderBy, collection, where, getDoc, doc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { setChats } from "../slices/chatsSlice";
 import { db } from "./useAuth";
 // import { setReadIncrement } from "../reducers/readCount";
+import * as Notifications from 'expo-notifications';
 
 export const useChats = (user:any,  dispatch:any, readCounts:number) => {
     const [loadingChats, setLoadingChats] = useState<boolean>(false)
 
     useEffect(()=> {
-      if(user){
+      if(user && user.uid ){
         setLoadingChats(true) 
         const chatsRef = collection(db, "chats")
         const usersRef = collection(db, "users")
@@ -16,7 +17,6 @@ export const useChats = (user:any,  dispatch:any, readCounts:number) => {
         const chatsQuery = query(chatsRef, where("persons", "array-contains", user.uid),  orderBy('lastMessage.time', 'desc'))
         
         const unsubscribe = onSnapshot(chatsQuery, async (snapchot) => {  
-          // dispatch(setReadIncrement({}))
           let chatsData = snapchot.docs.map((doc, i)=> {
             return doc.data()
           })
@@ -29,7 +29,6 @@ export const useChats = (user:any,  dispatch:any, readCounts:number) => {
           const usersQuery = query(usersRef, where("uid", "in", usersUidOnChats))
 
           const getUsersData = await getDocs(usersQuery)
-          // dispatch(setReadIncrement({}))
 
           if(getUsersData){
             const _chatsData:any[] = chatsData
@@ -50,13 +49,15 @@ export const useChats = (user:any,  dispatch:any, readCounts:number) => {
             let nowTime = new Date();
             nowTime.setMinutes(nowTime.getMinutes() - 2);
 
-            // if(_chatsData[0].lastMessage.time.toDate() > nowTime){
-            //   dispatch(setNewMessage(true))
-            // }
+            if(_chatsData[0].lastMessage.time.toDate() > nowTime){
+              const userDataLastMessage:any = getUsersData.docs.find((doc) => doc.data().uid ===_chatsData[0].lastMessage.fromUid)
+              schedulePushNotification(_chatsData[0].lastMessage.message, userDataLastMessage.data().name)
+            }
           }
         })
       
         setLoadingChats(false) 
+
         return () => {
           if(user) unsubscribe();
         };
@@ -68,4 +69,14 @@ export const useChats = (user:any,  dispatch:any, readCounts:number) => {
     }, [])
 
     return { loadingChats }
+}
+async function schedulePushNotification(message:string, namePerson: string) {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: namePerson+` napisał/a do Ciebie`,
+      body: message,
+      data: { data: 'goes here' },
+    },
+    trigger: { seconds: 2 },
+  });
 }
