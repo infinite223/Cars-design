@@ -29,6 +29,7 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="mojaschemat"/>
         <data android:scheme="com.Carsproject"/>
         <data android:scheme="exp+cars-projects"/>
       </intent-filter>

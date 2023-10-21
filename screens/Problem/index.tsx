@@ -149,6 +149,7 @@ export const ProblemScreen = () => {
             onChangeText={setSuggestText}
           />
         </View>
+        
         <TouchableOpacity onPress={sendSuggest} style={{padding: 5}}>
          <_Icon_Ionicons name={'send-outline'} size={20} color={theme.fontColor} style={{ marginRight: 0 }}/>
         </TouchableOpacity>

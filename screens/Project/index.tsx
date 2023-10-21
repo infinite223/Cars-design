@@ -87,6 +87,7 @@ const ProjectScreen = () => {
 
       const goToChat = () => {
         const findChat = chats.find((item:any)=>item.data.from.id === author.uid || item.data.to.id === author.uid)
+        
         if(findChat){
           console.log('xddd')
           navigation.navigate('Chat', {id:findChat.id, block:findChat.block, new:false, data: {to: {id:author.uid, name: author.name, imageUri:author.imageUri}}})

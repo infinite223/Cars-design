@@ -29,7 +29,7 @@ const MeetingScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
        headerBackVisible:false,
-       headerTitle: () =>     <View style={{alignItems:'center', flexDirection:'row'}}>
+       headerTitle: () =>   <View style={{alignItems:'center', flexDirection:'row'}}>
        <Image style={{width: 40, height:40, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
        <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Spotkania</Text>
      </View>,
