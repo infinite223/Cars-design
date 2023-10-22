@@ -22,28 +22,23 @@ export const style = StyleSheet.create({
         borderRadius:5
     },
     optionText: {
-
     },
     reportInput: {
         borderWidth:1,     
         fontSize:16,
-        
     },
     reportButtonn: {
-        // position:'absolute',
-        // bottom:20,
-        // right:20,
         backgroundColor:'#a11',
         paddingHorizontal:17,
         paddingVertical:10,
-        borderRadius:5,
+        borderRadius:50,
         alignItems:'center',
         flexDirection:'row',
         justifyContent:'center',
         marginBottom:15
     },
     reportText: {
-        fontSize:16,
+        fontSize:15,
         letterSpacing:0,
         paddingHorizontal:7,
         marginRight:5,

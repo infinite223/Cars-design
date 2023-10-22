@@ -124,7 +124,7 @@ export const style = StyleSheet.create({
         letterSpacing:1
     },
     finishButton: {
-        borderRadius:5,  
+        borderRadius:50,  
         paddingVertical:8, 
         flexDirection:'row',
         borderWidth:1,

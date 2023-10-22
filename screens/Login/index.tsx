@@ -40,7 +40,7 @@ const LoginScreen = () => {
     );
     }, [])
 
-    const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
+    const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(1, 82, 101)', 'rgb(10, 37, 51)']
 
   return (
       <View style={style.headerContainer}>

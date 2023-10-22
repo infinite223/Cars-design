@@ -43,7 +43,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
                 <TouchableOpacity
                     onPress={()=> (dispatch(setLanguage('pl')), setModalVisible(!modalVisible))}
                     style={{
-                        backgroundColor: language==='pl'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:5,
+                        backgroundColor: language==='pl'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:50,
                         alignItems:'center', justifyContent:'center'
                 }}>
                         <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:20, paddingVertical:5}}>Polski</Text>
@@ -52,7 +52,7 @@ const LanguageModal:React.FC<{modalVisible:boolean, setModalVisible: (value:bool
                 <TouchableOpacity 
                     onPress={()=>(dispatch(setLanguage('en')), setModalVisible(!modalVisible))}
                     style={{
-                        backgroundColor: language==='en'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:5,
+                        backgroundColor: language==='en'?theme.backgroundContent:theme.background, borderColor: theme.backgroundContent, borderRadius:50,
                         alignItems:'center', justifyContent:'center'
                 }}>
                         <Text style={{color:theme.fontColor, fontSize:20, paddingHorizontal:20, paddingVertical:5}}>English</Text>

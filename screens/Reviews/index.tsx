@@ -8,6 +8,7 @@ import { translations } from './../../utils/translations';
 import { selectLanguage } from './../../slices/languageSlice';
 import { style } from './style';
 import { globalStyles } from '../../utils/globalStyles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const ReviewsScreen = () => {
     const theme = useSelector(selectTheme)
@@ -29,6 +30,8 @@ const ReviewsScreen = () => {
         })  
       }, [theme])
       
+      const colorsGradient = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
+
   return (
     <View style={[style.container, {backgroundColor: theme.background}]}>
       <View style={{flex: 1}}>
@@ -51,12 +54,20 @@ const ReviewsScreen = () => {
         </View>
       </View>
 
-       <TouchableOpacity style={style.sendButton}>
-        <Text style={style.sendButtonText}>
-            {buttonText[language as keyof typeof buttonText]}
-        </Text>
-        <Icon type='materialicon' name='arrow-forward-ios' size={20} style={{marginLeft:10}} color="white"/>
-       </TouchableOpacity>
+      <TouchableOpacity>
+        <LinearGradient
+            colors={[colorsGradient[3], colorsGradient[1], colorsGradient[1], colorsGradient[0]]}
+            locations={[0, 0.25, 0.45, 1]}
+              start={[0, 0]}   
+              end={[1, 0]}   
+              style={style.sendButton}
+            >
+                <Text style={style.sendButtonText}>
+              {buttonText[language as keyof typeof buttonText]}
+          </Text>
+          <Icon type='materialicon' name='arrow-forward-ios' size={20} style={{marginLeft:10}} color="white"/>
+        </LinearGradient>
+      </TouchableOpacity>
     </View>
   )
 }

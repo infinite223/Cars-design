@@ -30,7 +30,7 @@ const ChatsScreen = () => {
               {language==="en"?"Chats":"Czaty"}
           </Text>,
          headerLeft: () => (
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10, paddingRight: 15}}>
             <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
           </TouchableOpacity> 
       )})

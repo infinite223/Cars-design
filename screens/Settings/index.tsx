@@ -50,9 +50,9 @@ const SettingsScreen = () => {
             <Icon type='ionicon' name='language-outline' size={24} color={theme.fontColor}/>
             <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?LanguageText.en:LanguageText.pl}</Text>
         </TouchableOpacity> 
-        <TouchableOpacity style={style.option}>
-            <Icon type='ionicon' name='notifications-outline' size={24} color={theme.fontColor}/>
-            <Text style={[style.optionName, {color:theme.fontColor}]}>{language==="en"?NotifyText.en:NotifyText.pl}</Text>
+        <TouchableOpacity style={style.option} disabled>
+            <Icon type='ionicon' name='notifications-outline' size={24} color={theme.fontColorContent}/>
+            <Text style={[style.optionName, {color:theme.fontColorContent}]}>{language==="en"?NotifyText.en:NotifyText.pl}</Text>
         </TouchableOpacity> 
    
         <TouchableOpacity style={style.option} onPress={()=>setInformationModalVisible(true)}>

@@ -119,7 +119,7 @@ const GeneralProblem:FC<CreateProblemSctionProps> = ({setAlertModal}) => {
 
       <TouchableOpacity onPress={validData}>
       <LinearGradient
-          colors={[colorsGradient[3], colorsGradient[1], colorsGradient[1], colorsGradient[3]]}
+          colors={[colorsGradient[3], colorsGradient[1], colorsGradient[1], colorsGradient[0]]}
           locations={[0, 0.25, 0.45, 1]}
             start={[0, 0]}   
             end={[1, 0]}   

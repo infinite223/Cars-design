@@ -7,7 +7,7 @@ import { style } from './style'
 import CreateItem from './CreateItem'
 import { Image } from 'react-native'
 import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
-const gradeintColors = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
+const gradeintColors = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(0, 0, 0)', 'rgb(10, 17, 31)']
 import { useIsFocused } from '@react-navigation/native';
 
 function FocusAwareStatusBar(props:any) {
@@ -52,16 +52,16 @@ const CreateScreen = (props:any) => {
        headerBackVisible:false,
       
        headerTitle: () =>  
-        <View style={{left: -12,alignItems:'center', flexDirection:'row', backgroundColor: colorsGradient_2[3], flex:1, width: 500}}>
+        <View style={{left: -12,alignItems:'center', flexDirection:'row', backgroundColor: 'black', flex:1, width: 500}}>
           <Image style={{width:40, height:40, marginLeft: 4, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
-          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Wybierz co chcesz dodać</Text>
+          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 15, fontWeight: '800'}}>Wybierz co chcesz dodać</Text>
         </View>,
     })  
   }, [theme])
 
   return (
     <View style={[style.createContainer, {backgroundColor: theme.background}]}>
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor={colorsGradient_2[3]} />
+      {/* <FocusAwareStatusBar barStyle="light-content" backgroundColor={colorsGradient_2[3]} /> */}
 
       {createOptions.map((data, i) => 
         <CreateItem data={data} key={i}/>

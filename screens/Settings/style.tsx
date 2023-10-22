@@ -7,12 +7,13 @@ export const style = StyleSheet.create({
     },
     option: {
         paddingVertical:5,
+        marginVertical: 2,
         flexDirection:'row',
         alignItems:'center',
     },
     optionName: {   
         fontSize:18,
-        marginLeft:10
+        marginLeft:15
     },
     logOutButton: {
         position:'absolute',

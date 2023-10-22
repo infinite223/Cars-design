@@ -47,7 +47,7 @@ const HomeScreen = () => {
        headerTitle: () =>  
         <View style={{alignItems:'center', flexDirection:'row'}}>
           <Image style={{width:40, height:40, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
-          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Projekty</Text>
+          <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 15, fontWeight: '800'}}>Projekty</Text>
         </View>,
        headerLeft: () => <View></View> ,
        headerRight: () => 

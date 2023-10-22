@@ -376,12 +376,26 @@ const CreateProject = () => {
                 </TouchableOpacity>}    
             </ScrollView>
             {(!showError.show && !showAddComponentModal && activeSections.length<1)&&
-            <TouchableOpacity 
-                onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
-                style={[ style.finishButton, { borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}
-            >
+            // <TouchableOpacity 
+            //     onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
+            //     style={[ style.finishButton, { borderColor: theme.backgroundContent, backgroundColor: validateBasicInfo?globalStyles.background_1:'rgba(100, 120, 150, .3)'}]}
+            // >
+            //     <Text style={[style.finishButtonText, { color: 'white'}]}>Dodaj projekt</Text>
+            // </TouchableOpacity>
+                  <TouchableOpacity
+                     onPress={()=>addProject(images, soundCheck, imagesStages, links, carData, user, language, stages, setShowError, dispatch)} 
+                  >
+                  <LinearGradient
+                      colors={[colorsGradient_2[3], colorsGradient_2[1], colorsGradient_2[1], colorsGradient_2[0]]}
+                      locations={[0, 0.25, 0.45, 1]}
+                        start={[0, 0]}   
+                        end={[1, 0]}   
+                        style={style.finishButton}
+                      >
                 <Text style={[style.finishButtonText, { color: 'white'}]}>Dodaj projekt</Text>
-            </TouchableOpacity>}
+                    </LinearGradient>
+                  </TouchableOpacity>
+            }
         </View>            
     ]
 

@@ -17,7 +17,7 @@ const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: strin
       <View style={[style.container, {backgroundColor: theme.backgroundContent}]}>
         <TextInput
           placeholderTextColor={theme.fontColorContent}
-          placeholder='Type message'
+          placeholder='Napisz wiadomość'
           value={message}
           onChangeText={setMessage}
           style={[style.inputMessage, { color: theme.fontColor, backgroundColor:theme.backgroundContent}]}

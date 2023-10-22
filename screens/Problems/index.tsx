@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { View, Text, ScrollView, TextInput } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectTheme } from '../../slices/themeSlice'
 import _Icon_Entypo from 'react-native-vector-icons/Entypo'
 import { style } from './style'
@@ -26,7 +26,6 @@ export const ProblemsScreen = () => {
     const [category, setCategory] = useState<string>('')
     const [errorCode, setErrorCode] = useState<string>('')
   
-    const selectedCategory = {name: 'kategoria', type: ''}
     const errorText:any = []
 
     useLayoutEffect(() => {
@@ -34,7 +33,7 @@ export const ProblemsScreen = () => {
            headerBackVisible:false,
            headerTitle: () =>  <View style={{alignItems:'center', flexDirection:'row'}}>
            <Image style={{width:40, height:40, marginLeft:-10, borderRadius: 10}} source={require('./../../assets/iconApp_1.png')}/>
-           <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 7, fontWeight: '800'}}>Problemy</Text>
+           <Text style={{fontSize:18 ,color: theme.fontColor, marginLeft: 15, fontWeight: '800'}}>Problemy</Text>
          </View>,
           headerRight: () => 
           <TouchableOpacity style={{paddingHorizontal:15, paddingVertical:5}} onPress={() => navigation.navigate('CreateProblem')}>
@@ -45,10 +44,6 @@ export const ProblemsScreen = () => {
 
       useEffect(() => {
         if(user){
-          const problemssQuery = selectedCategory.name==='kategoria'?
-          query(problemRef, where('type', '==', 'General'), errorText.length>0?where("errorCodes", "array-contains", errorText):limit(50)):
-          query(problemRef, where('type', '==', 'Specyfic'), where('category', '==', selectedCategory.type), errorText.length>0?where("errorCodes", "array-contains", errorText):limit(50))
-      
             const unsubscribe = onSnapshot( query(problemRef, where('type', '==', !selectedOption?'General':'Specyfic')), async (snapchot) => { 
             
               const allProblems:any = snapchot.docs.map((doc, i)=> {
