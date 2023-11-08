@@ -1,15 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import { AuthProvider } from './hooks/useAuth';
-import StackNavigator from './navigation/StackNavigator';
+import { AuthProvider } from './src/hooks/useAuth';
+import StackNavigator from './src/navigation/StackNavigator';
 import { Provider } from 'react-redux';
 import { Linking, LogBox } from 'react-native';
-import { store } from './store';
+import { store } from './src/store';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { RightNavigation } from './navigation/RightNavigation';
+import { RightNavigation } from './src/navigation/RightNavigation';
 import { MenuProvider } from 'react-native-popup-menu';
-import PrompttModal from './screens/modals/ProptModal';
-import UploadingStatus from './components/UploadingStatus';
+import PrompttModal from './src/screens/modals/ProptModal';
+import UploadingStatus from './src/components/UploadingStatus';
 import { StatusBar } from 'react-native';
 import * as Notifications from 'expo-notifications';
 LogBox.ignoreAllLogs()

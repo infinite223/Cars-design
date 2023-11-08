@@ -23,9 +23,9 @@ const ReviewsScreen = () => {
             {headerTitle[language as keyof typeof headerTitle]}
            </Text>,
            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
-                  <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
-              </TouchableOpacity> 
+               <TouchableOpacity onPress={() => navigation.goBack()} style={{paddingHorizontal:10}}>
+                    <Icon type="materialicon" name={'arrow-back-ios'} size={24} color={theme.fontColor}/>
+                </TouchableOpacity> 
           )
         })  
       }, [theme])

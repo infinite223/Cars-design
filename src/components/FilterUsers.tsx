@@ -16,8 +16,6 @@ interface FilterUsersProps {
 
 export const FilterUsers:React.FC<FilterUsersProps> = ({users, input, edit, showOptions}) => {
   const theme = useSelector(selectTheme)
-  const [showList, setShowList] = useState<{header:string, persons:User[]}>()
-
   const searchFunction = () => {
     if(users){
         const updatedData = users.filter((item) => {

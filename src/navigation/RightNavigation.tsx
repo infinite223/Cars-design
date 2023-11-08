@@ -19,7 +19,7 @@ const SCREEN_HEIGHT = Dimensions.get('screen').height
 const SCREEN_WIDTH = Dimensions.get('screen').width
 
 export const RightNavigation = () => {
-    const {logoutText, links: { add, chats, group, profile, reviews, settings}} = translations.navigation.rightNavigation
+    const {logoutText, links: { add, chats, profile, reviews, settings}} = translations.navigation.rightNavigation
     const translateX = useSharedValue(0)
     const translateXBackground = useSharedValue(0)
     const theme = useSelector(selectTheme)

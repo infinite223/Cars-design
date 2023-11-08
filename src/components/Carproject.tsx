@@ -22,7 +22,6 @@ import useAuth from '../hooks/useAuth';
 import { LinearGradient } from 'expo-linear-gradient';
 import { setHideProjects } from '../slices/hideProjects';
 import { toDateTime } from '../utils/toDateTime';
-import { Timestamp } from 'firebase/firestore';
 import { globalStyles } from '../utils/globalStyles';
 import { getCorrectNameLikes } from '../utils/functions/getCorrectNameLikes';
 

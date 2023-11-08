@@ -9,7 +9,7 @@ import { selectRoom, setFocuseOnSearch } from '../../slices/selectedRoomSlice';
 import { Avatar, Icon } from '@rneui/base';
 import { MeetingRoom, MicroCarprojectData } from '../../utils/types';
 import { selectLanguage } from '../../slices/languageSlice';
-import { doc, arrayUnion, getDoc, collection, onSnapshot, arrayRemove } from 'firebase/firestore';
+import { doc, onSnapshot, arrayRemove } from 'firebase/firestore';
 import useAuth, { db } from '../../hooks/useAuth';
 import { updateDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
@@ -23,11 +23,9 @@ const PeopleTab = () => {
   const theme = useSelector(selectTheme)
   const language = useSelector(selectLanguage)
   const room:MeetingRoom = useSelector(selectRoom)
-  const [selectedProject, setSelectedProject] = useState<MicroCarprojectData | null>(null)
   const [showSelectModal, setShowSelectModal] = useState(false)
   const [people, setPeople] = useState<any>([])
   const { user }:any = useAuth()
-  const selectedMeeting = useSelector(selectRoom)
   const isMyMeeting = user.uid === room.createdBy.uid
 
   const unJoinMe = () => {

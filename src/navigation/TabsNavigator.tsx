@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CreateScreen from '../screens/Create/index';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,12 +10,10 @@ import _Icon_antDesign from 'react-native-vector-icons/AntDesign'
 import _Icon_Feather from 'react-native-vector-icons/Feather'
 import { Icon } from '@rneui/themed';
 import MeetingScreen from '../screens/Meeting';
-import SearchScreen from './../screens/Search/index';
-import { StatusBar, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { setNavigation } from '../slices/navigationSlice';
 import HomeScreen from './../screens/Home/index';
 import { ProblemsScreen } from '../screens/Problems';
-import { useRoute } from '@react-navigation/native';
 
 export const TabsNavigator = () => {
 

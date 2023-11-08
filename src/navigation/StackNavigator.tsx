@@ -10,7 +10,6 @@ import useAuth, { auth } from './../hooks/useAuth'
 import MyCamera from './../screens/Camera'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsNavigator } from './TabsNavigator'
 import EditProfileScreen from './../screens/EditProfile/index';
 import ChatScreen from '../screens/Chat'
@@ -20,13 +19,11 @@ import ReportScreen from '../screens/Report'
 import CreateMeeting from '../screens/CreateMeeting'
 import TermsScreen from '../screens/Terms'
 import ReviewsScreen from '../screens/Reviews'
-import CreateScreen from '../screens/CreateProject'
 import CreateProblem from '../screens/CreateProblem'
 import CreateProject from '../screens/CreateProject'
 import { ProblemScreen } from '../screens/Problem'
 import { onAuthStateChanged } from 'firebase/auth'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { LoadingView } from '../components/LoadingView'
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
@@ -46,7 +43,6 @@ const StackNavigator = () => {
   const theme = useSelector(selectTheme)
   const navigation:any = useNavigation()
   const colorsGradient_2 = ['rgb(1, 167, 220)', 'rgb(1, 127, 171)','rgb(10, 12, 15)', 'rgb(10, 17, 31)']
-  const [notification, setNotification] = useState<any>(false);
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
   // const route = useRoute()

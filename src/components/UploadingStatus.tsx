@@ -2,12 +2,10 @@ import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectLoading } from './../slices/loadingSlice';
-import { selectTheme } from './../slices/themeSlice';
 import { LoadingView } from './LoadingView';
 
 const UploadingStatus = () => {
     const loading = useSelector(selectLoading)
-    const theme = useSelector(selectTheme)
 
   return (
     <View style={[style.modal, {zIndex:loading?10:-1}]}>

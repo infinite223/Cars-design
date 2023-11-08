@@ -7,9 +7,6 @@ import { selectTheme } from './../slices/themeSlice';
 import _Icon_Ionicons from 'react-native-vector-icons/Ionicons'
 
 const ChatFunctionsConatiner:React.FC<{message:string, setMessage: (value: string)=> void, sendMessage:() => void, author?:User, modalVisible:boolean, setModalVisible: (value:boolean) => void}> = ({message, setMessage, sendMessage,setModalVisible}) => {
-  const navigation = useNavigation<any>()
-  const [nickname, setNickname] = useState('')
-  const [description, setDescription] = useState('')
   const theme = useSelector(selectTheme)
 
   return (

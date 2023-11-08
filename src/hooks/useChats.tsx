@@ -1,8 +1,10 @@
 import { onSnapshot, query,getDocs, orderBy, collection, where, getDoc, doc } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { setChats } from "../src/slices/chatsSlice";
-import { db } from "../src/hooks/useAuth";
+import { setChats } from "../slices/chatsSlice";
+import { db } from "./useAuth";
+// import { setReadIncrement } from "../reducers/readCount";
 import * as Notifications from 'expo-notifications';
+import { useRoute } from "@react-navigation/native";
 
 export const useChats = (user:any,  dispatch:any, readCounts:number, activeChat:string) => {
     const [loadingChats, setLoadingChats] = useState<boolean>(false)
@@ -31,6 +33,7 @@ export const useChats = (user:any,  dispatch:any, readCounts:number, activeChat:
 
           if(getUsersData){ 
             const _chatsData:any[] = chatsData
+              // tu jest coś nie tak z I
             dispatch(setChats(getUsersData.docs.map((doc, i) => {
               const findChat = chatsData.find((chat) => chat.persons.find((person:string) => person === doc.data().uid))
               if(findChat){
@@ -95,4 +98,13 @@ async function schedulePushNotification(message:string, namePerson: string, data
     },
     trigger: { seconds: 2 },
   });
+
+  // const not = await Notifications.getNotificationChannelAsync()
+  // if(not){
+  //   console.log(not, 'push')
+  //  const notFind = (not.find((_not) => _not.content.data.data.id === data.id ))
+  //  if(notFind){
+  //   Notifications.dismissNotificationAsync(notFind?.identifier)
+  //  }
+  // }
 }

@@ -6,8 +6,7 @@ import { Icon } from "@rneui/themed";
 import _Icon from 'react-native-vector-icons/Entypo'
 import { useSelector } from 'react-redux';
 import { selectTheme } from './../slices/themeSlice';
-import useAuth, { db } from './../hooks/useAuth';
-import { selectLanguage } from './../slices/languageSlice';
+import { db } from './../hooks/useAuth';
 import { FilterUsers } from './FilterUsers';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { globalStyles } from '../utils/globalStyles';
@@ -25,8 +24,6 @@ interface UsersListProps {
 
 export const UsersList:React.FC<UsersListProps> = ({projectId, translateX, isMyProfile, showUsersList, setShowUsersList}) => {
     const theme = useSelector(selectTheme)
-    const language = useSelector(selectLanguage)
-    const { user, logout }:any = useAuth()
     const [search, setSearch] = useState('')
     const [focuseOnSearch, setFocuseOnSearch] = useState(false)
     const [users, setUsers] = useState<any>()

@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slices/themeSlice';
 import ImagesModal from './../../screens/modals/ImagesModal';
@@ -10,14 +9,10 @@ import { getColorsCircle } from './../../utils/functions/colorsCircle';
 import { selectProject } from '../../slices/selectedProject';
 
 const HistoryTab = () => {
-  const navigationTab:any = useNavigation()
-  const windowWidth = Dimensions.get('window').width;
   const [imagesModalVisible, setImagesModalVisible] = useState(false)
   const [selectStage, setSelectStage] = useState<{images?:string[], index:number}>({images: [], index:0})
   const theme = useSelector(selectTheme)
   const selectedProject = useSelector(selectProject)
-
-  const [opacity, setOpacity] = useState(1)
 
   return (
     <View style={{ flex:1, backgroundColor:theme.background}}>
